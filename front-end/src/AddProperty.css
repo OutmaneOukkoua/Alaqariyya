@@ -1,0 +1,134 @@
+.add-property-container {
+  padding: 60px;
+  font-family: Arial, sans-serif;
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.property-formm {
+  background-color: #ffffff;
+  padding: 60px;
+  border-radius: 10px;
+  margin-top: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.property-formm h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.property-formm input,
+.property-formm select,
+.property-formm textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #555;
+}
+
+.property-formm input:focus,
+.property-formm select:focus,
+.property-formm textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.property-formm button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.property-formm .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.property-formm .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.property-formm .file-input {
+  display: flex;
+  align-items: center;
+}
+
+.property-formm .file-input label {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 150px;
+}
+
+.property-formm .file-input input[type="file"] {
+  display: none;
+}
+
+.property-formm .file-input .file-name {
+  font-size: 16px;
+  color: #555;
+}
+
+.go-backa {
+  position: absolute; /* Absolute positioning */
+  top: 60px; /* Position from the top */
+  left: 60px; /* Position from the left */
+  background-color: #4CAF50; /* Green background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 10px 20px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the container a block-level element */
+  font-size: 16px; /* Increase font size */
+  cursor: pointer; /* Pointer/hand icon */
+  border-radius: 12px; /* Rounded corners */
+  transition-duration: 0.4s; /* 0.4 second transition effect to hover state */
+}
+
+.go-backa:hover {
+  background-color: white; /* White background on hover */
+  color: black; /* Black text on hover */
+  border: 2px solid #4CAF50; /* Green border on hover */
+}
+.error-alert {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Mobile version */
+@media (max-width: 768px) {
+  .add-property-container {
+    padding: 80px 20px;
+    margin-top: 60px;
+
+  }
+
+  .go-backa {
+    padding: auto;
+    left: 20px;
+
+  }
+
+  .property-formm {
+    padding: 20px;
+  }
+}

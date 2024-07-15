@@ -1,0 +1,48 @@
+/* Panier.css */
+
+.panier {
+    position: fixed;
+    right: 0;
+    top: 60px;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+  }
+  
+  .panier h2 {
+    margin-top: 0;
+  }
+  
+  .panier ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .panier li {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .panier img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .panier div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .panier div h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .panier div p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+  }
+  

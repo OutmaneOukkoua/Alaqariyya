@@ -1,0 +1,133 @@
+/* Footer styles */
+.Footer {
+  background-color: #dbd5d5; /* Light grey color */
+  color: #333; /* Dark text color */
+  text-align: left;
+  padding: 40px 20px; /* Adjusted for more padding */
+  margin-top: 20px;
+}
+
+.Footer .Footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8079e6; /* Purple color */
+  padding: 10px 20px;
+}
+
+.Footer .Footer-top p {
+  margin: 0;
+  color: #333; /* Dark text color */
+}
+
+.Footer .Social-icons a {
+  color: #333; /* Dark text color */
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 1.5em;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.Footer .Social-icons a:hover {
+  transform: scale(1.5);
+  color: #0d6efd; /* Optional: Different color on hover */
+}
+
+.Footer .Social-icons a:hover .fa-facebook-f {
+  color: #4267B2;
+}
+
+.Footer .Social-icons a:hover .fa-instagram {
+  color: #C13584;
+}
+
+.Footer .Social-icons a:hover .fa-whatsapp {
+  color: #25D366;
+}
+
+.Footer .Footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensure it wraps on smaller screens */
+  padding: 20px 0;
+}
+
+.Footer .Footer-column {
+  flex: 1;
+  padding: 0 20px;
+  min-width: 250px; /* Ensures columns do not get too narrow */
+}
+
+.Footer .Footer-column h3 {
+  margin-top: 0;
+  color: #333; /* Dark text color */
+}
+
+.Footer .Footer-column p {
+  color: #333; /* Dark text color */
+}
+
+.icon-left {
+  display: flex;
+  align-items: center;
+}
+
+.icon-left .fa-phone,
+.icon-left .fa-map-marker-alt {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.icon-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Ensure text is on the right */
+}
+
+.icon-right .fa-phone,
+.icon-right .fa-map-marker-alt {
+  margin-left: 10px; /* Space between text and icon */
+}
+
+.Footer .Footer-bottom {
+  text-align: center;
+  padding: 20px 0; /* More padding for better spacing */
+  border-top: 1px solid #ccc; /* Light grey border */
+  color: #333; /* Dark text color */
+}
+
+.Footer .Footer-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Ensures it wraps on smaller screens */
+  padding: 20px 0;
+}
+
+.Footer .Footer-links-group {
+  flex: 1;
+  margin: 0 20px;
+  min-width: 250px; /* Ensures columns do not get too narrow */
+}
+
+.Footer .Footer-links-group h4 {
+  margin-bottom: 10px;
+  color: #333; /* Dark text color */
+}
+
+.Footer .Footer-links-group p {
+  margin: 0;
+  color: #333; /* Dark text color */
+}
+
+@media (min-width: 769px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .properties-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.Footer-column.centered {
+  text-align: right; /* Align text to the right */
+}

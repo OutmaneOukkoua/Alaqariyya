@@ -1,0 +1,107 @@
+.Content {
+  flex: 1;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.Content.ltr {
+  text-align: left;
+}
+
+.Content.rtl {
+  text-align: right;
+  direction: rtl;
+}
+
+.Content .properties-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px; /* Reduce gap between grid items */
+  margin: 0;
+}
+
+.Content .property-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px; /* Reduce padding inside cards */
+  text-align: left;
+}
+
+.property-card.rtl {
+  text-align: right;
+}
+
+.property-card.ltr {
+  text-align: left;
+}
+
+.Content .property-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 5px; /* Reduce bottom margin of images */
+}
+
+.title-p {
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; /* Reduce top margin of pagination */
+}
+
+.pagination button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 12px; /* Reduce padding for buttons */
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.small-text {
+  color: grey;
+  font-size: 0.8em;
+  margin-top: -10px; /* Adjust as needed */
+}
+
+/* Mobile styles */
+@media (max-width: 500px) {
+  .Content {
+    padding: 5px; /* Reduce padding to bring content closer to the top */
+  }
+
+  .Content .properties-grid {
+    grid-template-columns: 1fr; /* Display only one property per line */
+    gap: 5px; /* Further reduce gap for mobile */
+  }
+
+  .Content .property-card {
+    padding: 8px; /* Further reduce padding inside cards */
+  }
+
+  .pagination {
+    margin-top: 5px; /* Further reduce top margin of pagination */
+  }
+
+  .pagination button {
+    padding: 6px 10px; /* Further reduce button padding for mobile */
+  }
+}

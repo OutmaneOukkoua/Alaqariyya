@@ -1,0 +1,92 @@
+{
+  "header": {
+    "Home": "Accueil",
+    "buy": "vendre",
+    "rent": "Louer",
+    "news": "Actualités",
+    "contactUs": "Nous Contacter",
+    "login": "Connexion",
+    "logout" : "Se déconnecter",
+    "dashboard" : "Tableau de bord",
+    "floorplotss": "Terrains"
+
+  },
+  "properties": {
+    "price": "Prix",
+    "location": "Emplacement",
+    "bedrooms": "Chambres",
+    "salon": "salon",
+    "bathrooms": "Salles de bain",
+    "area": "Superficie",
+    "type": "Type",
+    "rent": "Louer",
+    "buy": "vendre",
+    "all": "Tous",
+    "searchPlaceholder": "Entrez l'emplacement",
+    "noProperties": "Aucune propriété trouvée.",
+    "AddToCart":"Ajouter au panier",
+    "Previous" : "Précédent",
+    "Next" : "Suivant",
+    "available": "Disponible",
+    "notAvailable": "Non Disponible",
+    "status": "Statut",
+    "floors": "sols",
+    "floorplots": "Terrains",
+    "availabilityDate": "Date de disponibilité",
+    "priceVaries": "Le prix varie en fonction du nombre de personnes"
+
+  },
+  "news": {
+    "publishedOn": "Publié le",
+    "noArticles": "Aucun article disponible"
+  },
+  "footer": {
+    "getConnected": "Restez connectés avec nous sur les réseaux sociaux :",
+    "companyName": "Alaqariyya",
+    "companyDescription": "Alaqariyya est une agence qui permet à ses clients de louer, acheter et vendre tout ce qui concerne l'immobilier, que ce soit des terrains, des appartements, des magasins, des maisons, etc.",
+    "products": "Produits",
+    "desc": "louer - acheter - vendre",
+    "contact": "Contact",
+    "contacts": {
+      "person1": "Mostafa Yaish: 0665.76.95.60",
+      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
+      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "address1": "Rue Ibn Sina (intersection de la Rue Oqba)",
+      "address2": "Quartier Al Masjid, Beni Ensar - Nador",
+      "phone": "Téléphone : 0536.34.81.41"
+    },
+    "copyRight": "Tous droits réservés © 2024"
+  },
+  "login": {
+    "title": "Connectez-vous à Alaqariyya",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "submit": "Connexion",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "emailPlaceholder": "votre-email@gmail.com",
+    "passwordPlaceholder": "Votre mot de passe"
+  },
+  "contact": {
+    "contactUs": "Contactez-nous",
+    "contactInformation": "Informations de contact",
+    "email": "Email",
+    "phone": "Téléphone",
+    "getInTouch": "Entrer en contact",
+    "name": "Nom",
+    "eMail": "E-mail",
+    "subject": "Sujet",
+    "message": "Votre message",
+    "send": "Envoyer",
+    "messageSent": "Message envoyé avec succès",
+    "messageFailed": "Échec de l'envoi du message"
+  },
+  "goBack": {
+    "Go Back": "Retour"
+  },
+  "Cart": {
+    "yourCart": "Votre Panier",
+    "cartEmpty": "Votre panier est vide.",
+    "remove": "Retirer"
+  }
+}

@@ -1,0 +1,118 @@
+.AddNews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 40px auto;
+  position: relative;
+}
+
+.AddNews h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.go-back-button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.go-back-button:hover {
+  background-color: #5a6268;
+}
+
+.AddNews form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.AddNews label {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.AddNews input[type="text"],
+.AddNews textarea,
+.AddNews input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.AddNews textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.AddNews button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.AddNews button:hover {
+  background-color: #218838;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .AddNews {
+    padding: 100px 20px;
+    margin-top: 100px;
+  }
+
+  .AddNews h2 {
+    font-size: 20px;
+  }
+
+  .AddNews label {
+    font-size: 12px;
+  }
+
+  .AddNews input[type="text"],
+  .AddNews textarea,
+  .AddNews input[type="file"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .AddNews button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .go-back-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

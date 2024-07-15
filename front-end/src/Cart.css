@@ -1,0 +1,130 @@
+/* Updated Cart.css */
+
+.Cart {
+  padding: 100px 20px;
+  font-family: 'Arial', sans-serif;
+  max-width: 100%;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.go-button {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.go-button:hover {
+  background-color: #357ABD;
+}
+
+.Cart h2 {
+  font-size: 2rem;
+  color: #212529;
+  margin-bottom: 20px;
+}
+
+.Cart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Cart li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.cart-item-details button {
+  background-color: #FF6F61;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-details button:hover {
+  background-color: #E55B50;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .Cart {
+    padding: 120px 10px;
+  }
+
+  .go-button {
+    top: 100px;
+    left: 10px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .Cart h2 {
+    font-size: 1.5rem;
+  }
+
+  .Cart ul {
+    padding: 0;
+  }
+
+  .Cart li {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .cart-item-details p {
+    margin: 5px 0;
+  }
+
+  .cart-item-details button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}

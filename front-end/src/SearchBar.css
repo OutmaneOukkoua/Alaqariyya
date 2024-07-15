@@ -1,0 +1,140 @@
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  background-color: hsla(0, 100%, 100%, 0.959);
+}
+
+.search-bar-background {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 60px;
+  width: 100%;
+  max-width: 60%;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-b {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.table-b td {
+  padding: 5px;
+  text-align: center;
+}
+
+.table-b button {
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 18px;
+}
+
+.table-b button.active {
+  background-color: #0056b3;
+}
+
+.table-b button:hover:not(.active) {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.search-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+}
+
+.search-input input {
+  flex: 1;
+  padding: 15px;
+  font-size: 16px;
+  border: 2px solid #ced4da;
+  border-radius: 25px;
+  outline: none;
+  transition: border-color 0.3s;
+  padding-right: 40px;
+}
+
+.search-input input:focus {
+  border-color: #007BFF;
+}
+
+.search-button {
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  padding: 16px 20px;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-button i {
+  font-size: 18px;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 768px) {
+  .search-bar-container {
+    padding: 100px 0px; /* Reduced padding from the top and bottom */
+  }
+
+  .search-bar-background {
+    padding: 40px; /* Reduced padding */
+    max-width: 100%;
+  }
+
+  .table-b {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .table-b button {
+    flex: 1;
+    margin: 5px; /* Reduced margin to minimize space between buttons */
+    padding: 10px; /* Reduced padding */
+    font-size: 16px; /* Reduced font size */
+    white-space: nowrap;
+  }
+
+  .search-input {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+
+  .search-input input {
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 16px;
+  }
+}

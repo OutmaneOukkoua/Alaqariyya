@@ -1,0 +1,103 @@
+{
+  "header": {
+    "Home": "Home",
+    "buy": "sell",
+    "rent": "Rent",
+    "news": "News",
+    "contactUs": "Contact Us",
+    "dashboard" : "Dashboard",
+    "login": "Log in",
+    "logout" : "Log out",
+    "floorplotss": "Floor Plots"
+
+  },
+  
+    "logout": {
+      "confirmationTitle": "Confirm Logout",
+      "confirmationMessage": "Are you sure you want to log out?",
+      "cancel": "Cancel",
+      "logout": "Logout"
+    },
+    "properties": {
+      "price": "Price",
+      "location": "Location",
+      "bedrooms": "Bedrooms",
+      "salon": "Living room",
+      "bathrooms": "Bathrooms",
+      "area": "Area",
+      "type": "Type",
+      "rent": "Rent",
+      "buy": "sell",
+      "all": "All",
+      "searchPlaceholder": "Enter location",
+      "noProperties": "No properties found.",
+      "AddToCart":"Add To Cart",
+      "Previous" : "Previous",
+      "Next" : "Next",
+      "available": "Available",
+      "notAvailable": "Not Available",
+      "status": "Status",
+      "floors": "Floors",
+      "floorplots": "Floor Plots",
+      "availabilityDate": "Availability date",
+      "priceVaries": "The price varies according to the number of people"
+
+
+    },
+    "news": {
+    "publishedOn": "Published On",
+    "noArticles": "No articles available"
+  },
+    
+  "footer": {
+    "getConnected": "Get connected with us on social networks:",
+    "companyName": "Alaqariyya",
+    "companyDescription": "Alaqariyya is an agency that enables its clients to rent, buy and sell everything related to real estate, whether it is plots of land, apartments, shops, houses, etc.",
+    "products": "Products",
+    "desc": "rent - buy - sell",
+    "contact": "Contact",
+    "contacts": {
+      "person1": "Mostafa Yaish: 0665.76.95.60",
+      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
+      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "address1": "Ibn Sina Street (intersection of Oqba Street)",
+      "address2": "Al Masjid neighborhood, Beni Ensar - Nador",
+      "phone": "Phone: 0536.34.81.41"
+    },
+    "copyRight": "All rights reserved © 2024"
+  },
+  "login": {
+    "title": "Connect with Alaqariyya",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "submit": "Log In",
+    "error": "An error occurred. Please try again.",
+    "emailPlaceholder": "your-email@gmail.com",
+    "passwordPlaceholder": "Your Password"
+  },
+  "contact": {
+    "contactUs": "Contact Us",
+    "contactInformation": "Contact Information",
+    "email": "Email",
+    "phone": "Phone",
+    "getInTouch": "Get in Touch",
+    "name": "Name",
+    "eMail": "E-mail",
+    "subject": "Subject",
+    "message": "Your Message",
+    "send": "Send",
+    "messageSent": "Message sent successfully",
+    "messageFailed": "Failed to send message"
+  },
+  "goBack": {
+      "Go Back": "Go Back"
+  },
+  "Cart": {
+    "yourCart": "Your Cart",
+    "cartEmpty": "Your cart is empty.",
+    "remove": "Remove"
+  }
+    
+  
+}

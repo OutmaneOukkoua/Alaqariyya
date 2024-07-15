@@ -1,0 +1,235 @@
+/* Header styles */
+.header {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header-button {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 10px;
+}
+
+.header-button:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #fff;
+}
+
+.header-top-ar {
+  flex-direction: row-reverse;
+}
+
+.header-logo .logo {
+  height: 50px;
+}
+
+.header-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.header-nav ul.rtl {
+  direction: rtl;
+}
+
+.header-nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.header-nav a:hover {
+  color: #0d6efd;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.header-actions-ar {
+  flex-direction: row;
+}
+
+.header-actions-ar .panier-icon {
+  order: 1;
+}
+
+.header-actions-ar .header-login {
+  order: 2;
+}
+
+.header-actions-ar .header-button {
+  order: 3;
+}
+
+.header-actions-ar .language-select {
+  order: 4;
+  margin-left: 10px; /* Add space between the language select and login icon */
+}
+
+.header-actions-en {
+  flex-direction: row;
+}
+
+.header-actions-en .language-select {
+  order: 1;
+}
+
+.header-actions-en .header-button {
+  order: 2;
+}
+
+.header-actions-en .header-login {
+  order: 3;
+}
+
+.header-actions-en .panier-icon {
+  order: 4;
+}
+
+.menu-toggle {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  display: none;
+}
+
+.language-select .react-select__control {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 8px;
+  width: 200px;
+}
+
+.language-select .react-select__single-value {
+  display: flex;
+  align-items: center;
+}
+
+.language-select .react-select__single-value .fi {
+  margin-right: 8px;
+}
+
+.header-login,
+.header-signup {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 15px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 10px;
+}
+
+.header-login:hover,
+.header-signup:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.panier-icon {
+  position: relative;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.panier-icon .fa-shopping-cart {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.panier-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .header-logo .logo {
+    height: 40px;
+  }
+
+  .header-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+  }
+
+  .header-nav.open ul {
+    display: flex;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .header-nav {
+    width: 100%;
+  }
+
+  .header-nav ul {
+    display: none;
+    flex-direction: column;
+  }
+
+  .header-nav.open ul {
+    display: flex;
+  }
+
+  .header-login,
+  .header-signup,
+  .panier-icon {
+    margin-left: 0;
+  }
+
+  .language-select .react-select__control {
+    width: 100%;
+  }
+}

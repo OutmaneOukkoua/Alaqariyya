@@ -1,0 +1,92 @@
+{
+  "header": {
+    "Home": "inicio",
+    "buy": "vender",
+    "rent": "Alquilar",
+    "news": "Noticias",
+    "contactUs": "Contáctenos",
+    "login": "Iniciar sesión",
+    "logout" : "Cerrar sesión",
+    "dashboard" : "Panel",
+    "floorplotss": "Parcelas de suelo"
+
+  },
+  "properties": {
+    "price": "Precio",
+    "location": "Ubicación",
+    "bedrooms": "Dormitorios",
+    "salon": "Sala de estar",
+    "bathrooms": "Baños",
+    "area": "Área",
+    "type": "Tipo",
+    "rent": "Alquilar",
+    "buy": "vender",
+    "all": "Todos",
+    "searchPlaceholder": "Ingrese ubicación",
+    "noProperties": "No se encontraron propiedades.",
+    "AddToCart": "Añadir a la cesta",
+    "Previous" : "Anterior",
+    "Next" : "Próximo",
+    "available": "Disponible",
+    "notAvailable": "No Disponible",
+    "status": "Estado",
+    "floors": "pisos",
+    "floorplots": "Parcelas de suelo",
+    "availabilityDate": "Fecha de disponibilidad",
+    "priceVaries": "El precio varía según el número de personas"
+
+  },
+  "news": {
+    "publishedOn": "Publicado en",
+    "noArticles": "No hay artículos disponibles"
+  },
+  "footer": {
+    "getConnected": "Conéctese con nosotros en las redes sociales:",
+    "companyName": "Alaqariyya",
+    "companyDescription": "Alaqariyya es una agencia que permite a sus clientes alquilar, comprar y vender todo lo relacionado con bienes raíces, ya sean terrenos, apartamentos, tiendas, casas, etc.",
+    "products": "Productos",
+    "desc": "alquilar - comprar - vender",
+    "contact": "Contacto",
+    "contacts": {
+      "person1": "Mostafa Yaish: 0665.76.95.60",
+      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
+      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "address1": "Calle Ibn Sina (intersección con Calle Oqba)",
+      "address2": "Barrio Al Masjid, Beni Ensar - Nador",
+      "phone": "Teléfono: 0536.34.81.41"
+    },
+    "copyRight": "Todos los derechos reservados © 2024"
+  },
+  "login": {
+    "title": "Conéctese con el Alaqariyya",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "rememberMe": "Recuérdame",
+    "submit": "Iniciar sesión",
+    "error": "Ocurrió un error. Inténtalo de nuevo.",
+    "emailPlaceholder": "tu-correo@gmail.com",
+    "passwordPlaceholder": "Tu contraseña"
+  },
+  "contact": {
+    "contactUs": "Contáctenos",
+    "contactInformation": "Información de contacto",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "getInTouch": "Ponte en contacto",
+    "name": "Nombre",
+    "eMail": "Correo electrónico",
+    "subject": "Asunto",
+    "message": "Tu mensaje",
+    "send": "Enviar",
+    "messageSent": "Mensaje enviado con éxito",
+    "messageFailed": "Error al enviar el mensaje"
+  },
+  "goBack": {
+    "Go Back": "Regresar"
+  },
+  "Cart": {
+    "yourCart": "Tu Carrito",
+    "cartEmpty": "Tu carrito está vacío.",
+    "remove": "Eliminar"
+  }
+}

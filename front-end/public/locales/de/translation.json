@@ -1,0 +1,91 @@
+{
+  "header": {
+    "Home": "Startseite",
+    "buy": "Verkaufen",
+    "rent": "Mieten",
+    "news": "Nachrichten",
+    "contactUs": "Kontaktieren Sie uns",
+    "login": "Anmelden",
+    "logout" : "Abmelden",
+    "dashboard" : "Armaturenbrett",
+    "floorplotss": "Bodengrundstücke"
+
+  },
+  "properties": {
+    "price": "Preis",
+    "location": "Standort",
+    "bedrooms": "Schlafzimmer",
+    "salon": "Wohnzimmer",
+    "bathrooms": "Badezimmer",
+    "area": "Fläche",
+    "type": "Typ",
+    "rent": "Mieten",
+    "buy": "Verkaufen",
+    "all": "Alle",
+    "searchPlaceholder": "Standort eingeben",
+    "noProperties": "Keine Immobilien gefunden.",
+    "AddToCart": "In den Warenkorb legen",
+    "Previous" : "Vorherige",
+    "Next" : "Nächste",
+    "available": "Verfügbar",
+    "notAvailable": "Nicht Verfügbar",
+    "status": "Status",
+    "floors": "Böden",
+    "floorplots": "Bodengrundstücke",
+    "availabilityDate": "Verfügbarkeitsdatum",
+    "priceVaries": "Der Preis variiert je nach Personenzahl"
+  },
+  "news": {
+    "publishedOn": "Veröffentlicht am",
+    "noArticles": "Keine Artikel verfügbar"
+  },
+  "footer": {
+    "getConnected": "Verbinden Sie sich mit uns in sozialen Netzwerken:",
+    "companyName": "Alaqariyya",
+    "companyDescription": "Alaqariyya ist eine Agentur, die ihren Kunden ermöglicht, alles, was mit Immobilien zu tun hat, zu mieten, zu kaufen und zu verkaufen, sei es Grundstücke, Wohnungen, Geschäfte, Häuser usw.",
+    "products": "Produkte",
+    "desc": "mieten - kaufen - verkaufen",
+    "contact": "Kontakt",
+    "contacts": {
+      "person1": "Mostafa Yaish: 0665.76.95.60",
+      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
+      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "address1": "Ibn Sina Straße (Kreuzung der Oqba Straße)",
+      "address2": "Al Masjid Viertel, Beni Ensar - Nador",
+      "phone": "Telefon: 0536.34.81.41"
+    },
+    "copyRight": "Alle Rechte vorbehalten © 2024"
+  },
+  "login": {
+    "title": "Verbinden Sie sich mit Alaqariyya",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "rememberMe": "Erinnere dich an mich",
+    "submit": "Einloggen",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+    "emailPlaceholder": "deine-email@gmail.com",
+    "passwordPlaceholder": "Dein Passwort"
+  },
+  "contact": {
+    "contactUs": "Kontaktieren Sie uns",
+    "contactInformation": "Kontaktinformationen",
+    "email": "Email",
+    "phone": "Telefon",
+    "getInTouch": "In Kontakt treten",
+    "name": "Name",
+    "eMail": "E-Mail",
+    "subject": "Betreff",
+    "message": "Ihre Nachricht",
+    "send": "Senden",
+    "messageSent": "Nachricht erfolgreich gesendet",
+    "messageFailed": "Nachricht konnte nicht gesendet werden"
+  },
+  "goBack": {
+    "Go Back": "Zurück"
+  },
+  "Cart": {
+    "yourCart": "Dein Warenkorb",
+    "cartEmpty": "Dein Warenkorb ist leer.",
+    "remove": "Entfernen"
+  }
+}

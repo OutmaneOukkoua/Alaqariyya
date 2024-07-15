@@ -1,0 +1,56 @@
+.dashboard-container {
+  padding: 100px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  position: relative; /* Ensure relative positioning for the logout button */
+}
+
+.dashboard-container h1 {
+  margin-bottom: 40px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center;
+  gap: 20px;
+}
+
+.dashboard-button {
+  padding: 20px 40px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+  width: 100%; /* Make buttons take full width */
+  max-width: 300px; /* Set a max-width for buttons */
+}
+
+.dashboard-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 80px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .dashboard-button {
+    width: 100%;
+  }
+
+  
+}

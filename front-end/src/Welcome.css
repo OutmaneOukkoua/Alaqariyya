@@ -1,0 +1,33 @@
+.welcome-container {
+    position: relative;
+    padding: 60px;
+    text-align: center;
+  }
+  
+  .welcome-heading {
+    margin-top: 60px; /* Adjust this if needed */
+  }
+  
+  .logout-button {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logout-button i {
+    margin-right: 8px;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333;
+  }
+  

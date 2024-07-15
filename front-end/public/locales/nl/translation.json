@@ -1,0 +1,91 @@
+{
+  "header": {
+    "Home": "Startpagina",
+    "buy": "verkopen",
+    "rent": "Huren",
+    "news": "Nieuws",
+    "contactUs": "Contacteer Ons",
+    "login": "Inloggen",
+    "logout" : "Uitloggen",
+    "dashboard" : "Dashboard",
+    "floorplotss": "Vloerpercelen"
+
+  },
+  "properties": {
+    "price": "Prijs",
+    "location": "Locatie",
+    "bedrooms": "Slaapkamers",
+    "salon": "Woonkamer",
+    "bathrooms": "Badkamers",
+    "area": "Oppervlakte",
+    "type": "Type",
+    "rent": "Huren",
+    "buy": "verkopen",
+    "all": "Alle",
+    "searchPlaceholder": "Voer locatie in",
+    "noProperties": "Geen eigendommen gevonden.",
+    "AddToCart":"Voeg toe aan winkelkar",
+    "Previous" : "Vorig",
+    "Next" : "Volgende",
+    "available": "Beschikbaar",
+    "notAvailable": "Niet Beschikbaar",
+    "status": "Status",
+    "floors": "vloeren",
+    "floorplots": "Vloerpercelen",
+    "availabilityDate": "Beschikbaarheidsdatum",
+    "priceVaries": "De prijs varieert afhankelijk van het aantal personen"
+  },
+  "news": {
+    "publishedOn": "Gepubliceerd op",
+    "noArticles": "Geen artikelen beschikbaar"
+  },
+  "footer": {
+    "getConnected": "Verbind met ons op sociale netwerken:",
+    "companyName": "Alaqariyya",
+    "companyDescription": "Alaqariyya is een agentschap dat zijn klanten in staat stelt alles te huren, kopen en verkopen wat met onroerend goed te maken heeft, of het nu gaat om stukken land, appartementen, winkels, huizen, enz.",
+    "products": "Producten",
+    "desc": "huren - kopen - verkopen",
+    "contact": "Contact",
+    "contacts": {
+      "person1": "Mostafa Yaish: 0665.76.95.60",
+      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
+      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "address1": "Ibn Sina Straat (kruising van Oqba Straat)",
+      "address2": "Al Masjid buurt, Beni Ensar - Nador",
+      "phone": "Telefoon: 0536.34.81.41"
+    },
+    "copyRight": "Alle rechten voorbehouden © 2024"
+  },
+  "login": {
+    "title": "Inloggen op Alaqariyya",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "rememberMe": "Onthoud mij",
+    "submit": "Inloggen",
+    "error": "Er is een fout opgetreden. Probeer het opnieuw.",
+    "emailPlaceholder": "je-email@gmail.com",
+    "passwordPlaceholder": "Je wachtwoord"
+  },
+  "contact": {
+    "contactUs": "Neem contact met ons op",
+    "contactInformation": "Contactinformatie",
+    "email": "Email",
+    "phone": "Telefoon",
+    "getInTouch": "Neem contact op",
+    "name": "Naam",
+    "eMail": "E-mail",
+    "subject": "Onderwerp",
+    "message": "Uw bericht",
+    "send": "Verzenden",
+    "messageSent": "Bericht succesvol verzonden",
+    "messageFailed": "Bericht verzenden mislukt"
+  },
+  "goBack": {
+    "Go Back": "Terug"
+  },
+  "Cart": {
+    "yourCart": "Jouw Winkelwagen",
+    "cartEmpty": "Jouw winkelwagen is leeg.",
+    "remove": "Verwijderen"
+  }
+}
