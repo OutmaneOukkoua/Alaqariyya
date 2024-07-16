@@ -1,4 +1,5 @@
 // ------------  for local development --------------
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
@@ -8,14 +9,13 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const translate = require('google-translate-api-x');
 
 const app = express();
 const router = express.Router();
 
 app.use(bodyParser.json());
 app.use(cors());
-
-
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -51,12 +51,141 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Node.js backend for ALAQARIYYA');
 });
 
+const translateText = async (text, target) => {
+  try {
+    const res = await translate(text, { from: 'ar', to: target });
+    return res.text;
+  } catch (error) {
+    console.error('Translation error:', error);
+    throw error;
+  }
+};
 
+const translateProperty = async (property) => {
+  const translations = {};
+  const languages = ['en', 'es', 'fr', 'de', 'nl'];
+
+  for (const lang of languages) {
+    translations[`title_${lang}`] = await translateText(property.title_ar, lang);
+    translations[`description_${lang}`] = await translateText(property.description_ar, lang);
+  }
+
+  return translations;
+};
+
+app.post('/properties', upload.array('images', 20), async (req, res) => {
+  try {
+    const newProperty = {
+      title_ar: req.body.title_ar,
+      description_ar: req.body.description_ar,
+      price: req.body.price,
+      location: req.body.location,
+      bedrooms: req.body.bedrooms,
+      salon: req.body.salon,
+      bathrooms: req.body.bathrooms,
+      area: req.body.area,
+      type: req.body.type,
+      available: req.body.type === 'rent' ? true : req.body.available,
+      floors: req.body.floors,
+      availability_date: req.body.availability_date
+    };
+
+    const translations = await translateProperty(newProperty);
+    Object.assign(newProperty, translations);
+
+    console.log('New property data:', newProperty);
+
+    const sql = 'INSERT INTO properties SET ?';
+    db.query(sql, newProperty, (err, result) => {
+      if (err) {
+        console.error('Error inserting property:', err);
+        return res.status(500).send('Database insertion error');
+      }
+      const propertyId = result.insertId;
+      const images = req.files.map(file => [propertyId, file.filename]);
+
+      const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
+      db.query(imageSql, [images], (err, result) => {
+        if (err) {
+          console.error('Error inserting property images:', err);
+          return res.status(500).send('Database insertion error');
+        }
+        res.send(result);
+      });
+    });
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).send('Error processing request');
+  }
+});
+
+// app.get('/properties', (req, res) => {
+//   const { type, location, page = 1, limit = 8, lang = 'en' } = req.query;
+//   const offset = (page - 1) * limit;
+//   const titleColumn = `title_${lang}` in req.query ? `title_${lang}` : `title_ar`;
+//   const descriptionColumn = `description_${lang}` in req.query ? `description_${lang}` : `description_ar`;
+
+//   let sql = `
+//     SELECT p.property_id, p.${titleColumn} as title, p.price, p.location, p.bedrooms, p.bathrooms, p.salon, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
+//     FROM properties p
+//     LEFT JOIN (
+//       SELECT property_id, MIN(image_url) as image_url
+//       FROM property_images
+//       GROUP BY property_id
+//     ) pi ON p.property_id = pi.property_id
+//   `;
+//   const params = [];
+
+//   if (type && type !== 'all') {
+//     sql += ' WHERE p.type = ?';
+//     params.push(type);
+//   }
+
+//   if (location) {
+//     sql += params.length ? ' AND p.location LIKE ?' : ' WHERE p.location LIKE ?';
+//     params.push(`%${location}%`);
+//   }
+
+//   sql += ' LIMIT ? OFFSET ?';
+//   params.push(parseInt(limit), parseInt(offset));
+
+//   db.query(sql, params, (err, result) => {
+//     if (err) {
+//       console.error('Error querying properties:', err);
+//       return res.status(500).send('Database query error');
+//     }
+
+//     let countSql = 'SELECT COUNT(*) as total FROM properties';
+//     if (type && type !== 'all') {
+//       countSql += ' WHERE type = ?';
+//       if (location) {
+//         countSql += ' AND location LIKE ?';
+//       }
+//     } else if (location) {
+//       countSql += ' WHERE location LIKE ?';
+//     }
+
+//     db.query(countSql, params.slice(0, params.length - 2), (countErr, countResult) => {
+//       if (countErr) {
+//         console.error('Error counting properties:', countErr);
+//         return res.status(500).send('Database count error');
+//       }
+//       const totalProperties = countResult[0].total;
+//       const totalPages = Math.ceil(totalProperties / limit);
+
+//       res.send({
+//         properties: result,
+//         totalPages: totalPages,
+//         currentPage: parseInt(page)
+//       });
+//     });
+//   });
+// });
 app.get('/properties', (req, res) => {
-  const { type, location, page = 1, limit = 8, lang = 'en' } = req.query;
+  const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
-  const titleColumn = `title_${lang}` in req.query ? `title_${lang}` : `title_ar`;
-  const descriptionColumn = `description_${lang}` in req.query ? `description_${lang}` : `description_ar`;
+  const titleColumn = `title_${lang}`;
+  const descriptionColumn = `description_${lang}`;
 
   let sql = `
     SELECT p.property_id, p.${titleColumn} as title, p.price, p.location, p.bedrooms, p.bathrooms, p.salon, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
@@ -115,12 +244,29 @@ app.get('/properties', (req, res) => {
   });
 });
 
+// app.get('/properties/:id', (req, res) => {
+//   const language = req.query.lang || 'en';
+//   const titleColumn = `title_${language}` in req.query ? `title_${language}` : `title_ar`;
+//   const descriptionColumn = `description_${language}` in req.query ? `description_${language}` : `description_ar`;
 
-
+//   const sql = `
+//     SELECT p.property_id, p.${titleColumn} as title, p.price, p.location, p.bedrooms, p.bathrooms, p.salon, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
+//     FROM properties p 
+//     LEFT JOIN property_images pi ON p.property_id = pi.property_id 
+//     WHERE p.property_id = ?
+//   `;
+//   db.query(sql, [req.params.id], (err, result) => {
+//     if (err) {
+//       console.error('Error querying property:', err);
+//       return res.status(500).send('Database query error');
+//     }
+//     res.send(result);
+//   });
+// });
 app.get('/properties/:id', (req, res) => {
   const language = req.query.lang || 'en';
-  const titleColumn = `title_${language}` in req.query ? `title_${language}` : `title_ar`;
-  const descriptionColumn = `description_${language}` in req.query ? `description_${language}` : `description_ar`;
+  const titleColumn = `title_${language}`;
+  const descriptionColumn = `description_${language}`;
 
   const sql = `
     SELECT p.property_id, p.${titleColumn} as title, p.price, p.location, p.bedrooms, p.bathrooms, p.salon, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
@@ -137,49 +283,6 @@ app.get('/properties/:id', (req, res) => {
   });
 });
 
-app.post('/properties', upload.array('images', 20), async (req, res) => {
-  try {
-    const newProperty = {
-      title_ar: req.body.title_ar,      
-      description_ar: req.body.description_ar,
-      price: req.body.price,
-      location: req.body.location,
-      bedrooms: req.body.bedrooms,
-      salon: req.body.salon,
-      bathrooms: req.body.bathrooms,
-      area: req.body.area,
-      type: req.body.type,
-      available: req.body.type === 'rent' ? true : req.body.available,
-      floors: req.body.floors, // Add floors field
-      availability_date: req.body.availability_date // Add availability date field
-    };
-
-    console.log('New property data:', newProperty);
-
-    const sql = 'INSERT INTO properties SET ?';
-    db.query(sql, newProperty, (err, result) => {
-      if (err) {
-        console.error('Error inserting property:', err);
-        return res.status(500).send('Database insertion error');
-      }
-      const propertyId = result.insertId;
-      const images = req.files.map(file => [propertyId, file.filename]);
-
-      const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
-      db.query(imageSql, [images], (err, result) => {
-        if (err) {
-          console.error('Error inserting property images:', err);
-          return res.status(500).send('Database insertion error');
-        }
-        res.send(result);
-      });
-    });
-  } catch (error) {
-    console.error('Error processing request:', error);
-    res.status(500).send('Error processing request');
-  }
-});
-
 app.put('/properties/:id', upload.array('images', 20), async (req, res) => {
   try {
     const updatedProperty = {
@@ -193,9 +296,12 @@ app.put('/properties/:id', upload.array('images', 20), async (req, res) => {
       area: req.body.area,
       type: req.body.type,
       available: req.body.available,
-      floors: req.body.floors, // Add floors field
-      availability_date: req.body.availability_date // Add availability date field
+      floors: req.body.floors,
+      availability_date: req.body.availability_date
     };
+
+    const translations = await translateProperty(updatedProperty);
+    Object.assign(updatedProperty, translations);
 
     console.log('Updated property data:', updatedProperty);
 
@@ -323,7 +429,7 @@ app.post('/login', (req, res) => {
 });
 
 // app.get('/news', (req, res) => {
-//   const lang = req.query.lang || 'en';
+//   const lang = req.query.lang || 'ar';
 //   const titleColumn = `title_${lang}`;
 //   const contentColumn = `content_${lang}`;
 
@@ -340,6 +446,69 @@ app.post('/login', (req, res) => {
 //     res.send(result);
 //   });
 // });
+
+// app.post('/news', upload.single('image'), async (req, res) => {
+//   try {
+//     const newNews = {
+//       title_ar: req.body.title_ar,
+//       content_ar: req.body.content_ar,
+//       image_url: req.file ? req.file.filename : ''
+//     };
+
+//     console.log('New news data:', newNews);
+
+//     const sql = 'INSERT INTO news SET ?';
+//     db.query(sql, newNews, (err, result) => {
+//       if (err) {
+//         console.error('Error inserting news:', err);
+//         return res.status(500).send('Database insertion error');
+//       }
+//       res.send(result);
+//     });
+//   } catch (error) {
+//     console.error('Error processing request:', error);
+//     res.status(500).send('Error processing request');
+//   }
+// });
+const translateNews = async (news) => {
+  const languages = ['en', 'fr', 'es', 'de', 'nl'];
+  const translations = {};
+
+  for (const lang of languages) {
+    translations[`title_${lang}`] = await translateText(news.title_ar, lang);
+    translations[`content_${lang}`] = await translateText(news.content_ar, lang);
+  }
+
+  return {
+    ...news,
+    ...translations,
+  };
+};
+
+app.post('/news', upload.single('image'), async (req, res) => {
+  try {
+    const newNews = {
+      title_ar: req.body.title_ar,
+      content_ar: req.body.content_ar,
+      image_url: req.file ? req.file.filename : '',
+    };
+
+    const translatedNews = await translateNews(newNews);
+
+    const sql = 'INSERT INTO news SET ?';
+    db.query(sql, translatedNews, (err, result) => {
+      if (err) {
+        console.error('Error inserting news:', err);
+        return res.status(500).send('Database insertion error');
+      }
+      res.send(result);
+    });
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).send('Error processing request');
+  }
+});
+
 app.get('/news', (req, res) => {
   const lang = req.query.lang || 'ar';
   const titleColumn = `title_${lang}`;
@@ -359,81 +528,6 @@ app.get('/news', (req, res) => {
   });
 });
 
-// app.post('/news', upload.single('image'), async (req, res) => {
-//   try {
-//     const newNews = {
-//       title_ar: req.body.title,
-//       content_ar: req.body.content,
-//       image_url: req.file ? req.file.filename : ''
-//     };
-
-//     console.log('New news data:', newNews);
-
-//     const sql = 'INSERT INTO news SET ?';
-//     db.query(sql, newNews, (err, result) => {
-//       if (err) {
-//         console.error('Error inserting news:', err);
-//         return res.status(500).send('Database insertion error');
-//       }
-//       res.send(result);
-//     });
-//   } catch (error) {
-//     console.error('Error processing request:', error);
-//     res.status(500).send('Error processing request');
-//   }
-// });
-app.post('/news', upload.single('image'), async (req, res) => {
-  try {
-    const newNews = {
-      title_ar: req.body.title_ar,
-      content_ar: req.body.content_ar,
-      image_url: req.file ? req.file.filename : ''
-    };
-
-    console.log('New news data:', newNews);
-
-    const sql = 'INSERT INTO news SET ?';
-    db.query(sql, newNews, (err, result) => {
-      if (err) {
-        console.error('Error inserting news:', err);
-        return res.status(500).send('Database insertion error');
-      }
-      res.send(result);
-    });
-  } catch (error) {
-    console.error('Error processing request:', error);
-    res.status(500).send('Error processing request');
-  }
-});
-
-
-// app.delete('/news/:id', (req, res) => {
-//   const newsId = req.params.id;
-
-//   const selectImageSql = 'SELECT image_url FROM news WHERE id = ?';
-//   db.query(selectImageSql, [newsId], (err, result) => {
-//     if (err) {
-//       console.error('Error querying news image:', err);
-//       return res.status(500).send('Database query error');
-//     }
-
-//     const imageUrl = result[0].image_url;
-//     const filePath = path.join(__dirname, 'uploads', imageUrl);
-
-//     fs.unlink(filePath, (err) => {
-//       if (err) console.error(`Error deleting file: ${filePath}`, err);
-
-//       const deleteNewsSql = 'DELETE FROM news WHERE id = ?';
-//       db.query(deleteNewsSql, [newsId], (err, result) => {
-//         if (err) {
-//           console.error('Error deleting news:', err);
-//           return res.status(500).send('Database deletion error');
-//         }
-//         res.send(result);
-//       });
-//     });
-//   });
-// });
 app.delete('/news/:id', (req, res) => {
   const newsId = req.params.id;
 
@@ -516,7 +610,6 @@ app.delete('/contact-submissions/:id', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
 // ---------------------------code for production--------------------------------------
 
