@@ -174,6 +174,8 @@
   font-size: 0.8rem;
 }
 
+/* General styles remain the same */
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .header-top {
@@ -231,5 +233,59 @@
 
   .language-select .react-select__control {
     width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 924px) {
+  .header-top {
+    padding: 10px 30px;
+  }
+
+  .header-logo .logo {
+    height: 45px;
+  }
+
+  .header-nav ul {
+    gap: 10px;
+  }
+
+  .header-nav a {
+    font-size: 0.9rem;
+    padding: 5px 6px;
+  }
+
+  .header-button,
+  .header-login,
+  .header-signup {
+    padding: 5px 12px;
+    font-size: 0.9rem;
+  }
+
+  .header-actions {
+    gap: 15px;
+  }
+
+  .panier-icon .fa-shopping-cart {
+    font-size: 1.2rem;
+  }
+
+  .panier-count {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  /* Minimize size for the login button and language select */
+  .header-login,
+  .header-button {
+    padding: 3px 10px;
+    font-size: 0.8rem;
+  }
+
+  .language-select .react-select__control {
+    width: 150px;
+  }
+
+  .header-actions {
+    gap: 10px;
   }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import './Panier.css';
 
 function Panier({ items }) {
-  const API_URL = process.env.REACT_APP_SERVER || 'https://alaqariyya.com/nodeapp';
+  const API_URL = process.env.REACT_APP_SERVER ;
 
   return (
     <div className="panier">

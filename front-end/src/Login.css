@@ -142,3 +142,52 @@ h3 {
     font-size: 1rem; /* Adjust font size */
   }
 }
+
+/* Tablet styles */
+@media (min-width: 601px) and (max-width: 968px) {
+  .login-container {
+    flex-direction: row; /* Keep elements in a row */
+    padding: 10px; /* Adjust padding for tablet devices */
+  }
+
+  .bg {
+    flex: 1;
+    height: auto; /* Allow height to adjust based on content */
+    background-size: cover; /* Ensure the image covers the container */
+    background-position: center;
+  }
+
+  .contents {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Adjust padding for tablet devices */
+  }
+
+  .container {
+    width: 100%;
+    max-width: 500px; /* Adjust max width for tablet devices */
+    padding: 40px; /* Adjust padding inside the container */
+    margin-top: 0; /* Adjust margin for tablet devices */
+  }
+
+  h3 {
+    font-size: 1.75rem; /* Adjust font size for tablet devices */
+    margin-bottom: 1.5rem; /* Adjust margin for tablet devices */
+  }
+
+  .form-group {
+    margin-bottom: 1rem; /* Adjust margin between form groups */
+  }
+
+  .form-control {
+    padding: 0.9rem; /* Adjust padding */
+    font-size: 1.05rem; /* Adjust font size */
+  }
+
+  .btn-primary {
+    padding: 0.9rem; /* Adjust padding */
+    font-size: 1.1rem; /* Adjust font size */
+  }
+}
