@@ -33,7 +33,11 @@
     "floors": "pisos",
     "floorplots": "Parcelas de suelo",
     "availabilityDate": "Fecha de disponibilidad",
-    "priceVaries": "El precio varía según el número de personas"
+    "priceVaries": "El precio varía según el número de personas",
+    "MAD": "Dírham marroquí",
+    "pricePerSquareMeter": "por metro cuadrado",
+    "kitchen": "cocina"
+
 
   },
   "news": {

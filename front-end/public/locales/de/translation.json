@@ -33,7 +33,11 @@
     "floors": "Böden",
     "floorplots": "Bodengrundstücke",
     "availabilityDate": "Verfügbarkeitsdatum",
-    "priceVaries": "Der Preis variiert je nach Personenzahl"
+    "priceVaries": "Der Preis variiert je nach Personenzahl",
+    "MAD": "Marokkanischer Dirham",
+    "pricePerSquareMeter": "pro Quadratmeter",
+    "kitchen": "Küche"
+
   },
   "news": {
     "publishedOn": "Veröffentlicht am",

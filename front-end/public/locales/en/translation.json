@@ -40,7 +40,10 @@
       "floors": "Floors",
       "floorplots": "Floor Plots",
       "availabilityDate": "Availability date",
-      "priceVaries": "The price varies according to the number of people"
+      "priceVaries": "The price varies according to the number of people",
+      "MAD": "Moroccan Dirham",
+      "pricePerSquareMeter": "per square meter",
+      "kitchen": "kitchen"
 
 
     },

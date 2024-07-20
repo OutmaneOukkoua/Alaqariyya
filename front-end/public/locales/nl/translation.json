@@ -33,7 +33,11 @@
     "floors": "vloeren",
     "floorplots": "Vloerpercelen",
     "availabilityDate": "Beschikbaarheidsdatum",
-    "priceVaries": "De prijs varieert afhankelijk van het aantal personen"
+    "priceVaries": "De prijs varieert afhankelijk van het aantal personen",
+    "MAD": "Marokkaanse Dirham",
+    "pricePerSquareMeter": "per vierkante meter",
+    "kitchen": "keuken"
+
   },
   "news": {
     "publishedOn": "Gepubliceerd op",
