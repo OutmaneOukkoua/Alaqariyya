@@ -1,20 +1,20 @@
-require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const translate = require('google-translate-api-x');
+// require('dotenv').config();
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const mysql = require('mysql');
+// const cors = require('cors');
+// const bcrypt = require('bcryptjs');
+// const jwt = require('jsonwebtoken');
+// const multer = require('multer');
+// const path = require('path');
+// const fs = require('fs');
+// const translate = require('google-translate-api-x');
 
-const app = express();
-const router = express.Router();
+// const app = express();
+// const router = express.Router();
 
-app.use(bodyParser.json());
-app.use(cors());
+// app.use(bodyParser.json());
+// app.use(cors());
 
 
 // const db = mysql.createConnection({
@@ -25,36 +25,155 @@ app.use(cors());
 //   charset: 'utf8mb4'
 // });
 
+// // const db = mysql.createConnection({
+// //   host: 'localhost',
+// //   user: 'alaqgxtb_admin',
+// //   password: '}R8rs!T3H[@K',
+// //   database: 'alaqgxtb_alaqariyya',
+// // });
+
+// db.connect(err => {
+//   if (err) throw err;
+//   console.log('MySQL Connected...');
+// });
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     const uploadPath = path.join(__dirname, 'uploads');
+//     if (!fs.existsSync(uploadPath)) {
+//       fs.mkdirSync(uploadPath);
+//     }
+//     cb(null, 'uploads');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   }
+// });
+
+// const upload = multer({ storage });
+
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// app.get('/', (req, res) => {
+//   res.send('Welcome to the Node.js backend for ALAQARIYYA');
+// });
+
+// const translateText = async (text, target) => {
+//   try {
+//     const res = await translate(text, { from: 'ar', to: target });
+//     return res.text;
+//   } catch (error) {
+//     console.error('Translation error:', error);
+//     throw error;
+//   }
+// };
+
+// const translateProperty = async (property) => {
+//   const translations = {};
+//   const languages = ['en', 'es', 'fr', 'de', 'nl'];
+
+//   for (const lang of languages) {
+//     translations[`title_${lang}`] = await translateText(property.title_ar, lang);
+//     translations[`description_${lang}`] = await translateText(property.description_ar, lang);
+//     translations[`location_${lang}`] = await translateText(property.location_ar, lang);
+//   }
+
+//   return translations;
+// };
+
+// app.post('/properties', upload.array('images', 25), async (req, res) => {
+//   try {
+//     const newProperty = {
+//       title_ar: req.body.title_ar,
+//       description_ar: req.body.description_ar,
+//       price: req.body.price,
+//       location_ar: req.body.location_ar,
+//       bedrooms: req.body.bedrooms,
+//       salon: req.body.salon,
+//       bathrooms: req.body.bathrooms,
+//       kitchen: req.body.kitchen,
+//       area: req.body.area,
+//       type: req.body.type,
+//       available: req.body.type === 'rent' ? true : req.body.available,
+//       floors: req.body.floors,
+//       availability_date: req.body.availability_date
+//     };
+
+//     const translations = await translateProperty(newProperty);
+//     Object.assign(newProperty, translations);
+
+//     console.log('New property data:', newProperty);
+
+//     const sql = 'INSERT INTO properties SET ?';
+//     db.query(sql, newProperty, (err, result) => {
+//       if (err) {
+//         console.error('Error inserting property:', err);
+//         return res.status(500).send('Database insertion error');
+//       }
+//       const propertyId = result.insertId;
+//       const images = req.files.map(file => [propertyId, file.filename]);
+
+//       const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
+//       db.query(imageSql, [images], (err, result) => {
+//         if (err) {
+//           console.error('Error inserting property images:', err);
+//           return res.status(500).send('Database insertion error');
+//         }
+//         res.send(result);
+//       });
+//     });
+//   } catch (error) {
+//     console.error('Error processing request:', error);
+//     res.status(500).send('Error processing request');
+//   }
+// });
+
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const sharp = require('sharp');
+const translate = require('google-translate-api-x');
+
+const app = express();
+const router = express.Router();
+
+app.use(bodyParser.json());
+app.use(cors());
+
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'alaqgxtb_admin',
-  password: '}R8rs!T3H[@K',
-  database: 'alaqgxtb_alaqariyya',
+  user: 'root',
+  password: '',
+  database: 'alaqariyya',
+  charset: 'utf8mb4'
 });
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'alaqgxtb_admin',
+//   password: '}R8rs!T3H[@K',
+//   database: 'alaqgxtb_alaqariyya',
+// });
 
 db.connect(err => {
   if (err) throw err;
   console.log('MySQL Connected...');
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, 'uploads');
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath);
-    }
-    cb(null, 'uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 
-router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Welcome to the Node.js backend for ALAQARIYYA');
 });
 
@@ -81,7 +200,7 @@ const translateProperty = async (property) => {
   return translations;
 };
 
-router.post('/properties', upload.array('images', 20), async (req, res) => {
+app.post('/properties', upload.array('images', 25), async (req, res) => {
   try {
     const newProperty = {
       title_ar: req.body.title_ar,
@@ -105,13 +224,24 @@ router.post('/properties', upload.array('images', 20), async (req, res) => {
     console.log('New property data:', newProperty);
 
     const sql = 'INSERT INTO properties SET ?';
-    db.query(sql, newProperty, (err, result) => {
+    db.query(sql, newProperty, async (err, result) => {
       if (err) {
         console.error('Error inserting property:', err);
         return res.status(500).send('Database insertion error');
       }
       const propertyId = result.insertId;
-      const images = req.files.map(file => [propertyId, file.filename]);
+      const images = [];
+
+      for (const file of req.files) {
+        const outputPath = path.join(__dirname, 'uploads', Date.now() + path.extname(file.originalname));
+        await sharp(file.buffer)
+          .rotate() 
+          .resize(800, 600)
+          .jpeg({ quality: 80 })
+          .toFile(outputPath);
+
+        images.push([propertyId, path.basename(outputPath)]);
+      }
 
       const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
       db.query(imageSql, [images], (err, result) => {
@@ -128,7 +258,7 @@ router.post('/properties', upload.array('images', 20), async (req, res) => {
   }
 });
 
-router.get('/properties', async (req, res) => {
+app.get('/properties', async (req, res) => {
   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
   const titleColumn = `title_${lang}`;
@@ -148,10 +278,12 @@ router.get('/properties', async (req, res) => {
   }
 
   let sql = `
-    SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
+    SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, 
+           p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, 
+           pi.image_url, p.${descriptionColumn} as description
     FROM properties p
     LEFT JOIN (
-      SELECT property_id, MIN(image_url) as image_url
+      SELECT property_id, MIN(image_url) as image_url, MIN(created_at) as oldest_image_date
       FROM property_images
       GROUP BY property_id
     ) pi ON p.property_id = pi.property_id
@@ -168,7 +300,7 @@ router.get('/properties', async (req, res) => {
     params.push(`%${translatedLocation}%`);
   }
 
-  sql += ' LIMIT ? OFFSET ?';
+  sql += ' ORDER BY pi.oldest_image_date ASC LIMIT ? OFFSET ?';
   params.push(parseInt(limit), parseInt(offset));
 
   console.log('SQL Query:', sql);
@@ -209,17 +341,21 @@ router.get('/properties', async (req, res) => {
   });
 });
 
-router.get('/properties/:id', (req, res) => {
+
+app.get('/properties/:id', (req, res) => {
   const language = req.query.lang || 'en';
   const titleColumn = `title_${language}`;
   const descriptionColumn = `description_${language}`;
   const locationColumn = `location_${language}`;
 
   const sql = `
-    SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
+    SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, 
+           p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, 
+           p.availability_date, pi.image_url, p.${descriptionColumn} as description
     FROM properties p 
     LEFT JOIN property_images pi ON p.property_id = pi.property_id 
     WHERE p.property_id = ?
+    ORDER BY pi.created_at ASC
   `;
   db.query(sql, [req.params.id], (err, result) => {
     if (err) {
@@ -230,7 +366,82 @@ router.get('/properties/:id', (req, res) => {
   });
 });
 
-router.put('/properties/:id', upload.array('images', 20), async (req, res) => {
+
+
+// app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
+//   try {
+//     const updatedProperty = {
+//       title_ar: req.body.title_ar,
+//       description_ar: req.body.description_ar,
+//       price: req.body.price,
+//       location_ar: req.body.location_ar,
+//       bedrooms: req.body.bedrooms,
+//       salon: req.body.salon,
+//       bathrooms: req.body.bathrooms,
+//       kitchen: req.body.kitchen,
+//       area: req.body.area,
+//       type: req.body.type,
+//       available: req.body.available,
+//       floors: req.body.floors,
+//       availability_date: req.body.availability_date
+//     };
+
+//     const translations = await translateProperty(updatedProperty);
+//     Object.assign(updatedProperty, translations);
+
+//     console.log('Updated property data:', updatedProperty);
+
+//     const sql = 'UPDATE properties SET ? WHERE property_id = ?';
+//     db.query(sql, [updatedProperty, req.params.id], (err, result) => {
+//       if (err) {
+//         console.error('Error updating property:', err);
+//         return res.status(500).send('Database update error');
+//       }
+
+//       if (req.files && req.files.length) {
+//         const selectImagesSql = 'SELECT image_url FROM property_images WHERE property_id = ?';
+//         db.query(selectImagesSql, [req.params.id], (err, images) => {
+//           if (err) {
+//             console.error('Error querying property images:', err);
+//             return res.status(500).send('Database query error');
+//           }
+
+//           images.forEach(image => {
+//             const filePath = path.join(__dirname, 'uploads', image.image_url);
+//             fs.unlink(filePath, (err) => {
+//               if (err) console.error(`Error deleting file: ${filePath}`, err);
+//             });
+//           });
+
+//           const deleteImagesSql = 'DELETE FROM property_images WHERE property_id = ?';
+//           db.query(deleteImagesSql, [req.params.id], (err, deleteResult) => {
+//             if (err) {
+//               console.error('Error deleting property images:', err);
+//               return res.status(500).send('Database deletion error');
+//             }
+
+//             const newImages = req.files.map(file => [req.params.id, file.filename]);
+//             const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
+//             db.query(imageSql, [newImages], (err, insertResult) => {
+//               if (err) {
+//                 console.error('Error inserting property images:', err);
+//                 return res.status(500).send('Database insertion error');
+//               }
+//               res.send(insertResult);
+//             });
+//           });
+//         });
+//       } else {
+//         res.send(result);
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error processing request:', error);
+//     res.status(500).send('Error processing request');
+//   }
+// });
+
+app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
   try {
     const updatedProperty = {
       title_ar: req.body.title_ar,
@@ -254,7 +465,7 @@ router.put('/properties/:id', upload.array('images', 20), async (req, res) => {
     console.log('Updated property data:', updatedProperty);
 
     const sql = 'UPDATE properties SET ? WHERE property_id = ?';
-    db.query(sql, [updatedProperty, req.params.id], (err, result) => {
+    db.query(sql, [updatedProperty, req.params.id], async (err, result) => {
       if (err) {
         console.error('Error updating property:', err);
         return res.status(500).send('Database update error');
@@ -276,13 +487,24 @@ router.put('/properties/:id', upload.array('images', 20), async (req, res) => {
           });
 
           const deleteImagesSql = 'DELETE FROM property_images WHERE property_id = ?';
-          db.query(deleteImagesSql, [req.params.id], (err, deleteResult) => {
+          db.query(deleteImagesSql, [req.params.id], async (err, deleteResult) => {
             if (err) {
               console.error('Error deleting property images:', err);
               return res.status(500).send('Database deletion error');
             }
 
-            const newImages = req.files.map(file => [req.params.id, file.filename]);
+            const newImages = [];
+            for (const file of req.files) {
+              const outputPath = path.join(__dirname, 'uploads', Date.now() + path.extname(file.originalname));
+              await sharp(file.buffer)
+                .rotate() 
+                .resize(800, 600)
+                .jpeg({ quality: 80 })
+                .toFile(outputPath);
+
+              newImages.push([req.params.id, path.basename(outputPath)]);
+            }
+
             const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
             db.query(imageSql, [newImages], (err, insertResult) => {
               if (err) {
@@ -303,7 +525,8 @@ router.put('/properties/:id', upload.array('images', 20), async (req, res) => {
   }
 });
 
-router.put('/properties/:id/availability', (req, res) => {
+
+app.put('/properties/:id/availability', (req, res) => {
   const { available, availability_date } = req.body;
   const sql = 'UPDATE properties SET available = ?, availability_date = ? WHERE property_id = ?';
   db.query(sql, [available, available ? null : availability_date, req.params.id], (err, result) => {
@@ -315,7 +538,7 @@ router.put('/properties/:id/availability', (req, res) => {
   });
 });
 
-router.delete('/properties/:id', (req, res) => {
+app.delete('/properties/:id', (req, res) => {
   const propertyId = req.params.id;
 
   const selectImagesSql = 'SELECT image_url FROM property_images WHERE property_id = ?';
@@ -351,7 +574,7 @@ router.delete('/properties/:id', (req, res) => {
   });
 });
 
-router.post('/login', (req, res) => {
+app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   db.query('SELECT * FROM users WHERE email = ?', [email], async (err, result) => {
@@ -391,7 +614,7 @@ const translateNews = async (news) => {
   };
 };
 
-router.post('/news', upload.single('image'), async (req, res) => {
+app.post('/news', upload.single('image'), async (req, res) => {
   try {
     const newNews = {
       title_ar: req.body.title_ar,
@@ -415,7 +638,7 @@ router.post('/news', upload.single('image'), async (req, res) => {
   }
 });
 
-router.get('/news', (req, res) => {
+app.get('/news', (req, res) => {
   const lang = req.query.lang || 'ar';
   const titleColumn = `title_${lang}`;
   const contentColumn = `content_${lang}`;
@@ -434,7 +657,7 @@ router.get('/news', (req, res) => {
   });
 });
 
-router.delete('/news/:id', (req, res) => {
+app.delete('/news/:id', (req, res) => {
   const newsId = req.params.id;
 
   const selectImageSql = 'SELECT image_url FROM news WHERE id = ?';
@@ -473,7 +696,7 @@ router.delete('/news/:id', (req, res) => {
   });
 });
 
-router.post('/contact-submissions', (req, res) => {
+app.post('/contact-submissions', (req, res) => {
   const newSubmission = {
     name: req.body.name,
     email: req.body.email,
@@ -492,7 +715,7 @@ router.post('/contact-submissions', (req, res) => {
   });
 });
 
-router.get('/contact-submissions', (req, res) => {
+app.get('/contact-submissions', (req, res) => {
   const sql = 'SELECT * FROM contact_submissions ORDER BY created_at DESC';
   db.query(sql, (err, result) => {
     if (err) {
@@ -503,7 +726,7 @@ router.get('/contact-submissions', (req, res) => {
   });
 });
 
-router.delete('/contact-submissions/:id', (req, res) => {
+app.delete('/contact-submissions/:id', (req, res) => {
   const sql = 'DELETE FROM contact_submissions WHERE id = ?';
   db.query(sql, [req.params.id], (err, result) => {
     if (err) {
@@ -514,7 +737,94 @@ router.delete('/contact-submissions/:id', (req, res) => {
   });
 });
 
-app.use('/nodeapp', router);
+// app.use('/nodeapp', router);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+
+
+// app.get('/properties', async (req, res) => {
+//   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
+//   const offset = (page - 1) * limit;
+//   const titleColumn = `title_${lang}`;
+//   const descriptionColumn = `description_${lang}`;
+//   const locationColumn = `location_${lang}`;
+
+//   let translatedLocation = '';
+//   if (location) {
+//     try {
+//       const translationResult = await translate(location, { from: 'ar', to: lang });
+//       translatedLocation = translationResult.text;
+//       console.log('Translated location:', translatedLocation);
+//     } catch (error) {
+//       console.error('Error translating location:', error);
+//       return res.status(500).send('Error translating location');
+//     }
+//   }
+
+//   let sql = `
+//     SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, pi.image_url, p.${descriptionColumn} as description
+//     FROM properties p
+//     LEFT JOIN (
+//       SELECT property_id, MIN(image_url) as image_url
+//       FROM property_images
+//       GROUP BY property_id
+//     ) pi ON p.property_id = pi.property_id
+//   `;
+//   const params = [];
+
+//   if (type && type !== 'all') {
+//     sql += ' WHERE p.type = ?';
+//     params.push(type);
+//   }
+
+//   if (translatedLocation) {
+//     sql += params.length ? ` AND p.${locationColumn} LIKE ?` : ` WHERE p.${locationColumn} LIKE ?`;
+//     params.push(`%${translatedLocation}%`);
+//   }
+
+//   sql += ' LIMIT ? OFFSET ?';
+//   params.push(parseInt(limit), parseInt(offset));
+
+//   console.log('SQL Query:', sql);
+//   console.log('Parameters:', params);
+
+//   db.query(sql, params, (err, result) => {
+//     if (err) {
+//       console.error('Error querying properties:', err);
+//       return res.status(500).send('Database query error');
+//     }
+
+//     console.log('Fetched properties:', result);
+
+//     let countSql = 'SELECT COUNT(*) as total FROM properties';
+//     if (type && type !== 'all') {
+//       countSql += ' WHERE type = ?';
+//       if (translatedLocation) {
+//         countSql += ` AND ${locationColumn} LIKE ?`;
+//       }
+//     } else if (translatedLocation) {
+//       countSql += ` WHERE ${locationColumn} LIKE ?`;
+//     }
+
+//     db.query(countSql, params.slice(0, params.length - 2), (countErr, countResult) => {
+//       if (countErr) {
+//         console.error('Error counting properties:', countErr);
+//         return res.status(500).send('Database count error');
+//       }
+//       const totalProperties = countResult[0].total;
+//       const totalPages = Math.ceil(totalProperties / limit);
+
+//       res.send({
+//         properties: result,
+//         totalPages: totalPages,
+//         currentPage: parseInt(page)
+//       });
+//     });
+//   });
+// });

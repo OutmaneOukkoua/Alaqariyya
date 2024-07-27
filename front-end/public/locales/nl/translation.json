@@ -82,7 +82,9 @@
     "message": "Uw bericht",
     "send": "Verzenden",
     "messageSent": "Bericht succesvol verzonden",
-    "messageFailed": "Bericht verzenden mislukt"
+    "messageFailed": "Bericht verzenden mislukt",
+    "close" : "annuleren"
+
   },
   "goBack": {
     "Go Back": "Terug"

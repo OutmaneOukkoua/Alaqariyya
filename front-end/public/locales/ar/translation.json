@@ -83,7 +83,8 @@
     "message": "رسالتك",
     "send": "إرسال",
     "messageSent": "تم إرسال الرسالة بنجاح",
-    "messageFailed": "فشل في إرسال الرسالة"
+    "messageFailed": "فشل في إرسال الرسالة",
+    "close" : "إلغاء"
   },
   "goBack": {
     "Go Back": "العودة"

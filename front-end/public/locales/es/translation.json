@@ -83,7 +83,9 @@
     "message": "Tu mensaje",
     "send": "Enviar",
     "messageSent": "Mensaje enviado con éxito",
-    "messageFailed": "Error al enviar el mensaje"
+    "messageFailed": "Error al enviar el mensaje",
+    "close" : "Cancelar"
+
   },
   "goBack": {
     "Go Back": "Regresar"

@@ -91,7 +91,9 @@
     "message": "Your Message",
     "send": "Send",
     "messageSent": "Message sent successfully",
-    "messageFailed": "Failed to send message"
+    "messageFailed": "Failed to send message",
+    "close" : "cancel"
+
   },
   "goBack": {
       "Go Back": "Go Back"

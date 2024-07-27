@@ -82,7 +82,9 @@
     "message": "Ihre Nachricht",
     "send": "Senden",
     "messageSent": "Nachricht erfolgreich gesendet",
-    "messageFailed": "Nachricht konnte nicht gesendet werden"
+    "messageFailed": "Nachricht konnte nicht gesendet werden",
+    "close" : "annullieren"
+
   },
   "goBack": {
     "Go Back": "Zurück"
