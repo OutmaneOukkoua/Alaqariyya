@@ -17,20 +17,20 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(cors());
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'alaqariyya',
-  charset: 'utf8mb4'
-});
-
 // const db = mysql.createConnection({
 //   host: 'localhost',
-//   user: 'alaqgxtb_admin',
-//   password: '}R8rs!T3H[@K',
-//   database: 'alaqgxtb_alaqariyya',
+//   user: 'root',
+//   password: '',
+//   database: 'alaqariyya',
+//   charset: 'utf8mb4'
 // });
+
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'alaqgxtb_admin',
+  password: '}R8rs!T3H[@K',
+  database: 'alaqgxtb_alaqariyya',
+});
 
 db.connect(err => {
   if (err) throw err;
@@ -41,9 +41,9 @@ const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Welcome to the Node.js backend for ALAQARIYYA');
 });
 
@@ -70,7 +70,8 @@ const translateProperty = async (property) => {
   return translations;
 };
 
-app.post('/properties', upload.array('images', 25), async (req, res) => {
+
+router.post('/properties', upload.array('images', 25), async (req, res) => {
   try {
     const newProperty = {
       title_ar: req.body.title_ar,
@@ -91,8 +92,6 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
     const translations = await translateProperty(newProperty);
     Object.assign(newProperty, translations);
 
-    console.log('New property data:', newProperty);
-
     const sql = 'INSERT INTO properties SET ?';
     db.query(sql, newProperty, async (err, result) => {
       if (err) {
@@ -102,7 +101,7 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
       const propertyId = result.insertId;
       const images = [];
 
-      for (const file of req.files) {
+      for (const [index, file] of req.files.entries()) {
         const outputPath = path.join(__dirname, 'uploads', Date.now() + path.extname(file.originalname));
         await sharp(file.buffer)
           .rotate() 
@@ -110,10 +109,11 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
           .jpeg({ quality: 80 })
           .toFile(outputPath);
 
-        images.push([propertyId, path.basename(outputPath)]);
+        const isMain = req.files.length === 1 || index === 0; // Set isMain to true if it is the only image or the first image
+        images.push([propertyId, path.basename(outputPath), isMain, index]);
       }
 
-      const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
+      const imageSql = 'INSERT INTO property_images (property_id, image_url, is_main, display_order) VALUES ?';
       db.query(imageSql, [images], (err, result) => {
         if (err) {
           console.error('Error inserting property images:', err);
@@ -128,7 +128,9 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
   }
 });
 
-app.get('/properties', async (req, res) => {
+
+
+router.get('/properties', async (req, res) => {
   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
   const titleColumn = `title_${lang}`;
@@ -140,9 +142,7 @@ app.get('/properties', async (req, res) => {
     try {
       const translationResult = await translate(location, { from: 'ar', to: lang });
       translatedLocation = translationResult.text;
-      console.log('Translated location:', translatedLocation);
     } catch (error) {
-      console.error('Error translating location:', error);
       return res.status(500).send('Error translating location');
     }
   }
@@ -153,9 +153,9 @@ app.get('/properties', async (req, res) => {
            pi.image_url, p.${descriptionColumn} as description
     FROM properties p
     LEFT JOIN (
-      SELECT property_id, MIN(image_url) as image_url, MIN(created_at) as oldest_image_date
+      SELECT property_id, image_url
       FROM property_images
-      GROUP BY property_id
+      WHERE is_main = TRUE
     ) pi ON p.property_id = pi.property_id
   `;
   const params = [];
@@ -170,19 +170,13 @@ app.get('/properties', async (req, res) => {
     params.push(`%${translatedLocation}%`);
   }
 
-  sql += ' ORDER BY pi.oldest_image_date ASC LIMIT ? OFFSET ?';
+  sql += ' ORDER BY p.property_id DESC LIMIT ? OFFSET ?';
   params.push(parseInt(limit), parseInt(offset));
-
-  console.log('SQL Query:', sql);
-  console.log('Parameters:', params);
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      console.error('Error querying properties:', err);
       return res.status(500).send('Database query error');
     }
-
-    console.log('Fetched properties:', result);
 
     let countSql = 'SELECT COUNT(*) as total FROM properties';
     if (type && type !== 'all') {
@@ -196,7 +190,6 @@ app.get('/properties', async (req, res) => {
 
     db.query(countSql, params.slice(0, params.length - 2), (countErr, countResult) => {
       if (countErr) {
-        console.error('Error counting properties:', countErr);
         return res.status(500).send('Database count error');
       }
       const totalProperties = countResult[0].total;
@@ -211,8 +204,7 @@ app.get('/properties', async (req, res) => {
   });
 });
 
-
-app.get('/properties/:id', (req, res) => {
+router.get('/properties/:id', (req, res) => {
   const language = req.query.lang || 'en';
   const titleColumn = `title_${language}`;
   const descriptionColumn = `description_${language}`;
@@ -221,15 +213,14 @@ app.get('/properties/:id', (req, res) => {
   const sql = `
     SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, 
            p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, 
-           p.availability_date, pi.image_url, p.${descriptionColumn} as description
+           p.availability_date, pi.image_url, pi.is_main, pi.display_order, p.${descriptionColumn} as description
     FROM properties p 
     LEFT JOIN property_images pi ON p.property_id = pi.property_id 
     WHERE p.property_id = ?
-    ORDER BY pi.created_at ASC
+    ORDER BY pi.is_main DESC, pi.display_order ASC
   `;
   db.query(sql, [req.params.id], (err, result) => {
     if (err) {
-      console.error('Error querying property:', err);
       return res.status(500).send('Database query error');
     }
     res.send(result);
@@ -237,7 +228,9 @@ app.get('/properties/:id', (req, res) => {
 });
 
 
-app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
+
+
+router.put('/properties/:id', upload.array('images', 25), async (req, res) => {
   try {
     const updatedProperty = {
       title_ar: req.body.title_ar,
@@ -257,8 +250,6 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
 
     const translations = await translateProperty(updatedProperty);
     Object.assign(updatedProperty, translations);
-
-    console.log('Updated property data:', updatedProperty);
 
     const sql = 'UPDATE properties SET ? WHERE property_id = ?';
     db.query(sql, [updatedProperty, req.params.id], async (err, result) => {
@@ -290,7 +281,7 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
             }
 
             const newImages = [];
-            for (const file of req.files) {
+            for (const [index, file] of req.files.entries()) {
               const outputPath = path.join(__dirname, 'uploads', Date.now() + path.extname(file.originalname));
               await sharp(file.buffer)
                 .rotate() 
@@ -298,17 +289,23 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
                 .jpeg({ quality: 80 })
                 .toFile(outputPath);
 
-              newImages.push([req.params.id, path.basename(outputPath)]);
+              const isMain = req.files.length === 1 || index === 0; // Set isMain to true if it is the only image or the first image
+              const displayOrder = parseInt(req.body.displayOrder ? req.body.displayOrder[index] : index, 10);
+              newImages.push([req.params.id, path.basename(outputPath), isMain, displayOrder]);
             }
 
-            const imageSql = 'INSERT INTO property_images (property_id, image_url) VALUES ?';
-            db.query(imageSql, [newImages], (err, insertResult) => {
-              if (err) {
-                console.error('Error inserting property images:', err);
-                return res.status(500).send('Database insertion error');
-              }
-              res.send(insertResult);
-            });
+            if (newImages.length > 0) {
+              const imageSql = 'INSERT INTO property_images (property_id, image_url, is_main, display_order) VALUES ?';
+              db.query(imageSql, [newImages], (err, insertResult) => {
+                if (err) {
+                  console.error('Error inserting property images:', err);
+                  return res.status(500).send('Database insertion error');
+                }
+                res.send(insertResult);
+              });
+            } else {
+              res.send(result);
+            }
           });
         });
       } else {
@@ -322,7 +319,7 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
 });
 
 
-app.put('/properties/:id/availability', (req, res) => {
+router.put('/properties/:id/availability', (req, res) => {
   const { available, availability_date } = req.body;
   const sql = 'UPDATE properties SET available = ?, availability_date = ? WHERE property_id = ?';
   db.query(sql, [available, available ? null : availability_date, req.params.id], (err, result) => {
@@ -334,7 +331,7 @@ app.put('/properties/:id/availability', (req, res) => {
   });
 });
 
-app.delete('/properties/:id', (req, res) => {
+router.delete('/properties/:id', (req, res) => {
   const propertyId = req.params.id;
 
   const selectImagesSql = 'SELECT image_url FROM property_images WHERE property_id = ?';
@@ -370,7 +367,7 @@ app.delete('/properties/:id', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   db.query('SELECT * FROM users WHERE email = ?', [email], async (err, result) => {
@@ -410,7 +407,7 @@ const translateNews = async (news) => {
   };
 };
 
-app.post('/news', upload.single('image'), async (req, res) => {
+router.post('/news', upload.single('image'), async (req, res) => {
   try {
     const newNews = {
       title_ar: req.body.title_ar,
@@ -434,7 +431,7 @@ app.post('/news', upload.single('image'), async (req, res) => {
   }
 });
 
-app.get('/news', (req, res) => {
+router.get('/news', (req, res) => {
   const lang = req.query.lang || 'ar';
   const titleColumn = `title_${lang}`;
   const contentColumn = `content_${lang}`;
@@ -453,7 +450,7 @@ app.get('/news', (req, res) => {
   });
 });
 
-app.delete('/news/:id', (req, res) => {
+router.delete('/news/:id', (req, res) => {
   const newsId = req.params.id;
 
   const selectImageSql = 'SELECT image_url FROM news WHERE id = ?';
@@ -492,7 +489,7 @@ app.delete('/news/:id', (req, res) => {
   });
 });
 
-app.post('/contact-submissions', (req, res) => {
+router.post('/contact-submissions', (req, res) => {
   const newSubmission = {
     name: req.body.name,
     email: req.body.email,
@@ -511,7 +508,7 @@ app.post('/contact-submissions', (req, res) => {
   });
 });
 
-app.get('/contact-submissions', (req, res) => {
+router.get('/contact-submissions', (req, res) => {
   const sql = 'SELECT * FROM contact_submissions ORDER BY created_at DESC';
   db.query(sql, (err, result) => {
     if (err) {
@@ -522,7 +519,7 @@ app.get('/contact-submissions', (req, res) => {
   });
 });
 
-app.delete('/contact-submissions/:id', (req, res) => {
+router.delete('/contact-submissions/:id', (req, res) => {
   const sql = 'DELETE FROM contact_submissions WHERE id = ?';
   db.query(sql, [req.params.id], (err, result) => {
     if (err) {
@@ -533,7 +530,7 @@ app.delete('/contact-submissions/:id', (req, res) => {
   });
 });
 
-// app.use('/nodeapp', router);
+app.use('/nodeapp', router);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

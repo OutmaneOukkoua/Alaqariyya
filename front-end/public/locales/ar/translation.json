@@ -14,6 +14,7 @@
   },
   "properties": {
     "price": "السعر",
+    "priceWithAsterisk": "السعر*",
     "location": "الموقع",
     "bedrooms": "غرف النوم",
     "salon": "غرف المعيشة",
@@ -35,7 +36,7 @@
     "floorplots": "قطعة ارضية",
     "floorplotss": "قطع ارضية",
     "availabilityDate": "تاريخ التوفر",
-    "priceVaries": "يختلف السعر حسب عدد الأشخاص",
+    "priceVaries": "يختلف السعر حسب عدد الأشخاص ومدة الاقامة",
     "MAD": "درهم",
     "pricePerSquareMeter": "للمتر مربع",
     "kitchen": "المطبخ"

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -19,7 +20,7 @@ function AddProperty() {
     bedrooms: '',
     salon: '',
     bathrooms: '',
-    kitchen: '', // Add kitchen field
+    kitchen: '',
     floors: ''
   });
 
@@ -36,8 +37,14 @@ function AddProperty() {
   };
 
   const handleFileChange = (e) => {
-    setImageFiles([...e.target.files]);
-    setErrors(prevErrors => ({ ...prevErrors, images: '' })); // Clear image error when files are selected
+    const files = Array.from(e.target.files);
+    const updatedFiles = files.map((file, index) => ({
+      file,
+      isMain: index === 0, // Default the first image as main
+      displayOrder: index
+    }));
+    setImageFiles(updatedFiles);
+    setErrors(prevErrors => ({ ...prevErrors, images: '' }));
   };
 
   const handleAddProperty = async (e) => {
@@ -57,14 +64,15 @@ function AddProperty() {
     for (const key in newProperty) {
       formData.append(key, newProperty[key]);
     }
-    imageFiles.forEach(file => {
-      formData.append('images', file);
+    imageFiles.forEach((img, index) => {
+      formData.append('images', img.file);
+      formData.append('isMain', img.isMain);
+      formData.append('displayOrder', img.displayOrder);
     });
 
     const token = localStorage.getItem('jwtToken');
 
     try {
-      console.log('Form Data:', newProperty);
       await axios.post(`${API_URL}/properties`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -86,14 +94,13 @@ function AddProperty() {
         bedrooms: '',
         salon: '',
         bathrooms: '',
-        kitchen: '', // Add kitchen field
+        kitchen: '',
         floors: ''
       });
       setImageFiles([]);
       setErrors({});
     } catch (error) {
       toast.error('Error adding property. Please try again.');
-      console.error('Error adding property:', error);
     }
   };
 
@@ -101,7 +108,7 @@ function AddProperty() {
     const errors = {};
     const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'area'];
     if (newProperty.type !== 'floorplots') {
-      requiredFields.push('bedrooms', 'salon', 'bathrooms', 'kitchen'); // Add kitchen field
+      requiredFields.push('bedrooms', 'bathrooms', 'kitchen');
       if (newProperty.type === 'buy') {
         requiredFields.push('floors');
       }
@@ -146,8 +153,8 @@ function AddProperty() {
           <>
             <input type="number" name="bedrooms" placeholder="Bedrooms" value={newProperty.bedrooms} onChange={handleInputChange} required />
             {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
-            <input type="number" name="salon" placeholder="Salon" value={newProperty.salon} onChange={handleInputChange} required />
-            {errors.salon && <p className="error-message">{errors.salon}</p>}
+            <input type="number" name="salon" placeholder="Salon" value={newProperty.salon} onChange={handleInputChange} />
+            
             <input type="number" name="bathrooms" placeholder="Bathrooms" value={newProperty.bathrooms} onChange={handleInputChange} required />
             {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
             <input type="number" name="kitchen" placeholder="Kitchen" value={newProperty.kitchen} onChange={handleInputChange} required />
@@ -187,6 +194,34 @@ function AddProperty() {
         <div className="file-input">
           <label htmlFor="files">Upload Images</label>
           <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
+          {imageFiles.length > 0 && imageFiles.map((imageFile, index) => (
+            <div key={index}>
+              <span className="file-name">{imageFile.file.name}</span>
+              <label>
+                Main Image:
+                <input
+                  type="radio"
+                  name="mainImage"
+                  checked={imageFile.isMain}
+                  onChange={() => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
+                    ...img,
+                    isMain: idx === index
+                  })))}
+                />
+              </label>
+              <label>
+                Display Order:
+                <input
+                  type="number"
+                  value={imageFile.displayOrder}
+                  onChange={(e) => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
+                    ...img,
+                    displayOrder: idx === index ? parseInt(e.target.value, 10) : img.displayOrder
+                  })))}
+                />
+              </label>
+            </div>
+          ))}
           {imageFiles.length > 0 && <span className="file-name">{imageFiles.length} file(s) selected</span>}
         </div>
         {errors.images && <div className="error-alert">{errors.images}</div>}

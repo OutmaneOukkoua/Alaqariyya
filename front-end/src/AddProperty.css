@@ -65,7 +65,8 @@
 
 .property-formm .file-input {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .property-formm .file-input label {
@@ -74,7 +75,8 @@
   padding: 10px 30px;
   border-radius: 6px;
   cursor: pointer;
-  margin-right: 150px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .property-formm .file-input input[type="file"] {
@@ -86,28 +88,41 @@
   color: #555;
 }
 
+.file-input > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.file-input > div label {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .go-backa {
-  position: absolute; /* Absolute positioning */
-  top: 60px; /* Position from the top */
-  left: 60px; /* Position from the left */
-  background-color: #4CAF50; /* Green background */
-  border: none; /* Remove borders */
-  color: white; /* White text */
-  padding: 10px 20px; /* Some padding */
-  text-align: center; /* Centered text */
-  text-decoration: none; /* Remove underline */
-  display: inline-block; /* Make the container a block-level element */
-  font-size: 16px; /* Increase font size */
-  cursor: pointer; /* Pointer/hand icon */
-  border-radius: 12px; /* Rounded corners */
-  transition-duration: 0.4s; /* 0.4 second transition effect to hover state */
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition-duration: 0.4s;
 }
 
 .go-backa:hover {
-  background-color: white; /* White background on hover */
-  color: black; /* Black text on hover */
-  border: 2px solid #4CAF50; /* Green border on hover */
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
 }
+
 .error-alert {
   color: red;
   font-weight: bold;
@@ -119,13 +134,11 @@
   .add-property-container {
     padding: 80px 20px;
     margin-top: 60px;
-
   }
 
   .go-backa {
     padding: auto;
     left: 20px;
-
   }
 
   .property-formm {

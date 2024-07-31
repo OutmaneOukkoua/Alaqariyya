@@ -13,6 +13,7 @@
   },
   "properties": {
     "price": "Precio",
+    "priceWithAsterisk": "Precio*",
     "location": "Ubicación",
     "bedrooms": "Dormitorios",
     "salon": "Sala de estar",
@@ -33,7 +34,7 @@
     "floors": "pisos",
     "floorplots": "Parcelas de suelo",
     "availabilityDate": "Fecha de disponibilidad",
-    "priceVaries": "El precio varía según el número de personas",
+    "priceVaries": "El precio varía según el número de personas y duración de la estancia",
     "MAD": "Dírham marroquí",
     "pricePerSquareMeter": "por metro cuadrado",
     "kitchen": "cocina"

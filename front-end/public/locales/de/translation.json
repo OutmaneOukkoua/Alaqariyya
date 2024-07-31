@@ -13,6 +13,7 @@
   },
   "properties": {
     "price": "Preis",
+    "priceWithAsterisk": "Preis*",
     "location": "Standort",
     "bedrooms": "Schlafzimmer",
     "salon": "Wohnzimmer",
@@ -33,7 +34,7 @@
     "floors": "Böden",
     "floorplots": "Bodengrundstücke",
     "availabilityDate": "Verfügbarkeitsdatum",
-    "priceVaries": "Der Preis variiert je nach Personenzahl",
+    "priceVaries": "Der Preis variiert je nach Anzahl der Personen und Aufenthaltsdauer",
     "MAD": "Marokkanischer Dirham",
     "pricePerSquareMeter": "pro Quadratmeter",
     "kitchen": "Küche"
