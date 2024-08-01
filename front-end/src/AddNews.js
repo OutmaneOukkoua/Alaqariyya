@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -23,12 +25,15 @@ function AddNews() {
     formData.append('content_ar', content_ar);
     formData.append('image', image);
 
+    console.log('Form data being sent:', title_ar, content_ar, image);
+
     try {
-      await axios.post(`${API_URL}/news`, formData, {
+      const response = await axios.post(`${API_URL}/news`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log('Response:', response);
       alert('News added successfully!');
       navigate('/dashboard');
     } catch (error) {

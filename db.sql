@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 27 juil. 2024 à 11:55
+-- Généré le : jeu. 01 août 2024 à 20:39
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -69,6 +69,14 @@ CREATE TABLE `news` (
   `published_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `news`
+--
+
+INSERT INTO `news` (`id`, `title_ar`, `title_en`, `title_fr`, `title_es`, `title_de`, `title_nl`, `content_ar`, `content_en`, `content_fr`, `content_es`, `content_de`, `content_nl`, `image_url`, `published_at`) VALUES
+(2, 'عثمان', 'Othman', 'Othmane', 'Othman', 'Othman', 'Othman', 'عثمان', 'Othman', 'Othmane', 'Othman', 'Othman', 'Othman', 'IMG_6367.jpg', '2024-08-01 17:05:11'),
+(3, 'منزل للبيع', 'House for sale', 'maison à vendre', 'Casa en venta', 'Haus zu verkaufen', 'huis te koop', 'منزل للبيع', 'House for sale', 'maison à vendre', 'Casa en venta', 'Haus zu verkaufen', 'huis te koop', 'IMG_6367.jpg', '2024-08-01 17:14:50');
+
 -- --------------------------------------------------------
 
 --
@@ -112,11 +120,7 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`property_id`, `title_ar`, `title_en`, `title_es`, `title_fr`, `title_de`, `title_nl`, `description_ar`, `description_en`, `description_es`, `description_fr`, `description_de`, `description_nl`, `price`, `location_ar`, `location_en`, `location_es`, `location_fr`, `location_de`, `location_nl`, `bedrooms`, `salon`, `bathrooms`, `area`, `type`, `available`, `availability_date`, `floors`, `kitchen`) VALUES
-(29, 'شقة1', 'Apartment 1', 'Apartamento 1', 'Appartement 1', 'Wohnung 1', 'Appartement 1', 'شقة1', 'Apartment 1', 'Apartamento 1', 'Appartement 1', 'Wohnung 1', 'Appartement 1', 44.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 7, 2, 2, 286, 'rent', 1, '0000-00-00', 0, 2),
-(30, 'فيلا للبيع', 'Villa for sale', 'Villa en venta', 'Villa à vendre', 'Villa zum Verkauf', 'Villa te koop', 'فيلا للبيع', 'Villa for sale', 'Villa en venta', 'Villa à vendre', 'Villa zum Verkauf', 'Villa te koop', 350.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 7, 2, 2, 286, 'buy', 0, '0000-00-00', 2, 2),
-(31, 'شقة1', 'Apartment 1', 'Apartamento 1', 'Appartement 1', 'Wohnung 1', 'Appartement 1', 'شقة1', 'Apartment 1', 'Apartamento 1', 'Appartement 1', 'Wohnung 1', 'Appartement 1', 44.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 7, 2, 2, 286, 'rent', 1, '0000-00-00', 0, 2),
-(32, 'شقة11', 'Apartment 11', 'Apartamento 11', 'Appartement 11', 'Wohnung 11', 'Appartement 11', 'شقة11', 'Apartment 11', 'Apartamento 11', 'Appartement 11', 'Wohnung 11', 'Appartement 11', 44.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 7, 2, 2, 286, 'rent', 1, '0000-00-00', 0, 2),
-(33, 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 1.00, '1', '1', '1', '1', '1', '1', 0, 0, 0, 1, 'floorplots', 0, '0000-00-00', 0, 0);
+(16, 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 1.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 1, 1, 1, 1, 'rent', 1, '0000-00-00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -128,42 +132,19 @@ CREATE TABLE `property_images` (
   `image_id` int(11) NOT NULL,
   `property_id` int(11) NOT NULL,
   `image_url` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_main` tinyint(1) DEFAULT 0,
+  `display_order` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `property_images`
 --
 
-INSERT INTO `property_images` (`image_id`, `property_id`, `image_url`, `created_at`) VALUES
-(172, 29, '1722065556550.jpg', '2024-07-27 07:32:37'),
-(173, 29, '1722065556700.jpg', '2024-07-27 07:32:37'),
-(174, 29, '1722065556857.jpg', '2024-07-27 07:32:37'),
-(175, 29, '1722065556995.jpg', '2024-07-27 07:32:37'),
-(176, 30, '1722065621020.jpg', '2024-07-27 07:33:42'),
-(177, 30, '1722065621181.jpg', '2024-07-27 07:33:42'),
-(178, 30, '1722065621330.jpg', '2024-07-27 07:33:42'),
-(179, 30, '1722065621471.jpg', '2024-07-27 07:33:42'),
-(180, 30, '1722065621622.jpg', '2024-07-27 07:33:42'),
-(181, 30, '1722065621758.jpg', '2024-07-27 07:33:42'),
-(182, 30, '1722065621913.jpg', '2024-07-27 07:33:42'),
-(183, 30, '1722065621980.jpg', '2024-07-27 07:33:42'),
-(184, 31, '1722070694763.jpg', '2024-07-27 08:58:15'),
-(185, 31, '1722070694883.jpg', '2024-07-27 08:58:15'),
-(186, 31, '1722070694985.jpg', '2024-07-27 08:58:15'),
-(187, 31, '1722070695091.jpg', '2024-07-27 08:58:15'),
-(188, 31, '1722070695204.jpg', '2024-07-27 08:58:15'),
-(189, 31, '1722070695307.jpg', '2024-07-27 08:58:15'),
-(190, 31, '1722070695414.jpg', '2024-07-27 08:58:15'),
-(191, 31, '1722070695539.jpg', '2024-07-27 08:58:15'),
-(192, 31, '1722070695645.jpg', '2024-07-27 08:58:15'),
-(193, 31, '1722070695744.jpg', '2024-07-27 08:58:15'),
-(194, 32, '1722072959268.png', '2024-07-27 09:36:00'),
-(195, 32, '1722072959415.png', '2024-07-27 09:36:00'),
-(196, 32, '1722072959617.png', '2024-07-27 09:36:00'),
-(197, 32, '1722072959828.png', '2024-07-27 09:36:00'),
-(198, 32, '1722072960038.png', '2024-07-27 09:36:00'),
-(199, 33, '1722073138861.jpg', '2024-07-27 09:38:58');
+INSERT INTO `property_images` (`image_id`, `property_id`, `image_url`, `created_at`, `is_main`, `display_order`) VALUES
+(75, 16, '1722532563078.jpg', '2024-08-01 17:16:03', 1, 0),
+(76, 16, '1722532563149.jpg', '2024-08-01 17:16:03', 0, 1),
+(77, 16, '1722532563223.jpg', '2024-08-01 17:16:03', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -234,19 +215,19 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT pour la table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `property_images`
 --
 ALTER TABLE `property_images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT pour la table `users`
