@@ -52,24 +52,48 @@
     border: 2px solid #4CAF50; /* Green border on hover */
   }
   /* Mobile styles */
-  @media (max-width: 768px) {
-    .contact-submissions-container {
-      padding: 80px 20px;
-      margin-top: 60px;
-    }
-    .go-backkk {
-        margin-top: 60px;
-        left: 20px;
-      }
-  
-    .submissions-table th,
-    .submissions-table td {
-      padding: 5px;
-      font-size: 14px;
-    }
-  
-    .submissions-table {
-      font-size: 14px;
-    }
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .contact-submissions-container {
+    padding: 100px 20px;
   }
+
+  .submissions-table th,
+  .submissions-table td {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .go-backkk {
+    top: 100px;
+    left: 30px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .contact-submissions-container {
+    padding: 80px 10px;
+    margin-top: 60px;
+  }
+
+  .submissions-table th,
+  .submissions-table td {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .go-backkk {
+    top: 130px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .submissions-table {
+    font-size: 14px;
+  }
+}
   

@@ -40,7 +40,7 @@
 
 .go-backk {
   position: absolute; /* Absolute positioning */
-  top: 80px; /* Position from the top */
+  top: 90px; /* Position from the top */
   left: 60px; /* Position from the left */
   background-color: #4CAF50; /* Green background */
   border: none; /* Remove borders */
@@ -49,7 +49,7 @@
   text-align: center; /* Centered text */
   text-decoration: none; /* Remove underline */
   display: inline-block; /* Make the container a block-level element */
-  font-size: 16px; /* Increase font size */
+  font-size: 13px; /* Increase font size */
   cursor: pointer; /* Pointer/hand icon */
   border-radius: 12px; /* Rounded corners */
   transition-duration: 0.4s; /* 0.4 second transition effect to hover state */
@@ -61,22 +61,44 @@
   border: 2px solid #4CAF50; /* Green border on hover */
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .delete-property-container {
-    padding: 80px 20px;
-    margin-top: 80px;
+    padding: 90px 20px;
+  }
+
+  .property-table th,
+  .property-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .property-image {
+    width: 80px;
+  }
+
+  .btn-delete {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 
   .go-backk {
-    margin-top: 60px;
-    left: 20px;
+    top: 110px;
+    left: 30px;
+    padding: 8px 13px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .delete-property-container {
+    padding: 120px 10px;
   }
 
   .property-table th,
   .property-table td {
     padding: 5px;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .property-image {
@@ -84,7 +106,14 @@
   }
 
   .btn-delete {
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .go-backk {
+    top: 130px;
+    left: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }

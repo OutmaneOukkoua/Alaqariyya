@@ -1,4 +1,7 @@
 
+
+
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -32,10 +35,11 @@ function ContactSubmissions() {
     <div className="contact-submissions-container">
       <h1>Contact Submissions</h1>
       <button className="go-backkk" onClick={() => navigate(-1)}>
-         Go Back
+        <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '5px' }} />
+        Go Back
       </button>
       <table className="submissions-table">
-      <thead>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>

@@ -271,6 +271,7 @@ function UpdateProperty() {
               <div className="select-container">
                 <select name="type" value={selectedProperty.type} onChange={handleInputChange} required>
                   <option value="rent">Rent</option>
+                  <option value="regularRent">regularRent</option>
                   <option value="buy">Buy</option>
                   <option value="floorplots">FloorPlots</option>
                 </select>

@@ -2,13 +2,14 @@
   "header": {
     "Home": "Startseite",
     "buy": "Verkaufen",
-    "rent": "Mieten",
+    "rent": "Möblierte Miete",
+    "regularRent": "Miete",
     "news": "Nachrichten",
     "contactUs": "Kontaktieren Sie uns",
     "login": "Anmelden",
     "logout" : "Abmelden",
     "dashboard" : "Armaturenbrett",
-    "floorplotss": "Bodengrundstücke"
+    "floorplotss": "Ländereien"
 
   },
   "properties": {
@@ -20,7 +21,8 @@
     "bathrooms": "Badezimmer",
     "area": "Fläche",
     "type": "Typ",
-    "rent": "Mieten",
+    "rent": "Möblierte Miete",
+    "regularRent": "Miete",
     "buy": "Verkaufen",
     "all": "Alle",
     "searchPlaceholder": "Standort eingeben",
@@ -32,7 +34,7 @@
     "notAvailable": "Nicht Verfügbar",
     "status": "Status",
     "floors": "Böden",
-    "floorplots": "Bodengrundstücke",
+    "floorplots": "Ländereien",
     "availabilityDate": "Verfügbarkeitsdatum",
     "priceVaries": "Der Preis variiert je nach Anzahl der Personen und Aufenthaltsdauer",
     "MAD": "Marokkanischer Dirham",

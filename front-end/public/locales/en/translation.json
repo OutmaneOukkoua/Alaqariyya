@@ -1,8 +1,9 @@
 {
   "header": {
     "Home": "Home",
-    "buy": "sell",
-    "rent": "Rent",
+    "buy": "Sell",
+    "rent": "Furnished rent",
+    "regularRent": "Rent",
     "news": "News",
     "contactUs": "Contact Us",
     "dashboard" : "Dashboard",
@@ -27,7 +28,8 @@
       "bathrooms": "Bathrooms",
       "area": "Area",
       "type": "Type",
-      "rent": "Rent",
+      "rent": "Furnished rent",
+      "regularRent": "Rent",
       "buy": "sell",
       "all": "All",
       "searchPlaceholder": "Enter location",

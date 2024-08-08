@@ -4,7 +4,7 @@
 }
 
 .banner {
-  background-image: url('./ContactUss.jpeg');
+  background-image: url('./ContactU.jpg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -17,6 +17,9 @@
 .banner h1 {
   margin: 3%;
   font-size: 2.5em;
+  color: darkslategrey;
+  text-shadow: 2px 2px 4px #000000;
+
 }
 
 .contact-us-content {
@@ -97,6 +100,16 @@
   background-color: #f44336;
 }
 
+@media (max-width: 1024px) {
+  .banner{
+    position: relative;
+    padding: 100px;
+  }
+  .banner h1{
+    font-size: 2em;
+  }
+  
+}
 /* Mobile styles */
 @media (max-width: 768px) {
   .contact-us-content {
@@ -119,12 +132,12 @@
   }
 
   .banner {
-    padding-top: 20px;
-    padding-bottom: 100px;
+    position: relative;
+    padding: 70px;
   }
 
   .banner h1 {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
     margin: 20px;
   }
 

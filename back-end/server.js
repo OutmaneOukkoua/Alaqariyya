@@ -17,6 +17,7 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(cors());
 
+// Database connection setup
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -25,22 +26,29 @@ const db = mysql.createConnection({
   charset: 'utf8mb4'
 });
 
+// const db = mysql.createConnection({
+  // host: 'localhost',
+  // user: 'alaqgxtb_admin',
+  // password: '}R8rs!T3H[@K',
+  // database: 'alaqgxtb_alaqariyya',
+// });
 
 db.connect(err => {
   if (err) throw err;
   console.log('MySQL Connected...');
 });
 
+// Middleware for file upload
 const storage = multer.memoryStorage();
-
 const upload = multer({ storage });
-
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Basic route to test server setup
 app.get('/', (req, res) => {
   res.send('Welcome to the Node.js backend for ALAQARIYYA');
 });
 
+// Translation utility functions
 const translateText = async (text, target) => {
   try {
     const res = await translate(text, { from: 'ar', to: target });
@@ -64,7 +72,7 @@ const translateProperty = async (property) => {
   return translations;
 };
 
-
+// Routes for property management
 app.post('/properties', upload.array('images', 25), async (req, res) => {
   try {
     const newProperty = {
@@ -124,6 +132,8 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
 
 
 
+
+
 app.get('/properties', async (req, res) => {
   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
@@ -136,7 +146,9 @@ app.get('/properties', async (req, res) => {
     try {
       const translationResult = await translate(location, { from: 'ar', to: lang });
       translatedLocation = translationResult.text;
+      console.log('Translated location:', translatedLocation);
     } catch (error) {
+      console.error('Error translating location:', error);
       return res.status(500).send('Error translating location');
     }
   }
@@ -147,9 +159,9 @@ app.get('/properties', async (req, res) => {
            pi.image_url, p.${descriptionColumn} as description
     FROM properties p
     LEFT JOIN (
-      SELECT property_id, image_url
+      SELECT property_id, MIN(image_url) as image_url, MIN(created_at) as oldest_image_date
       FROM property_images
-      WHERE is_main = TRUE
+      GROUP BY property_id
     ) pi ON p.property_id = pi.property_id
   `;
   const params = [];
@@ -164,13 +176,19 @@ app.get('/properties', async (req, res) => {
     params.push(`%${translatedLocation}%`);
   }
 
-  sql += ' ORDER BY p.property_id DESC LIMIT ? OFFSET ?';
+  sql += ' ORDER BY pi.oldest_image_date ASC LIMIT ? OFFSET ?';
   params.push(parseInt(limit), parseInt(offset));
+
+  console.log('SQL Query:', sql);
+  console.log('Parameters:', params);
 
   db.query(sql, params, (err, result) => {
     if (err) {
+      console.error('Error querying properties:', err);
       return res.status(500).send('Database query error');
     }
+
+    console.log('Fetched properties:', result);
 
     let countSql = 'SELECT COUNT(*) as total FROM properties';
     if (type && type !== 'all') {
@@ -184,6 +202,7 @@ app.get('/properties', async (req, res) => {
 
     db.query(countSql, params.slice(0, params.length - 2), (countErr, countResult) => {
       if (countErr) {
+        console.error('Error counting properties:', countErr);
         return res.status(500).send('Database count error');
       }
       const totalProperties = countResult[0].total;
@@ -197,6 +216,93 @@ app.get('/properties', async (req, res) => {
     });
   });
 });
+
+
+app.get('/properties', async (req, res) => {
+  const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
+  const offset = (page - 1) * limit;
+  const titleColumn = `title_${lang}`;
+  const descriptionColumn = `description_${lang}`;
+  const locationColumn = `location_${lang}`;
+
+  let translatedLocation = '';
+  if (location) {
+    try {
+      const translationResult = await translate(location, { from: 'ar', to: lang });
+      translatedLocation = translationResult.text;
+      console.log('Translated location:', translatedLocation);
+    } catch (error) {
+      console.error('Error translating location:', error);
+      return res.status(500).send('Error translating location');
+    }
+  }
+
+  let sql = `
+    SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, 
+           p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, 
+           pi.image_url, p.${descriptionColumn} as description
+    FROM properties p
+    LEFT JOIN (
+      SELECT property_id, MIN(image_url) as image_url, MIN(created_at) as oldest_image_date
+      FROM property_images
+      GROUP BY property_id
+    ) pi ON p.property_id = pi.property_id
+  `;
+  const params = [];
+
+  if (type && type !== 'all') {
+    sql += ' WHERE p.type = ?';
+    params.push(type);
+  }
+
+  if (translatedLocation) {
+    sql += params.length ? ` AND p.${locationColumn} LIKE ?` : ` WHERE p.${locationColumn} LIKE ?`;
+    params.push(`%${translatedLocation}%`);
+  }
+
+  sql += ' ORDER BY p.property_id ASC LIMIT ? OFFSET ?';
+  params.push(parseInt(limit), parseInt(offset));
+
+  console.log('SQL Query:', sql);
+  console.log('Parameters:', params);
+
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      console.error('Error querying properties:', err);
+      return res.status(500).send('Database query error');
+    }
+
+    console.log('Fetched properties:', result);
+
+    let countSql = 'SELECT COUNT(*) as total FROM properties';
+    const countParams = [];
+    
+    if (type && type !== 'all') {
+      countSql += ' WHERE type = ?';
+      countParams.push(type);
+    }
+    if (translatedLocation) {
+      countSql += countParams.length ? ` AND ${locationColumn} LIKE ?` : ` WHERE ${locationColumn} LIKE ?`;
+      countParams.push(`%${translatedLocation}%`);
+    }
+
+    db.query(countSql, countParams, (countErr, countResult) => {
+      if (countErr) {
+        console.error('Error counting properties:', countErr);
+        return res.status(500).send('Database count error');
+      }
+      const totalProperties = countResult[0].total;
+      const totalPages = Math.ceil(totalProperties / limit);
+
+      res.send({
+        properties: result,
+        totalPages: totalPages,
+        currentPage: parseInt(page)
+      });
+    });
+  });
+});
+
 
 app.get('/properties/:id', (req, res) => {
   const language = req.query.lang || 'en';
@@ -220,9 +326,6 @@ app.get('/properties/:id', (req, res) => {
     res.send(result);
   });
 });
-
-
-
 
 app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
   try {
@@ -254,12 +357,13 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
 
       if (req.files && req.files.length) {
         const selectImagesSql = 'SELECT image_url FROM property_images WHERE property_id = ?';
-        db.query(selectImagesSql, [req.params.id], (err, images) => {
+        db.query(selectImagesSql, [req.params.id], async (err, images) => {
           if (err) {
             console.error('Error querying property images:', err);
             return res.status(500).send('Database query error');
           }
 
+          // Delete old images from the file system
           images.forEach(image => {
             const filePath = path.join(__dirname, 'uploads', image.image_url);
             fs.unlink(filePath, (err) => {
@@ -278,12 +382,12 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
             for (const [index, file] of req.files.entries()) {
               const outputPath = path.join(__dirname, 'uploads', Date.now() + path.extname(file.originalname));
               await sharp(file.buffer)
-                .rotate() 
+                .rotate()
                 .resize(800, 600)
                 .jpeg({ quality: 80 })
                 .toFile(outputPath);
 
-              const isMain = req.files.length === 1 || index === 0; // Set isMain to true if it is the only image or the first image
+              const isMain = req.files.length === 1 || index === 0;
               const displayOrder = parseInt(req.body.displayOrder ? req.body.displayOrder[index] : index, 10);
               newImages.push([req.params.id, path.basename(outputPath), isMain, displayOrder]);
             }
@@ -311,7 +415,6 @@ app.put('/properties/:id', upload.array('images', 25), async (req, res) => {
     res.status(500).send('Error processing request');
   }
 });
-
 
 app.put('/properties/:id/availability', (req, res) => {
   const { available, availability_date } = req.body;
@@ -361,6 +464,7 @@ app.delete('/properties/:id', (req, res) => {
   });
 });
 
+// User authentication routes
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -386,8 +490,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-
-
+// Routes for news management
 const translateNews = async (news) => {
   const languages = ['en', 'fr', 'es', 'de', 'nl'];
   const translations = {};
@@ -406,7 +509,6 @@ const translateNews = async (news) => {
     ...translations,
   };
 };
-
 
 app.post('/news', upload.single('image'), async (req, res) => {
   try {
@@ -456,8 +558,6 @@ app.post('/news', upload.single('image'), async (req, res) => {
     res.status(500).send('Error processing request');
   }
 });
-
-
 
 app.get('/news', (req, res) => {
   const lang = req.query.lang || 'ar';
@@ -517,6 +617,7 @@ app.delete('/news/:id', (req, res) => {
   });
 });
 
+// Routes for contact submissions
 app.post('/contact-submissions', (req, res) => {
   const newSubmission = {
     name: req.body.name,
@@ -558,6 +659,8 @@ app.delete('/contact-submissions/:id', (req, res) => {
   });
 });
 
+// app.use('/nodeapp', router);
 
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

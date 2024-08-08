@@ -130,18 +130,72 @@
 }
 
 /* Mobile version */
-@media (max-width: 768px) {
+/* Responsive Styles */
+/* Tablet version */
+@media (max-width: 1024px) {
   .add-property-container {
-    padding: 80px 20px;
-    margin-top: 60px;
-  }
-
-  .go-backa {
-    padding: auto;
-    left: 20px;
+    padding: 40px 20px;
   }
 
   .property-formm {
-    padding: 20px;
+    padding: 40px;
+    margin-top: 30px;
+  }
+
+  .property-formm h2 {
+    font-size: 20px;
+  }
+
+  .property-formm input,
+  .property-formm select,
+  .property-formm textarea {
+    font-size: 14px;
+  }
+
+  .property-formm button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .go-backa {
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile version */
+@media (max-width: 768px) {
+  .add-property-container {
+    padding: 120px 30px;
+  }
+
+  .property-formm {
+    padding: 30px;
+    margin-top: 20px;
+  }
+
+  .property-formm h2 {
+    font-size: 18px;
+  }
+
+  .property-formm input,
+  .property-formm select,
+  .property-formm textarea {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .property-formm button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .go-backa {
+    top: 100px;
+    left: -60px;
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }

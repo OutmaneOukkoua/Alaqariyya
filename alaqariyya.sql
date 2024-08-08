@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 01 août 2024 à 20:39
+-- Généré le : jeu. 08 août 2024 à 10:34
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.0.30
 
@@ -69,14 +69,6 @@ CREATE TABLE `news` (
   `published_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `news`
---
-
-INSERT INTO `news` (`id`, `title_ar`, `title_en`, `title_fr`, `title_es`, `title_de`, `title_nl`, `content_ar`, `content_en`, `content_fr`, `content_es`, `content_de`, `content_nl`, `image_url`, `published_at`) VALUES
-(2, 'عثمان', 'Othman', 'Othmane', 'Othman', 'Othman', 'Othman', 'عثمان', 'Othman', 'Othmane', 'Othman', 'Othman', 'Othman', 'IMG_6367.jpg', '2024-08-01 17:05:11'),
-(3, 'منزل للبيع', 'House for sale', 'maison à vendre', 'Casa en venta', 'Haus zu verkaufen', 'huis te koop', 'منزل للبيع', 'House for sale', 'maison à vendre', 'Casa en venta', 'Haus zu verkaufen', 'huis te koop', 'IMG_6367.jpg', '2024-08-01 17:14:50');
-
 -- --------------------------------------------------------
 
 --
@@ -120,7 +112,7 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`property_id`, `title_ar`, `title_en`, `title_es`, `title_fr`, `title_de`, `title_nl`, `description_ar`, `description_en`, `description_es`, `description_fr`, `description_de`, `description_nl`, `price`, `location_ar`, `location_en`, `location_es`, `location_fr`, `location_de`, `location_nl`, `bedrooms`, `salon`, `bathrooms`, `area`, `type`, `available`, `availability_date`, `floors`, `kitchen`) VALUES
-(16, 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 'ارض', 'Land', 'Tierra', 'Atterrir', 'Land', 'Land', 1.00, 'بني انصار,حي عبد المومن', 'Bani Ansar, Abdul Mumin neighborhood', 'Bani Ansar, barrio de Abdul Mumin', 'Bani Ansar, quartier Abdul Mumin', 'Bani Ansar, Abdul Mumin Viertel', 'Bani Ansar, Abdul Mumin -buurt', 1, 1, 1, 1, 'rent', 1, '0000-00-00', 0, 1);
+(19, 'شقة', 'apartment', 'departamento', 'appartement', 'Wohnung', 'appartement', 'شقة', 'apartment', 'departamento', 'appartement', 'Wohnung', 'appartement', 1.00, 'شقة', 'apartment', 'departamento', 'appartement', 'Wohnung', 'appartement', 1, 1, 1, 1, 'buy', 0, '0000-00-00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -142,9 +134,7 @@ CREATE TABLE `property_images` (
 --
 
 INSERT INTO `property_images` (`image_id`, `property_id`, `image_url`, `created_at`, `is_main`, `display_order`) VALUES
-(75, 16, '1722532563078.jpg', '2024-08-01 17:16:03', 1, 0),
-(76, 16, '1722532563149.jpg', '2024-08-01 17:16:03', 0, 1),
-(77, 16, '1722532563223.jpg', '2024-08-01 17:16:03', 0, 2);
+(86, 19, '1722676843521.jpg', '2024-08-03 09:20:43', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -221,13 +211,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT pour la table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `property_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `property_images`
 --
 ALTER TABLE `property_images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT pour la table `users`

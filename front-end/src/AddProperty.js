@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -30,10 +31,18 @@ function AddProperty() {
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-    setNewProperty(prevState => ({
-      ...prevState,
-      [name]: type === 'number' ? parseInt(value, 10) : value
-    }));
+    if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar') {
+      const arabicOnly = value.replace(/[^\u0600-\u06FF\s]/g, '');
+      setNewProperty(prevState => ({
+        ...prevState,
+        [name]: type === 'number' ? parseInt(arabicOnly, 10) : arabicOnly
+      }));
+    } else {
+      setNewProperty(prevState => ({
+        ...prevState,
+        [name]: type === 'number' ? parseInt(value, 10) : value
+      }));
+    }
   };
 
   const handleFileChange = (e) => {
@@ -135,6 +144,7 @@ function AddProperty() {
       <form onSubmit={handleAddProperty} className="property-formm">
         <select name="type" value={newProperty.type} onChange={handleInputChange} required>
           <option value="rent">Rent</option>
+          <option value="regularRent">regularRent</option>
           <option value="buy">Buy</option>
           <option value="floorplots">FloorPlots</option>
         </select>
@@ -154,7 +164,6 @@ function AddProperty() {
             <input type="number" name="bedrooms" placeholder="Bedrooms" value={newProperty.bedrooms} onChange={handleInputChange} required />
             {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
             <input type="number" name="salon" placeholder="Salon" value={newProperty.salon} onChange={handleInputChange} />
-            
             <input type="number" name="bathrooms" placeholder="Bathrooms" value={newProperty.bathrooms} onChange={handleInputChange} required />
             {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
             <input type="number" name="kitchen" placeholder="Kitchen" value={newProperty.kitchen} onChange={handleInputChange} required />

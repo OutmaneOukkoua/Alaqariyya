@@ -25,21 +25,23 @@ function AddNews() {
     formData.append('content_ar', content_ar);
     formData.append('image', image);
 
-    console.log('Form data being sent:', title_ar, content_ar, image);
-
     try {
       const response = await axios.post(`${API_URL}/news`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('Response:', response);
       alert('News added successfully!');
       navigate('/dashboard');
     } catch (error) {
       console.error('Error adding news article:', error);
       alert('Error adding news article. Please try again.');
     }
+  };
+
+  const handleArabicInput = (setter) => (e) => {
+    const arabicOnly = e.target.value.replace(/[^\u0600-\u06FF\s]/g, '');
+    setter(arabicOnly);
   };
 
   return (
@@ -53,7 +55,7 @@ function AddNews() {
             type="text" 
             placeholder="Title (Arabic)"
             value={title_ar} 
-            onChange={(e) => setTitle(e.target.value)} 
+            onChange={handleArabicInput(setTitle)} 
             required 
           />
         </label>
@@ -62,7 +64,7 @@ function AddNews() {
           <textarea 
             value={content_ar}
             placeholder="Description (Arabic)"
-            onChange={(e) => setContent(e.target.value)} 
+            onChange={handleArabicInput(setContent)} 
             required
           ></textarea>
         </label>

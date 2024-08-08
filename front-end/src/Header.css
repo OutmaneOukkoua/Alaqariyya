@@ -59,9 +59,11 @@
   transition: color 0.3s ease;
 }
 
-.header-nav a:hover {
+.header-nav a:hover,
+.header-nav a.active {
   color: #0d6efd;
 }
+
 
 .header-actions {
   display: flex;
@@ -236,56 +238,104 @@
   }
 }
 
-@media (min-width: 769px) and (max-width: 924px) {
+@media (max-width: 1024px) {
   .header-top {
-    padding: 10px 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
   }
 
   .header-logo .logo {
-    height: 45px;
+    height: 40px;
   }
 
   .header-nav ul {
+    flex-direction: row;
     gap: 10px;
-  }
-
-  .header-nav a {
-    font-size: 0.9rem;
-    padding: 5px 6px;
-  }
-
-  .header-button,
-  .header-login,
-  .header-signup {
-    padding: 5px 12px;
-    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
   }
 
   .header-actions {
-    gap: 15px;
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .panier-icon .fa-shopping-cart {
-    font-size: 1.2rem;
+  .menu-toggle {
+    display: none;
   }
 
-  .panier-count {
-    padding: 4px 8px;
-    font-size: 0.7rem;
+  .header-nav {
+    width: 100%;
   }
 
-  /* Minimize size for the login button and language select */
   .header-login,
-  .header-button {
-    padding: 3px 10px;
-    font-size: 0.8rem;
+  .header-signup,
+  .panier-icon {
+    margin-left: 0;
   }
 
   .language-select .react-select__control {
-    width: 150px;
+    width: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .header-logo .logo {
+    height: 40px;
+  }
+
+  .header-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    display: none;
+  }
+
+  .header-nav.open ul {
+    display: flex;
   }
 
   .header-actions {
-    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .header-nav {
+    width: 100%;
+  }
+
+  .header-nav ul {
+    display: none;
+    flex-direction: column;
+  }
+
+  .header-nav.open ul {
+    display: flex;
+  }
+
+  .header-login,
+  .header-signup,
+  .panier-icon {
+    margin-left: 0;
+  }
+
+  .language-select .react-select__control {
+    width: 100%;
   }
 }
