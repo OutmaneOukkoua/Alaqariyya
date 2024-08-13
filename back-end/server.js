@@ -134,6 +134,89 @@ app.post('/properties', upload.array('images', 25), async (req, res) => {
 
 
 
+// app.get('/properties', async (req, res) => {
+//   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
+//   const offset = (page - 1) * limit;
+//   const titleColumn = `title_${lang}`;
+//   const descriptionColumn = `description_${lang}`;
+//   const locationColumn = `location_${lang}`;
+
+//   let translatedLocation = '';
+//   if (location) {
+//     try {
+//       const translationResult = await translate(location, { from: 'ar', to: lang });
+//       translatedLocation = translationResult.text;
+//       console.log('Translated location:', translatedLocation);
+//     } catch (error) {
+//       console.error('Error translating location:', error);
+//       return res.status(500).send('Error translating location');
+//     }
+//   }
+
+//   let sql = `
+//     SELECT p.property_id, p.${titleColumn} as title, p.price, p.${locationColumn} as location, p.bedrooms, 
+//            p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, p.availability_date, 
+//            pi.image_url, p.${descriptionColumn} as description
+//     FROM properties p
+//     LEFT JOIN (
+//       SELECT property_id, MIN(image_url) as image_url, MIN(created_at) as oldest_image_date
+//       FROM property_images
+//       GROUP BY property_id
+//     ) pi ON p.property_id = pi.property_id
+//   `;
+//   const params = [];
+
+//   if (type && type !== 'all') {
+//     sql += ' WHERE p.type = ?';
+//     params.push(type);
+//   }
+
+//   if (translatedLocation) {
+//     sql += params.length ? ` AND p.${locationColumn} LIKE ?` : ` WHERE p.${locationColumn} LIKE ?`;
+//     params.push(`%${translatedLocation}%`);
+//   }
+
+//   sql += ' ORDER BY pi.oldest_image_date ASC LIMIT ? OFFSET ?';
+//   params.push(parseInt(limit), parseInt(offset));
+
+//   console.log('SQL Query:', sql);
+//   console.log('Parameters:', params);
+
+//   db.query(sql, params, (err, result) => {
+//     if (err) {
+//       console.error('Error querying properties:', err);
+//       return res.status(500).send('Database query error');
+//     }
+
+//     console.log('Fetched properties:', result);
+
+//     let countSql = 'SELECT COUNT(*) as total FROM properties';
+//     if (type && type !== 'all') {
+//       countSql += ' WHERE type = ?';
+//       if (translatedLocation) {
+//         countSql += ` AND ${locationColumn} LIKE ?`;
+//       }
+//     } else if (translatedLocation) {
+//       countSql += ` WHERE ${locationColumn} LIKE ?`;
+//     }
+
+//     db.query(countSql, params.slice(0, params.length - 2), (countErr, countResult) => {
+//       if (countErr) {
+//         console.error('Error counting properties:', countErr);
+//         return res.status(500).send('Database count error');
+//       }
+//       const totalProperties = countResult[0].total;
+//       const totalPages = Math.ceil(totalProperties / limit);
+
+//       res.send({
+//         properties: result,
+//         totalPages: totalPages,
+//         currentPage: parseInt(page)
+//       });
+//     });
+//   });
+// });
+
 app.get('/properties', async (req, res) => {
   const { type, location, page = 1, limit = 8, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
@@ -176,7 +259,8 @@ app.get('/properties', async (req, res) => {
     params.push(`%${translatedLocation}%`);
   }
 
-  sql += ' ORDER BY pi.oldest_image_date ASC LIMIT ? OFFSET ?';
+  // Order by random to randomize the results
+  sql += ' ORDER BY RAND() LIMIT ? OFFSET ?';
   params.push(parseInt(limit), parseInt(offset));
 
   console.log('SQL Query:', sql);

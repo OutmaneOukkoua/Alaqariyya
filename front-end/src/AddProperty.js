@@ -168,7 +168,7 @@ function AddProperty() {
             {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
             <input type="number" name="kitchen" placeholder="Kitchen" value={newProperty.kitchen} onChange={handleInputChange} required />
             {errors.kitchen && <p className="error-message">{errors.kitchen}</p>}
-            {newProperty.type === 'buy' && (
+            {(newProperty.type === 'buy' || newProperty.type === 'regularRent')  && (
               <>
                 <input type="number" name="floors" placeholder="Number of Floors" value={newProperty.floors} onChange={handleInputChange} required />
                 {errors.floors && <p className="error-message">{errors.floors}</p>}

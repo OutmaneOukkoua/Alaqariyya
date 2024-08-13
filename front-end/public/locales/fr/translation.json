@@ -34,6 +34,8 @@
     "notAvailable": "Non Disponible",
     "status": "Statut",
     "floors": "sols",
+    "floors1": "sol",
+
     "floorplots": "Terrains",
     "availabilityDate": "Date de disponibilité",
     "priceVaries": "Le prix varie en fonction du nombre de personnes et de la durée du séjour",

@@ -173,9 +173,15 @@ function ProductDetail() {
                 <td>{product[0].area} m²</td>
               </tr>
               
-              {product[0].type === 'buy' && (
+              {product[0].type === 'buy'  && (
                 <tr>
                   <td><FontAwesomeIcon icon={faBuilding} /><strong> {t('properties.floors')}:</strong></td>
+                  <td>{product[0].floors}</td>
+                </tr>
+              )}
+              {product[0].type ==='regularRent'  && (
+                <tr>
+                  <td><FontAwesomeIcon icon={faBuilding} /><strong> {t('properties.floors1')}:</strong></td>
                   <td>{product[0].floors}</td>
                 </tr>
               )}

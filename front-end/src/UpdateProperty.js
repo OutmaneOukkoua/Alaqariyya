@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -287,7 +285,7 @@ function UpdateProperty() {
                   <input type="number" name="salon" placeholder="Salon" value={selectedProperty.salon} onChange={handleInputChange} />
                   <input type="number" name="bathrooms" placeholder="Bathrooms" value={selectedProperty.bathrooms} onChange={handleInputChange} required />
                   <input type="number" name="kitchen" placeholder="Kitchen" value={selectedProperty.kitchen} onChange={handleInputChange} required />
-                  {selectedProperty.type === 'buy' && (
+                  {(selectedProperty.type === 'buy' || selectedProperty.type === 'regularRent') && (
                     <input type="number" name="floors" placeholder="Number of Floors" value={selectedProperty.floors} onChange={handleInputChange} required />
                   )}
                   {selectedProperty.type === 'rent' && (

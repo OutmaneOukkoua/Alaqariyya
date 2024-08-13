@@ -41,6 +41,8 @@
       "notAvailable": "Not Available",
       "status": "Status",
       "floors": "Floors",
+      "floors1": "Floor",
+
       "floorplots": "Floor Plots",
       "availabilityDate": "Availability date",
       "priceVaries": "The price varies depending on the number of people and the length of stay",
