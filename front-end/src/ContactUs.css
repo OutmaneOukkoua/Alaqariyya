@@ -3,6 +3,15 @@
   padding: 20px;
 }
 
+.contact-us-container.ltr {
+  text-align: left;
+}
+
+.contact-us-container.rtl {
+  text-align: right;
+  direction: rtl;
+}
+
 .banner {
   background-image: url('./ContactU.jpg');
   background-size: cover;
@@ -14,12 +23,12 @@
   position: relative;
 }
 
-.banner h1 {
-  margin: 3%;
-  font-size: 2.5em;
-  color: darkslategrey;
+.bannerName {
+  margin-top: 80px;
+  font-size: 2.7em;
+  font-weight: 550;
+  color: #2e2e2e;
   text-shadow: 2px 2px 4px #000000;
-
 }
 
 .contact-us-content {
@@ -45,6 +54,9 @@
 
 .contact-details p {
   margin: 10px 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .map iframe {
@@ -100,16 +112,19 @@
   background-color: #f44336;
 }
 
+/* Tablet styles */
 @media (max-width: 1024px) {
-  .banner{
+  .banner {
     position: relative;
     padding: 100px;
   }
-  .banner h1{
-    font-size: 2em;
+
+  .bannerName {
+    font-size: 2.5em;
+    margin-top: 40px;
   }
-  
 }
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .contact-us-content {
@@ -136,9 +151,9 @@
     padding: 70px;
   }
 
-  .banner h1 {
-    font-size: 1.9rem;
-    margin: 20px;
+  .bannerName {
+    font-size: 2rem;
+    margin-top: 40px;
   }
 
   .map iframe {

@@ -17,7 +17,7 @@
   cursor: pointer;
   font-size: 16px;
   position: absolute;
-  top: 60px;
+  top: 90px;
   left: 20px;
   display: flex;
   align-items: center;
@@ -87,11 +87,11 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .Cart {
-    padding: 120px 10px;
+    padding: 150px 10px;
   }
 
   .go-button {
-    top: 100px;
+    top: 120px;
     left: 10px;
     font-size: 14px;
     padding: 8px 16px;
@@ -126,5 +126,48 @@
   .cart-item-details button {
     padding: 5px 10px;
     font-size: 14px;
+  }
+}
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .Cart {
+    padding: 160px 15px;
+  }
+
+  .go-button {
+    top: 150px;
+    left: 15px;
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+
+  .Cart h2 {
+    font-size: 1.8rem;
+  }
+
+  .Cart li {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    padding: 15px;
+  }
+
+  .cart-item-image {
+    width: 90px;
+    height: 90px;
+    margin-right: 15px;
+  }
+
+  .cart-item-details {
+    flex: 1;
+  }
+
+  .cart-item-details p {
+    margin: 5px 0;
+  }
+
+  .cart-item-details button {
+    padding: 7px 12px;
+    font-size: 15px;
   }
 }

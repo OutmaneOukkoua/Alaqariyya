@@ -1,0 +1,121 @@
+/* Container Styling */
+.newsPage {
+  padding: 100px;
+    font-family: "Tajawal", sans-serif;
+}
+
+/* Heading Styling */
+.newsPage h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+}
+
+.article-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+/* Add News Button */
+.add-news {
+  background-color: green;
+  color: white;
+  padding: 12px 24px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-news:hover {
+  background-color: #28a745; /* Slightly lighter green for hover effect */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.add-news:active {
+  transform: scale(1); /* Reset zoom effect on click */
+}
+
+.add-news:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Add a subtle focus ring */
+}
+
+
+/* Table Styling */
+.news-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.news-table th, .news-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.news-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.news-table td {
+  background-color: #fff;
+}
+
+.news-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Delete Button Styling */
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .newsPage {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .newsPage h2 {
+    font-size: 20px;
+  }
+
+  .news-table th, .news-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .delete-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  .add-news {
+    padding: 8px 16px;
+    font-size: 0.9em;
+    margin-top: 10px;
+  }
+
+  .add-news:hover {
+    transform: scale(1.02); /* Further reduce zoom effect on hover */
+  }
+}

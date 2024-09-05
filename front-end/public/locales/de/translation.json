@@ -55,12 +55,11 @@
     "desc": "mieten - kaufen - verkaufen",
     "contact": "Kontakt",
     "contacts": {
-      "person1": "Mostafa Yaish: 0665.76.95.60",
-      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
-      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "numIAM1": "Erste zusätzliche Nummer: 0668.55.07.04",
+      "numIAM2": "Zweite zusätzliche Nummer: 0668.55.06.52",
       "address1": "Ibn Sina Straße (Kreuzung der Oqba Straße)",
       "address2": "Al Masjid Viertel, Beni Ensar - Nador",
-      "phone": "Telefon: 0536.34.81.41"
+      "phone": "Festnetz: 0536.34.81.41"
     },
     "copyRight": "Alle Rechte vorbehalten © 2024"
   },
@@ -94,8 +93,8 @@
     "Go Back": "Zurück"
   },
   "Cart": {
-    "yourCart": "Dein Warenkorb",
-    "cartEmpty": "Dein Warenkorb ist leer.",
+    "yourCart": "Ihre Liste der Lieblingsimmobilien",
+    "cartEmpty": "Ihre Liste der Lieblingsimmobilien ist leer",
     "remove": "Entfernen"
   }
 }

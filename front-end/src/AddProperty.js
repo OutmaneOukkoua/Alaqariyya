@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -32,7 +31,7 @@ function AddProperty() {
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar') {
-      const arabicOnly = value.replace(/[^\u0600-\u06FF\s]/g, '');
+      const arabicOnly = value.replace(/[^\u0600-\u06FF0-9\s.,?!؛،]/g, '');
       setNewProperty(prevState => ({
         ...prevState,
         [name]: type === 'number' ? parseInt(arabicOnly, 10) : arabicOnly
@@ -63,53 +62,66 @@ function AddProperty() {
       setErrors(validationErrors);
       return;
     }
-
+  
     if (imageFiles.length === 0) {
       setErrors(prevErrors => ({ ...prevErrors, images: 'Please upload at least one image.' }));
       return;
     }
-
+  
     const formData = new FormData();
     for (const key in newProperty) {
-      formData.append(key, newProperty[key]);
+      if (newProperty[key] !== '') {
+        formData.append(key, newProperty[key]);
+      }
     }
     imageFiles.forEach((img, index) => {
       formData.append('images', img.file);
       formData.append('isMain', img.isMain);
       formData.append('displayOrder', img.displayOrder);
     });
-
-    const token = localStorage.getItem('jwtToken');
-
+  
+    const token = localStorage.getItem('jwtToken');  // Define the token here
+  
     try {
-      await axios.post(`${API_URL}/properties`, formData, {
+      const response = await axios.post(`${API_URL}/properties`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}` // Use the token
         }
       });
-      toast.success('Property added successfully!', {
-        icon: "🏠",
-      });
-      setNewProperty({
-        type: 'rent',
-        title_ar: '',
-        description_ar: '',
-        price: '',
-        location_ar: '',
-        area: '',
-        available: true,
-        availability_date: '',
-        bedrooms: '',
-        salon: '',
-        bathrooms: '',
-        kitchen: '',
-        floors: ''
-      });
-      setImageFiles([]);
-      setErrors({});
+  
+      if (response.status === 200) {
+        toast.success('Property added successfully!', {
+          icon: "🏠",
+        });
+        setNewProperty({
+          type: 'rent',
+          title_ar: '',
+          description_ar: '',
+          price: '',
+          location_ar: '',
+          area: '',
+          available: true,
+          availability_date: '',
+          bedrooms: '',
+          salon: '',
+          bathrooms: '',
+          kitchen: '',
+          floors: ''
+        });
+        setImageFiles([]);
+        setErrors({});
+      } else {
+        throw new Error('Unexpected response status');
+      }
     } catch (error) {
-      toast.error('Error adding property. Please try again.');
+      if (error.response && error.response.data) {
+        toast.error(`Error adding property: ${error.response.data}`);
+      } else if (error.request) {
+        toast.error('No response from server. Please try again later.');
+      } else {
+        toast.error(`Error adding property: ${error.message}`);
+      }
     }
   };
 
@@ -137,21 +149,18 @@ function AddProperty() {
 
   return (
     <div className="add-property-container">
-      <ToastContainer />
-      <button className="go-backa" onClick={() => navigate(-1)}>
-        Go Back
-      </button>
       <form onSubmit={handleAddProperty} className="property-formm">
+        <ToastContainer className="toast-inside-modal" />
         <select name="type" value={newProperty.type} onChange={handleInputChange} required>
           <option value="rent">Rent</option>
-          <option value="regularRent">regularRent</option>
+          <option value="regularRent">Regular Rent</option>
           <option value="buy">Buy</option>
-          <option value="floorplots">FloorPlots</option>
+          <option value="floorplots">Floor Plots</option>
         </select>
         {errors.type && <p className="error-message">{errors.type}</p>}
         <input type="text" name="title_ar" placeholder="Title (Arabic)" value={newProperty.title_ar} onChange={handleInputChange} required />
         {errors.title_ar && <p className="error-message">{errors.title_ar}</p>}
-        <textarea name="description_ar" placeholder="Description (Arabic)" value={newProperty.description_ar} onChange={handleInputChange} required />
+        <textarea style={{resize: 'none'}} name="description_ar" placeholder="Description (Arabic)" value={newProperty.description_ar} onChange={handleInputChange} required />
         {errors.description_ar && <p className="error-message">{errors.description_ar}</p>}
         <input type="number" name="price" placeholder="Price" value={newProperty.price} onChange={handleInputChange} required />
         {errors.price && <p className="error-message">{errors.price}</p>}
@@ -168,7 +177,7 @@ function AddProperty() {
             {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
             <input type="number" name="kitchen" placeholder="Kitchen" value={newProperty.kitchen} onChange={handleInputChange} required />
             {errors.kitchen && <p className="error-message">{errors.kitchen}</p>}
-            {(newProperty.type === 'buy' || newProperty.type === 'regularRent')  && (
+            {(newProperty.type === 'buy' || newProperty.type === 'regularRent') && (
               <>
                 <input type="number" name="floors" placeholder="Number of Floors" value={newProperty.floors} onChange={handleInputChange} required />
                 {errors.floors && <p className="error-message">{errors.floors}</p>}

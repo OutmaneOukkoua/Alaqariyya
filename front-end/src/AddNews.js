@@ -1,16 +1,13 @@
 
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import './AddNews.css';
 
-function AddNews() {
+function AddNews({ closeModal, refreshNews }) { // Accept refreshNews as a prop
   const [title_ar, setTitle] = useState('');
   const [content_ar, setContent] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_SERVER;
 
   const handleSubmit = async (e) => {
@@ -26,13 +23,14 @@ function AddNews() {
     formData.append('image', image);
 
     try {
-      const response = await axios.post(`${API_URL}/news`, formData, {
+      await axios.post(`${API_URL}/news`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       alert('News added successfully!');
-      navigate('/dashboard');
+      closeModal(); // Close the modal after successfully adding news
+      refreshNews(); // Refresh the news list in DeleteNews
     } catch (error) {
       console.error('Error adding news article:', error);
       alert('Error adding news article. Please try again.');
@@ -40,13 +38,12 @@ function AddNews() {
   };
 
   const handleArabicInput = (setter) => (e) => {
-    const arabicOnly = e.target.value.replace(/[^\u0600-\u06FF\s]/g, '');
+    const arabicOnly = e.target.value.replace(/[^\u0600-\u06FF0-9\s.,?!؛،]/g, '');
     setter(arabicOnly);
   };
 
   return (
     <div className="AddNews">
-      <button className="go-back-button" onClick={() => navigate('/dashboard')}>Go Back</button>
       <h2>Add News Article</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -61,7 +58,7 @@ function AddNews() {
         </label>
         <label>
           Content (Arabic):
-          <textarea 
+          <textarea style={{resize: 'none'}}
             value={content_ar}
             placeholder="Description (Arabic)"
             onChange={handleArabicInput(setContent)} 

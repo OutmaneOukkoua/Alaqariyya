@@ -1,23 +1,24 @@
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './SearchBar.css';
 import { Helmet } from 'react-helmet';
 
+
 function SearchBar({ onSearch, filterType, onFilterChange }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [location, setLocation] = useState('');
 
   const handleTabClick = (type) => {
-    onFilterChange(type);
-    onSearch({ type, location });
+    console.log(`Filter type changed to: ${type}`);
+    onFilterChange(type); // Update the filterType in the parent component
+    onSearch({ type, location }); // Trigger the search with the new filter type
   };
 
   const handleLocationChange = (e) => {
-    const location = e.target.value;
-    setLocation(location);
-    onSearch({ type: filterType, location });
+    const updatedLocation = e.target.value;
+    setLocation(updatedLocation);
+    console.log(`Location changed to: ${updatedLocation}`);
+    onSearch({ type: filterType, location: updatedLocation }); // Use the updated location for searching
   };
 
   return (
@@ -80,8 +81,7 @@ function SearchBar({ onSearch, filterType, onFilterChange }) {
                   <button
                     className={filterType === 'all' ? 'active' : ''}
                     onClick={() => handleTabClick('all')}
-                    aria-pressed={filterType === 'all'}
-                  >
+                    aria-pressed={filterType === 'all'}>
                     {t('properties.all')}
                   </button>
                 </th>
@@ -112,7 +112,6 @@ function SearchBar({ onSearch, filterType, onFilterChange }) {
                     {t('properties.buy')}
                   </button>
                 </th>
-                
                 <th>
                   <button
                     className={filterType === 'floorplots' ? 'active' : ''}

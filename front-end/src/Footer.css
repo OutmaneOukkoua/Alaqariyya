@@ -1,6 +1,6 @@
 /* General styles */
 .Footer {
-  background-color: #dbd5d5;
+  background-color: #edebeb;
   color: #333;
   text-align: left;
   padding: 40px 20px;
@@ -11,20 +11,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #8079e6;
+  background-color: #8a94e0;
   padding: 10px 20px;
 }
 
 .Footer .Footer-top p {
   margin: 0;
-  color: #333;
+  color: #333333;
 }
 
 .Footer .Social-icons a {
-  color: #333;
+  color: #3f3f3f;
   margin: 0 10px;
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 1.3em;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
@@ -44,6 +44,13 @@
 .Footer .Social-icons a:hover .fa-whatsapp {
   color: #25D366;
 }
+
+.Footer .Social-icons a:hover .fa-phone {
+  color: #25D366;
+}
+
+
+
 
 .Footer .Footer-content {
   display: flex;

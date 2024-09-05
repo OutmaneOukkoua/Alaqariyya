@@ -1,6 +1,6 @@
 .contact-submissions-container {
-    padding: 60px;
-    font-family: Arial, sans-serif;
+    padding: 100px;
+    font-family: "Tajawal", sans-serif;
   }
   
   .contact-submissions-container h1 {
@@ -11,7 +11,7 @@
   .submissions-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   
   .submissions-table th,

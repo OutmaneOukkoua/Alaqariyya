@@ -56,12 +56,11 @@
     "desc": "huren - kopen - verkopen",
     "contact": "Contact",
     "contacts": {
-      "person1": "Mostafa Yaish: 0665.76.95.60",
-      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
-      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "numIAM1": "Eerste extra nummer: 0668.55.07.04",
+      "numIAM2": "Tweede extra nummer: 0668.55.06.52",
       "address1": "Ibn Sina Straat (kruising van Oqba Straat)",
       "address2": "Al Masjid buurt, Beni Ensar - Nador",
-      "phone": "Telefoon: 0536.34.81.41"
+      "phone": "Vaste lijn: 0536.34.81.41"
     },
     "copyRight": "Alle rechten voorbehouden © 2024"
   },
@@ -95,8 +94,8 @@
     "Go Back": "Terug"
   },
   "Cart": {
-    "yourCart": "Jouw Winkelwagen",
-    "cartEmpty": "Jouw winkelwagen is leeg.",
+    "yourCart": "Uw lijst met favoriete eigendommen",
+    "cartEmpty": "Uw lijst met favoriete eigendommen is leeg",
     "remove": "Verwijderen"
   }
 }

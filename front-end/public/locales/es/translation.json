@@ -6,8 +6,8 @@
     "regularRent": "Alquiler",
     "news": "Noticias",
     "contactUs": "Contáctenos",
-    "login": "Iniciar sesión",
-    "logout" : "Cerrar sesión",
+    "login": "Iniciar-sesión",
+    "logout" : "Cerrar-sesión",
     "dashboard" : "Panel",
     "floorplotss": "Tierras"
 
@@ -57,12 +57,11 @@
     "desc": "alquilar - comprar - vender",
     "contact": "Contacto",
     "contacts": {
-      "person1": "Mostafa Yaish: 0665.76.95.60",
-      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
-      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "numIAM1": "Primer número adicional: 0668.55.07.04",
+      "numIAM2": "Segundo número adicional: 0668.55.06.52",
       "address1": "Calle Ibn Sina (intersección con Calle Oqba)",
       "address2": "Barrio Al Masjid, Beni Ensar - Nador",
-      "phone": "Teléfono: 0536.34.81.41"
+      "phone": "Teléfono fijo: 0536.34.81.41"
     },
     "copyRight": "Todos los derechos reservados © 2024"
   },
@@ -96,8 +95,8 @@
     "Go Back": "Regresar"
   },
   "Cart": {
-    "yourCart": "Tu Carrito",
-    "cartEmpty": "Tu carrito está vacío.",
+    "yourCart": "Tu lista de propiedades favoritas",
+    "cartEmpty": "Tu lista de propiedades favoritas está vacía",
     "remove": "Eliminar"
   }
 }

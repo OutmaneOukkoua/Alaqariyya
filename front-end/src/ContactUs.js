@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import emailjs from 'emailjs-com';
@@ -58,13 +59,8 @@ function ContactUs() {
         process.env.REACT_APP_EMAILJS_USER_ID       // User ID (Public Key)
       );
 
-      // setAlertMessage(t('contact.emailSent'));
-      // setAlertType('success');
-
     } catch (error) {
-      // setAlertMessage(t('contact.messageFailed'));
-      // setAlertType('error');
-      // console.error('Error sending message:', error);
+      // Handle error
     }
   };
 
@@ -79,8 +75,9 @@ function ContactUs() {
   }, [alertMessage]);
 
   return (
-    <div className="contact-us-container">
+    <div className={`contact-us-container ${isArabic ? 'rtl' : 'ltr'}`}>
       <Helmet>
+        <html lang={i18n.language} dir={isArabic ? 'rtl' : 'ltr'} />
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -127,52 +124,33 @@ function ContactUs() {
               }
             }
           `}
-          </script>
+          </script>     
       </Helmet>
       <div className="banner">
-        <h1>{t('contact.contactUs')}</h1>
+        <h1 className='bannerName'>{t('contact.contactUs')}</h1>
       </div>
       <div className="contact-us-content">
-        {isArabic ? (
-          <>
-            <div className="contact-details">
-              <h3>{t('contact.contactInformation')}</h3>
-              <p> alaqariyya@gmail.com : <strong>{t('contact.email')}</strong></p>
-              <p> 0536.34.8141 : <strong>{t('contact.phone')}</strong></p>
-              <div className="map">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3300.6428073196333!2d-2.93213152885437!3d35.2628784179688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd75950d4571a542%3A0x7379fdfc7c542f7!2s7379%2B542%2C%20Beni%20Ansar!5e0!3m2!1sen!2s!4v1646743262341!5m2!1sen!2s"
-                  width="600"
-                  height="450"
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="Location"
-                ></iframe>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="contact-details">
-              <h3>{t('contact.contactInformation')}</h3>
-              <p><strong>{t('contact.email')} : </strong> alaqariyya@gmail.com</p>
-              <p><strong>{t('contact.phone')} : </strong> 0536.34.8141</p>
-              <div className="map">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3300.6428073196333!2d-2.93213152885437!3d35.2628784179688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd75950d4571a542%3A0x7379fdfc7c542f7!2s7379%2B542%2C%20Beni%20Ansar!5e0!3m2!1sen!2s!4v1646743262341!5m2!1sen!2s"
-                  width="600"
-                  height="450"
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="Location"
-                ></iframe>
-              </div>
-            </div>
-          </>
-        )}
-        
+        <div className="contact-details">
+          <center><h3>{t('contact.contactInformation')}</h3></center>
+          <table>
+          <tr><td><strong style={{fontWeight:'bold'}}>{t('contact.email')} : </strong></td><td>alaqariyya@gmail.com</td></tr>
+          <tr><td><strong style={{fontWeight:'bold'}}>{t('contact.phone')} : </strong></td><td>0536.34.8141</td></tr>
+          </table>
+          <div className="map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2370257556186!2d-2.9364044206542848!3d35.260848274982706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7709002698ceaf%3A0xbe4e719ebdef6266!2zQWxhcWFyaXl5YSAtINin2YTYudmC2KfYsdmK2Kk!5e1!3m2!1sen!2sus!4v1723970680540!5m2!1sen!2sus"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Location"
+            ></iframe>
+          </div>
+        </div>
         <div className="contact-form">
-          <h3>{t('contact.getInTouch')}</h3>
+          <center><h3>{t('contact.getInTouch')}</h3></center>
           {alertMessage && (
             <div className={`alert ${alertType === 'success' ? 'alert-success' : 'alert-error'}`}>
               {alertMessage}
@@ -230,6 +208,7 @@ function ContactUs() {
             <div className="form-group">
               <label htmlFor="message">{t('contact.message')} *</label>
               <textarea
+              style={{resize: 'none'}}
                 id="message"
                 name="message"
                 value={formData.message}
@@ -241,7 +220,6 @@ function ContactUs() {
             </div>
             <button type="submit" className="btn-primary">{t('contact.send')}</button>
           </form>
-          
         </div>
       </div>
       <Footer />

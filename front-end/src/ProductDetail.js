@@ -1,16 +1,30 @@
 
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from './CartContext';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faChevronLeft, faChevronRight, faMapMarkerAlt, faRulerCombined, faTag, faHome, faCheckCircle, faTimesCircle, faBed, faCouch, faBath, faUtensils, faBuilding, faCalendarAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faChevronLeft, faChevronRight, faMapMarkerAlt, faRulerCombined, faTag, faHome, faCheckCircle, faTimesCircle, faBed, faCouch, faBath, faUtensils, faBuilding, faCalendarAlt, faPhone, faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { Helmet } from 'react-helmet';
 import './ProductDetail.css';
 import { format } from 'date-fns';
+
+function useOutsideClick(ref, callback) {
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [ref, callback]);
+}
 
 function ProductDetail() {
   const { id } = useParams();
@@ -18,10 +32,15 @@ function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isImageModalVisible, setImageModalVisible] = useState(false); // New state for image modal
+  const [isFavorite, setIsFavorite] = useState(false);
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
   const API_URL = process.env.REACT_APP_SERVER;
   const { dispatch } = useCart();
+  const modalRef = useRef(null); // Ref for the image modal
+
+  useOutsideClick(modalRef, () => setImageModalVisible(false)); // Use custom hook
 
   useEffect(() => {
     axios.get(`${API_URL}/properties/${id}?lang=${i18n.language}`)
@@ -33,7 +52,15 @@ function ProductDetail() {
 
   const addToCart = () => {
     dispatch({ type: 'ADD_TO_CART', product: { ...product[0], id: product[0].property_id } });
-    setModalVisible(true);
+    setIsFavorite(true);
+  };
+
+  const toggleFavorite = () => {
+    if (!isFavorite) {
+      addToCart();
+    } else {
+      // handle removing from cart if needed
+    }
   };
 
   const showNextImage = () => {
@@ -60,9 +87,17 @@ function ProductDetail() {
     window.location.href = 'tel:0536348141';
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const toggleImageModal = () => {
+    setImageModalVisible(!isImageModalVisible);
+  };
+
   return (
     <div className="ProductDetail">
-      <Helmet>
+            <Helmet>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -127,6 +162,13 @@ function ProductDetail() {
               src={`${API_URL}/uploads/${product[currentImageIndex].image_url}`}
               alt={product[0].title}
               className="property-i"
+              onDoubleClick={toggleImageModal} // Add this for double-click functionality
+            />
+            <FontAwesomeIcon
+              icon={faHeart}
+              onClick={toggleFavorite}
+              className="heart-icon"
+              style={{ color: isFavorite ? 'red' : 'gray' }}
             />
           </div>
           {currentImageIndex < product.length - 1 && (
@@ -209,14 +251,17 @@ function ProductDetail() {
               </tr>
             </tbody>
           </table>
-          {isArabic ? (<button onClick={addToCart} className="btn">
-            <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px' }} />
-            {t('contact.contactUs')}
-          </button>) : (<button onClick={addToCart} className="btn">
-            <FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} />
-            {t('contact.contactUs')}
-          </button>)}
-          
+          {isArabic ? (
+            <button onClick={toggleModal} className="btn">
+              <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px' }} />
+              {t('contact.contactUs')}
+            </button>
+          ) : (
+            <button onClick={toggleModal} className="btn">
+              <FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} />
+              {t('contact.contactUs')}
+            </button>
+          )}
         </div>
       </div>
 
@@ -232,7 +277,34 @@ function ProductDetail() {
               <FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} />
               Call
             </button>
-            <button className="modal-close" onClick={() => setModalVisible(false)}>{t('contact.close')}</button>
+            <button className="modal-close" onClick={toggleModal}>{t('contact.close')}</button>
+          </div>
+        </div>
+      )}
+
+      {isImageModalVisible && (
+        <div className="image-modal">
+          <div className="image-modal-content" ref={modalRef}>
+            <FontAwesomeIcon
+              icon={faTimes}
+              className="close-modal"
+              onClick={toggleImageModal}
+            />
+            {currentImageIndex > 0 && (
+              <button className="scroll-button left" onClick={showPreviousImage}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+            )}
+            <img
+              src={`${API_URL}/uploads/${product[currentImageIndex].image_url}`}
+              alt={product[0].title}
+              className="enlarged-image"
+            />
+            {currentImageIndex < product.length - 1 && (
+              <button className="scroll-button right" onClick={showNextImage}>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            )}
           </div>
         </div>
       )}

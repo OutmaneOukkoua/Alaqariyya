@@ -1,14 +1,14 @@
 
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { useCart } from './CartContext';
 import { AuthContext } from './AuthContext';
 import ConfirmDialog from './ConfirmDialog';
-import { Helmet } from 'react-helmet';
 import 'flag-icons/css/flag-icons.min.css';
 import './Header.css';
+import { Helmet } from 'react-helmet';
 
 function Header({ onFilterChange, activeFilter }) {
   const { t, i18n } = useTranslation();
@@ -20,6 +20,7 @@ function Header({ onFilterChange, activeFilter }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Use location to determine the active route
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -51,12 +52,6 @@ function Header({ onFilterChange, activeFilter }) {
     i18n.changeLanguage(lng.value);
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      window.onpopstate = null; // Allow back navigation if authenticated
-    }
-  }, [isAuthenticated]);
-
   const languageOptions = [
     { value: 'ar', label: <><span className="fi fi-ma"></span> العربية</> },
     { value: 'en', label: <><span className="fi fi-gb"></span> English</> },
@@ -67,37 +62,39 @@ function Header({ onFilterChange, activeFilter }) {
   ];
 
   const navItems = [
-    { filter: 'all', label: t('header.Home') },
-    { filter: 'regularRent', label: t('header.regularRent') },
-    { filter: 'rent', label: t('header.rent') },
-    { filter: 'buy', label: t('header.buy') },
-    { filter: 'floorplots', label: t('header.floorplotss') },
+    { filter: 'all', label: t('header.Home'), link: '/' },
+    { filter: 'regularRent', label: t('header.regularRent'), link: '/' },
+    { filter: 'rent', label: t('header.rent'), link: '/' },
+    { filter: 'buy', label: t('header.buy'), link: '/' },
+    { filter: 'floorplots', label: t('header.floorplotss'), link: '/' },
     { link: '/news', label: t('header.news') },
     { link: '/contact', label: t('header.contactUs') }
   ];
 
-  const handleNavClick = (filter) => {
-    onFilterChange(filter); // Notify parent about the filter change
+  const handleNavClick = (filter, link) => {
+    if (filter) {
+      onFilterChange(filter);
+    }
+    navigate(link);
     closeMenu(); // Close the menu if open
   };
 
   const renderNavItems = (items) => (
     <ul className={isArabic ? 'rtl' : ''}>
-      {items.map((item, index) =>
-        item.link ? (
-          <li key={index}><Link to={item.link} onClick={closeMenu}>{item.label}</Link></li>
-        ) : (
+      {items.map((item, index) => {
+        const isActive = location.pathname === item.link && (item.filter ? item.filter === activeFilter : true);
+        return (
           <li key={index}>
             <Link
-              to="/"
-              onClick={() => handleNavClick(item.filter)}
-              className={activeFilter === item.filter ? 'active' : ''}
+              to={item.link}
+              onClick={() => handleNavClick(item.filter, item.link)}
+              className={isActive ? 'active' : ''}
             >
               {item.label}
             </Link>
           </li>
-        )
-      )}
+        );
+      })}
     </ul>
   );
 
@@ -155,7 +152,7 @@ function Header({ onFilterChange, activeFilter }) {
       <div className={`header-top ${isArabic ? 'header-top-ar' : ''}`}>
         <div className="header-logo">
           <Link to="/" onClick={closeMenu}>
-            <img src="logo192.png" alt="Alaqariyya Logo" className="logo" />
+            <img src="/logo192.png" alt="Alaqariyya Logo" className="logo" />
           </Link>
         </div>
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
@@ -166,7 +163,7 @@ function Header({ onFilterChange, activeFilter }) {
             <i className="fas fa-bars"></i>
           </button>
           <Link to="/cart" className="panier-icon" onClick={closeMenu}>
-            <i className="fas fa-shopping-cart"></i>
+          <i className="fas fa-heart" style={{fontSize:'30px', color: '#003b95'}}></i>
             {panierCount > 0 && <span className="panier-count">{panierCount}</span>}
           </Link>
           {isAuthenticated ? (
@@ -191,6 +188,7 @@ function Header({ onFilterChange, activeFilter }) {
             onChange={changeLanguage}
             className="language-select"
             defaultValue={languageOptions.find(option => option.value === i18n.language)}
+            isSearchable={false}
           />
         </div>
       </div>

@@ -5,7 +5,7 @@
     "rent": "location meublée",
     "regularRent": "loyer",
     "news": "Actualités",
-    "contactUs": "Nous Contacter",
+    "contactUs": "Contactez-nous",
     "login": "Connexion",
     "logout" : "Se déconnecter",
     "dashboard" : "Tableau de bord",
@@ -58,12 +58,11 @@
     "desc": "louer - acheter - vendre",
     "contact": "Contact",
     "contacts": {
-      "person1": "Mostafa Yaish: 0665.76.95.60",
-      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
-      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "numIAM1": "Premier numéro supplémentaire : 0668.55.07.04",
+      "numIAM2": "Deuxième numéro supplémentaire : 0668.55.06.52",
       "address1": "Rue Ibn Sina (intersection de la Rue Oqba)",
       "address2": "Quartier Al Masjid, Beni Ensar - Nador",
-      "phone": "Téléphone : 0536.34.81.41"
+      "phone": "Téléphone fixe : 0536.34.81.41"
     },
     "copyRight": "Tous droits réservés © 2024"
   },
@@ -97,8 +96,8 @@
     "Go Back": "Retour"
   },
   "Cart": {
-    "yourCart": "Votre Panier",
-    "cartEmpty": "Votre panier est vide.",
+    "yourCart": "Votre liste de propriétés favorites",
+    "cartEmpty": "Votre liste de propriétés favorites est vide",
     "remove": "Retirer"
   }
 }

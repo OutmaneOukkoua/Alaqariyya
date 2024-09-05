@@ -14,6 +14,7 @@ function Footer() {
   return (
     <footer className={`Footer ${isArabic ? 'App-footer-rtl' : ''}`}>
       <Helmet>
+        <title>{t('properties.pageTitle')}</title>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -61,10 +62,17 @@ function Footer() {
             }
           `}
           </script>
+      
       </Helmet>
       <div className="Footer-top">
         <p>{t('footer.getConnected')}</p>
         <div className="Social-icons">
+          <a href="https://maps.app.goo.gl/MdQcNRp2BWm33dBU9" target="_blank" rel="noopener noreferrer">
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> 
+            </a>
+          <a href="tel:0536348141" target="_blank" rel="noopener noreferrer">
+            <FontAwesomeIcon icon={faPhone} />
+          </a>
           <a href="https://www.facebook.com/profile.php?id=61560366056640" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faFacebookF} />
           </a>
@@ -74,6 +82,7 @@ function Footer() {
           <a href="https://wa.me/212668550704" target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon icon={faWhatsapp} />
           </a>
+          
         </div>
       </div>
 
@@ -90,13 +99,12 @@ function Footer() {
             </div>
             <div className="Footer-column centered">
               <h3>{t('footer.contact')}</h3>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.person1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.person2')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.person4')}</p>
-              <br />
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt}/>{t('footer.contacts.address1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt}/>{t('footer.contacts.address2')}</p>
               <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.phone')}</p>
+              <p className="icon-left" ><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.numIAM1')}</p>
+              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.numIAM2')}</p>
+              <br />
+              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingLeft:'10px'}}/>{t('footer.contacts.address1')}</p>
+              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingLeft:'10px'}}/>{t('footer.contacts.address2')}</p>      
             </div>
           </>
         ) : (
@@ -111,13 +119,12 @@ function Footer() {
             </div>
             <div className="Footer-column">
               <h3>{t('footer.contact')}</h3>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.person1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.person2')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.person4')}</p>
-              <br />
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} /> {t('footer.contacts.address1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} /> {t('footer.contacts.address2')}</p>
               <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.phone')}</p>
+              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM1')}</p>
+              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM2')}</p>
+              <br />
+              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingRight:'10px'}}/> {t('footer.contacts.address1')}</p>
+              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingRight:'10px'}}/> {t('footer.contacts.address2')}</p>
             </div>
           </>
         )}
@@ -130,3 +137,4 @@ function Footer() {
 }
 
 export default Footer;
+

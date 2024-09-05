@@ -65,12 +65,11 @@
     "desc": "rent - buy - sell",
     "contact": "Contact",
     "contacts": {
-      "person1": "Mostafa Yaish: 0665.76.95.60",
-      "person2": "Abdelrazzaq Akchar: 0625.55.41.28",
-      "person4": "Zakaria Ennaji: 0659.25.10.19",
+      "numIAM1": "First additional number: 0668.55.07.04",
+      "numIAM2": "Second additional number: 0668.55.06.52",
       "address1": "Ibn Sina Street (intersection of Oqba Street)",
       "address2": "Al Masjid neighborhood, Beni Ensar - Nador",
-      "phone": "Phone: 0536.34.81.41"
+      "phone": "Landline: 0536.34.81.41"
     },
     "copyRight": "All rights reserved © 2024"
   },
@@ -104,8 +103,8 @@
       "Go Back": "Go Back"
   },
   "Cart": {
-    "yourCart": "Your Cart",
-    "cartEmpty": "Your cart is empty.",
+    "yourCart": "Your list of favorite properties",
+    "cartEmpty": "Your list of favorite properties is empty",
     "remove": "Remove"
   }
     

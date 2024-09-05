@@ -31,10 +31,11 @@
   align-items: center;
   padding: 10px 40px;
   background-color: #fff;
+  font-size: 18px;
 }
 
 .header-top-ar {
-  flex-direction: row-reverse;
+  direction: rtl;
 }
 
 .header-logo .logo {
@@ -54,9 +55,12 @@
 .header-nav a {
   color: #333;
   text-decoration: none;
-  font-weight: bold;
   padding: 5px 10px;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  font-family: "Tajawal", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  position: relative;
 }
 
 .header-nav a:hover,
@@ -64,6 +68,22 @@
   color: #0d6efd;
 }
 
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #0d6efd;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.header-nav a.active::after,
+.header-nav a:hover::after {
+  width: 100%;
+}
 
 .header-actions {
   display: flex;
@@ -71,7 +91,9 @@
 }
 
 .header-actions-ar {
-  flex-direction: row;
+  direction: rtl;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .header-actions-ar .panier-icon {
@@ -88,7 +110,10 @@
 
 .header-actions-ar .language-select {
   order: 4;
-  margin-left: 10px; /* Add space between the language select and login icon */
+  font-family: "Tajawal", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: 10px;
 }
 
 .header-actions-en {
@@ -173,10 +198,8 @@
   color: white;
   border-radius: 50%;
   padding: 5px 10px;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 }
-
-/* General styles remain the same */
 
 /* Responsive styles */
 @media (max-width: 768px) {
@@ -188,6 +211,7 @@
 
   .header-logo .logo {
     height: 40px;
+    max-width: 130px;
   }
 
   .header-nav ul {
@@ -218,23 +242,23 @@
     width: 100%;
   }
 
-  .header-nav ul {
-    display: none;
-    flex-direction: column;
-  }
-
-  .header-nav.open ul {
-    display: flex;
-  }
-
   .header-login,
   .header-signup,
   .panier-icon {
-    margin-left: 0;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-left: 5px;
   }
 
-  .language-select .react-select__control {
-    width: 100%;
+  /* Reduce the size of the language select dropdown */
+  .language-select {
+    font-size: 14px;
+    padding: 4px 10px;
+    width: 150px; /* Adjust the width as needed */
+  }
+
+  .language-select .react-select__single-value {
+    font-size: 14px;
   }
 }
 
@@ -247,6 +271,7 @@
 
   .header-logo .logo {
     height: 40px;
+    max-width: 130px;
   }
 
   .header-nav ul {
@@ -281,6 +306,7 @@
     width: 100%;
   }
 }
+
 @media (max-width: 800px) {
   .header-top {
     flex-direction: column;
@@ -290,6 +316,7 @@
 
   .header-logo .logo {
     height: 40px;
+    max-width: 130px;
   }
 
   .header-nav ul {
@@ -320,22 +347,24 @@
     width: 100%;
   }
 
-  .header-nav ul {
-    display: none;
-    flex-direction: column;
-  }
 
-  .header-nav.open ul {
-    display: flex;
-  }
-
+  /* Reduce the size of the language select dropdown */
   .header-login,
   .header-signup,
   .panier-icon {
-    margin-left: 0;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin-left: 5px;
   }
 
-  .language-select .react-select__control {
-    width: 100%;
+  /* Reduce the size of the language select dropdown */
+  .language-select {
+    font-size: 14px;
+    padding: 4px 10px;
+    width: 150px; /* Adjust the width as needed */
+  }
+
+  .language-select .react-select__single-value {
+    font-size: 14px;
   }
 }

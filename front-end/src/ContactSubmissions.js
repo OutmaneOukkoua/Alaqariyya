@@ -34,10 +34,7 @@ function ContactSubmissions() {
   return (
     <div className="contact-submissions-container">
       <h1>Contact Submissions</h1>
-      <button className="go-backkk" onClick={() => navigate(-1)}>
-        <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '5px' }} />
-        Go Back
-      </button>
+      
       <table className="submissions-table">
         <thead>
           <tr>

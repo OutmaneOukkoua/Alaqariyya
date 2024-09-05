@@ -1,6 +1,28 @@
+* {
+  font-family: "Tajawal", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.strong {
+  font-weight: bold; /* Makes the text bold */
+  color: #000; /* Ensures the text color is solid black */
+  text-transform: uppercase; /* Optional: Transforms the text to uppercase */
+}
+
 .News {
-  padding: 70px;
+  padding: 80px;
   font-family: Arial, sans-serif;
+}
+
+.News.ltr {
+  text-align: left;
+  direction: ltr;
+}
+
+.News.rtl {
+  text-align: right;
+  direction: rtl;
 }
 
 .News h1 {
@@ -20,6 +42,11 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; /* Add transition for smooth scaling */
+}
+
+.news-article:hover {
+  transform: scale(1.05); /* Scale up the article slightly on hover */
 }
 
 .news-article h2 {
@@ -65,7 +92,7 @@
 /* Mobile styles */
 @media (max-width: 500px) {
   .News {
-    padding: 110px 10px; /* Adjust padding for mobile devices */
+    padding: 120px 10px; /* Adjust padding for mobile devices */
   }
 
   .news-articles {

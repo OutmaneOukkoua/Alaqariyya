@@ -9,7 +9,6 @@ import Welcome from './Welcome';
 import News from './News';
 import ProductDetail from './ProductDetail';
 import AddProperty from './AddProperty';
-import DeleteProperty from './DeleteProperty';
 import Dashboard from './Dashboard';
 import { CartProvider } from './CartContext';
 import { AuthProvider } from './AuthContext';
@@ -18,9 +17,9 @@ import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import ContactUs from './ContactUs';
 import Cart from './Cart';
-import UpdateProperty from './UpdateProperty';
+import PropertyPage from './propertyPage';
 import AddNews from './AddNews';
-import DeleteNews from './DeleteNews';
+import NewsPage from './newsPage';
 import ContactSubmissions from './ContactSubmissions';
 import { Helmet } from 'react-helmet';
 
@@ -90,18 +89,17 @@ function App() {
             <LanguageSelector />
             <Routes>
               <Route path="/" element={<Content filterType={filterType} onFilterChange={handleFilterChange} />} />
-              <Route path="/contact" element={<ContactUs />} />
               <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/contact" element={<ContactUs />} />
               <Route path="/login" element={<Login />} />
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/news" element={<News />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/add-property" element={<ProtectedRoute><AddProperty /></ProtectedRoute>} />
-              <Route path="/delete-property" element={<ProtectedRoute><DeleteProperty /></ProtectedRoute>} />
-              <Route path="/update-property" element={<ProtectedRoute><UpdateProperty /></ProtectedRoute>} />
+              <Route path="/property-page" element={<ProtectedRoute><PropertyPage /></ProtectedRoute>} />
               <Route path="/add-news" element={<ProtectedRoute><AddNews /></ProtectedRoute>} />
-              <Route path="/delete-news" element={<ProtectedRoute><DeleteNews /></ProtectedRoute>} />
+              <Route path="/news-page" element={<ProtectedRoute><NewsPage /></ProtectedRoute>} />
               <Route path="/contact-submissions" element={<ProtectedRoute><ContactSubmissions /></ProtectedRoute>} />
             </Routes>
           </div>

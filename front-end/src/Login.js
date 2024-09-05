@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { AuthContext } from './AuthContext';
 import './Login.css';
 
 function Login() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Use i18n to detect current language
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
@@ -53,7 +54,7 @@ function Login() {
   return (
     <div className="login-container">
       <div className="bg"></div>
-      <div className="contents">
+      <div className={`contents ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
         <div className="container">
           <div className="row align-items-center justify-content-center">
             <div className="col-md-7">
