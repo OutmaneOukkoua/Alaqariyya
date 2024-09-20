@@ -6,10 +6,12 @@
     "regularRent": "Alquiler",
     "news": "Noticias",
     "contactUs": "Contáctenos",
-    "login": "Iniciar-sesión",
-    "logout" : "Cerrar-sesión",
+    "login": "Iniciar sesión",
+    "logout" : "Cerrar sesión",
     "dashboard" : "Panel",
-    "floorplotss": "Tierras"
+    "floorplotss": "Tierras",
+    "Commercialgarages": "Garajes comerciales"
+
 
   },
   "properties": {
@@ -35,13 +37,14 @@
     "status": "Estado",
     "floors": "pisos",
     "floors1": "piso",
-
     "floorplots": "Tierras",
     "availabilityDate": "Fecha de disponibilidad",
     "priceVaries": "El precio varía según el número de personas y duración de la estancia",
     "MAD": "Dírham marroquí",
     "pricePerSquareMeter": "por metro cuadrado",
-    "kitchen": "cocina"
+    "kitchen": "cocina",
+    "Commercialgarages": "Garajes comerciales"
+
 
 
   },
@@ -88,7 +91,9 @@
     "send": "Enviar",
     "messageSent": "Mensaje enviado con éxito",
     "messageFailed": "Error al enviar el mensaje",
-    "close" : "Cancelar"
+    "close" : "Cancelar",
+    "share" : "Compartir"
+
 
   },
   "goBack": {

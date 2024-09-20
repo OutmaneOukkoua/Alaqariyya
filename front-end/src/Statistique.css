@@ -1,0 +1,15 @@
+.statistique-container {
+    padding: 120px;
+    text-align: center;
+  }
+  
+  .statistique-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .statistique-container p {
+    font-size: 18px;
+    color: #333;
+  }
+  

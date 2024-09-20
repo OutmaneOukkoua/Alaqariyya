@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -49,18 +50,17 @@ function PropertyPage() {
     const { name, value, type } = e.target;
     if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar') {
       const arabicOnly = value.replace(/[^\u0600-\u06FF0-9\s.,?!؛،]/g, '');
-    setSelectedProperty(prevState => ({
-      ...prevState,
-      [name]: type === 'number' ? parseInt(arabicOnly, 10) : arabicOnly
-    }));
-  } else {
-    setSelectedProperty(prevState => ({
-      ...prevState,
-      [name]: type === 'number' ? parseInt(value, 10) : value
-    }));
+      setSelectedProperty(prevState => ({
+        ...prevState,
+        [name]: type === 'number' ? parseInt(arabicOnly, 10) : arabicOnly
+      }));
+    } else {
+      setSelectedProperty(prevState => ({
+        ...prevState,
+        [name]: type === 'number' ? parseInt(value, 10) : value
+      }));
+    }
   };
-}
-  
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -208,17 +208,12 @@ function PropertyPage() {
     return format(tomorrow, 'yyyy-MM-dd');
   };
 
-  
-
   return (
     <div className="update-property-container">
       <ToastContainer />
       <center><h1>Properties</h1></center>
       
-      <button
-        className="btn-add-property"
-        onClick={openAddPropertyModal}
-      >
+      <button className="btn-add-property" onClick={openAddPropertyModal}>
         Add Property
       </button>
       
@@ -231,6 +226,7 @@ function PropertyPage() {
           <option value="regularRent">Regular Rent</option>
           <option value="buy">Buy</option>
           <option value="floorplots">Floor Plots</option>
+          <option value="Commercialgarages">Commercial Garages</option>
         </select>
       </div>
 
@@ -327,14 +323,15 @@ function PropertyPage() {
                   <option value="regularRent">Regular Rent</option>
                   <option value="buy">Buy</option>
                   <option value="floorplots">Floor Plots</option>
+                  <option value="Commercialgarages">Commercial Garages</option>
                 </select>
               </div>
               <input type="text" name="title_ar" placeholder="Title (Arabic)" value={selectedProperty.title_ar} onChange={handleInputChange} required />
-              <textarea style={{resize: 'none'}} name="description_ar" placeholder="Description (Arabic)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
+              <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description (Arabic)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
               <input type="number" name="price" placeholder="Price" value={selectedProperty.price} onChange={handleInputChange} required />
               <input type="text" name="location_ar" placeholder="Location (Arabic)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
               <input type="number" name="area" placeholder="Area" value={selectedProperty.area} onChange={handleInputChange} required />
-              {selectedProperty.type !== 'floorplots' && (
+              {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && (
                 <>
                   <input type="number" name="bedrooms" placeholder="Bedrooms" value={selectedProperty.bedrooms} onChange={handleInputChange} required />
                   <input type="number" name="salon" placeholder="Salon" value={selectedProperty.salon} onChange={handleInputChange} />

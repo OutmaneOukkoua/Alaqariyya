@@ -67,6 +67,7 @@ function Header({ onFilterChange, activeFilter }) {
     { filter: 'rent', label: t('header.rent'), link: '/' },
     { filter: 'buy', label: t('header.buy'), link: '/' },
     { filter: 'floorplots', label: t('header.floorplotss'), link: '/' },
+    { filter: 'Commercialgarages', label: t('header.Commercialgarages'), link: '/' },
     { link: '/news', label: t('header.news') },
     { link: '/contact', label: t('header.contactUs') }
   ];

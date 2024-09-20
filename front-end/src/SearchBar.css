@@ -111,6 +111,7 @@
   .search-bar-container {
     padding: 90px 0px; 
     padding-bottom: 20px;
+
   }
 
   .search-bar-background {
@@ -119,17 +120,22 @@
   }
 
   .table-b {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
+    display: block; /* Change table to block to allow wrapping */
   }
 
+  .table-b th {
+    display: inline-block; /* Make each button act like an inline block */
+    width: auto; /* Ensure the buttons are flexible */
+  }
+
+
   .table-b button {
-    flex: 1;
-    margin: 2px; /* Reduced margin to minimize space between buttons */
-    padding: 8px; /* Reduced padding */
-    font-size: 13px; /* Reduced font size */
+    margin: 6px;
+    padding: 12px;
+    font-size: 12px;
     white-space: nowrap;
+    text-align: center; /* Ensure text is centered in the buttons */
+
   }
 
   .search-input {

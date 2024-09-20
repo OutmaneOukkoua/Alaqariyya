@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faNewspaper, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faNewspaper, faEnvelope, faChartLine } from '@fortawesome/free-solid-svg-icons'; // Add the icon for stats
 
 const Sidebar = ({ isOpen, toggleSidebar, setActiveComponent }) => {
   const [activeLink, setActiveLink] = useState(''); // Track the active link
@@ -43,6 +43,15 @@ const Sidebar = ({ isOpen, toggleSidebar, setActiveComponent }) => {
           >
             <FontAwesomeIcon icon={faEnvelope} />
             <span style={{ paddingLeft: '10px' }}>{isOpen && ' Contact'}</span>
+          </a>
+        </li>
+        <li>
+          <a
+            onClick={() => handleLinkClick('statistique')}
+            className={activeLink === 'statistique' ? 'active-link' : ''}
+          >
+            <FontAwesomeIcon icon={faChartLine} />
+            <span style={{ paddingLeft: '10px' }}>{isOpen && ' Statistiques'}</span>
           </a>
         </li>
       </ul>

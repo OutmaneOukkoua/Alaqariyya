@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react';
+import  react from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 import Header from './Header';
 import LanguageSelector from './LanguageSelector';
 import Content from './Content';
@@ -21,11 +22,30 @@ import PropertyPage from './propertyPage';
 import AddNews from './AddNews';
 import NewsPage from './newsPage';
 import ContactSubmissions from './ContactSubmissions';
+import Statistique from './Statistique';
 import { Helmet } from 'react-helmet';
 
 
 function App() {
-  const [filterType, setFilterType] = useState('all');
+  const [filterType, setFilterType] = react.useState('all');
+  const API_URL = process.env.REACT_APP_SERVER;
+  
+  const hasVisited = react.useRef(false);  // To track whether we've already incremented the count
+
+  react.useEffect(() => {
+    if (!hasVisited.current) {
+      hasVisited.current = true;  // Set to true to avoid future increments
+
+      // Increment visitor count on initial load
+      axios.get(`${API_URL}/api/visitor/increment`)
+        .then(response => {
+          console.log('Visitor count incremented:', response.data.count);
+        })
+        .catch(error => {
+          console.error('Error incrementing visitor count:', error);
+        });
+    }
+  }, []);  // This runs only once when the app loads
 
   const handleFilterChange = (type) => {
     setFilterType(type);
@@ -101,6 +121,7 @@ function App() {
               <Route path="/add-news" element={<ProtectedRoute><AddNews /></ProtectedRoute>} />
               <Route path="/news-page" element={<ProtectedRoute><NewsPage /></ProtectedRoute>} />
               <Route path="/contact-submissions" element={<ProtectedRoute><ContactSubmissions /></ProtectedRoute>} />
+              <Route path="/statistique" element={<ProtectedRoute><Statistique /></ProtectedRoute>} />
             </Routes>
           </div>
         </Router>

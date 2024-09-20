@@ -243,17 +243,16 @@
   }
 
   .header-login,
+  .header-button,
   .header-signup,
   .panier-icon {
-    font-size: 14px;
-    padding: 5px 10px;
+    font-size: 13px;
     margin-left: 5px;
   }
 
   /* Reduce the size of the language select dropdown */
   .language-select {
-    font-size: 14px;
-    padding: 4px 10px;
+    font-size: 13px;
     width: 150px; /* Adjust the width as needed */
   }
 

@@ -6,10 +6,11 @@
     "regularRent": "كراء",
     "news": "أخبار",
     "contactUs": "اتصل بنا",
-    "login": "تسجيل-الدخول",
-    "logout" : "تسجيل-الخروج",
+    "login": "تسجيل الدخول",
+    "logout" : "تسجيل الخروج",
     "dashboard" : "لوحة التحكم",
-    "floorplotss": "قطع ارضية"
+    "floorplotss": "قطع ارضية",
+    "Commercialgarages": "محلات تجارية"
 
 
   },
@@ -41,7 +42,9 @@
     "priceVaries": "يختلف السعر حسب عدد الأشخاص ومدة الاقامة",
     "MAD": "درهم",
     "pricePerSquareMeter": "للمتر مربع",
-    "kitchen": "المطبخ"
+    "kitchen": "المطبخ",
+    "Commercialgarages": "محلات تجارية"
+
   },
   "news": {
     "publishedOn": "تاريخ النشر",
@@ -86,7 +89,8 @@
     "send": "إرسال",
     "messageSent": "تم إرسال الرسالة بنجاح",
     "messageFailed": "فشل في إرسال الرسالة",
-    "close" : "إلغاء"
+    "close" : "إلغاء",
+    "share" : "مشاركة"
   },
   "goBack": {
     "Go Back": "العودة"
@@ -96,6 +100,5 @@
     "cartEmpty": "قائمة العقارات المفضلة الخاصة بك فارغة",
     "remove": "إزالة"
   }
-  
   
 }

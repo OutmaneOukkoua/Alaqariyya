@@ -331,6 +331,24 @@
   right: 10px;
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust spacing between buttons */
+}
+
+.share-btn {
+  background-color: #808080;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background-color: #4e4e4e;
+}
+
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .ProductDetail {

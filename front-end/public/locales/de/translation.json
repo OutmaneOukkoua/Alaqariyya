@@ -9,7 +9,9 @@
     "login": "Anmelden",
     "logout" : "Abmelden",
     "dashboard" : "Armaturenbrett",
-    "floorplotss": "Ländereien"
+    "floorplotss": "Ländereien",
+    "Commercialgarages": "Commerciële garages"
+
 
   },
   "properties": {
@@ -40,7 +42,9 @@
     "priceVaries": "Der Preis variiert je nach Anzahl der Personen und Aufenthaltsdauer",
     "MAD": "Marokkanischer Dirham",
     "pricePerSquareMeter": "pro Quadratmeter",
-    "kitchen": "Küche"
+    "kitchen": "Küche",
+    "Commercialgarages": "Commerciële garages"
+
 
   },
   "news": {
@@ -86,7 +90,9 @@
     "send": "Senden",
     "messageSent": "Nachricht erfolgreich gesendet",
     "messageFailed": "Nachricht konnte nicht gesendet werden",
-    "close" : "annullieren"
+    "close" : "annullieren",
+    "share" : "Teilen"
+
 
   },
   "goBack": {

@@ -121,6 +121,15 @@ function SearchBar({ onSearch, filterType, onFilterChange }) {
                     {t('properties.floorplots')}
                   </button>
                 </th>
+                <th>
+                  <button
+                    className={filterType === 'Commercialgarages' ? 'active' : ''}
+                    onClick={() => handleTabClick('Commercialgarages')}
+                    aria-pressed={filterType === 'Commercialgarages'}
+                  >
+                    {t('properties.Commercialgarages')}
+                  </button>
+                </th>
               </tr>
             </thead>
           </table>

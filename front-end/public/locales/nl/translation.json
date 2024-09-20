@@ -9,7 +9,8 @@
     "login": "Inloggen",
     "logout" : "Uitloggen",
     "dashboard" : "Dashboard",
-    "floorplotss": "Vloerpercelen"
+    "floorplotss": "Vloerpercelen",
+    "Commercialgarages": "Commerciële garages"
 
   },
   "properties": {
@@ -35,13 +36,14 @@
     "status": "Status",
     "floors": "vloeren",
     "floors1": "vloer",
-
     "floorplots": "Vloerpercelen",
     "availabilityDate": "Beschikbaarheidsdatum",
     "priceVaries": "De prijs varieert afhankelijk van het aantal personen en de duur van het verblijf",
     "MAD": "Marokkaanse Dirham",
     "pricePerSquareMeter": "per vierkante meter",
-    "kitchen": "keuken"
+    "kitchen": "keuken",
+    "Commercialgarages": "Commerciële garages"
+
 
   },
   "news": {
@@ -87,7 +89,8 @@
     "send": "Verzenden",
     "messageSent": "Bericht succesvol verzonden",
     "messageFailed": "Bericht verzenden mislukt",
-    "close" : "annuleren"
+    "close" : "annuleren",
+    "share" : "Delen"
 
   },
   "goBack": {

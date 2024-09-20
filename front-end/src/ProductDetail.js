@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useCart } from './CartContext';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faChevronLeft, faChevronRight, faMapMarkerAlt, faRulerCombined, faTag, faHome, faCheckCircle, faTimesCircle, faBed, faCouch, faBath, faUtensils, faBuilding, faCalendarAlt, faPhone, faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faChevronLeft, faChevronRight, faMapMarkerAlt, faRulerCombined, faTag, faHome, faCheckCircle, faTimesCircle, faBed, faCouch, faBath, faUtensils, faBuilding, faCalendarAlt, faPhone, faHeart, faTimes, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { Helmet } from 'react-helmet';
 import './ProductDetail.css';
@@ -95,9 +95,23 @@ function ProductDetail() {
     setImageModalVisible(!isImageModalVisible);
   };
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: product[0].title,
+        text: product[0].description,
+        url: window.location.href,
+      })
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.error('Error sharing:', error));
+    } else {
+      alert('Your browser does not support sharing. You can manually copy the URL: ' + window.location.href);
+    }
+  };
+
   return (
     <div className="ProductDetail">
-            <Helmet>
+                  <Helmet>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -190,7 +204,7 @@ function ProductDetail() {
                 <td><FontAwesomeIcon icon={faMapMarkerAlt} /><strong> {t('properties.location')}:</strong></td>
                 <td>{product[0].location}</td>
               </tr>
-              {product[0].type !== 'floorplots' && (
+              {product[0].type !== 'floorplots' && product[0].type !== 'Commercialgarages' && (
                 <>
                   <tr>
                     <td><FontAwesomeIcon icon={faBed} /><strong> {t('properties.bedrooms')}:</strong></td>
@@ -251,17 +265,25 @@ function ProductDetail() {
               </tr>
             </tbody>
           </table>
-          {isArabic ? (
-            <button onClick={toggleModal} className="btn">
-              <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px' }} />
-              {t('contact.contactUs')}
+          
+          <div className="button-container">
+            {isArabic ? (
+              <button onClick={toggleModal} className="btn">
+                <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px' }} />
+                {t('contact.contactUs')}
+              </button>
+            ) : (
+              <button onClick={toggleModal} className="btn">
+                <FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} />
+                {t('contact.contactUs')}
+              </button>
+            )}
+
+            <button onClick={handleShare} className="btn share-btn">
+              <FontAwesomeIcon icon={faShareAlt} style={{ marginLeft: isArabic ? '10px' : '0', marginRight: isArabic ? '0' : '10px' }} />
+              {t('contact.share')}
             </button>
-          ) : (
-            <button onClick={toggleModal} className="btn">
-              <FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} />
-              {t('contact.contactUs')}
-            </button>
-          )}
+          </div>
         </div>
       </div>
 

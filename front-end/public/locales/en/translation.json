@@ -9,7 +9,9 @@
     "dashboard" : "Dashboard",
     "login": "Log in",
     "logout" : "Log out",
-    "floorplotss": "Floor Plots"
+    "floorplotss": "Floor Plots",
+    "Commercialgarages": "Commercial Garages"
+
 
   },
   
@@ -42,13 +44,14 @@
       "status": "Status",
       "floors": "Floors",
       "floors1": "Floor",
-
       "floorplots": "Floor Plots",
       "availabilityDate": "Availability date",
       "priceVaries": "The price varies depending on the number of people and the length of stay",
       "MAD": "Moroccan Dirham",
       "pricePerSquareMeter": "per square meter",
-      "kitchen": "kitchen"
+      "kitchen": "kitchen",
+      "Commercialgarages": "Commercial Garages"
+
 
 
     },
@@ -96,7 +99,9 @@
     "send": "Send",
     "messageSent": "Message sent successfully",
     "messageFailed": "Failed to send message",
-    "close" : "cancel"
+    "close" : "cancel",
+    "share" : "Share"
+
 
   },
   "goBack": {

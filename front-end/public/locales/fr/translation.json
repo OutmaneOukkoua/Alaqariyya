@@ -9,7 +9,9 @@
     "login": "Connexion",
     "logout" : "Se déconnecter",
     "dashboard" : "Tableau de bord",
-    "floorplotss": "Terrains"
+    "floorplotss": "Terrains",
+    "Commercialgarages": "Garages commerciaux"
+
 
   },
   "properties": {
@@ -35,16 +37,14 @@
     "status": "Statut",
     "floors": "sols",
     "floors1": "sol",
-
     "floorplots": "Terrains",
     "availabilityDate": "Date de disponibilité",
     "priceVaries": "Le prix varie en fonction du nombre de personnes et de la durée du séjour",
     "MAD": "Dirham marocain",
     "pricePerSquareMeter": "par mètre carré",
-    "kitchen": "Cuisine"
-
+    "kitchen": "Cuisine",
+    "Commercialgarages": "Garages commerciaux"
     
-
   },
   "news": {
     "publishedOn": "Publié le",
@@ -89,7 +89,8 @@
     "send": "Envoyer",
     "messageSent": "Message envoyé avec succès",
     "messageFailed": "Échec de l'envoi du message",
-    "close" : "Annuler"
+    "close" : "Annuler",
+    "share" : "Partager"
 
   },
   "goBack": {

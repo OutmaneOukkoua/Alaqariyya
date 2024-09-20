@@ -9,6 +9,7 @@ import PropertyPage from './propertyPage';
 import AddNews from './AddNews';
 import NewsPage from './newsPage';
 import ContactSubmissions from './ContactSubmissions';
+import Statistique from './Statistique'; // Import the new Statistique component
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -30,6 +31,8 @@ const Dashboard = () => {
         return <NewsPage />;
       case 'view-submissions':
         return <ContactSubmissions />;
+      case 'statistique':  // Add case for Statistique component
+        return <Statistique />;
       default:
         return <h4>Welcome to the Dashboard</h4>;
     }

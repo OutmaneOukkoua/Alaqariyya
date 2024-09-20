@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -48,7 +49,7 @@ function AddProperty() {
     const files = Array.from(e.target.files);
     const updatedFiles = files.map((file, index) => ({
       file,
-      isMain: index === 0, // Default the first image as main
+      isMain: index === 0,
       displayOrder: index
     }));
     setImageFiles(updatedFiles);
@@ -62,12 +63,12 @@ function AddProperty() {
       setErrors(validationErrors);
       return;
     }
-  
+
     if (imageFiles.length === 0) {
       setErrors(prevErrors => ({ ...prevErrors, images: 'Please upload at least one image.' }));
       return;
     }
-  
+
     const formData = new FormData();
     for (const key in newProperty) {
       if (newProperty[key] !== '') {
@@ -79,17 +80,17 @@ function AddProperty() {
       formData.append('isMain', img.isMain);
       formData.append('displayOrder', img.displayOrder);
     });
-  
-    const token = localStorage.getItem('jwtToken');  // Define the token here
-  
+
+    const token = localStorage.getItem('jwtToken');
+
     try {
       const response = await axios.post(`${API_URL}/properties`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}` // Use the token
+          'Authorization': `Bearer ${token}`
         }
       });
-  
+
       if (response.status === 200) {
         toast.success('Property added successfully!', {
           icon: "🏠",
@@ -128,7 +129,7 @@ function AddProperty() {
   const validateForm = () => {
     const errors = {};
     const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'area'];
-    if (newProperty.type !== 'floorplots') {
+    if (newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages') {
       requiredFields.push('bedrooms', 'bathrooms', 'kitchen');
       if (newProperty.type === 'buy') {
         requiredFields.push('floors');
@@ -156,6 +157,7 @@ function AddProperty() {
           <option value="regularRent">Regular Rent</option>
           <option value="buy">Buy</option>
           <option value="floorplots">Floor Plots</option>
+          <option value="Commercialgarages">Commercial Garages</option>
         </select>
         {errors.type && <p className="error-message">{errors.type}</p>}
         <input type="text" name="title_ar" placeholder="Title (Arabic)" value={newProperty.title_ar} onChange={handleInputChange} required />
@@ -168,7 +170,8 @@ function AddProperty() {
         {errors.location_ar && <p className="error-message">{errors.location_ar}</p>}
         <input type="number" name="area" placeholder="Area" value={newProperty.area} onChange={handleInputChange} required />
         {errors.area && <p className="error-message">{errors.area}</p>}
-        {newProperty.type !== 'floorplots' && (
+        
+        {newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages' && (
           <>
             <input type="number" name="bedrooms" placeholder="Bedrooms" value={newProperty.bedrooms} onChange={handleInputChange} required />
             {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
@@ -185,6 +188,7 @@ function AddProperty() {
             )}
           </>
         )}
+
         {newProperty.type === 'rent' && (
           <>
             <label style={{ display: 'none' }}>
@@ -209,6 +213,7 @@ function AddProperty() {
             )}
           </>
         )}
+        
         <div className="file-input">
           <label htmlFor="files">Upload Images</label>
           <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
