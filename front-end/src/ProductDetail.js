@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -43,6 +42,7 @@ function ProductDetail() {
   useOutsideClick(modalRef, () => setImageModalVisible(false)); // Use custom hook
 
   useEffect(() => {
+    // Fetch product details
     axios.get(`${API_URL}/properties/${id}?lang=${i18n.language}`)
       .then(response => setProduct(response.data))
       .catch(error => console.error('Error fetching product details:', error));
@@ -97,21 +97,30 @@ function ProductDetail() {
 
   const handleShare = () => {
     if (navigator.share) {
-      navigator.share({
-        title: product[0].title,
-        text: product[0].description,
-        url: window.location.href,
-      })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.error('Error sharing:', error));
+        navigator.share({
+            title: product[0].title,
+            text: product[0].description,
+            url: window.location.href,
+        }).then(() => {
+            // Record the share in the database
+            axios.post(`${API_URL}/api/share`, { propertyId: product[0].property_id })
+                .then(() => {
+                    console.log('Share recorded successfully');
+                }).catch(error => {
+                    console.error('Error recording share:', error);
+                });
+        }).catch(error => {
+            console.error('Error with the sharing API:', error);
+        });
     } else {
-      alert('Your browser does not support sharing. You can manually copy the URL: ' + window.location.href);
+        alert('Your browser does not support sharing. You can manually copy the URL: ' + window.location.href);
     }
-  };
+};
 
+  
   return (
     <div className="ProductDetail">
-                  <Helmet>
+        <Helmet>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -182,7 +191,7 @@ function ProductDetail() {
               icon={faHeart}
               onClick={toggleFavorite}
               className="heart-icon"
-              style={{ color: isFavorite ? 'red' : 'gray' }}
+              style={{ color: isFavorite ? 'red' : 'white' }}
             />
           </div>
           {currentImageIndex < product.length - 1 && (
@@ -255,14 +264,24 @@ function ProductDetail() {
                   )}
                 </>
               )}
+              
               <tr>
-                <td><FontAwesomeIcon icon={faTag} /><strong> {t('properties.price')}:</strong></td>
-                <td>
-                  {product[0].type === 'floorplots' 
-                    ? `${product[0].price} ${t('properties.MAD')} ${t('properties.pricePerSquareMeter')}`
-                    : `${product[0].price} ${t('properties.MAD')}`}
-                </td>
-              </tr>
+              <td><FontAwesomeIcon icon={faTag} /><strong> {t('properties.price')}:</strong></td>
+              <td>
+                {product[0].old_price && product[0].old_price > product[0].price && (
+                  <span style={{ textDecoration: 'line-through', color: 'red', marginRight: '10px' }}>
+                    {product[0].old_price} {t('properties.MAD')}
+                  </span>
+                )}
+                <span style={{ marginRight: '10px' }}>
+                {product[0].type === 'floorplots' 
+                  ? `${product[0].price} ${t('properties.MAD')} ${t('properties.pricePerSquareMeter')}`
+                  : `${product[0].price} ${t('properties.MAD')}`}
+                </span>
+              </td>
+            </tr>
+
+
             </tbody>
           </table>
           

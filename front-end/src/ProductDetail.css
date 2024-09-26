@@ -264,9 +264,9 @@
 }
 .heart-icon {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 30px;
+  top: 18px;
+  right: 18px;
+  font-size: 35px;
   cursor: pointer;
 }
 
@@ -313,7 +313,7 @@
   background: rgba(0, 0, 0, 0.5);
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
   z-index: 1;
   position: absolute;
@@ -409,7 +409,7 @@
   }
 
   .scroll-button {
-    font-size: 20px;
+    font-size: 25px;
     padding: 8px;
   }
   .modal-content {

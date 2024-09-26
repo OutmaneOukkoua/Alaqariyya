@@ -1,15 +1,78 @@
 .statistique-container {
-    padding: 120px;
-    text-align: center;
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.statistique-title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.statistique-items {
+  display: flex; /* Flexbox to align items horizontally */
+  justify-content: space-around; /* Space between items */
+  align-items: center;
+  gap: 20px; /* Add space between items */
+}
+
+.statistique-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  flex-basis: 30%; /* Each item takes 30% of the container width */
+}
+
+.statistique-item:hover {
+  transform: translateY(-5px);
+}
+
+.statistique-icon {
+  font-size: 48px;
+  color: #4caf50;
+  margin-right: 20px;
+}
+
+.statistique-info {
+  text-align: left;
+}
+
+.statistique-number {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.statistique-label {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .statistique-items {
+    flex-direction: column; /* Stack items vertically on smaller screens */
   }
-  
-  .statistique-container h2 {
-    font-size: 24px;
+
+  .statistique-icon {
+    margin-right: 0;
     margin-bottom: 10px;
   }
-  
-  .statistique-container p {
-    font-size: 18px;
-    color: #333;
+
+  .statistique-number {
+    font-size: 28px;
   }
-  
+
+  .statistique-label {
+    font-size: 16px;
+  }
+}

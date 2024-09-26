@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SearchBar from './SearchBar';
 import './Content.css';
@@ -14,8 +13,8 @@ function Content({ filterType, onFilterChange }) {
   const [totalPages, setTotalPages] = useState(1);
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
-
   const API_URL = process.env.REACT_APP_SERVER;
+  const navigate = useNavigate();
 
   const fetchProperties = ({ type = 'all', location = '', page = 1 }) => {
     let query = `?type=${type}&page=${page}&lang=${i18n.language}`;
@@ -51,6 +50,17 @@ function Content({ filterType, onFilterChange }) {
     fetchProperties({ ...params, page: 1 });
   };
 
+  const handlePropertyClick = (propertyId) => {
+    // Increment the click count for the property
+    axios.post(`${API_URL}/clicks/${propertyId}`)
+    .then(response => console.log('Click count incremented'))
+      .catch(error => console.error('Error incrementing click count:', error));
+
+    // Navigate to the product details page
+    navigate(`/product/${propertyId}`);
+};
+
+
   const displayedProperties = properties.map(property => ({
     ...property,
     title: isArabic ? property.title_ar : property.title_en,
@@ -60,8 +70,8 @@ function Content({ filterType, onFilterChange }) {
 
   return (
     <div className={`Content ${isArabic ? 'rtl' : 'ltr'}`}>
-      <Helmet>
-        <title>{t('properties.pageTitle')}</title>
+            <Helmet>
+        <title>{t('properties.title')}</title>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -109,7 +119,6 @@ function Content({ filterType, onFilterChange }) {
             }
           `}
           </script>
-      
       </Helmet>
       <SearchBar onSearch={handleSearch} filterType={filterType} onFilterChange={onFilterChange} />
       <div className="properties-grid">
@@ -117,22 +126,27 @@ function Content({ filterType, onFilterChange }) {
           displayedProperties.map(property => (
             <div key={property.property_id} className={`property-card ${isArabic ? 'rtl' : ''}`}>
               <h3 className='title-p'>{property.title}</h3>
-              <Link to={`/product/${property.property_id}`}>
+              <div onClick={() => handlePropertyClick(property.property_id)}>
                 <img 
                   src={`${API_URL}/uploads/${property.image_url}`} 
                   alt={property.title} 
                   className="property-image" 
-                  loading="lazy"  // Lazy loading for better performance
+                  loading="lazy"
                 />
-              </Link>
+              </div>
               <p>{property.description}</p>
               <p><strong className='strong'>{t('properties.type')} : </strong> {t(`properties.${property.type}`)}</p>
               <p><strong className='strong'>{t('properties.location')} : </strong> {property.location}</p>
               <p>
                 <strong className='strong'>{property.type === 'rent' ? t('properties.priceWithAsterisk') : t('properties.price')} : </strong>
-                {property.type === 'floorplots'
-                  ? `${property.price} ${t('properties.MAD')} ${t('properties.pricePerSquareMeter')}`
-                  : `${property.price} ${t('properties.MAD')}`}
+                {property.old_price && property.old_price > property.price && (
+                  <span style={{ textDecoration: 'line-through', color: 'red', marginRight: '10px' }}>
+                    {property.old_price} {t('properties.MAD')}
+                  </span>
+                )}
+                <span style={{ marginRight: '10px' }}>
+                  {property.price} {t('properties.MAD')}
+                </span>
               </p>
               {property.type === 'rent' && (
                 <p className="small-text" style={{ color: 'grey', fontSize: '0.7em' }}>* {t('properties.priceVaries')}</p>

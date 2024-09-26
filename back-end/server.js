@@ -19,13 +19,20 @@ const propertyRoutes = require('./routes/propertyRoutes');
 const newsRoutes = require('./routes/newsRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const visitorRoutes = require('./routes/visitorRoutes');
+const shareRoutes = require('./routes/shareRoutes');
+const clickRoutes = require('./routes/clickRoutes');
+
+
 
 // Use routes
 app.use(authRoutes);
 app.use(propertyRoutes);
-app.use(newsRoutes); 
+app.use(newsRoutes);
 app.use(contactRoutes);
 app.use(visitorRoutes);
+app.use(shareRoutes);
+app.use(clickRoutes);
+
 
 // Basic route to test server setup
 app.get('/', (req, res) => {

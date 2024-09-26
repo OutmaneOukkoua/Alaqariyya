@@ -103,6 +103,21 @@
   margin-top: -10px;
 }
 
+.property-price {
+  font-size: 1.2em;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: red;
+  margin-right: 10px;
+}
+
+.new-price {
+  font-weight: bold;
+  color: green; /* Optional for new price emphasis */
+}
+
 /* Mobile styles */
 @media (max-width: 500px) {
   .Content {
