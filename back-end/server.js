@@ -27,7 +27,7 @@ const clickRoutes = require('./routes/clickRoutes');
 // Use routes
 app.use(authRoutes);
 app.use(propertyRoutes);
-app.use(newsRoutes);
+app.use(newsRoutes); 
 app.use(contactRoutes);
 app.use(visitorRoutes);
 app.use(shareRoutes);
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to backend for ALAQARIYYA');
 });
 
-// app.use('/nodeapp', router);
+app.use('/nodeapp', router);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

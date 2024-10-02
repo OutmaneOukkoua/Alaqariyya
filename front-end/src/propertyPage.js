@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -309,7 +307,7 @@ function PropertyPage() {
         </div>
       </div>
 
-      {/* Modal for Updating Property */}
+      {/* modal for Updating Property */}
       {showModal && (
         <div className="modal" onClick={handleModalClick}>
           <div className="modal-content">
@@ -393,7 +391,7 @@ function PropertyPage() {
         </div>
       )}
 
-      {/* Modal for Adding Property */}
+      {/* modal for Adding Property */}
       {showAddPropertyModal && (
         <div className="modal" onClick={handleAddPropertyModalClick}>
           <div className="modal-content">

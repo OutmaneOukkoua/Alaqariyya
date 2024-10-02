@@ -45,5 +45,5 @@ const getTotalClicks = (req, res) => {
 module.exports = {
     recordClick,
     getClickCountByProperty,
-    getTotalClicks, 
+    getTotalClicks
 };

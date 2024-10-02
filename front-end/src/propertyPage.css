@@ -28,7 +28,6 @@
 .property-form {
   background-color: #f9f9f9;
   padding: 30px 20px;
-  margin-top: 200px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -75,7 +74,8 @@
   margin-top: 20px;
 }
 
-/* Modal styles */
+/* modal styles */
+
 .modal {
   padding: 30px;
   display: flex;
@@ -92,15 +92,18 @@
 }
 
 .modal-content {
-  position: relative; /* Add this line to enable absolute positioning of the close button */
+  position: relative;
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
   border-radius: 10px;
   width: 100%;
   max-width: 400px;
+  max-height: 80vh; /* Restrict height to 80% of the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   animation: modalopen 0.3s;
+  margin-top: 20px;
 }
 
 .file-input {
@@ -448,7 +451,7 @@ input[type="date"]::placeholder {
 /* Mobile version */
 @media (max-width: 768px) {
   .update-property-container {
-    padding: 120px 10px;
+    padding: 80px 10px;
   }
 
   .properties-table th,

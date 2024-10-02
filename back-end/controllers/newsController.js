@@ -1,4 +1,4 @@
-const db = require('../config/db'); // Make sure this path is correct based on your project structure
+const db = require('../config/db'); 
 const sharp = require('sharp');
 const path = require('path');
 const { translateText } = require('../utils/translator');
