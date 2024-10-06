@@ -43,7 +43,10 @@
     "MAD": "درهم",
     "pricePerSquareMeter": "للمتر مربع",
     "kitchen": "المطبخ",
-    "Commercialgarages": "محلات تجارية"
+    "Commercialgarages": "محلات تجارية",
+    "description": "الوصف",
+    "details": "التفاصيل"
+
 
   },
   "news": {
@@ -90,7 +93,9 @@
     "messageSent": "تم إرسال الرسالة بنجاح",
     "messageFailed": "فشل في إرسال الرسالة",
     "close" : "إلغاء",
-    "share" : "مشاركة"
+    "share" : "مشاركة",
+    "sendEmail": "البريد الالكتروني"
+
   },
   "goBack": {
     "Go Back": "العودة"
@@ -99,6 +104,9 @@
     "yourCart": "قائمة العقارات المفضلة الخاصة بك",
     "cartEmpty": "قائمة العقارات المفضلة الخاصة بك فارغة",
     "remove": "إزالة"
+  },
+  "seller": {
+    "defaultName":"العقارية"
   }
   
 }

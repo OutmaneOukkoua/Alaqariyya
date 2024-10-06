@@ -206,7 +206,7 @@
   .header-top {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 20px;
+    padding: 10px;
   }
 
   .header-logo .logo {
@@ -310,7 +310,7 @@
   .header-top {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 20px;
+    padding: 10px;
   }
 
   .header-logo .logo {
@@ -353,7 +353,6 @@
   .panier-icon {
     font-size: 14px;
     padding: 5px 10px;
-    margin-left: 5px;
   }
 
   /* Reduce the size of the language select dropdown */

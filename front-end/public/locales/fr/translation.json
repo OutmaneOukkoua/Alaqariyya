@@ -43,7 +43,10 @@
     "MAD": "Dirham marocain",
     "pricePerSquareMeter": "par mètre carré",
     "kitchen": "Cuisine",
-    "Commercialgarages": "Garages commerciaux"
+    "Commercialgarages": "Garages commerciaux",
+    "description": "Description",
+    "details": "Détails"
+
     
   },
   "news": {
@@ -90,7 +93,9 @@
     "messageSent": "Message envoyé avec succès",
     "messageFailed": "Échec de l'envoi du message",
     "close" : "Annuler",
-    "share" : "Partager"
+    "share" : "Partager",
+    "sendEmail": "Email"
+
 
   },
   "goBack": {
@@ -100,5 +105,8 @@
     "yourCart": "Votre liste de propriétés favorites",
     "cartEmpty": "Votre liste de propriétés favorites est vide",
     "remove": "Retirer"
+  },
+  "seller": {
+    "defaultName":"Alaqariyya"
   }
 }

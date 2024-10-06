@@ -1,38 +1,42 @@
 
+
 const db = require('../config/db');
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
-const { translateProperty, translateText } = require('../utils/translator');
+const { translateProperty } = require('../utils/translator');
 
 // Add a new property
 exports.addProperty = async (req, res) => {
   try {
     const newProperty = {
+      type: req.body.type,
       title_ar: req.body.title_ar,
       description_ar: req.body.description_ar,
       price: req.body.price,
       old_price: null, // Initially, no old price
       location_ar: req.body.location_ar,
+      exact_address: req.body.exact_address, // <-- Added
       bedrooms: req.body.bedrooms,
       salon: req.body.salon,
       bathrooms: req.body.bathrooms,
       kitchen: req.body.kitchen,
       area: req.body.area,
-      type: req.body.type,
       available: req.body.type === 'rent' ? true : req.body.available,
       floors: req.body.floors,
       availability_date: req.body.availability_date
     };
 
     // Check if required fields are present
-    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar) {
-      return res.status(400).send('Title, description, and location (in Arabic) are required.');
+    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar || !newProperty.exact_address) { // <-- Updated validation
+      return res.status(400).send('Title, description, location (Arabic), and exact address are required.');
     }
 
+    // Translate property fields if necessary
     const translations = await translateProperty(newProperty);
     Object.assign(newProperty, translations);
 
+    // Insert the new property into the database
     const sql = 'INSERT INTO properties SET ?';
     db.query(sql, newProperty, async (err, result) => {
       if (err) {
@@ -42,8 +46,10 @@ exports.addProperty = async (req, res) => {
       const propertyId = result.insertId;
       const images = [];
 
+      // Process and save images
       for (const [index, file] of req.files.entries()) {
-        const outputPath = path.join(__dirname, '../uploads', Date.now() + path.extname(file.originalname));
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const outputPath = path.join(__dirname, '../uploads', uniqueSuffix + path.extname(file.originalname));
         await sharp(file.buffer)
           .rotate()
           .resize(800, 600)
@@ -54,13 +60,14 @@ exports.addProperty = async (req, res) => {
         images.push([propertyId, path.basename(outputPath), isMain, index]);
       }
 
+      // Insert images into the property_images table
       const imageSql = 'INSERT INTO property_images (property_id, image_url, is_main, display_order) VALUES ?';
       db.query(imageSql, [images], (err, result) => {
         if (err) {
           console.error('Error inserting property images:', err);
           return res.status(500).send('Database insertion error');
         }
-        res.send(result);
+        res.status(200).send({ message: 'Property added successfully!', propertyId });
       });
     });
   } catch (error) {
@@ -69,7 +76,7 @@ exports.addProperty = async (req, res) => {
   }
 };
 
-// Get all properties (including old_price)
+// Get all properties (including old_price and exact_address)
 exports.getProperties = async (req, res) => {
   const { type, location, page = 1, limit = 12, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
@@ -77,11 +84,12 @@ exports.getProperties = async (req, res) => {
   const titleColumn = `title_${lang}`;
   const descriptionColumn = `description_${lang}`;
   const locationColumn = `location_${lang}`;
+  const exactAddressColumn = `exact_address`; // Assuming exact_address is not translated
 
   let sql = `
     SELECT 
       p.property_id, 
-      p.title_ar, p.description_ar, p.location_ar, 
+      p.${titleColumn}, p.${descriptionColumn}, p.${locationColumn}, p.exact_address, 
       p.title_en, p.description_en, p.location_en, 
       p.price, p.old_price, p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, 
       p.type, p.available, p.floors, p.availability_date, 
@@ -137,7 +145,7 @@ exports.getProperties = async (req, res) => {
       const totalProperties = countResult[0].total;
       const totalPages = Math.ceil(totalProperties / limit);
 
-      res.send({
+      res.status(200).send({
         properties: result,
         totalPages: totalPages,
         currentPage: parseInt(page),
@@ -146,15 +154,17 @@ exports.getProperties = async (req, res) => {
   });
 };
 
-// Get a single property by ID (including old_price)
+// Get a single property by ID (including old_price and exact_address)
 exports.getPropertyById = (req, res) => {
   const language = req.query.lang || 'en';
   const titleColumn = `title_${language}`;
   const descriptionColumn = `description_${language}`;
   const locationColumn = `location_${language}`;
+  const exactAddressColumn = `exact_address`; // Assuming exact_address is not translated
 
   const sql = `
     SELECT p.property_id, p.${titleColumn} as title, p.price, p.old_price, p.${locationColumn} as location, 
+           p.${exactAddressColumn} as exact_address, 
            p.bedrooms, p.bathrooms, p.salon, p.kitchen, p.area, p.type, p.available, p.floors, 
            p.availability_date, pi.image_url, pi.is_main, pi.display_order, p.${descriptionColumn} as description
     FROM properties p 
@@ -164,9 +174,13 @@ exports.getPropertyById = (req, res) => {
   `;
   db.query(sql, [req.params.id], (err, result) => {
     if (err) {
+      console.error('Error querying property by ID:', err);
       return res.status(500).send('Database query error');
     }
-    res.send(result);
+    if (result.length === 0) {
+      return res.status(404).send('Property not found');
+    }
+    res.status(200).send(result);
   });
 };
 
@@ -174,21 +188,23 @@ exports.getPropertyById = (req, res) => {
 exports.updateProperty = async (req, res) => {
   try {
     const updatedProperty = {
+      type: req.body.type,
       title_ar: req.body.title_ar,
       description_ar: req.body.description_ar,
       price: req.body.price,
       location_ar: req.body.location_ar,
+      exact_address: req.body.exact_address, // <-- Added
       bedrooms: req.body.bedrooms,
       salon: req.body.salon,
       bathrooms: req.body.bathrooms,
       kitchen: req.body.kitchen,
       area: req.body.area,
-      type: req.body.type,
       available: req.body.available,
       floors: req.body.floors,
       availability_date: req.body.availability_date,
     };
 
+    // Translate property fields if necessary
     const translations = await translateProperty(updatedProperty);
     Object.assign(updatedProperty, translations);
 
@@ -197,6 +213,10 @@ exports.updateProperty = async (req, res) => {
       if (err) {
         console.error('Error fetching property for price update:', err);
         return res.status(500).send('Database query error');
+      }
+
+      if (result.length === 0) {
+        return res.status(404).send('Property not found');
       }
 
       const oldPrice = result[0].price;
@@ -219,6 +239,7 @@ exports.updateProperty = async (req, res) => {
               return res.status(500).send('Database query error');
             }
 
+            // Delete existing image files
             images.forEach(image => {
               const filePath = path.join(__dirname, '../uploads', image.image_url);
               fs.unlink(filePath, (err) => {
@@ -226,6 +247,7 @@ exports.updateProperty = async (req, res) => {
               });
             });
 
+            // Delete image records from the database
             const deleteImagesSql = 'DELETE FROM property_images WHERE property_id = ?';
             db.query(deleteImagesSql, [req.params.id], async (err, deleteResult) => {
               if (err) {
@@ -235,7 +257,8 @@ exports.updateProperty = async (req, res) => {
 
               const newImages = [];
               for (const [index, file] of req.files.entries()) {
-                const outputPath = path.join(__dirname, '../uploads', Date.now() + path.extname(file.originalname));
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+                const outputPath = path.join(__dirname, '../uploads', uniqueSuffix + path.extname(file.originalname));
                 await sharp(file.buffer)
                   .rotate()
                   .resize(800, 600)
@@ -243,7 +266,7 @@ exports.updateProperty = async (req, res) => {
                   .toFile(outputPath);
 
                 const isMain = req.files.length === 1 || index === 0;
-                const displayOrder = parseInt(req.body.displayOrder ? req.body.displayOrder[index] : index, 10);
+                const displayOrder = index;
                 newImages.push([req.params.id, path.basename(outputPath), isMain, displayOrder]);
               }
 
@@ -254,15 +277,15 @@ exports.updateProperty = async (req, res) => {
                     console.error('Error inserting property images:', err);
                     return res.status(500).send('Database insertion error');
                   }
-                  res.send(insertResult);
+                  res.status(200).send({ message: 'Property updated successfully!' });
                 });
               } else {
-                res.send(result);
+                res.status(200).send({ message: 'Property updated successfully!' });
               }
             });
           });
         } else {
-          res.send(result);
+          res.status(200).send({ message: 'Property updated successfully!' });
         }
       });
     });
@@ -281,7 +304,7 @@ exports.updatePropertyAvailability = (req, res) => {
       console.error('Error updating availability:', err);
       return res.status(500).send('Database update error');
     }
-    res.send(result);
+    res.status(200).send({ message: 'Property availability updated successfully!' });
   });
 };
 
@@ -289,6 +312,7 @@ exports.updatePropertyAvailability = (req, res) => {
 exports.deleteProperty = (req, res) => {
   const propertyId = req.params.id;
 
+  // First, retrieve all image URLs associated with the property
   const selectImagesSql = 'SELECT image_url FROM property_images WHERE property_id = ?';
   db.query(selectImagesSql, [propertyId], (err, images) => {
     if (err) {
@@ -296,6 +320,7 @@ exports.deleteProperty = (req, res) => {
       return res.status(500).send('Database query error');
     }
 
+    // Delete image files from the server
     images.forEach(image => {
       const filePath = path.join(__dirname, '../uploads', image.image_url);
       fs.unlink(filePath, (err) => {
@@ -303,6 +328,7 @@ exports.deleteProperty = (req, res) => {
       });
     });
 
+    // Delete image records from the database
     const deleteImagesSql = 'DELETE FROM property_images WHERE property_id = ?';
     db.query(deleteImagesSql, [propertyId], (err, result) => {
       if (err) {
@@ -310,13 +336,14 @@ exports.deleteProperty = (req, res) => {
         return res.status(500).send('Database deletion error');
       }
 
+      // Delete the property record from the database
       const deletePropertySql = 'DELETE FROM properties WHERE property_id = ?';
       db.query(deletePropertySql, [propertyId], (err, result) => {
         if (err) {
           console.error('Error deleting property:', err);
           return res.status(500).send('Database deletion error');
         }
-        res.send(result);
+        res.status(200).send({ message: 'Property deleted successfully!' });
       });
     });
   });

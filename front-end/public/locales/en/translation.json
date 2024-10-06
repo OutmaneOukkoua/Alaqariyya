@@ -50,10 +50,9 @@
       "MAD": "Moroccan Dirham",
       "pricePerSquareMeter": "per square meter",
       "kitchen": "kitchen",
-      "Commercialgarages": "Commercial Garages"
-
-
-
+      "Commercialgarages": "Commercial Garages",
+      "description": "Description",
+      "details": "Details"
     },
     "news": {
     "publishedOn": "Published On",
@@ -100,7 +99,9 @@
     "messageSent": "Message sent successfully",
     "messageFailed": "Failed to send message",
     "close" : "cancel",
-    "share" : "Share"
+    "share" : "Share",
+    "sendEmail": "Email"
+
 
 
   },
@@ -111,6 +112,9 @@
     "yourCart": "Your list of favorite properties",
     "cartEmpty": "Your list of favorite properties is empty",
     "remove": "Remove"
+  },
+  "seller": {
+    "defaultName":"Alaqariyya"
   }
     
   

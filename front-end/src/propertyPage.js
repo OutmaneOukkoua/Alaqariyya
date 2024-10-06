@@ -238,6 +238,7 @@ function PropertyPage() {
               <th>Description</th>
               <th>Price</th>
               <th>Location</th>
+              <th>Exact Address</th>
               <th>Bedrooms</th>
               <th>Salon</th>
               <th>Bathrooms</th>
@@ -258,6 +259,7 @@ function PropertyPage() {
                   <td>{property.description_ar || property.description}</td>
                   <td>{property.price}</td>
                   <td>{property.location_ar || property.location}</td>
+                  <td>{property.exact_address}</td>
                   <td>{property.bedrooms}</td>
                   <td>{property.salon}</td>
                   <td>{property.bathrooms}</td>
@@ -328,6 +330,7 @@ function PropertyPage() {
               <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description (Arabic)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
               <input type="number" name="price" placeholder="Price" value={selectedProperty.price} onChange={handleInputChange} required />
               <input type="text" name="location_ar" placeholder="Location (Arabic)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
+              <input type="text" name="exact_address" placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)" value={selectedProperty.exact_address} onChange={handleInputChange} required />
               <input type="number" name="area" placeholder="Area" value={selectedProperty.area} onChange={handleInputChange} required />
               {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && (
                 <>

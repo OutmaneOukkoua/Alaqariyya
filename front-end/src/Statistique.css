@@ -1,9 +1,10 @@
 /* Section container */
 .statistique-grid {
   padding: 80px;
-  padding-left: 25%;
   background-color: #ffffff;
   text-align: center;
+  font-family: Arial, sans-serif;
+
 }
 
 /* Title */

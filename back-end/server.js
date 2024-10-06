@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to backend for ALAQARIYYA');
 });
 
-app.use('/nodeapp', router);
+// app.use('/nodeapp', router);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

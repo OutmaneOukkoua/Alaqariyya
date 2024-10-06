@@ -42,8 +42,9 @@
     "MAD": "Marokkaanse Dirham",
     "pricePerSquareMeter": "per vierkante meter",
     "kitchen": "keuken",
-    "Commercialgarages": "Commerciële garages"
-
+    "Commercialgarages": "Commerciële garages",
+    "description": "Beschrijving",
+    "details": "Details"
 
   },
   "news": {
@@ -90,7 +91,9 @@
     "messageSent": "Bericht succesvol verzonden",
     "messageFailed": "Bericht verzenden mislukt",
     "close" : "annuleren",
-    "share" : "Delen"
+    "share" : "Delen",
+    "sendEmail": "Email"
+
 
   },
   "goBack": {
@@ -100,5 +103,8 @@
     "yourCart": "Uw lijst met favoriete eigendommen",
     "cartEmpty": "Uw lijst met favoriete eigendommen is leeg",
     "remove": "Verwijderen"
+  },
+  "seller": {
+    "defaultName":"Alaqariyya"
   }
 }

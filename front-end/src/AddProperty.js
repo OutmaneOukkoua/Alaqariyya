@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -15,6 +13,7 @@ function AddProperty() {
     description_ar: '',
     price: '',
     location_ar: '',
+    exact_address: '',
     area: '',
     available: true,
     availability_date: '',
@@ -31,7 +30,7 @@ function AddProperty() {
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-    if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar') {
+    if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar' ) { // <-- Included 'exact_address'
       const arabicOnly = value.replace(/[^\u0600-\u06FF0-9\s.,?!؛،]/g, '');
       setNewProperty(prevState => ({
         ...prevState,
@@ -101,6 +100,7 @@ function AddProperty() {
           description_ar: '',
           price: '',
           location_ar: '',
+          exact_address: '', // <-- Reset this field
           area: '',
           available: true,
           availability_date: '',
@@ -128,7 +128,7 @@ function AddProperty() {
 
   const validateForm = () => {
     const errors = {};
-    const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'area'];
+    const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'exact_address', 'area']; // <-- Included 'exact_address'
     if (newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages') {
       requiredFields.push('bedrooms', 'bathrooms', 'kitchen');
       if (newProperty.type === 'buy') {
@@ -168,6 +168,18 @@ function AddProperty() {
         {errors.price && <p className="error-message">{errors.price}</p>}
         <input type="text" name="location_ar" placeholder="Location (Arabic)" value={newProperty.location_ar} onChange={handleInputChange} required />
         {errors.location_ar && <p className="error-message">{errors.location_ar}</p>}
+        
+        {/* Exact Address Field */}
+        <input
+          type="text"
+          name="exact_address"
+          placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)"
+          value={newProperty.exact_address}
+          onChange={handleInputChange}
+          required
+        />
+        {errors.exact_address && <p className="error-message">{errors.exact_address}</p>}
+        
         <input type="number" name="area" placeholder="Area" value={newProperty.area} onChange={handleInputChange} required />
         {errors.area && <p className="error-message">{errors.area}</p>}
         

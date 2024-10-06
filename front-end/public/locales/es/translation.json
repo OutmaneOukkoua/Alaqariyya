@@ -43,7 +43,11 @@
     "MAD": "Dírham marroquí",
     "pricePerSquareMeter": "por metro cuadrado",
     "kitchen": "cocina",
-    "Commercialgarages": "Garajes comerciales"
+    "Commercialgarages": "Garajes comerciales",
+    "description": "Descripción",
+    "details": "Detalles"
+
+
 
 
 
@@ -92,7 +96,9 @@
     "messageSent": "Mensaje enviado con éxito",
     "messageFailed": "Error al enviar el mensaje",
     "close" : "Cancelar",
-    "share" : "Compartir"
+    "share" : "Compartir",
+    "sendEmail": "Email"
+
 
 
   },
@@ -103,5 +109,8 @@
     "yourCart": "Tu lista de propiedades favoritas",
     "cartEmpty": "Tu lista de propiedades favoritas está vacía",
     "remove": "Eliminar"
+  },
+  "seller": {
+    "defaultName":"Alaqariyya"
   }
 }
