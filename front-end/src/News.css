@@ -11,8 +11,10 @@
 }
 
 .News {
-  padding: 80px;
+  padding: 80px 10px; /* Reduced side padding for more horizontal space */
   font-family: Arial, sans-serif;
+  max-width: 1850px; /* Set max-width for wider content area */
+  margin: 0 auto; /* Center the content container */
 }
 
 .News.ltr {
@@ -35,6 +37,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
+  max-width: 100%; /* Ensure the grid takes full width */
+  margin: 0 auto; /* Center the grid */
 }
 
 .news-article {
@@ -42,11 +46,11 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease; /* Add transition for smooth scaling */
+  transition: transform 0.3s ease;
 }
 
 .news-article:hover {
-  transform: scale(1.05); /* Scale up the article slightly on hover */
+  transform: scale(1.05);
 }
 
 .news-article h2 {
@@ -72,43 +76,43 @@
   }
 
   .news-articles {
-    grid-template-columns: repeat(2, 1fr); /* Display two articles per row on tablets */
-    gap: 15px; /* Adjust gap between grid items for tablets */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   .news-article {
-    padding: 15px; /* Adjust padding inside articles for tablets */
+    padding: 15px;
   }
 
   .news-article h2 {
-    font-size: 1.3em; /* Adjust font size for tablets */
+    font-size: 1.3em;
   }
 
   .news-article p {
-    font-size: 1em; /* Adjust font size for tablets */
+    font-size: 1em;
   }
 }
 
 /* Mobile styles */
 @media (max-width: 500px) {
   .News {
-    padding: 120px 10px; /* Adjust padding for mobile devices */
+    padding: 120px 10px; /* Adjust padding for mobile */
   }
 
   .news-articles {
-    grid-template-columns: 1fr; /* Display one article per row on mobile */
-    gap: 10px; /* Adjust gap between grid items for mobile */
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .news-article {
-    padding: 10px; /* Adjust padding inside articles for mobile */
+    padding: 10px;
   }
 
   .news-article h2 {
-    font-size: 1.2em; /* Adjust font size for mobile */
+    font-size: 1.2em;
   }
 
   .news-article p {
-    font-size: 0.9em; /* Adjust font size for mobile */
+    font-size: 0.9em;
   }
 }

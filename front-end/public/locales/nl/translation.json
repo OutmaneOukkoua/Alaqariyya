@@ -32,7 +32,8 @@
     "Previous" : "Vorig",
     "Next" : "Volgende",
     "available": "Beschikbaar",
-    "notAvailable": "Niet Beschikbaar",
+    "Loading": "Eigenschappen laden...",
+
     "status": "Status",
     "floors": "vloeren",
     "floors1": "vloer",

@@ -28,7 +28,7 @@
     "buy": "Verkaufen",
     "all": "Alle",
     "searchPlaceholder": "Standort eingeben",
-    "noProperties": "Keine Immobilien gefunden.",
+    "Loading": "Eigenschaften werden geladen...",
     "AddToCart": "In den Warenkorb legen",
     "Previous" : "Vorherige",
     "Next" : "Nächste",

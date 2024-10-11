@@ -1,6 +1,9 @@
 .contact-us-container {
   font-family: Arial, sans-serif;
   padding: 20px;
+  max-width: 1900px; /* Set a max-width for the container */
+  margin: 0 auto; /* Center the container */
+
 }
 
 .contact-us-container.ltr {
@@ -19,7 +22,7 @@
   color: white;
   text-align: center;
   padding-top: 10px; /* Adjusted padding-top */
-  padding-bottom: 50px; /* Adjusted padding-bottom */
+  padding-bottom: 40px; /* Adjusted padding-bottom */
   position: relative;
 }
 
@@ -27,14 +30,15 @@
   margin-top: 80px;
   font-size: 2.7em;
   font-weight: 550;
-  color: #2e2e2e;
-  text-shadow: 2px 2px 4px #000000;
+  color: #303030;
+  text-shadow: 2px 2px 4px #494949;
 }
 
 .contact-us-content {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .contact-details,
@@ -148,12 +152,12 @@
 
   .banner {
     position: relative;
-    padding: 70px;
+    padding: 60px;
   }
 
   .bannerName {
-    font-size: 2rem;
-    margin-top: 40px;
+    font-size: 1.9rem;
+    margin-top: 30px;
   }
 
   .map iframe {

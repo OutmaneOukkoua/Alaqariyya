@@ -75,6 +75,7 @@ function ContactUs() {
   }, [alertMessage]);
 
   return (
+    <>
     <div className={`contact-us-container ${isArabic ? 'rtl' : 'ltr'}`}>
       <Helmet>
         <html lang={i18n.language} dir={isArabic ? 'rtl' : 'ltr'} />
@@ -222,8 +223,9 @@ function ContactUs() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
+    <Footer />
+    </>
   );    
 }
 

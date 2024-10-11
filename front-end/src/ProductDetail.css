@@ -3,12 +3,14 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5f5f5;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .breadcrumb-container {
-  background-color: #fff;
-  padding: 10px 20px;
-  margin-bottom: 20px;
+  padding-top: 60px;
+  margin-bottom: 10px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .breadcrumb {
@@ -16,12 +18,14 @@
 }
 
 .breadcrumb span {
-  color: #007bff;
+  color: rgb(53, 53, 53);
   cursor: pointer;
+  margin: 5px;
 }
 
 .breadcrumb span:hover {
   text-decoration: underline;
+  color: #007bff;
 }
 
 .product-container {
@@ -190,14 +194,33 @@
   cursor: pointer;
 }
 
+.main-image,
+.nav-arrow {
+  user-select: none; /* Prevents selection */
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+}
+
+
 .nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 40px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 30px; /* Reduce the size for a more subtle look */
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4); /* Add a background for better visibility */
+  padding: 10px;
+  border-radius: 50%; /* Make it circular */
+  transition: background-color 0.3s, transform 0.3s ease; /* Add smooth hover transition */
+}
+
+/* Add hover effect for a more interactive feel */
+.nav-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1); /* Slightly increase the size on hover */
 }
 
 .left-arrow {
@@ -418,7 +441,12 @@
   height: auto;
   object-fit: contain;
   border-radius: 8px;
+  user-select: none; /* Prevents selection */
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
 }
+
 
 .close-modal {
   position: absolute;
@@ -433,9 +461,19 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 40px;
-  color: #333;
+  font-size: 30px; /* Reduce the size for a more subtle look */
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4); /* Add a background for better visibility */
+  padding: 10px;
+  border-radius: 50%; /* Make it circular */
+  transition: background-color 0.3s, transform 0.3s ease; /* Add smooth hover transition */
+}
+
+.modal-nav-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1); /* Slightly increase the size on hover */
 }
 
 .modal-left-arrow {
@@ -463,12 +501,50 @@
   color: red;
 }
 
+/* ProductDetail.css */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Adjust height as needed */
+}
+
+.spinner {
+  font-size: 50px; /* Adjust size as needed */
+  color: #555; /* Adjust color as needed */
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Style the loading text */
+.loading p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+
 /* Existing Mobile Styles */
 @media (max-width: 768px) {
   .product-container {
     flex-direction: column;
     padding: 30px 0;
+    padding-bottom: 10px;
     margin-right: -15px;
+  }
+  .breadcrumb {
+    padding-top: 25px;
+    margin-bottom: -35px;
   }
 
   .left-column {
@@ -528,6 +604,7 @@
     overflow: hidden;
     border-radius: 5px;
   }
+
 }
 
 /* New Tablet Styles (769px to 1024px) */

@@ -1,6 +1,8 @@
 .login-container {
   display: flex;
   height: 100vh;
+  max-width: 1900px; /* Set a max-width for the container */
+  margin: 0 auto; /* Center the container */
 }
 
 .bg {

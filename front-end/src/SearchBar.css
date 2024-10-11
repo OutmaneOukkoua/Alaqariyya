@@ -1,189 +1,186 @@
+/* SearchBar.css */
+
+/* Container for the entire search bar */
 .search-bar-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px;
+  padding: 70px ;
   padding-bottom: 20px;
+  background-color: #ffffff; /* Light background to make the search bar stand out */
 }
 
+/* Background box for the search bar */
 .search-bar-background {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 60px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 30px 40px;
   width: 100%;
-  max-width: 70%;
+  max-width: 900px; /* Increased max-width for more spacious layout */
+  background-color: #ffffff; /* White background for a clean look */
 }
 
+/* Search bar layout */
 .search-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.table-b {
-  width: 100%;
-  margin-bottom: 10px;
+/* Flex container for search controls */
+.search-controls {
   display: flex;
-  justify-content: center;
-  
-}
-
-.table-b td {
-  padding: 5px;
-  text-align: center;
-
-}
-
-.table-b button {
-  background-color: #007BFF;
-  border: none;
-  color: white;
-  padding: 12px 20px;
-  margin: 5px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  font-size: 21px;
-  font-family: "Tajawal", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.table-b button.active {
-  background-color: #0056b3;
-}
-
-.table-b button:hover:not(.active) {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
-.search-input {
-  display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
   width: 100%;
-  margin-top: 10px;
-  position: relative;
-
+  gap: 15px; /* Space between elements */
 }
 
-.search-input input {
+/* Styling for the filter select dropdown */
+.filter-select {
   flex: 1;
-  padding: 15px;
+  padding: 12px 20px;
   font-size: 16px;
-  border: 2px solid #ced4da;
-  border-radius: 25px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
   outline: none;
-  transition: border-color 0.3s;
-  padding-right: 40px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  appearance: none; /* Remove default arrow */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12"%3E%3Cpath fill="%23999" d="M6 8l-4-4h8z"/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
 }
 
-.search-input input:focus {
+.ltr .filter-select {
+  background-position: right 15px center;
+}
+
+.rtl .filter-select {
+  background-position: left 15px center;
+}
+
+/* Focus state for the select dropdown */
+.filter-select:focus {
   border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.search-button {
-  background-color: #007BFF;
-  border: none;
-  color: white;
-  padding: 16px 20px;
-  cursor: pointer;
-  border-radius: 25px;
-  transition: background-color 0.3s, transform 0.3s;
-  font-size: 17px;
+/* Container for search input and button */
+.search-input-container {
+  position: relative;
+  flex: 3;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.search-button i {
+/* Styling for the search input */
+.search-input-container input {
+  width: 100%;
+  padding: 12px 50px 12px 20px; /* Added padding-right for the search icon */
+  font-size: 16px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.ltr .search-input-container input {
+  padding: 12px 50px 12px 20px; /* Padding for LTR (icon on the right) */
+}
+
+.rtl .search-input-container input {
+  padding: 12px 20px 12px 50px; /* Padding for RTL (icon on the left) */
+}
+
+.search-input-container input:focus {
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Styling for the integrated search button */
+.search-input-container .search-icon-button {
+  position: absolute;
+  background: none;
+  border: none;
+  color: #007BFF;
+  cursor: pointer;
   font-size: 18px;
+  transition: color 0.3s, transform 0.3s;
 }
 
-.search-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+.ltr .search-icon-button {
+  right: 10px;
 }
 
+.rtl .search-icon-button {
+  left: 10px;
+}
 
+.search-icon-button:hover {
+  color: #0056b3;
+  transform: scale(1.1);
+}
+
+.search-icon-button:focus {
+  outline: none;
+}
+
+/* Responsive Design */
+
+/* Mobile Devices */
 @media (max-width: 768px) {
-  .search-bar-container {
-    padding: 90px 0px; 
-    padding-bottom: 20px;
-
+  .search-bar-container{
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
-
-  .search-bar-background {
-    padding: 40px; /* Reduced padding */
-    max-width: 100%;
-  }
-
-  .table-b {
-    display: block; /* Change table to block to allow wrapping */
-  }
-
-  .table-b th {
-    display: inline-block; /* Make each button act like an inline block */
-    width: auto; /* Ensure the buttons are flexible */
-  }
-
-
-  .table-b button {
-    margin: 6px;
-    padding: 12px;
-    font-size: 12px;
-    white-space: nowrap;
-    text-align: center; /* Ensure text is centered in the buttons */
-
-  }
-
-  .search-input {
+  .search-controls {
     flex-direction: column;
-    align-items: stretch;
-    margin-top: 20px;
+    gap: 10px;
   }
 
-  .search-input input {
-    border-radius: 15px;
-    padding: 20px;
+  .filter-select,
+  .search-input-container {
+    width: 100%;
+  }
+
+  .ltr .search-input-container input {
+    padding: 12px 40px 12px 20px; /* Adjust padding for smaller screens */
+  }
+
+  .rtl .search-input-container input {
+    padding: 12px 20px 12px 40px; /* Adjust padding for RTL on mobile */
+  }
+
+  .search-icon-button {
     font-size: 16px;
   }
+
+  .ltr .search-icon-button {
+    right: 15px;
+  }
+
+  .rtl .search-icon-button {
+    left: 15px;
+  }
 }
 
-@media (max-width: 1024px) and (min-width: 601px) {
-  .search-bar-container {
-    padding: 140px 0; /* Adjust padding for tablets */
-    padding-bottom: 20px;
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .search-bar-container{
+    padding-top: 150px;
+  }
+  .search-controls {
+    gap: 12px;
   }
 
-  .search-bar-background {
-    padding: 50px; /* Adjust padding */
-    max-width: 80%;
+  .filter-select,
+  .search-input-container input {
+    font-size: 15px;
   }
 
-  .table-b {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .table-b button {
-    flex: 1 1 45%;
-    margin: 10px; /* Adjust margin for tablets */
-    padding: 10px 15px; /* Adjust padding for tablets */
-    font-size: 16px; /* Adjust font size for tablets */
-  }
-
-  .search-input {
-    flex-direction: column;
-    align-items: stretch;
-    margin-top: 20px;
-  }
-
-  .search-input input {
-    border-radius: 15px;
-    padding: 20px;
+  .search-icon-button {
     font-size: 16px;
   }
 }

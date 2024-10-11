@@ -33,7 +33,8 @@
     "Previous" : "Précédent",
     "Next" : "Suivant",
     "available": "Disponible",
-    "notAvailable": "Non Disponible",
+    "Loading": "Chargement des propriétés...",
+
     "status": "Statut",
     "floors": "sols",
     "floors1": "sol",

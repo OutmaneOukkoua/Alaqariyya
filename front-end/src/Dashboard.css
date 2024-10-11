@@ -6,6 +6,9 @@ body {
 .dashboard-container {
   display: flex;
   align-items: stretch;
+  margin: 0 auto; /* Center the content */
+  max-width: 1850px; /* Increase max-width for even more space on large screens */
+
 }
 
 .sidebar {

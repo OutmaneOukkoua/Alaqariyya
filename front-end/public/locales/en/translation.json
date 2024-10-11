@@ -35,7 +35,8 @@
       "buy": "sell",
       "all": "All",
       "searchPlaceholder": "Enter location",
-      "noProperties": "No properties found.",
+      "Loading": "Loading properties...",
+
       "AddToCart":"Add To Cart",
       "Previous" : "Previous",
       "Next" : "Next",
@@ -101,8 +102,6 @@
     "close" : "cancel",
     "share" : "Share",
     "sendEmail": "Email"
-
-
 
   },
   "goBack": {

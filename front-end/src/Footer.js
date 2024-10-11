@@ -1,20 +1,23 @@
-
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faMapMarkerAlt, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { Helmet } from 'react-helmet';
+import {
+  faFacebookF,
+  faInstagram,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
+import { faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
 import './Footer.css';
+import { Helmet } from 'react-helmet';
+
 
 function Footer() {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
 
   return (
-    <footer className={`Footer ${isArabic ? 'App-footer-rtl' : ''}`}>
+    <footer className={`footer ${isArabic ? 'rtl' : 'ltr'}`}>
       <Helmet>
-        <title>{t('properties.pageTitle')}</title>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
         <meta name="description" content="عقارات، شراء عقار، بيع عقار، تأجير عقار، عقارات للبيع، عقارات للإيجار، شقق للبيع، شقق للإيجار، منازل للبيع، منازل للإيجار، فلل للبيع، فلل للإيجار، أراضي للبيع، مكاتب للإيجار، مكاتب للبيع، وكالات عقارية، استثمار عقاري، عقارات تجارية، عقارات سكنية، شراء شقة، عقارات فاخرة، شقق فاخرة، شقق مفروشة، عقارات قيد الإنشاء، فلل فاخرة، إيجار يومي، إيجار أسبوعي، إيجار شهري، عقارات سياحية، شقق عطلات، منازل ريفية، عقارات صناعية، أراضي صناعية، عقارات تجارية، شقق قريبة من البحر، مزارع للبيع، عقارات تجزئة، عقارات للأعمال، شقق مفروشة للإيجار، عقارات للإيجار طويل الأمد، عقارات سكنية، منازل قيد الإنشاء، عقارات للتطوير، وكالات إدارة العقارات، شراء عقارات تجارية، إيجار مكاتب تجارية، منازل عطلات، عقارات قريبة من المدينة، شراء عقارات سياحية، تأجير عقارات سياحية، بني أنصار، الناظور، مليلية، الريف، فرخانة، ميناء بني انصار، شاطئ بني انصار، بوكانا، مارشيكا، أزغنغان، سلوان، العروي، بني شيكر، رأس الماء، زايو، قرية أركمان، تاويمة، الكورنيش، حي أولاد ميمون، حي المطار، حي الفتح، حي لعراصي، حي الريفيين، حي الفيرمة، حي الكورنيش، حي الشعالة، شارع محمد الخامس، شارع يوسف بن تاشفين، شارع 3 مارس، محطة القطار الناظور، ميناء الناظور، كلية سلوان، جامعة محمد الأول، مستشفى الحسني، السوق البلدي الناظور، حي عمار، حي النصر، حي الوحدة، حي السلام، حي السعادة، حي المستقبل، شارع الحسن الثاني، شارع الجيش الملكي،الريف، الشمال، مارتشيكا" />
@@ -62,74 +65,88 @@ function Footer() {
             }
           `}
           </script>
-      
       </Helmet>
-      <div className="Footer-top">
-        <p>{t('footer.getConnected')}</p>
-        <div className="Social-icons">
-          <a href="https://maps.app.goo.gl/MdQcNRp2BWm33dBU9" target="_blank" rel="noopener noreferrer">
-              <FontAwesomeIcon icon={faMapMarkerAlt} /> 
-            </a>
-          <a href="tel:0536348141" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faPhone} />
-          </a>
-          <a href="https://www.facebook.com/profile.php?id=61560366056640" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faFacebookF} />
-          </a>
-          <a href="https://www.instagram.com/alaqariyya/" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faInstagram} />
-          </a>
-          <a href="https://wa.me/212668550704" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faWhatsapp} />
-          </a>
-          
+      <div className="footer-container">
+        <div className="footer-row">
+          <div className="footer-column company">
+            <h3>{t('footer.companyName')}</h3>
+            <p>{t('footer.companyDescription')}</p>
+          </div>
+          <div className="footer-column products">
+            <h3>{t('footer.products')}</h3>
+            <p>{t('footer.desc')}</p>
+          </div>
+          <div className="footer-column contact">
+            <h3>{t('footer.contact')}</h3>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.phone')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM1')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM2')}
+            </p>
+          </div>
+          <div className="footer-column location">
+            <h3>{t('properties.location')}</h3>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} />{' '}
+              {t('footer.contacts.address1')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} />{' '}
+              {t('footer.contacts.address2')}
+            </p>
+          </div>
+          <div className="footer-column social">
+            <h3>{t('footer.getConnected')}</h3>
+            <div className="social-icons">
+              <a
+                href="https://maps.app.goo.gl/MdQcNRp2BWm33dBU9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-location"
+              >
+                <FontAwesomeIcon icon={faMapMarkerAlt} />
+              </a>
+              <a
+                href="tel:0536348141"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-phone"
+              >
+                <FontAwesomeIcon icon={faPhone} />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61560366056640"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-facebook"
+              >
+                <FontAwesomeIcon icon={faFacebookF} />
+              </a>
+              <a
+                href="https://www.instagram.com/alaqariyya/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-instagram"
+              >
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a
+                href="https://wa.me/212668550704"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="icon-whatsapp"
+              >
+                <FontAwesomeIcon icon={faWhatsapp} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="Footer-content">
-        {isArabic ? (
-          <>
-            <div className="Footer-column centered">
-              <h3>{t('footer.companyName')}</h3>
-              <p>{t('footer.companyDescription')}</p>
-            </div>
-            <div className="Footer-column centered">
-              <h3>{t('footer.products')}</h3>
-              <p>{t('footer.desc')}</p>
-            </div>
-            <div className="Footer-column centered">
-              <h3>{t('footer.contact')}</h3>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.phone')}</p>
-              <p className="icon-left" ><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.numIAM1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone}/>{t('footer.contacts.numIAM2')}</p>
-              <br />
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingLeft:'10px'}}/>{t('footer.contacts.address1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingLeft:'10px'}}/>{t('footer.contacts.address2')}</p>      
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="Footer-column">
-              <h3>{t('footer.companyName')}</h3>
-              <p>{t('footer.companyDescription')}</p>
-            </div>
-            <div className="Footer-column">
-              <h3>{t('footer.products')}</h3>
-              <p>{t('footer.desc')}</p>
-            </div>
-            <div className="Footer-column">
-              <h3>{t('footer.contact')}</h3>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.phone')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM2')}</p>
-              <br />
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingRight:'10px'}}/> {t('footer.contacts.address1')}</p>
-              <p className="icon-left"><FontAwesomeIcon icon={faMapMarkerAlt} style={{paddingRight:'10px'}}/> {t('footer.contacts.address2')}</p>
-            </div>
-          </>
-        )}
-      </div>
-      <div className="Footer-bottom">
+      <div className="footer-bottom">
         <p>{t('footer.copyRight')}</p>
       </div>
     </footer>
@@ -137,4 +154,3 @@ function Footer() {
 }
 
 export default Footer;
-

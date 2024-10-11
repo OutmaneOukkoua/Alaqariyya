@@ -17,7 +17,9 @@
   height: 50px;
   object-fit: cover;
 }
+
 /* Add News Button */
+
 .add-news {
   background-color: green;
   color: white;

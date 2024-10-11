@@ -32,6 +32,8 @@
   padding: 10px 40px;
   background-color: #fff;
   font-size: 18px;
+  max-width: 1900px; /* Set a max-width for the container */
+  margin: 0 auto; /* Center the container */
 }
 
 .header-top-ar {
@@ -253,11 +255,11 @@
   /* Reduce the size of the language select dropdown */
   .language-select {
     font-size: 13px;
-    width: 150px; /* Adjust the width as needed */
+    width: auto; /* Adjust the width as needed */
   }
 
   .language-select .react-select__single-value {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -351,18 +353,18 @@
   .header-login,
   .header-signup,
   .panier-icon {
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px 10px;
   }
 
   /* Reduce the size of the language select dropdown */
   .language-select {
-    font-size: 14px;
-    padding: 4px 10px;
-    width: 150px; /* Adjust the width as needed */
+    font-size: 13px;
+    padding: 3px 0;
+    width: auto; /* Adjust the width as needed */
   }
 
   .language-select .react-select__single-value {
-    font-size: 14px;
+    font-size: 13px;
   }
 }

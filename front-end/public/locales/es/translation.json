@@ -28,7 +28,7 @@
     "buy": "vender",
     "all": "Todos",
     "searchPlaceholder": "Ingrese ubicación",
-    "noProperties": "No se encontraron propiedades.",
+    "Loading": "Cargando propiedades...",
     "AddToCart": "Añadir a la cesta",
     "Previous" : "Anterior",
     "Next" : "Próximo",

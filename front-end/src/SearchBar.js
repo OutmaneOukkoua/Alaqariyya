@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
+// SearchBar.js
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './SearchBar.css';
 import { Helmet } from 'react-helmet';
+import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome
 
-
-function SearchBar({ onSearch, filterType, onFilterChange }) {
-  const { t } = useTranslation();
+function SearchBar({ onSearch, filterType, onFilterChange }) { // Added filterType and onFilterChange props
+  const { t, i18n } = useTranslation();
   const [location, setLocation] = useState('');
+  const [selectedType, setSelectedType] = useState(filterType || 'all');
 
-  const handleTabClick = (type) => {
-    console.log(`Filter type changed to: ${type}`);
-    onFilterChange(type); // Update the filterType in the parent component
-    onSearch({ type, location }); // Trigger the search with the new filter type
+  // Determine if the current language is Arabic (RTL)
+  const isArabic = i18n.language === 'ar';
+
+  // Synchronize selectedType with filterType prop
+  useEffect(() => {
+    setSelectedType(filterType);
+  }, [filterType]);
+
+  const handleFilterChange = (e) => {
+    const type = e.target.value;
+    setSelectedType(type);
+    onFilterChange(type); // Update the filter type in the parent component (Content)
+    onSearch({ type, location }); // Trigger search with updated filter type
   };
 
   const handleLocationChange = (e) => {
     const updatedLocation = e.target.value;
     setLocation(updatedLocation);
-    console.log(`Location changed to: ${updatedLocation}`);
-    onSearch({ type: filterType, location: updatedLocation }); // Use the updated location for searching
+    onSearch({ type: selectedType, location: updatedLocation }); // Use updated location for search
+  };
+
+  const handleSearchClick = () => {
+    onSearch({ type: selectedType, location });
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchClick();
+    }
   };
 
   return (
-    <div className="search-bar-container">
+    <div className={`search-bar-container ${isArabic ? 'rtl' : 'ltr'}`}>
       <Helmet>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
         <meta name="description" content="شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور" />
@@ -74,74 +94,41 @@ function SearchBar({ onSearch, filterType, onFilterChange }) {
       </Helmet>
       <div className="search-bar-background">
         <div className="search-bar">
-          <table className="table-b" aria-label="Property search tabs">
-            <thead>
-              <tr>
-                <th>
-                  <button
-                    className={filterType === 'all' ? 'active' : ''}
-                    onClick={() => handleTabClick('all')}
-                    aria-pressed={filterType === 'all'}>
-                    {t('properties.all')}
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className={filterType === 'regularRent' ? 'active' : ''}
-                    onClick={() => handleTabClick('regularRent')}
-                    aria-pressed={filterType === 'regularRent'}
-                  >
-                    {t('properties.regularRent')}
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className={filterType === 'rent' ? 'active' : ''}
-                    onClick={() => handleTabClick('rent')}
-                    aria-pressed={filterType === 'rent'}
-                  >
-                    {t('properties.rent')}
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className={filterType === 'buy' ? 'active' : ''}
-                    onClick={() => handleTabClick('buy')}
-                    aria-pressed={filterType === 'buy'}
-                  >
-                    {t('properties.buy')}
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className={filterType === 'floorplots' ? 'active' : ''}
-                    onClick={() => handleTabClick('floorplots')}
-                    aria-pressed={filterType === 'floorplots'}
-                  >
-                    {t('properties.floorplots')}
-                  </button>
-                </th>
-                <th>
-                  <button
-                    className={filterType === 'Commercialgarages' ? 'active' : ''}
-                    onClick={() => handleTabClick('Commercialgarages')}
-                    aria-pressed={filterType === 'Commercialgarages'}
-                  >
-                    {t('properties.Commercialgarages')}
-                  </button>
-                </th>
-              </tr>
-            </thead>
-          </table>
-          <div className="search-input">
-            <input
-              type="text"
-              id="location-search"
-              value={location}
-              onChange={handleLocationChange}
-              placeholder={t('properties.searchPlaceholder')}
-              aria-label={t('properties.searchPlaceholder')}
-            />
+          <div className="search-controls">
+            {/* Filter Select Dropdown */}
+            <select
+              className="filter-select"
+              value={selectedType}
+              onChange={handleFilterChange}
+              aria-label={t('properties.selectFilter')}
+            >
+              <option value="all">{t('properties.all')}</option>
+              <option value="regularRent">{t('properties.regularRent')}</option>
+              <option value="rent">{t('properties.rent')}</option>
+              <option value="buy">{t('properties.buy')}</option>
+              <option value="floorplots">{t('properties.floorplots')}</option>
+              <option value="Commercialgarages">{t('properties.Commercialgarages')}</option>
+            </select>
+
+            {/* Search Input with Integrated Button */}
+            <div className="search-input-container">
+              <input
+                type="text"
+                id="location-search"
+                value={location}
+                onChange={handleLocationChange}
+                onKeyPress={handleKeyPress}
+                placeholder={t('properties.searchPlaceholder')}
+                aria-label={t('properties.searchPlaceholder')}
+              />
+              <button
+                className="search-icon-button"
+                onClick={handleSearchClick}
+                aria-label={t('properties.searchButton')}
+              >
+                <i className="fas fa-search"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>

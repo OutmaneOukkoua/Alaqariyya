@@ -30,6 +30,8 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { Helmet } from 'react-helmet';
 import './ProductDetail.css';
 import { format } from 'date-fns';
+import { FaSpinner } from 'react-icons/fa'; // Import the spinner icon
+import Footer from './Footer';
 
 function useOutsideClick(ref, callback) {
   useEffect(() => {
@@ -50,6 +52,7 @@ function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true); // Added loading state
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isImageModalVisible, setImageModalVisible] = useState(false);
@@ -64,13 +67,20 @@ function ProductDetail() {
 
   useEffect(() => {
     // Fetch product details
-    axios
-      .get(`${API_URL}/properties/${id}?lang=${i18n.language}`)
-      .then((response) => setProduct(response.data))
-      .catch((error) => console.error('Error fetching product details:', error));
-  }, [id, API_URL, i18n.language]);
+    const fetchProduct = async () => {
+      setLoading(true); // Start loading
+      try {
+        const response = await axios.get(`${API_URL}/properties/${id}?lang=${i18n.language}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      } finally {
+        setLoading(false); // End loading
+      }
+    };
 
-  if (!product) return <div>{t('properties.loading')}</div>;
+    fetchProduct();
+  }, [id, API_URL, i18n.language]);
 
   const addToCart = () => {
     dispatch({ type: 'ADD_TO_CART', product: { ...product[0], id: product[0].property_id } });
@@ -145,7 +155,6 @@ function ProductDetail() {
   const getMapSrc = (exactAddress) => {
     return `https://www.google.com/maps?q=${encodeURIComponent(exactAddress)}&output=embed&maptype=satellite`;
   };
-  
 
   // New functions for image navigation
   const handlePrevImage = () => {
@@ -156,7 +165,20 @@ function ProductDetail() {
     setCurrentImageIndex((prevIndex) => (prevIndex === product.length - 1 ? 0 : prevIndex + 1));
   };
 
+  if (loading) {
+    // Display spinner while loading
+    return (
+      <div className="ProductDetail">
+        <div className="loading">
+          <FaSpinner className="spinner" />
+          <p>{t('properties.Loading')}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
+    <>
     <div className="ProductDetail">
       <Helmet>
         <title>ALAQARIYYA - شقة مفروشة بني انصار الناظور، عقارات بني انصار، وكالة عقارية بني انصار، شقة بني انصار، منزل بني انصار، ارض بني انصار، كراء مفروش بني انصار الناظور، منازل للكراء بني انصار الناظور، شقق للكراء بني انصار الناظور، غرف للكراء بني انصار الناظور، قطع أرضية للبيع بني انصار الناظور، منازل للبيع بني انصار الناظور، شقق مفروشة للكراء بني انصار الناظور</title>
@@ -207,11 +229,10 @@ function ProductDetail() {
           `}
           </script>
       </Helmet>
-
+      {/* Breadcrumb */}
       <div className="breadcrumb-container">
         <nav className={`breadcrumb ${isArabic ? 'rtl' : 'ltr'}`}>
-          <span onClick={() => navigate('/')}>{t('Home')}</span> &gt;{' '}
-          <span onClick={() => navigate('/properties')}>{t('Properties')}</span> &gt;{' '}
+          <span onClick={() => navigate('/')}>{t('header.Home')}</span> &gt;{' '}
           <span>{product[0].title}</span>
         </nav>
       </div>
@@ -454,15 +475,15 @@ function ProductDetail() {
               <div className="seller-name">{t('seller.defaultName')}</div>
             </div>
             <button onClick={toggleModal} className="btn contact-btn">
-              <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px' , marginRight: '10px' }} />
+              <FontAwesomeIcon icon={faPhone} style={{ marginLeft: '10px', marginRight: '10px' }} />
               {t('contact.contactUs')}
             </button>
             <button onClick={handleEmailClick} className="btn email-btn">
-              <FontAwesomeIcon icon={faEnvelope} style={{ marginLeft: '10px' , marginRight: '10px'}} />
+              <FontAwesomeIcon icon={faEnvelope} style={{ marginLeft: '10px', marginRight: '10px' }} />
               {t('contact.sendEmail')}
             </button>
             <button onClick={handleShare} className="btn share-btn">
-              <FontAwesomeIcon icon={faShareAlt} style={{ marginLeft: '10px' , marginRight: '10px'}} />
+              <FontAwesomeIcon icon={faShareAlt} style={{ marginLeft: '10px', marginRight: '10px' }} />
               {t('contact.share')}
             </button>
           </div>
@@ -525,6 +546,8 @@ function ProductDetail() {
         </div>
       )}
     </div>
+    <Footer />
+    </>
   );
 }
 

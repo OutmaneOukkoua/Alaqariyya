@@ -1,38 +1,47 @@
 .Content {
   flex: 1;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 0; /* Completely remove side padding */
+  margin: 0 auto; /* Center the content */
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  max-width: 1850px; /* Increase max-width for even more space on large screens */
 }
 
 .Content.ltr {
   text-align: left;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
   font-style: normal;
 }
 
 .Content.rtl {
   text-align: right;
-  direction: rtl;
-  font-family: "Tajawal", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-style: normal;
 }
 
 .Content .properties-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 0;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Slightly reduce min-width of columns for more items */
+  gap: 8px; /* Further reduce gap between items */
+  padding: 0; /* Remove vertical padding */
+  justify-content: center; /* Center the grid */
+  max-width: 100%; /* Allow full expansion of the grid */
+  margin: 0 auto; /* Center the grid */
 }
 
+
+
 .Content .property-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  text-align: left;
-  transition: transform 0.3s ease; /* Add transition for smooth scaling */
+  background-color: #ffffff;
+  border-radius: 15px;
+  overflow: hidden; /* Ensures child elements respect border radius */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .property-card.rtl {
@@ -44,139 +53,217 @@
 }
 
 .Content .property-card:hover {
-  transform: scale(1.05); /* Scale up the card slightly on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.Content .property-image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 70.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
 }
 
 .Content .property-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 350px;
+  height: 100%;
   object-fit: cover;
-  margin-bottom: 5px;
+  transition: transform 0.3s ease;
+}
+
+.Content .property-card:hover .property-image {
+  transform: scale(1.1);
+}
+
+.Content .property-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .title-p {
-  text-align: center;
-  font-family: "Tajawal", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+  font-family: "Cairo", sans-serif;
+  font-weight: 700;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.property-info p {
+  margin: 5px 0;
+  color: #34495e;
+  font-size: 0.95em;
 }
 
 .strong {
   font-weight: bold;
-  color: #000;
-  text-transform: uppercase;
+  color: #2980b9;
+  text-transform: capitalize;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .pagination button {
-  background-color: #007BFF;
-  color: white;
+  background-color: #2980b9;
+  color: #ffffff;
   border: none;
-  padding: 8px 12px;
-  margin: 0 5px;
-  border-radius: 5px;
+  padding: 12px 20px;
+  margin: 0 10px;
+  border-radius: 50px;
   cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: #bdc3c7;
   cursor: not-allowed;
 }
 
 .pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
+  background-color: #1f6391;
+  transform: scale(1.05);
 }
 
 .price-container {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .small-text {
+  font-size: 0.7em;
+}
+.small-text p {
   color: grey;
-  font-size: 0.8em;
-  margin-top: -10px;
 }
 
 .property-price {
-  font-size: 1.2em;
+  font-size: 1.1em;
+  color: #27ae60; /* Green color for emphasis */
 }
 
 .old-price {
+  font-weight: bold;
   text-decoration: line-through;
-  color: red;
-  margin-right: 10px;
+  color: #e74c3c; /* Red color for the old price */
+  margin-right: 8px;
+  margin-left: 8px;
 }
 
 .new-price {
   font-weight: bold;
-  color: green; /* Optional for new price emphasis */
+  color: #27ae60; /* Green color for new price emphasis */
+  margin: 4px;
+  
 }
+
+/* Footer styling */
+.Footer {
+  background-color: #ffffff;
+  padding: 25px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #95a5a6;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Content.css */
+
+.loadingg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* Adjust as needed */
+}
+
+.spinnerr {
+  font-size: 50px; /* Adjust size as needed */
+  color: #555; /* Adjust color as needed */
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Style the loading text */
+.loadingg p {
+  font-size: 1.2em;
+  color: #555;
+}
+
 
 /* Mobile styles */
 @media (max-width: 500px) {
   .Content {
-    padding: 5px;
+    padding: 10px;
   }
 
   .Content .properties-grid {
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 15px;
+    padding: 10px 0;
   }
 
-  .Content .property-image {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    margin-bottom: 5px;
+  .Content .property-info {
+    padding: 10px;
   }
 
-  .Content .property-card {
-    padding: 8px;
+  .property-image-container {
+    padding-top: 75%; /* Adjust aspect ratio for mobile */
   }
 
-  .pagination {
-    margin-top: 5px;
+  .title-p {
+    font-size: 1.1em;
   }
 
   .pagination button {
-    padding: 6px 10px;
+    padding: 10px 16px;
+    margin: 0 5px;
+    font-size: 0.9em;
   }
 }
 
 /* Styles for screens between mobile and tablet */
 @media (min-width: 501px) and (max-width: 768px) {
   .Content {
-    padding: 5px;
+    padding: 15px;
   }
 
   .Content .properties-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 20px;
+    padding: 15px 0;
   }
 
-  .Content .property-card {
-    padding: 10px;
+  .property-image-container {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
   }
 
-  .Content .property-image {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    margin-bottom: 5px;
-  }
-
-  .pagination {
-    margin-top: 10px;
+  .title-p {
+    font-size: 1.2em;
   }
 
   .pagination button {
-    padding: 8px 12px;
+    padding: 11px 18px;
+    margin: 0 7px;
+    font-size: 0.95em;
   }
 }
 
@@ -184,7 +271,15 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .Content .properties-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 25px;
+  }
+
+  .property-image-container {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  }
+
+  .title-p {
+    font-size: 1.25em;
   }
 }
 
@@ -192,6 +287,14 @@
 @media (min-width: 1025px) {
   .Content .properties-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 25px;
+  }
+
+  .property-image-container {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  }
+
+  .title-p {
+    font-size: 1.3em;
   }
 }
