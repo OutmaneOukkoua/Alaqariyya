@@ -13,11 +13,12 @@
   color: #333;
   text-decoration: none;
   font-weight: bold;
-  padding: 5px 15px;
+  padding: 4px 10px;
   border: 1px solid #333;
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-left: 10px;
+  margin-left: 8px;
+  font-size: 16px;
 }
 
 .header-button:hover {
@@ -29,11 +30,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 40px;
+  padding: 8px 30px;
   background-color: #fff;
-  font-size: 18px;
-  max-width: 1900px; /* Set a max-width for the container */
-  margin: 0 auto; /* Center the container */
+  font-size: 16px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
 .header-top-ar {
@@ -47,7 +48,7 @@
 .header-nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
 .header-nav ul.rtl {
@@ -61,8 +62,12 @@
   transition: color 0.3s ease, border-bottom 0.3s ease;
   font-family: "Tajawal", sans-serif;
   font-weight: 600;
+  font-size: 15px;
   font-style: normal;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-nav a:hover,
@@ -115,6 +120,7 @@
   font-family: "Tajawal", sans-serif;
   font-weight: 500;
   font-style: normal;
+  font-size: 14px;
   margin-left: 10px;
 }
 
@@ -139,7 +145,7 @@
 }
 
 .menu-toggle {
-  font-size: 1.5em;
+  font-size: 1.4em;
   background: none;
   border: none;
   color: #333;
@@ -147,16 +153,34 @@
   display: none;
 }
 
+/* Language Select Styles */
+.language-select {
+  font-size: 14px;
+  width: 140px;
+  margin-left: 10px;
+}
+
 .language-select .react-select__control {
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   border-radius: 4px;
-  padding: 2px 8px;
-  width: 200px;
+  padding: 4px 8px;
+  box-shadow: none;
+  transition: border-color 0.3s ease;
+}
+
+.language-select .react-select__control:hover {
+  border-color: #0d6efd;
+}
+
+.language-select .react-select__control--is-focused {
+  border-color: #0d6efd;
+  outline: none;
 }
 
 .language-select .react-select__single-value {
   display: flex;
   align-items: center;
+  font-size: 14px;
 }
 
 .language-select .react-select__single-value .fi {
@@ -173,6 +197,9 @@
   border-radius: 5px;
   transition: background-color 0.3s ease, color 0.3s ease;
   margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-login:hover,
@@ -183,13 +210,20 @@
 
 .panier-icon {
   position: relative;
-  margin-left: 10px;
-  cursor: pointer;
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  width: 33px; /* Adjust size if needed */
+  height: 33px;
+  border-radius: 50%;
+  border: 4px solid #ffffff; /* Border color */
+  background-color: rgb(63, 63, 63); /* Background color inside the circle */
+  color: rgb(255, 255, 255); /* Icon color */
 }
 
-.panier-icon .fa-shopping-cart {
-  font-size: 1.5rem;
-  color: #333;
+.panier-icon .fa-heart {
+  font-size: 17px; /* Adjust icon size to fit comfortably */
 }
 
 .panier-count {
@@ -199,26 +233,25 @@
   background-color: #e74c3c;
   color: white;
   border-radius: 50%;
-  padding: 5px 10px;
+  padding: 4px 8px;
   font-size: 0.6rem;
 }
 
-/* Responsive styles */
+/* Mobile Styles */
 @media (max-width: 768px) {
   .header-top {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
+    padding: 8px;
   }
 
   .header-logo .logo {
-    height: 40px;
-    max-width: 130px;
+    height: 30px;
   }
 
   .header-nav ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     display: none;
   }
 
@@ -233,11 +266,7 @@
 
   .menu-toggle {
     display: block;
-    font-size: 1.5em;
-    background: none;
-    border: none;
-    color: #333;
-    cursor: pointer;
+    font-size: 1.3em;
   }
 
   .header-nav {
@@ -246,83 +275,47 @@
 
   .header-login,
   .header-button,
-  .header-signup,
-  .panier-icon {
-    font-size: 13px;
-    margin-left: 5px;
+  .header-signup {
+    font-size: 12px;
+    margin-left: 4px;
+    height: 25px;
   }
-
-  /* Reduce the size of the language select dropdown */
+  .panier-icon{
+    width: 14px;
+    height: 25px;
+  }
+  .panier-icon .fa-heart {
+    font-size: 17px;
+  }
   .language-select {
-    font-size: 13px;
-    width: auto; /* Adjust the width as needed */
-  }
-
-  .language-select .react-select__single-value {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .header-top {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-  }
-
-  .header-logo .logo {
-    height: 40px;
-    max-width: 130px;
-  }
-
-  .header-nav ul {
-    flex-direction: row;
-    gap: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .header-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  .header-nav {
-    width: 100%;
-  }
-
-  .header-login,
-  .header-signup,
-  .panier-icon {
-    margin-left: 0;
+    font-size: 12px;
+    margin-left: 4px;
   }
 
   .language-select .react-select__control {
-    width: 100%;
+    padding: 2px 4px;
+  }
+
+  .language-select .react-select__single-value {
+    font-size: 12px;
   }
 }
 
-@media (max-width: 800px) {
+/* Medium Device Styles */
+@media (max-width: 900px) {
   .header-top {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px;
+    padding: 8px;
   }
 
   .header-logo .logo {
-    height: 40px;
-    max-width: 130px;
+    height: 30px;
   }
 
   .header-nav ul {
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     display: none;
   }
 
@@ -337,34 +330,38 @@
 
   .menu-toggle {
     display: block;
-    font-size: 1.5em;
-    background: none;
-    border: none;
-    color: #333;
-    cursor: pointer;
+    font-size: 1.3em;
   }
 
   .header-nav {
     width: 100%;
   }
 
-
-  /* Reduce the size of the language select dropdown */
   .header-login,
-  .header-signup,
-  .panier-icon {
-    font-size: 16px;
-    padding: 5px 10px;
+  .header-signup {
+    font-size: 12px;
+    padding: 4px 8px;
   }
 
-  /* Reduce the size of the language select dropdown */
+  .panier-icon{
+    width: 28px;
+    height: 28px;
+  }
+  .panier-icon .fa-heart {
+    font-size: 17px;
+  }
+
   .language-select {
-    font-size: 13px;
-    padding: 3px 0;
-    width: auto; /* Adjust the width as needed */
+    font-size: 12px;
+    padding: 2px 0;
+    width: auto;
+  }
+
+  .language-select .react-select__control {
+    padding: 2px 4px;
   }
 
   .language-select .react-select__single-value {
-    font-size: 13px;
+    font-size: 12px;
   }
 }

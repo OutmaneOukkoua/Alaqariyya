@@ -1,17 +1,16 @@
 .login-container {
   display: flex;
   height: 100vh;
-  max-width: 1900px; /* Set a max-width for the container */
+  max-width: 1280px; /* Set a max-width for the container */
   margin: 0 auto; /* Center the container */
 }
 
 .bg {
-  flex: 2;
+  flex: 1;
   background-image: url('/public/login.jpg');
-  background-size: 100%;
+  height: auto; /* Allow height to adjust based on content */
+  background-size: cover; /* Ensure the image covers the container */
   background-position: center;
-  background-repeat: no-repeat;
-
 }
 
 .contents {
@@ -65,7 +64,7 @@ h3 {
 }
 
 .form-control {
-  width: 100%;
+  width: 90%;
   padding: 1rem;
   font-size: 1.1rem;
   border: 1px solid #ccc;
@@ -73,7 +72,7 @@ h3 {
 }
 
 .btn-primary {
-  width: 100%;
+  width: 95%;
   padding: 1rem;
   font-size: 1.2rem;
   background-color: #007bff;
@@ -121,7 +120,6 @@ h3 {
   .bg {
     flex: 1;
     height: 100px; /* Reduce the height for mobile */
-    margin-bottom: 0; /* Remove bottom margin */
     background-size: contain; /* Ensure the image scales down */
     background-position: center;
     background-repeat: no-repeat;
@@ -131,13 +129,10 @@ h3 {
     flex: 1;
     justify-content: flex-start; /* Align the content to the top */
     padding: 10px;
-    margin-top: 0px; /* Reduce space between background and form */
   }
 
   .container {
     width: 100%;
-    padding: 30px; /* Reduce padding for mobile */
-    margin-top: -180px; /* Remove top margin */
   }
 
   h3 {
@@ -157,54 +152,5 @@ h3 {
   .btn-primary {
     padding: 0.75rem; /* Adjust padding */
     font-size: 1rem; /* Adjust font size */
-  }
-}
-
-/* Tablet styles */
-@media (min-width: 601px) and (max-width: 968px) {
-  .login-container {
-    flex-direction: row; /* Keep elements in a row */
-    padding: 10px; /* Adjust padding for tablet devices */
-  }
-
-  .bg {
-    flex: 1;
-    height: auto; /* Allow height to adjust based on content */
-    background-size: cover; /* Ensure the image covers the container */
-    background-position: center;
-  }
-
-  .contents {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px; /* Adjust padding for tablet devices */
-  }
-
-  .container {
-    width: 100%;
-    max-width: 500px; /* Adjust max width for tablet devices */
-    padding: 40px; /* Adjust padding inside the container */
-    margin-top: 0; /* Adjust margin for tablet devices */
-  }
-
-  h3 {
-    font-size: 1.75rem; /* Adjust font size for tablet devices */
-    margin-bottom: 1.5rem; /* Adjust margin for tablet devices */
-  }
-
-  .form-group {
-    margin-bottom: 1rem; /* Adjust margin between form groups */
-  }
-
-  .form-control {
-    padding: 0.9rem; /* Adjust padding */
-    font-size: 1.05rem; /* Adjust font size */
-  }
-
-  .btn-primary {
-    padding: 0.9rem; /* Adjust padding */
-    font-size: 1.1rem; /* Adjust font size */
   }
 }

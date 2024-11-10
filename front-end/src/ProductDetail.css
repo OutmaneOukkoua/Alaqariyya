@@ -543,7 +543,7 @@
     margin-right: -15px;
   }
   .breadcrumb {
-    padding-top: 25px;
+    padding-top: 10px;
     margin-bottom: -35px;
   }
 
@@ -610,7 +610,7 @@
 /* New Tablet Styles (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .ProductDetail {
-    padding-top: 90px;
+    padding-top: 10px;
   }
   
   .left-column {

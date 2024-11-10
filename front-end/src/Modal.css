@@ -1,0 +1,170 @@
+/* Modall.css */
+
+/* The background overlay */
+.modall-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Modall content box */
+  .modall-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Redesigned close button */
+  .modall-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #ff4d4f;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  
+  .modall-close:hover {
+    background: #ff7875;
+  }
+  
+  .close-icon {
+    font-size: 1.5em;
+    color: white;
+    line-height: 1;
+  }
+  
+  /* Image container */
+  .modall-image-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .modall-image {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Modall content */
+  .modall-info {
+    text-align: center;
+  }
+  
+  .modall-info h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  .modall-info p {
+    font-size: 1.1em;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  
+  /* Published date styling */
+  .modall-date {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #888;
+    font-style: italic;
+  }
+  
+  /* Smooth fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+
+
+/* Media queries for mobile responsiveness */
+
+/* For screens less than 768px wide */
+@media (max-width: 768px) {
+    .modall-content {
+      max-width: 75%;  /* Reduce modall width */
+      padding: 15px;   /* Reduce padding for mobile */
+    }
+  
+    .modall-close {
+      width: 35px;  /* Smaller close button */
+      height: 35px;
+      top: 10px;
+      right: 10px;
+    }
+  
+    .close-icon {
+      font-size: 1.2em;  /* Smaller icon size */
+    }
+  
+    .modall-info h2 {
+      font-size: 1.5em;  /* Reduce title size */
+    }
+  
+    .modall-info p {
+      font-size: 1em;  /* Adjust body text size */
+    }
+  
+    .modall-date {
+      font-size: 0.85em;  /* Smaller date text */
+    }
+  }
+  
+  /* For very small screens less than 480px wide */
+  @media (max-width: 480px) {
+    .modall-content {
+      max-width: 100%;  /* Full width for very small screens */
+      padding: 10px;    /* Reduce padding further */
+    }
+  
+    .modall-close {
+      width: 30px;  /* Smaller close button */
+      height: 30px;
+      top: 8px;
+      right: 8px;
+    }
+  
+    .close-icon {
+      font-size: 1em;  /* Even smaller icon size */
+    }
+  
+    .modall-info h2 {
+      font-size: 1.3em;  /* Further reduce title size */
+    }
+  
+    .modall-info p {
+      font-size: 0.9em;  /* Further adjust body text size */
+    }
+  
+    .modall-date {
+      font-size: 0.8em;  /* Even smaller date text */
+    }
+  }

@@ -72,6 +72,8 @@ exports.getNews = (req, res) => {
   const sql = `
     SELECT id, ${titleColumn} as title, ${contentColumn} as content, image_url, published_at
     FROM news
+    ORDER BY published_at DESC
+
   `;
 
   db.query(sql, (err, result) => {

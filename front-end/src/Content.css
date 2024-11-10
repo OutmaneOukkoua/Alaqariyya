@@ -1,10 +1,11 @@
+
 .Content {
   flex: 1;
-  padding: 0; /* Completely remove side padding */
-  margin: 0 auto; /* Center the content */
+  padding: 0;
+  margin: 0 auto;
   margin-bottom: 20px;
   background-color: #ffffff;
-  max-width: 1850px; /* Increase max-width for even more space on large screens */
+  max-width: 1550px;
 }
 
 .Content.ltr {
@@ -21,94 +22,125 @@
   font-style: normal;
 }
 
-.Content .properties-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Slightly reduce min-width of columns for more items */
-  gap: 8px; /* Further reduce gap between items */
-  padding: 0; /* Remove vertical padding */
-  justify-content: center; /* Center the grid */
-  max-width: 100%; /* Allow full expansion of the grid */
-  margin: 0 auto; /* Center the grid */
-}
-
-
-
-.Content .property-card {
-  background-color: #ffffff;
-  border-radius: 15px;
-  overflow: hidden; /* Ensures child elements respect border radius */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Container for the list of properties */
+.properties-list {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 83%;
+  padding: 0; /* Removed vertical padding */
+  margin: 0 auto;
 }
 
-.property-card.rtl {
-  text-align: right;
-}
-
-.property-card.ltr {
-  text-align: left;
-}
-
-.Content .property-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.Content .property-image-container {
-  position: relative;
+/* Each property item in the list */
+.property-item {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
   width: 100%;
-  padding-top: 70.25%; /* 16:9 Aspect Ratio */
+  margin-bottom: 10px; /* Reduced margin between items */
+  height: 290px; /* Set a fixed height */
+}
+
+
+.property-item.rtl {
+  text-align: right;
+  direction: rtl;
+}
+
+.property-item.ltr {
+  text-align: left;
+  direction: ltr;
+}
+
+/* Imagee container */
+.property-imagee-container {
+  width: 100%;
   overflow: hidden;
 }
 
-.Content .property-image {
-  position: absolute;
-  top: 0;
-  left: 0;
+.property-imagee {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.Content .property-card:hover .property-image {
-  transform: scale(1.1);
+.property-item:hover .property-imagee {
+  transform: scale(1.05);
 }
 
-.Content .property-info {
+/* Property information */
+.property-info {
+  flex: 1;
   padding: 15px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
 }
 
 .title-p {
   font-family: "Cairo", sans-serif;
   font-weight: 700;
-  font-size: 1.3em;
+  font-size: 1.4em;
   margin-bottom: 10px;
   color: #2c3e50;
 }
-
+  .rtl .title-p{
+    text-align: right;
+    direction: rtl;
+  }
+  .ltr .title-p{
+    text-align: left;
+    direction: ltr;
+  }
 .property-info p {
   margin: 5px 0;
   color: #34495e;
   font-size: 0.95em;
 }
 
-.strong {
+.strongg {
   font-weight: bold;
   color: #2980b9;
   text-transform: capitalize;
 }
 
+.price-container {
+  margin-top: 10px;
+}
+
+.old-price {
+  font-weight: bold;
+  text-decoration: line-through;
+  color: #e74c3c;
+  margin-right: 8px;
+}
+
+.new-price {
+  font-weight: bold;
+  color: #27ae60;
+  margin-left: 4px;
+}
+
+.small-text {
+  font-size: 0.8em;
+  color: grey;
+}
+
+.property-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin: 25px 0;
 }
 
 .pagination button {
@@ -133,62 +165,18 @@
   transform: scale(1.05);
 }
 
-.price-container {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
-.small-text {
-  font-size: 0.7em;
-}
-.small-text p {
-  color: grey;
-}
-
-.property-price {
-  font-size: 1.1em;
-  color: #27ae60; /* Green color for emphasis */
-}
-
-.old-price {
-  font-weight: bold;
-  text-decoration: line-through;
-  color: #e74c3c; /* Red color for the old price */
-  margin-right: 8px;
-  margin-left: 8px;
-}
-
-.new-price {
-  font-weight: bold;
-  color: #27ae60; /* Green color for new price emphasis */
-  margin: 4px;
-  
-}
-
-/* Footer styling */
-.Footer {
-  background-color: #ffffff;
-  padding: 25px;
-  text-align: center;
-  font-size: 0.9em;
-  color: #95a5a6;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* Content.css */
-
+/* Loading Spinner Styles */
 .loadingg {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 200px; /* Adjust as needed */
+  height: 200px;
 }
 
 .spinnerr {
-  font-size: 50px; /* Adjust size as needed */
-  color: #555; /* Adjust color as needed */
+  font-size: 50px;
+  color: #555;
   animation: spin 1s linear infinite;
   margin-bottom: 10px;
 }
@@ -202,35 +190,41 @@
   }
 }
 
-/* Optional: Style the loading text */
 .loadingg p {
   font-size: 1.2em;
   color: #555;
 }
 
+/* Footer styling */
+.Footer {
+  background-color: #ffffff;
+  padding: 25px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #95a5a6;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
 
 /* Mobile styles */
-@media (max-width: 500px) {
-  .Content {
-    padding: 10px;
+@media (max-width: 640px) {
+  .property-item {
+    flex-direction: column;
+    height: 600px;
   }
 
-  .Content .properties-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 10px 0;
+  .property-imagee-container {
+    width: 100%;
   }
-
-  .Content .property-info {
-    padding: 10px;
+  .properties-list {
+    width: 98%;
   }
-
-  .property-image-container {
-    padding-top: 75%; /* Adjust aspect ratio for mobile */
-  }
-
   .title-p {
     font-size: 1.1em;
+  }
+
+  .property-info p {
+    font-size: 0.9em;
   }
 
   .pagination button {
@@ -240,61 +234,17 @@
   }
 }
 
-/* Styles for screens between mobile and tablet */
-@media (min-width: 501px) and (max-width: 768px) {
-  .Content {
-    padding: 15px;
-  }
-
-  .Content .properties-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 15px 0;
-  }
-
-  .property-image-container {
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  }
-
-  .title-p {
-    font-size: 1.2em;
-  }
-
-  .pagination button {
-    padding: 11px 18px;
-    margin: 0 7px;
-    font-size: 0.95em;
-  }
-}
-
 /* Tablet styles */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .Content .properties-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+@media (min-width: 641px) and (max-width: 960px) {
+  .property-imagee-container {
+    width: 40%;
   }
-
-  .property-image-container {
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  }
-
-  .title-p {
-    font-size: 1.25em;
-  }
+  
 }
 
-/* Default styles for larger screens */
-@media (min-width: 1025px) {
-  .Content .properties-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-  }
-
-  .property-image-container {
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  }
-
-  .title-p {
-    font-size: 1.3em;
+/* Desktop styles */
+@media (min-width: 961px) {
+  .property-imagee-container {
+    width: 35%;
   }
 }

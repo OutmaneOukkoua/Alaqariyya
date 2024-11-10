@@ -2,8 +2,8 @@
   "header": {
     "Home": "Home",
     "buy": "Sell",
-    "rent": "Furnished rent",
-    "regularRent": "Rent",
+    "rent": " rent",
+    "regularRent": "Regular rent",
     "news": "News",
     "contactUs": "Contact Us",
     "dashboard" : "Dashboard",
@@ -30,13 +30,14 @@
       "bathrooms": "Bathrooms",
       "area": "Area",
       "type": "Type",
-      "rent": "Furnished rent",
-      "regularRent": "Rent",
+      "rent": "rent",
+      "furnishedRent": "furnished rent",
+      "regularRent": "regular rent",
+      "HausesForBuy": "Houses and apartments",
       "buy": "sell",
       "all": "All",
       "searchPlaceholder": "Enter location",
       "Loading": "Loading properties...",
-
       "AddToCart":"Add To Cart",
       "Previous" : "Previous",
       "Next" : "Next",
@@ -53,11 +54,18 @@
       "kitchen": "kitchen",
       "Commercialgarages": "Commercial Garages",
       "description": "Description",
-      "details": "Details"
+      "details": "Details",
+      "noResults": "This property does not exist currently",
+      "chooseType": "Choose the type",
+      "chooseTypeRequired": "Please choose a property type.",
+      "selectTypeMessage": "Please select a property type"
+
     },
     "news": {
     "publishedOn": "Published On",
-    "noArticles": "No articles available"
+    "noArticles": "No articles available",
+    "readMore" : "Read more"
+
   },
     
   "footer": {
@@ -65,7 +73,7 @@
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya is an agency that enables its clients to rent, buy and sell everything related to real estate, whether it is plots of land, apartments, shops, houses, etc.",
     "products": "Products",
-    "desc": "rent - buy - sell",
+    "desc": "rent - buy - sell - Real Estate Consulting - Property Registration",
     "contact": "Contact",
     "contacts": {
       "numIAM1": "First additional number: 0668.55.07.04",
@@ -114,7 +122,16 @@
   },
   "seller": {
     "defaultName":"Alaqariyya"
-  }
+  },
+  "searchBar":{
+    "title":"Find your home in Morocco"
+  },
+  
+ "newsSection": {
+      "title": "Latest News",
+      "readMore": "Read More",
+      "noNews": "No news available at the moment."
+    }
     
   
 }

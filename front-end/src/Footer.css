@@ -1,3 +1,10 @@
+/* Social Wrapper Styles */
+.social-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* General Styles */
 .footer {
   background-color: #f1f1f1;
@@ -49,6 +56,7 @@
 /* Social Icons Styles */
 .social-icons {
   display: flex;
+  justify-content: center;
   margin-top: 10px;
 }
 
@@ -150,4 +158,3 @@
     padding: 10px 0;
   }
 }
-

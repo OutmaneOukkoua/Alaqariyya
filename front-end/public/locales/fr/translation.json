@@ -2,8 +2,8 @@
   "header": {
     "Home": "Accueil",
     "buy": "vendre",
-    "rent": "location meublée",
-    "regularRent": "loyer",
+    "rent": "loyer",
+    "regularRent": "loyer régulier",
     "news": "Actualités",
     "contactUs": "Contactez-nous",
     "login": "Connexion",
@@ -23,8 +23,10 @@
     "bathrooms": "Salles de bain",
     "area": "Superficie",
     "type": "Type",
-    "rent": "location meublée",
-    "regularRent": "loyer",
+    "rent": "loyer",
+    "furnishedRent": "location meublée",
+    "regularRent": "loyer régulier",
+    "HausesForBuy": "Maisons et appartements",
     "buy": "vendre",
     "all": "Tous",
     "searchPlaceholder": "Entrez l'emplacement",
@@ -34,7 +36,6 @@
     "Next" : "Suivant",
     "available": "Disponible",
     "Loading": "Chargement des propriétés...",
-
     "status": "Statut",
     "floors": "sols",
     "floors1": "sol",
@@ -46,20 +47,24 @@
     "kitchen": "Cuisine",
     "Commercialgarages": "Garages commerciaux",
     "description": "Description",
-    "details": "Détails"
-
+    "details": "Détails",
+    "noResults": "Cette propriété n'existe pas actuellement",
+    "chooseType": "Choisir le type",
+    "selectTypeMessage": "Veuillez sélectionner un type de propriété"
     
   },
   "news": {
     "publishedOn": "Publié le",
-    "noArticles": "Aucun article disponible"
+    "noArticles": "Aucun article disponible",
+    "readMore" : "En savoir plus"
+
   },
   "footer": {
     "getConnected": "Restez connectés avec nous sur les réseaux sociaux :",
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya est une agence qui permet à ses clients de louer, acheter et vendre tout ce qui concerne l'immobilier, que ce soit des terrains, des appartements, des magasins, des maisons, etc.",
     "products": "Produits",
-    "desc": "louer - acheter - vendre",
+    "desc": "louer - acheter - vendre - Consultations immobilières - Conservation foncière",
     "contact": "Contact",
     "contacts": {
       "numIAM1": "Premier numéro supplémentaire : 0668.55.07.04",
@@ -109,5 +114,8 @@
   },
   "seller": {
     "defaultName":"Alaqariyya"
+  },
+  "searchBar":{
+    "title":"Trouvez votre maison en Maroc"
   }
 }

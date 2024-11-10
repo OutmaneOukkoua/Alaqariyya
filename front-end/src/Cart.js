@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { useCart } from './CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +25,7 @@ const Cart = () => {
   const isArabic = i18n.language === 'ar';
 
   return (
-    <div className={`Cart ${isArabic ? 'rtl' : 'ltr'}`}>
+    <div className={`Cart ${isArabic ? 'rtl' : 'ltr'}`} key={i18n.language}>
       <div className="cart-header">
         <h2>{t('Cart.yourCart')}</h2>
       </div>

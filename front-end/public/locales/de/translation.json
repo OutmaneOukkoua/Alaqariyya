@@ -2,8 +2,8 @@
   "header": {
     "Home": "Startseite",
     "buy": "Verkaufen",
-    "rent": "Möblierte Miete",
-    "regularRent": "Miete",
+    "rent": "Mieten",
+    "regularRent": "Reguläre Miete",
     "news": "Nachrichten",
     "contactUs": "Kontaktieren Sie uns",
     "login": "Anmelden",
@@ -23,8 +23,10 @@
     "bathrooms": "Badezimmer",
     "area": "Fläche",
     "type": "Typ",
-    "rent": "Möblierte Miete",
-    "regularRent": "Miete",
+    "rent": "miete",
+    "furnishedRent": "Möblierte Miete",
+    "regularRent": "Reguläre Miete",
+    "HausesForBuy": "Häuser und Wohnungen",
     "buy": "Verkaufen",
     "all": "Alle",
     "searchPlaceholder": "Standort eingeben",
@@ -45,20 +47,25 @@
     "kitchen": "Küche",
     "Commercialgarages": "Commerciële garages",
     "description": "Beschreibung",
-    "details": "Details"
+    "details": "Details",
+    "noResults": "Diese Immobilie existiert derzeit nicht",
+    "chooseType": "Wählen Sie den Typ",
+    "selectTypeMessage": "Bitte wählen Sie einen Immobilientyp aus"
 
 
   },
   "news": {
     "publishedOn": "Veröffentlicht am",
-    "noArticles": "Keine Artikel verfügbar"
+    "noArticles": "Keine Artikel verfügbar",
+    "readMore" : "mehr lesen"
+
   },
   "footer": {
     "getConnected": "Verbinden Sie sich mit uns in sozialen Netzwerken:",
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya ist eine Agentur, die ihren Kunden ermöglicht, alles, was mit Immobilien zu tun hat, zu mieten, zu kaufen und zu verkaufen, sei es Grundstücke, Wohnungen, Geschäfte, Häuser usw.",
     "products": "Produkte",
-    "desc": "mieten - kaufen - verkaufen",
+    "desc": "mieten - kaufen - verkaufen - Immobilienberatung - Grundbuchwesen",
     "contact": "Kontakt",
     "contacts": {
       "numIAM1": "Erste zusätzliche Nummer: 0668.55.07.04",
@@ -109,5 +116,8 @@
   },
   "seller": {
     "defaultName":"Alaqariyya"
+  },
+  "searchBar":{
+    "title":"Finden Sie Ihr Zuhause in Marokko"
   }
 }

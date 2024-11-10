@@ -2,8 +2,8 @@
   "header": {
     "Home": "inicio",
     "buy": "vender",
-    "rent": "Alquiler amueblado",
-    "regularRent": "Alquiler",
+    "rent": "Alquiler",
+    "regularRent": "Alquiler regular",
     "news": "Noticias",
     "contactUs": "Contáctenos",
     "login": "Iniciar sesión",
@@ -23,8 +23,10 @@
     "bathrooms": "Baños",
     "area": "Área",
     "type": "Tipo",
-    "rent": "Alquiler amueblado",
-    "regularRent": "Alquiler",
+    "rent": "Alquiler",
+    "furnishedRent": "alquiler amueblado",
+    "regularRent": "alquiler regular",
+    "HausesForBuy": "Casas y Apartamentos",
     "buy": "vender",
     "all": "Todos",
     "searchPlaceholder": "Ingrese ubicación",
@@ -45,23 +47,23 @@
     "kitchen": "cocina",
     "Commercialgarages": "Garajes comerciales",
     "description": "Descripción",
-    "details": "Detalles"
-
-
-
-
-
+    "details": "Detalles",
+    "noResults": "Esta propiedad no existe actualmente",
+    "chooseType": "Elige el tipo",
+    "selectTypeMessage": "Por favor seleccione un tipo de propiedad"
   },
   "news": {
     "publishedOn": "Publicado en",
-    "noArticles": "No hay artículos disponibles"
+    "noArticles": "No hay artículos disponibles",
+    "readMore" : "Leer más"
+
   },
   "footer": {
     "getConnected": "Conéctese con nosotros en las redes sociales:",
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya es una agencia que permite a sus clientes alquilar, comprar y vender todo lo relacionado con bienes raíces, ya sean terrenos, apartamentos, tiendas, casas, etc.",
     "products": "Productos",
-    "desc": "alquilar - comprar - vender",
+    "desc": "alquilar - comprar - vender - Consultas inmobiliarias - Registro de propiedad",
     "contact": "Contacto",
     "contacts": {
       "numIAM1": "Primer número adicional: 0668.55.07.04",
@@ -112,5 +114,8 @@
   },
   "seller": {
     "defaultName":"Alaqariyya"
+  },
+  "searchBar":{
+    "title":"Encuentra tu casa en Marruecos"
   }
 }

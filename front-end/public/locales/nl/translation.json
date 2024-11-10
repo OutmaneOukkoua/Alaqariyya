@@ -2,8 +2,8 @@
   "header": {
     "Home": "Startpagina",
     "buy": "verkopen",
-    "rent": "gemeubileerde huur",
-    "regularRent": "huur",
+    "rent": "huur",
+    "regularRent": "reguliere huur",
     "news": "Nieuws",
     "contactUs": "Contacteer Ons",
     "login": "Inloggen",
@@ -22,8 +22,10 @@
     "bathrooms": "Badkamers",
     "area": "Oppervlakte",
     "type": "Type",
-    "rent": "gemeubileerde huur",
-    "regularRent": "huur",
+    "rent": "huur",
+    "furnishedRent": "gemeubileerde huur",
+    "regularRent": "reguliere huur",
+    "HausesForBuy": "Huizen en Appartementen",
     "buy": "verkopen",
     "all": "Alle",
     "searchPlaceholder": "Voer locatie in",
@@ -33,7 +35,6 @@
     "Next" : "Volgende",
     "available": "Beschikbaar",
     "Loading": "Eigenschappen laden...",
-
     "status": "Status",
     "floors": "vloeren",
     "floors1": "vloer",
@@ -45,19 +46,23 @@
     "kitchen": "keuken",
     "Commercialgarages": "Commerciële garages",
     "description": "Beschrijving",
-    "details": "Details"
-
+    "details": "Details",
+    "noResults": "Deze woning bestaat momenteel niet",
+    "chooseType": "Kies het type",
+    "selectTypeMessage": "Selecteer een type eigendom alstublieft"
   },
   "news": {
     "publishedOn": "Gepubliceerd op",
-    "noArticles": "Geen artikelen beschikbaar"
+    "noArticles": "Geen artikelen beschikbaar",
+    "readMore" : "Lees meer"
+
   },
   "footer": {
     "getConnected": "Verbind met ons op sociale netwerken:",
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya is een agentschap dat zijn klanten in staat stelt alles te huren, kopen en verkopen wat met onroerend goed te maken heeft, of het nu gaat om stukken land, appartementen, winkels, huizen, enz.",
     "products": "Producten",
-    "desc": "huren - kopen - verkopen",
+    "desc": "huren - kopen - verkopen - Vastgoedadvies - Kadastrale registratie",
     "contact": "Contact",
     "contacts": {
       "numIAM1": "Eerste extra nummer: 0668.55.07.04",
@@ -107,5 +112,8 @@
   },
   "seller": {
     "defaultName":"Alaqariyya"
+  },
+  "searchBar":{
+    "title":"Vind uw huis in Marokko"
   }
 }

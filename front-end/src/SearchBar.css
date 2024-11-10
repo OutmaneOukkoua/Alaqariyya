@@ -1,12 +1,10 @@
-/* SearchBar.css */
-
 /* Container for the entire search bar */
 .search-bar-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 70px ;
-  padding-bottom: 20px;
+  padding: 60px;
+  padding-bottom: 10px;
   background-color: #ffffff; /* Light background to make the search bar stand out */
 }
 
@@ -14,17 +12,46 @@
 .search-bar-background {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  padding: 30px 40px;
+  padding: 40px;
+  padding-top: 150px;
+  padding-bottom: 150px;
   width: 100%;
-  max-width: 900px; /* Increased max-width for more spacious layout */
-  background-color: #ffffff; /* White background for a clean look */
+  max-width: 1200px;
+  height: 150px;
+  background-size: cover; /* Ensure the image covers the background */
+  background-position: center;
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-color: #ffffff; /* Fallback color in case image doesn't load */
+  animation: fadeBackground 1s ease-in-out; /* Smooth transition between images */
 }
 
-/* Search bar layout */
+/* Keyframe animation for fading effect */
+@keyframes fadeBackground {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Transparent search bar */
 .search-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 40px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgba(223, 245, 98, 0.85); /* Transparent background */
+  border-radius: 12px;
+}
+
+.search-bar-parag {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
 }
 
 /* Flex container for search controls */
@@ -41,7 +68,7 @@
   flex: 1;
   padding: 12px 20px;
   font-size: 16px;
-  border: 1.5px solid #ced4da;
+  border: 1.5px solid #ced4da; /* Default border color */
   border-radius: 8px;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -51,6 +78,20 @@
   background-position: right 15px center;
   background-size: 12px;
 }
+
+/* Error state styling for filter-select */
+.filter-select.error {
+  border-color: #e63946; /* Red color similar to the one in the example */
+  color: #e63946; /* Text color in red for error */
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" fill="%23e63946" viewBox="0 0 24 24" width="16" height="16"%3E%3Cpath d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2zm-.25 5h.5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-.5a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zm.25 11.25a1.25 1.25 0 1 1 1.25-1.25 1.25 1.25 0 0 1-1.25 1.25z"%3E%3C/path%3E%3C/svg%3E'), url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" width="12" height="12"%3E%3Cpath fill="%23999" d="M6 8l-4-4h8z"/%3E%3C/svg%3E');
+  background-position: right 35px center, right 45px center;
+  background-repeat: no-repeat, no-repeat;
+  background-size: 16px, 20px;
+  margin: 0;
+  margin-top: 15px;
+}
+
+
 
 .ltr .filter-select {
   background-position: right 15px center;
@@ -65,6 +106,9 @@
   border-color: #007BFF;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+/* Styling for the error message */
+
 
 /* Container for search input and button */
 .search-input-container {
@@ -99,62 +143,125 @@
 }
 
 /* Styling for the integrated search button */
-.search-input-container .search-icon-button {
-  position: absolute;
-  background: none;
+.search-icon-button {
+  background-color: #d80073; /* Magenta background color */
+  color: white;
+  padding: 12px 30px;
+  font-size: 16px;
   border: none;
-  color: #007BFF;
+  border-radius: 5px; /* Rounded corners */
   cursor: pointer;
-  font-size: 18px;
-  transition: color 0.3s, transform 0.3s;
+  transition: background-color 0.3s ease, transform 0.3s;
 }
 
 .ltr .search-icon-button {
-  right: 10px;
+  margin-left: 10px; /* Spacing for LTR */
+  right: 10px; /* Align to the right */
 }
 
 .rtl .search-icon-button {
-  left: 10px;
+  margin-right: 10px; /* Spacing for RTL */
+  left: 10px; /* Align to the left */
 }
 
 .search-icon-button:hover {
-  color: #0056b3;
-  transform: scale(1.1);
+  background-color: #b70060; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .search-icon-button:focus {
   outline: none;
 }
 
-/* Responsive Design */
+/* General button styles */
+.mode-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-weight: 500; /* Ensure buttons have some weight */
+}
+
+.mode-button.active {
+  background-color: #fff; /* Set background to white when active */
+  color: #d80073; /* Highlighted text color */
+  border-color: #d80073; /* Add pink border for the active button */
+}
+
+.mode-button:hover {
+  background-color: #f5f5f5; /* Slight change on hover */
+}
+
+/* Ensure the button group has some spacing */
+.search-controls {
+  display: flex;
+  gap: 15px; /* Space between elements */
+}
+@media (min-width: 769px) and (max-width: 846px) {
+  .search-bar-container {
+    padding-top: 70px 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 
 /* Mobile Devices */
 @media (max-width: 768px) {
-  .search-bar-container{
-    padding-top: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
+  .search-bar-container {
+    padding-top: 80px;
+    padding-left: 0;
+    padding-right: 0;
   }
+
+  .search-bar-background {
+    max-width: 400px;
+    padding: 40px;
+    height: 300px;
+  }
+
+  .search-bar {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .search-bar-parag {
+    margin-bottom: 1.9rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(1.3rem, 2vw, 1.4rem);
+  }
+  
   .search-controls {
     flex-direction: column;
     gap: 10px;
   }
+  
+  /* Add these styles to enlarge the filter-select-container */
+  .filter-select-container {
+    width: 85%;
+    margin: 0 auto;
+  }
 
-  .filter-select,
-  .search-input-container {
+  .filter-select {
     width: 100%;
   }
-
-  .ltr .search-input-container input {
-    padding: 12px 40px 12px 20px; /* Adjust padding for smaller screens */
+  
+  .search-input-container{
+    width: 85%;
+    margin: 0 auto;
   }
 
-  .rtl .search-input-container input {
-    padding: 12px 20px 12px 40px; /* Adjust padding for RTL on mobile */
-  }
 
   .search-icon-button {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .ltr .search-icon-button {
@@ -164,12 +271,36 @@
   .rtl .search-icon-button {
     left: 15px;
   }
+
+  .mode-button-container {
+    flex-direction: row; /* Ensure buttons are in a row */
+    justify-content: space-between; /* Ensure they are spaced out */
+    width: 95%; /* Ensure the container takes full width */
+    margin: 0 auto;
+  }
+
+  .ltr .mode-button-container {
+    margin-left: 25px;
+  }
+  .rtl .mode-button-container {
+    margin-right: 15px;
+  }
+
+  .mode-button {
+    width: 43%; /* Set width to ensure two buttons fit on one line */
+  }
 }
 
+
 /* Tablets */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .search-bar-container{
-    padding-top: 150px;
+@media (min-width: 769px) and (max-width: 1324px) {
+  .search-bar-container {
+    padding-top: 80px;
+  }
+  .search-bar-background {
+    max-width: 400px;
+    padding: 40px;
+    height: 200px;
   }
   .search-controls {
     gap: 12px;
@@ -182,5 +313,22 @@
 
   .search-icon-button {
     font-size: 16px;
+  }
+
+  .search-bar-background {
+    max-width: 1000px;
+    padding: 60px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-bar-parag {
+    margin-bottom: 1.9rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    white-space: nowrap; 
+    display: inline-block; 
   }
 }

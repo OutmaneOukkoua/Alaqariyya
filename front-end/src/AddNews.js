@@ -38,7 +38,7 @@ function AddNews({ closeModal, refreshNews }) { // Accept refreshNews as a prop
   };
 
   const handleArabicInput = (setter) => (e) => {
-    const arabicOnly = e.target.value.replace(/[^\u0600-\u06FF0-9\s.,?!؛،]/g, '');
+    const arabicOnly = e.target.value.replace(/[^\u0600-\u06FF0-9\s]/g, '');
     setter(arabicOnly);
   };
 

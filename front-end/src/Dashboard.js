@@ -33,8 +33,8 @@ const Dashboard = () => {
         return <ContactSubmissions />;
       case 'statistique':  // Add case for Statistique component
         return <Statistique />;
-      default:
-        return <h4>Welcome to the Dashboard</h4>;
+      // default:
+      //   return <h4>Welcome to the Dashboard</h4>;
     }
   };
 

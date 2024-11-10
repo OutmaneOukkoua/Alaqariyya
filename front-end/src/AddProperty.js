@@ -153,9 +153,9 @@ function AddProperty() {
       <form onSubmit={handleAddProperty} className="property-formm">
         <ToastContainer className="toast-inside-modal" />
         <select name="type" value={newProperty.type} onChange={handleInputChange} required>
-          <option value="rent">Rent</option>
+          <option value="rent">Furnished rent</option>
           <option value="regularRent">Regular Rent</option>
-          <option value="buy">Buy</option>
+          <option value="buy">Hauses and Appart for buy</option>
           <option value="floorplots">Floor Plots</option>
           <option value="Commercialgarages">Commercial Garages</option>
         </select>

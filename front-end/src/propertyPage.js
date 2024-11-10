@@ -220,9 +220,9 @@ function PropertyPage() {
         <label htmlFor="filterType">Filter by Type:</label>
         <select id="filterType" value={filterType} onChange={handleTypeChange}>
           <option value="all">All Types</option>
-          <option value="rent">Rent</option>
+          <option value="rent">Furnished rent</option>
           <option value="regularRent">Regular Rent</option>
-          <option value="buy">Buy</option>
+          <option value="buy">Hauses and Appart for buy</option>
           <option value="floorplots">Floor Plots</option>
           <option value="Commercialgarages">Commercial Garages</option>
         </select>
@@ -319,9 +319,9 @@ function PropertyPage() {
               <img src={`${API_URL}/uploads/${selectedProperty.image_url}`} alt={selectedProperty.title} className="property-image-large" />
               <div className="select-container">
                 <select name="type" value={selectedProperty.type} onChange={handleInputChange} required>
-                  <option value="rent">Rent</option>
+                  <option value="rent">Furnished rent</option>
                   <option value="regularRent">Regular Rent</option>
-                  <option value="buy">Buy</option>
+                  <option value="buy">Hauses and Appart for buy</option>
                   <option value="floorplots">Floor Plots</option>
                   <option value="Commercialgarages">Commercial Garages</option>
                 </select>
