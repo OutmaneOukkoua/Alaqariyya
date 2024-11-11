@@ -1,69 +1,88 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com';
+import { useTranslation } from 'react-i18next';
+import './ContactUs.css';
+import Footer from '../Footer/Footer';
 
-// Components
-import Header from './components/Header/Header';
-import LanguageSelector from './i18n/LanguageSelector';
-import Content from './components/Content/Content';  // Fixed import
-import Login from './Auth/Login';
-import Welcome from './components/Welcome/Welcome';
-import ProductDetail from './components/ProductDetail/ProductDetail';
-import AddProperty from './components/AddProperty/AddProperty';
-import Dashboard from './components/Dashboard/Dashboard';
-import ContactUs from './components/ContactUs/ContactUs';
-import Cart from './components/Cart/Cart';
-import PropertyPage from './components/propertyPage/propertyPage';
-import AddNews from './components/AddNews/AddNews';
-import NewsPage from './components/newsPage/newsPage';
-import ContactSubmissions from './components/ContactUs/ContactSubmissions';
-import Statistique from './components/Statistique/Statistique';
-
-// Contexts
-import { CartProvider } from './contexts/CartContext';
-import { AuthProvider } from './contexts/AuthContext';
-
-// Routes
-import ProtectedRoute from './routes/ProtectedRoute';
-
-// Styles and Libraries
-import './App.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-// SEO
 import { Helmet } from 'react-helmet';
 
-
-
-function App() {
-  const [filterType, setFilterType] = React.useState('');
-
+function ContactUs() {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === 'ar';
   const API_URL = process.env.REACT_APP_SERVER;
-  const hasVisited = React.useRef(false);
 
-  React.useEffect(() => {
-    if (!hasVisited.current) {
-      hasVisited.current = true;
-      axios
-        .get(`${API_URL}/api/visitor/increment`)
-        .then((response) => {
-          console.log('Visitor count incremented:', response.data.count);
-        })
-        .catch((error) => {
-          console.error('Error incrementing visitor count:', error);
-        });
-    }
-  }, []);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('');
 
-  const handleFilterChange = (type) => {
-    setFilterType(type);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dataToSubmit = { ...formData }; // Capture formData before resetting
+    try {
+      // Submit form data to backend
+      await axios.post(`${API_URL}/contact-submissions`, dataToSubmit);
+
+      // Send email using emailjs
+      const templateParams = {
+        to_name: 'Alaqariyya',
+        from_name: dataToSubmit.name,
+        from_email: dataToSubmit.email,
+        from_phone: dataToSubmit.phone,
+        subject: dataToSubmit.subject,
+        message: dataToSubmit.message,
+      };
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,   // Service ID
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,  // Template ID
+        templateParams,
+        process.env.REACT_APP_EMAILJS_USER_ID       // User ID (Public Key)
+      );
+
+      setAlertMessage(t('contact.messageSent'));
+      setAlertType('success');
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      setAlertMessage(t('contact.messageFailed'));
+      setAlertType('error');
+    }
+  };
+
+  useEffect(() => {
+    if (alertMessage) {
+      const timer = setTimeout(() => {
+        setAlertMessage('');
+        setAlertType('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [alertMessage]);
+
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-        <Helmet>
+    <>
+      <Helmet>
             <html lang="ar" />
             <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
             <meta
@@ -228,84 +247,115 @@ function App() {
               })}
             </script>
           </Helmet>
-          <div className="App">
-            <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
-            <LanguageSelector />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Content filterType={filterType} onFilterChange={handleFilterChange} />
-                }
+
+      <div className={`contact-container ${isArabic ? 'rtl' : 'ltr'}`}>
+        <div className="contact-header">
+          <h1>{t('contact.contactUs')}</h1>
+        </div>
+
+        <div className="contact-content">
+          {/* Contact Form */}
+          <form className="contact-form" onSubmit={handleSubmit}>
+            {alertMessage && (
+              <div className={`alert alert-${alertType}`}>
+                {alertMessage}
+              </div>
+            )}
+
+            <div className="form-group">
+              <label htmlFor="name">{t('contact.name')} *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
               />
-              {/* Other routes */}
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">{t('contact.eMail')} *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
               />
-              <Route
-                path="/add-property"
-                element={
-                  <ProtectedRoute>
-                    <AddProperty />
-                  </ProtectedRoute>
-                }
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">{t('contact.phone')} *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
               />
-              <Route
-                path="/property-page"
-                element={
-                  <ProtectedRoute>
-                    <PropertyPage />
-                  </ProtectedRoute>
-                }
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="subject">{t('contact.subject')} *</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                required
               />
-              <Route
-                path="/add-news"
-                element={
-                  <ProtectedRoute>
-                    <AddNews />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/news-page"
-                element={
-                  <ProtectedRoute>
-                    <NewsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/contact-submissions"
-                element={
-                  <ProtectedRoute>
-                    <ContactSubmissions />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/statistique"
-                element={
-                  <ProtectedRoute>
-                    <Statistique />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">{t('contact.message')} *</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="5"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" className="submit-button">{t('contact.send')}</button>
+          </form>
+
+          {/* Map and Contact Info */}
+          <div className="map-and-info">
+            <div className="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2370257556186!2d-2.9364044206542848!3d35.260848274982706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7709002698ceaf%3A0xbe4e719ebdef6266!2zQWxhcWFyaXl5YSAtINin2YTYudmC2KfYsdmK2Kk!5e1!3m2!1sen!2sus!4v1723970680540!5m2!1sen!2sus"
+                width="600"
+                height="450"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Location"
+              ></iframe>
+            </div>
+            <div className="contact-info">
+              <table>
+                <tr>
+                  <td><strong>{t('contact.email')}:</strong></td>
+                  <td>alaqariyya@gmail.com</td>
+                </tr>
+                <tr>
+                  <td><strong>{t('contact.phone')}:</strong></td>
+                  <td>0536.34.8141</td>
+                </tr>
+              </table>
+            </div>
           </div>
-        </Router>
-      </CartProvider>
-    </AuthProvider>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
-export default App;
+export default ContactUs;

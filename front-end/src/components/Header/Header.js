@@ -1,69 +1,127 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import axios from 'axios';
-
-// Components
-import Header from './components/Header/Header';
-import LanguageSelector from './i18n/LanguageSelector';
-import Content from './components/Content/Content';  // Fixed import
-import Login from './Auth/Login';
-import Welcome from './components/Welcome/Welcome';
-import ProductDetail from './components/ProductDetail/ProductDetail';
-import AddProperty from './components/AddProperty/AddProperty';
-import Dashboard from './components/Dashboard/Dashboard';
-import ContactUs from './components/ContactUs/ContactUs';
-import Cart from './components/Cart/Cart';
-import PropertyPage from './components/propertyPage/propertyPage';
-import AddNews from './components/AddNews/AddNews';
-import NewsPage from './components/newsPage/newsPage';
-import ContactSubmissions from './components/ContactUs/ContactSubmissions';
-import Statistique from './components/Statistique/Statistique';
-
-// Contexts
-import { CartProvider } from './contexts/CartContext';
-import { AuthProvider } from './contexts/AuthContext';
-
-// Routes
-import ProtectedRoute from './routes/ProtectedRoute';
-
-// Styles and Libraries
-import './App.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-// SEO
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
+import { useCart } from '../../contexts/CartContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
+import 'flag-icons/css/flag-icons.min.css';
+import './Header.css';
 import { Helmet } from 'react-helmet';
 
 
+function Header({ onFilterChange, activeFilter }) {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === 'ar';
 
-function App() {
-  const [filterType, setFilterType] = React.useState('');
+  const { cart } = useCart();
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const panierCount = cart.length;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const API_URL = process.env.REACT_APP_SERVER;
-  const hasVisited = React.useRef(false);
-
-  React.useEffect(() => {
-    if (!hasVisited.current) {
-      hasVisited.current = true;
-      axios
-        .get(`${API_URL}/api/visitor/increment`)
-        .then((response) => {
-          console.log('Visitor count incremented:', response.data.count);
-        })
-        .catch((error) => {
-          console.error('Error incrementing visitor count:', error);
-        });
-    }
-  }, []);
-
-  const handleFilterChange = (type) => {
-    setFilterType(type);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  const openDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      navigate('/login', { replace: true });
+    };
+    closeDialog();
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng.value);
+  };
+
+  const languageOptions = [
+    { value: 'ar', label: <><span className="fi fi-ma"></span> العربية</> },
+    { value: 'en', label: <><span className="fi fi-gb"></span> English</> },
+    { value: 'fr', label: <><span className="fi fi-fr"></span> Français</> },
+    { value: 'es', label: <><span className="fi fi-es"></span> Español</> },
+    { value: 'de', label: <><span className="fi fi-de"></span> German</> },
+    { value: 'nl', label: <><span className="fi fi-nl"></span> Dutch</> }
+  ];
+
+  // Updated 'Home' filter to an empty string
+  const navItems = [
+    { filter: '', label: t('header.Home'), link: '/' },
+    { filter: 'rent', label: t('header.rent'), link: '/' },
+    { filter: 'buy', label: t('header.buy'), link: '/' },
+    { filter: 'contact', label: t('header.contactUs'), link:'/contact' }
+  ];
+
+  const handleNavClick = (filter, link) => {
+    if (filter !== undefined) {
+      onFilterChange(filter);
+      navigate('/');
+    } 
+    if (!filter) {
+      onFilterChange(''); // Reset filter when it's a link
+      navigate(link);
+    }
+    closeMenu();
+    window.scrollTo(0, 0);
+  };
+
+  const handleLogoClick = () => {
+    onFilterChange('');
+    navigate('/');
+    closeMenu();
+    window.scrollTo(0, 0);
+  };
+
+  const renderNavItems = (items) => (
+    <ul className={isArabic ? 'rtl' : ''}>
+      {items.map((item, index) => {
+        const isFilter = item.filter !== undefined;
+        const isActive = isFilter 
+          ? item.filter === activeFilter
+          : item.link === location.pathname;
+        
+        return (
+          <li key={index}>
+            <Link
+              to={item.link}
+              onClick={() => {
+                if (item.filter === '') {
+                  handleLogoClick();
+                } else {
+                  handleNavClick(item.filter, item.link);
+                }
+              }}
+              className={isActive ? 'active' : ''}
+            >
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-        <Helmet>
+    <header className="header">
+      <div className={`header-top ${isArabic ? 'header-top-ar' : ''}`}>
+      <Helmet>
             <html lang="ar" />
             <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
             <meta
@@ -228,84 +286,68 @@ function App() {
               })}
             </script>
           </Helmet>
-          <div className="App">
-            <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
-            <LanguageSelector />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Content filterType={filterType} onFilterChange={handleFilterChange} />
-                }
-              />
-              {/* Other routes */}
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-property"
-                element={
-                  <ProtectedRoute>
-                    <AddProperty />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/property-page"
-                element={
-                  <ProtectedRoute>
-                    <PropertyPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-news"
-                element={
-                  <ProtectedRoute>
-                    <AddNews />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/news-page"
-                element={
-                  <ProtectedRoute>
-                    <NewsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/contact-submissions"
-                element={
-                  <ProtectedRoute>
-                    <ContactSubmissions />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/statistique"
-                element={
-                  <ProtectedRoute>
-                    <Statistique />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </div>
-        </Router>
-      </CartProvider>
-    </AuthProvider>
+        <div className="header-logo">
+          <Link to="/" onClick={handleLogoClick}>
+            <img src="/logo192.png" alt="Alaqariyya Logo" className="logo" />
+          </Link>
+        </div>
+        <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
+          {renderNavItems(navItems)}
+        </nav>
+        <div className={`header-actions ${isArabic ? 'header-actions-ar' : 'header-actions-en'}`}>
+          <button className="menu-toggle" onClick={toggleMenu}>
+            <i className="fas fa-bars"></i>
+          </button>
+          <Link to="/cart" className="panier-icon" onClick={closeMenu}>
+            <i className="fas fa-heart"></i>
+            {panierCount > 0 && <span className="panier-count">{panierCount}</span>}
+          </Link>
+
+          {isAuthenticated ? (
+            <>
+              {isArabic ? (
+                <>
+                  <Link className="header-button" onClick={openDialog}>
+                    {t('header.logout')}
+                  </Link>
+                  <Link to="/dashboard" className="header-button" onClick={closeMenu}>
+                    {t('header.dashboard')}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/dashboard" className="header-button" onClick={closeMenu}>
+                    {t('header.dashboard')}
+                  </Link>
+                  <Link className="header-button" onClick={openDialog}>
+                    {t('header.logout')}
+                  </Link>
+                </>
+              )}
+            </>
+          ) : (
+            <Link to="/login" className="header-login" onClick={closeMenu}>
+              {t('header.login')}
+            </Link>
+          )}
+          <Select
+            options={languageOptions}
+            onChange={changeLanguage}
+            className="language-select"
+            defaultValue={languageOptions.find((option) => option.value === i18n.language)}
+            isSearchable={false}
+          />
+        </div>
+      </div>
+      {dialogOpen && (
+        <ConfirmDialog
+          message={t('Are you sure you want to log out?')}
+          onConfirm={handleLogout}
+          onCancel={closeDialog}
+        />
+      )}
+    </header>
   );
 }
 
-export default App;
+export default Header;

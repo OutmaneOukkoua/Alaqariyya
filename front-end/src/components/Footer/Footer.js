@@ -1,69 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import axios from 'axios';
-
-// Components
-import Header from './components/Header/Header';
-import LanguageSelector from './i18n/LanguageSelector';
-import Content from './components/Content/Content';  // Fixed import
-import Login from './Auth/Login';
-import Welcome from './components/Welcome/Welcome';
-import ProductDetail from './components/ProductDetail/ProductDetail';
-import AddProperty from './components/AddProperty/AddProperty';
-import Dashboard from './components/Dashboard/Dashboard';
-import ContactUs from './components/ContactUs/ContactUs';
-import Cart from './components/Cart/Cart';
-import PropertyPage from './components/propertyPage/propertyPage';
-import AddNews from './components/AddNews/AddNews';
-import NewsPage from './components/newsPage/newsPage';
-import ContactSubmissions from './components/ContactUs/ContactSubmissions';
-import Statistique from './components/Statistique/Statistique';
-
-// Contexts
-import { CartProvider } from './contexts/CartContext';
-import { AuthProvider } from './contexts/AuthContext';
-
-// Routes
-import ProtectedRoute from './routes/ProtectedRoute';
-
-// Styles and Libraries
-import './App.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-// SEO
+import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebookF,
+  faInstagram,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
+import { faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
+import './Footer.css';
 import { Helmet } from 'react-helmet';
 
-
-
-function App() {
-  const [filterType, setFilterType] = React.useState('');
-
-  const API_URL = process.env.REACT_APP_SERVER;
-  const hasVisited = React.useRef(false);
-
-  React.useEffect(() => {
-    if (!hasVisited.current) {
-      hasVisited.current = true;
-      axios
-        .get(`${API_URL}/api/visitor/increment`)
-        .then((response) => {
-          console.log('Visitor count incremented:', response.data.count);
-        })
-        .catch((error) => {
-          console.error('Error incrementing visitor count:', error);
-        });
-    }
-  }, []);
-
-  const handleFilterChange = (type) => {
-    setFilterType(type);
-  };
+function Footer() {
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === 'ar';
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        <Router>
-        <Helmet>
+    <footer className={`footer ${isArabic ? 'rtl' : 'ltr'}`}>
+      <Helmet>
             <html lang="ar" />
             <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
             <meta
@@ -228,84 +181,95 @@ function App() {
               })}
             </script>
           </Helmet>
-          <div className="App">
-            <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
-            <LanguageSelector />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Content filterType={filterType} onFilterChange={handleFilterChange} />
-                }
-              />
-              {/* Other routes */}
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-property"
-                element={
-                  <ProtectedRoute>
-                    <AddProperty />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/property-page"
-                element={
-                  <ProtectedRoute>
-                    <PropertyPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-news"
-                element={
-                  <ProtectedRoute>
-                    <AddNews />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/news-page"
-                element={
-                  <ProtectedRoute>
-                    <NewsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/contact-submissions"
-                element={
-                  <ProtectedRoute>
-                    <ContactSubmissions />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/statistique"
-                element={
-                  <ProtectedRoute>
-                    <Statistique />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+      <div className="footer-container">
+        <div className="footer-row">
+          <div className="footer-column company">
+            <h3>{t('footer.companyName')}</h3>
+            <p>{t('footer.companyDescription')}</p>
           </div>
-        </Router>
-      </CartProvider>
-    </AuthProvider>
+          <div className="footer-column products">
+            <h3>{t('footer.products')}</h3>
+            <p>{t('footer.desc')}</p>
+          </div>
+          <div className="footer-column contact">
+            <h3>{t('footer.contact')}</h3>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.phone')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM1')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {t('footer.contacts.numIAM2')}
+            </p>
+          </div>
+          <div className="footer-column location">
+            <h3>{t('properties.location')}</h3>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} />{' '}
+              {t('footer.contacts.address1')}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} />{' '}
+              {t('footer.contacts.address2')}
+            </p>
+          </div>
+
+          {/* Social Media Section */}
+          <div className="footer-column social">
+            <div className="social-wrapper">
+              <h3>{t('footer.getConnected')}</h3>
+              <div className="social-icons">
+                <a
+                  href="https://maps.app.goo.gl/MdQcNRp2BWm33dBU9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-location"
+                >
+                  <FontAwesomeIcon icon={faMapMarkerAlt} />
+                </a>
+                <a
+                  href="tel:0536348141"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-phone"
+                >
+                  <FontAwesomeIcon icon={faPhone} />
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61560366056640"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-facebook"
+                >
+                  <FontAwesomeIcon icon={faFacebookF} />
+                </a>
+                <a
+                  href="https://www.instagram.com/alaqariyya/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-instagram"
+                >
+                  <FontAwesomeIcon icon={faInstagram} />
+                </a>
+                <a
+                  href="https://wa.me/212668550704"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="icon-whatsapp"
+                >
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>{t('footer.copyRight')}</p>
+      </div>
+    </footer>
   );
 }
 
-export default App;
+export default Footer;
