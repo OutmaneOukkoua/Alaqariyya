@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -23,23 +23,22 @@ const shareRoutes = require('./routes/shareRoutes');
 const clickRoutes = require('./routes/clickRoutes');
 
 
-
 // Use routes
-app.use(authRoutes);
-app.use(propertyRoutes);
-app.use(newsRoutes); 
-app.use(contactRoutes);
-app.use(visitorRoutes);
-app.use(shareRoutes);
-app.use(clickRoutes);
+router.use(authRoutes);
+router.use(propertyRoutes);
+router.use(newsRoutes); 
+router.use(contactRoutes);
+router.use(visitorRoutes);
+router.use(shareRoutes);
+router.use(clickRoutes);
 
 
 // Basic route to test server setup
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Welcome to backend for ALAQARIYYA');
 });
 
-// app.use('/nodeapp', router);
+app.use('/nodeapp', router);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

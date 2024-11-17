@@ -69,7 +69,7 @@ function NewsPage() {
               <td>{article.content}</td>
               <td>{new Date(article.published_at).toLocaleDateString()}</td>
               <td>
-                    <img src={`${API_URL}/uploads/${article.image_url}`} alt={article.title} className="article-image" />
+                    <img src={`${API_URL}/uploads/${article.image_url}`} alt={article.title} className="article-images" />
                   </td>
               <td>
                 <button

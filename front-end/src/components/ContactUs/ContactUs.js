@@ -319,6 +319,7 @@ function ContactUs() {
                 onChange={handleChange}
                 rows="5"
                 required
+                style={{resize: 'none'}}
               ></textarea>
             </div>
 

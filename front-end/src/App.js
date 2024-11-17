@@ -5,7 +5,7 @@ import axios from 'axios';
 // Components
 import Header from './components/Header/Header';
 import LanguageSelector from './i18n/LanguageSelector';
-import Content from './components/Content/Content';  // Fixed import
+import Content from './components/Content/Content';
 import Login from './Auth/Login';
 import Welcome from './components/Welcome/Welcome';
 import ProductDetail from './components/ProductDetail/ProductDetail';
@@ -18,6 +18,7 @@ import AddNews from './components/AddNews/AddNews';
 import NewsPage from './components/newsPage/newsPage';
 import ContactSubmissions from './components/ContactUs/ContactSubmissions';
 import Statistique from './components/Statistique/Statistique';
+import NewsArticle from './components/NewsArticle/NewsArticle'; // Import the new component
 
 // Contexts
 import { CartProvider } from './contexts/CartContext';
@@ -32,8 +33,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // SEO
 import { Helmet } from 'react-helmet';
-
-
 
 function App() {
   const [filterType, setFilterType] = React.useState('');
@@ -238,6 +237,8 @@ function App() {
                   <Content filterType={filterType} onFilterChange={handleFilterChange} />
                 }
               />
+              {/* Add the new route for news articles */}
+              <Route path="/news/:id" element={<NewsArticle />} />
               {/* Other routes */}
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/contact" element={<ContactUs />} />

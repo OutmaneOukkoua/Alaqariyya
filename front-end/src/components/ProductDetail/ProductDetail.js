@@ -196,6 +196,8 @@ function ProductDetail() {
 
   return (
     <>
+    <div class="page-wrapper">
+
       <div className="ProductDetail">
         {/* Breadcrumb */}
         <div className="breadcrumb-container">
@@ -545,6 +547,7 @@ function ProductDetail() {
           </div>
         )}
       </div>
+    </div>
       <Footer />
     </>
   );

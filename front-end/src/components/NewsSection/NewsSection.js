@@ -7,36 +7,33 @@ import {
   FaSpinner,
 } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
-import Modal from '../Modal/Modal'; // Adjusted path for Modal
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './NewsSection.css';
-
 
 function StaticNewsSection() {
   const [articles, setArticles] = useState([]);
-  const [selectedArticle, setSelectedArticle] = useState(null); // State for modal article
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
   const API_URL = process.env.REACT_APP_SERVER;
   const isArabic = i18n.language === 'ar';
+  const navigate = useNavigate(); // Initialize navigate
 
-  // Fetch articles from the API (taken from your old News component)
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        setIsLoading(true); // Set loading to true before fetching
+        setIsLoading(true);
         const response = await axios.get(`${API_URL}/news?lang=${i18n.language}`);
         setArticles(response.data);
       } catch (error) {
         console.error('Error fetching news articles:', error);
       } finally {
-        setIsLoading(false); // Set loading to false after fetching
+        setIsLoading(false);
       }
     };
 
     fetchArticles();
   }, [API_URL, i18n.language]);
 
-  // Function to select an icon based on news category
   const getCategoryIcon = (category) => {
     switch (category?.toLowerCase()) {
       case 'market':
@@ -48,7 +45,6 @@ function StaticNewsSection() {
     }
   };
 
-  // Function to truncate the summary text
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + '...';
@@ -56,14 +52,9 @@ function StaticNewsSection() {
     return text;
   };
 
-  // Function to open the modal with the selected article
-  const handleReadMore = (article) => {
-    setSelectedArticle(article);
-  };
-
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setSelectedArticle(null);
+  // Function to handle article click
+  const handleArticleClick = (articleId) => {
+    navigate(`/news/${articleId}`);
   };
 
   return (
@@ -77,7 +68,10 @@ function StaticNewsSection() {
         ) : articles.length > 0 ? (
           articles.map((article) => (
             <div key={article.id} className="news-card">
-              <div className="news-image-container">
+              <div className="news-image-container"
+               onClick={() => handleArticleClick(article.id)} 
+               style={{ cursor: 'pointer' }} >
+
                 <img
                   src={`${API_URL}/uploads/${article.image_url}`}
                   alt={article.title}
@@ -90,10 +84,13 @@ function StaticNewsSection() {
               </div>
               <div className="news-content">
                 <h3 className="news-title">{article.title}</h3>
-                <p className="news-summary">{truncateText(article.content, 131)}</p>
-                <button className="read-more" onClick={() => handleReadMore(article)}>
-                {t('news.readMore')} {isArabic ? '←' : '→'}
-
+                <p className="news-summary">{truncateText(article.content, 141)}</p>
+                <button
+                  className="read-more"
+                  onClick={() => handleArticleClick(article.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {t('news.readMore')} {isArabic ? '←' : '→'}
                 </button>
               </div>
             </div>
@@ -102,9 +99,6 @@ function StaticNewsSection() {
           <p>{t('news.noArticles')}</p>
         )}
       </div>
-
-      {/* Render the modal if an article is selected */}
-      {selectedArticle && <Modal article={selectedArticle} onClose={handleCloseModal} />}
     </section>
   );
 }

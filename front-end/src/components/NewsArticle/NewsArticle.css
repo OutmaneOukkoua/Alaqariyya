@@ -1,0 +1,164 @@
+/* NewsArticle.css */
+.page-articles {
+  background-color: #f5f5f5;
+  
+}
+
+.page-wrappers {
+  background-color: #ffffff;
+  border-radius: 5px;
+  max-width: 1100px; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+.news-article {
+  max-width: 800px; /* Adjust as needed */
+  margin: 0 auto;
+  padding: 15px;
+  padding-bottom: 30px;
+  margin-bottom: -10px;
+}
+
+.article-title {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.article-image-container {
+  text-align: center;
+  margin-bottom: 20px;
+  /* width: 100%; Uncomment if needed */
+}
+
+.article-image {
+  width: 100%; /* Changed from max-width to width */
+  height: 500PX;
+  border-radius: 5px;
+}
+
+.article-content {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #34495e;
+}
+
+
+.breadcrumbb {
+  font-size: 14px;
+  padding-top: 60px;
+  
+}
+
+.breadcrumbb span {
+  color: rgb(53, 53, 53);
+  cursor: pointer;
+  margin: 5px;
+}
+
+.breadcrumbb span:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+.loadingg{
+  padding: 60px;
+}
+/* Responsive Design */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .news-article {
+    max-width: 90%;
+    margin-bottom: 30px;
+  }
+
+  .article-title {
+    font-size: 2.2em;
+  }
+
+  .article-content {
+    font-size: 1.1em;
+  }
+
+  .breadcrumbb {
+    padding-top: 80px;
+  }
+  .article-meta {
+    font-size: 0.95em;
+  }
+
+  .breadcrumbb {
+    font-size: 13px;
+  }
+}
+
+/* Small Tablets and Large Phones */
+@media (max-width: 767px) {
+  .news-article {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .article-title {
+    font-size: 2em;
+  }
+
+  .article-content {
+    font-size: 1em;
+  }
+  .article-image {
+    width: 100%; /* Changed from max-width to width */
+    height: 300PX;
+    border-radius: 5px;
+  }
+
+  .breadcrumbb {
+    padding-top: 70px;
+    margin-bottom: 10px;
+  }
+
+  .article-meta {
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+  }
+
+  .article-meta span {
+    margin: 3px 0;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 480px) {
+  .news-article {
+    max-width: 100%;
+    padding-bottom: 30px;
+
+  }
+
+  .article-title {
+    font-size: 1.8em;
+  }
+
+  .article-content {
+    font-size: 0.95em;
+  }
+
+  .breadcrumbb {
+    font-size: 13px;
+  }
+
+  .breadcrumbb span {
+    margin: 3px;
+  }
+
+  .breadcrumbb-container {
+    padding: 10px;
+  }
+}
