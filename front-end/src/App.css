@@ -1,6 +1,29 @@
 * {
-    font-family: "Tajawal", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
+  font-family: "Tajawal", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
 
+.App {
+  margin: 0 auto;  
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 0px;
+  }
+  
+  .header, .footer {
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .App {
+    padding: 0 20px;
+  }
+  
+  .header, .footer {
+    text-align: left;
+  }
+}

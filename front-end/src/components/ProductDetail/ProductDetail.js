@@ -197,7 +197,6 @@ function ProductDetail() {
   return (
     <>
     <div class="page-wrapper">
-
       <div className="ProductDetail">
         {/* Breadcrumb */}
         <div className="breadcrumb-container">

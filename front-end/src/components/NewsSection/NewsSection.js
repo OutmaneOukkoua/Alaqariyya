@@ -57,14 +57,18 @@ function StaticNewsSection() {
     navigate(`/news/${articleId}`);
   };
 
+  const LoadingComponent = ({ t }) => (
+    <div className="loadinggg">
+      <FaSpinner className="spinnerrr" />
+      <p>{t('properties.Loading')}</p>
+    </div>
+  );
+
   return (
     <section className={`news-section ${isArabic ? 'rtl' : 'ltr'}`}>
       <div className="news-grid">
         {isLoading ? (
-          <div className="loadingg">
-            <FaSpinner className="spinnerr" />
-            <p>{t('properties.Loading')}</p>
-          </div>
+          <LoadingComponent t={t} />
         ) : articles.length > 0 ? (
           articles.map((article) => (
             <div key={article.id} className="news-card">

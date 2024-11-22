@@ -14,7 +14,7 @@ function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialL
 
   // Array of background images
   const backgroundImages = [
-    '/searchbar/1.jpeg',
+    '/searchbar/1.jpg',
     '/searchbar/2.jpg',
     '/searchbar/3.jpg',
     '/searchbar/4.jpg',
@@ -23,8 +23,20 @@ function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialL
     '/searchbar/7.jpg',
     '/searchbar/8.jpg',
     '/searchbar/9.jpg',
-    '/searchbar/10.jpg',
+    '/searchbar/10.jpg'
   ];
+
+  // Preload images when the component mounts
+  useEffect(() => {
+    const preloadImages = () => {
+      backgroundImages.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+
+    preloadImages();
+  }, []);
 
   useEffect(() => {
     if (filterType === 'rent' || filterType === 'buy') {
@@ -87,7 +99,7 @@ function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialL
 
   return (
     <div className={`search-bar-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-              <Helmet>
+       <Helmet>
             <html lang="ar" />
             <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
             <meta
@@ -256,6 +268,7 @@ function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialL
         className="search-bar-background"
         style={{
           backgroundImage: `url(${backgroundImages[currentImageIndex]})`,
+          transition: 'background-image 0.5s ease-in-out', // Optional for smooth transition
         }}
       >
         <div className="search-bar">
@@ -278,7 +291,7 @@ function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialL
 
             <div className="filter-select-container">
               <select
-                className={`filter-select ${selectedTypeError && 'error'}`}
+                className={`filter-select ${selectedTypeError ? 'error' : ''}`}
                 value={selectedType}
                 onChange={handleFilterChange}
                 aria-label={t('properties.selectFilter')}

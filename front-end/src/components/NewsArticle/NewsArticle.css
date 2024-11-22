@@ -1,7 +1,6 @@
 /* NewsArticle.css */
 .page-articles {
   background-color: #f5f5f5;
-  
 }
 
 .page-wrappers {
@@ -35,7 +34,7 @@
 .article-image-container {
   text-align: center;
   margin-bottom: 20px;
-  /* width: 100%; Uncomment if needed */
+  
 }
 
 .article-image {
@@ -67,6 +66,7 @@
   text-decoration: underline;
   color: #007bff;
 }
+
 .loadingg{
   padding: 60px;
 }
