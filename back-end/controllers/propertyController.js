@@ -1,5 +1,3 @@
-
-
 const db = require('../config/db');
 const sharp = require('sharp');
 const fs = require('fs');
