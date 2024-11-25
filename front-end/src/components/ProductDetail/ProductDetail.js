@@ -159,18 +159,38 @@ function ProductDetail() {
   };
 
   // New functions for image navigation
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.length - 1 : prevIndex - 1));
-  };
+  // const handlePrevImage = () => {
+  //   setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.length - 1 : prevIndex - 1));
+  // };
 
+  // const handleNextImage = () => {
+  //   setCurrentImageIndex((prevIndex) => (prevIndex === product.length - 1 ? 0 : prevIndex + 1));
+  // };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) => {
+      if (isArabic) {
+        return prevIndex === 0 ? product.length - 1 : prevIndex - 1;
+      } else {
+        return prevIndex === product.length - 1 ? 0 : prevIndex + 1;
+      }
+    });
+  };
+  
   const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === product.length - 1 ? 0 : prevIndex + 1));
+    setCurrentImageIndex((prevIndex) => {
+      if (isArabic) {
+        return prevIndex === product.length - 1 ? 0 : prevIndex + 1;
+      } else {
+        return prevIndex === 0 ? product.length - 1 : prevIndex - 1;
+      }
+    });
   };
 
   // Parse search parameters
   const queryParams = new URLSearchParams(location.search);
   const searchType = queryParams.get('type');
-  const searchLocation = queryParams.get('location');
+  // const searchLocation = queryParams.get('location');
   const searchPage = queryParams.get('page') || 1;
 
   // Map searchType to display name
@@ -238,7 +258,7 @@ function ProductDetail() {
                   <FontAwesomeIcon
                     icon={faChevronLeft}
                     className="nav-arrow left-arrow"
-                    onClick={handlePrevImage}
+                    onClick={handleNextImage}
                   />
                 )}
                 <img
@@ -250,7 +270,7 @@ function ProductDetail() {
                   <FontAwesomeIcon
                     icon={faChevronRight}
                     className="nav-arrow right-arrow"
-                    onClick={handleNextImage}
+                    onClick={handlePrevImage}
                   />
                 )}
                 <FontAwesomeIcon
