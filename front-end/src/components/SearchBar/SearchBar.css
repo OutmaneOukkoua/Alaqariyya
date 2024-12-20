@@ -201,6 +201,33 @@
   display: flex;
   gap: 15px; /* Space between elements */
 }
+
+.city-select, .region-select {
+  width: 100%;
+  padding: 12px 50px 12px 20px; /* Added padding-right for the search icon */
+  font-size: 16px;
+  border: 1.5px solid #ced4da;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.city-select, .region-select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error {
+  border-color: #e63946;
+}
+
+.error-message {
+  color: #e63946;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
 @media (min-width: 769px) and (max-width: 846px) {
   .search-bar-container {
     padding-top: 70px 0;

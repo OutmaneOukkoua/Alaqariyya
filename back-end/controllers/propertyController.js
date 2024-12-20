@@ -24,10 +24,10 @@ exports.addProperty = async (req, res) => {
       floors: req.body.floors,
       availability_date: req.body.availability_date
     };
-
+    
     // Check if required fields are present
-    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar || !newProperty.exact_address) { // <-- Updated validation
-      return res.status(400).send('Title, description, location (Arabic), and exact address are required.');
+    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar ) { // <-- Updated validation
+      return res.status(400).send('Title, description and location (Arabic) are required.');
     }
 
     // Translate property fields if necessary
@@ -82,7 +82,6 @@ exports.getProperties = async (req, res) => {
   const titleColumn = `title_${lang}`;
   const descriptionColumn = `description_${lang}`;
   const locationColumn = `location_${lang}`;
-  const exactAddressColumn = `exact_address`; // Assuming exact_address is not translated
 
   let sql = `
     SELECT 

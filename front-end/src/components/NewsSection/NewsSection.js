@@ -108,3 +108,4 @@ function StaticNewsSection() {
 }
 
 export default StaticNewsSection;
+

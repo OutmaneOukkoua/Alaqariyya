@@ -99,7 +99,7 @@ function AddProperty() {
           description_ar: '',
           price: '',
           location_ar: '',
-          exact_address: '', // <-- Reset this field
+          exact_address: '0', // <-- Reset this field
           area: '',
           available: true,
           availability_date: '',
@@ -127,8 +127,8 @@ function AddProperty() {
 
   const validateForm = () => {
     const errors = {};
-    const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'exact_address', 'area']; // <-- Included 'exact_address'
-    if (newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages') {
+    const requiredFields = ['title_ar', 'description_ar', 'price', 'location_ar', 'area']; // <-- Included 'exact_address'
+    if (newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages' && newProperty.type !== 'CommercialgaragesRent') {
       requiredFields.push('bedrooms', 'bathrooms', 'kitchen');
       if (newProperty.type === 'buy') {
         requiredFields.push('floors');
@@ -156,7 +156,8 @@ function AddProperty() {
           <option value="regularRent">Regular Rent</option>
           <option value="buy">Hauses and Appart for buy</option>
           <option value="floorplots">Floor Plots</option>
-          <option value="Commercialgarages">Commercial Garages</option>
+          <option value="Commercialgarages">Commercial Garages for buy</option>
+          <option value="CommercialgaragesRent">Commercial Garages for rent</option>
         </select>
         {errors.type && <p className="error-message">{errors.type}</p>}
         <input type="text" name="title_ar" placeholder="Title (Arabic)" value={newProperty.title_ar} onChange={handleInputChange} required />
@@ -175,14 +176,14 @@ function AddProperty() {
           placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)"
           value={newProperty.exact_address}
           onChange={handleInputChange}
-          required
+          
         />
-        {errors.exact_address && <p className="error-message">{errors.exact_address}</p>}
+        
         
         <input type="number" name="area" placeholder="Area" value={newProperty.area} onChange={handleInputChange} required />
         {errors.area && <p className="error-message">{errors.area}</p>}
         
-        {newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages' && (
+        {newProperty.type !== 'floorplots' && newProperty.type !== 'Commercialgarages' && newProperty.type !== 'CommercialgaragesRent' && (
           <>
             <input type="number" name="bedrooms" placeholder="Bedrooms" value={newProperty.bedrooms} onChange={handleInputChange} required />
             {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}

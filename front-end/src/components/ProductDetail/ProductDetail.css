@@ -539,6 +539,9 @@
   color: #555;
 }
 
+.description-text {
+  white-space: pre-line;
+}
 
 /* Existing Mobile Styles */
 @media (max-width: 768px) {

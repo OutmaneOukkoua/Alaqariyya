@@ -13,6 +13,7 @@ app.use(cookieParser());
 
 router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const propertyRoutes = require('./routes/propertyRoutes');
@@ -38,7 +39,9 @@ router.get('/', (req, res) => {
   res.send('Welcome to backend for ALAQARIYYA');
 });
 
-app.use('/nodeapp', router);
+
+
+app.use('/nodeappp', router);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

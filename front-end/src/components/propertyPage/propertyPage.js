@@ -225,6 +225,7 @@ function PropertyPage() {
           <option value="buy">Hauses and Appart for buy</option>
           <option value="floorplots">Floor Plots</option>
           <option value="Commercialgarages">Commercial Garages</option>
+          <option value="CommercialgaragesRent">Commercial Garages for rent</option>
         </select>
       </div>
 
@@ -327,15 +328,17 @@ function PropertyPage() {
                   <option value="buy">Hauses and Appart for buy</option>
                   <option value="floorplots">Floor Plots</option>
                   <option value="Commercialgarages">Commercial Garages</option>
+                  <option value="CommercialgaragesRent">Commercial Garages for rent</option>
+
                 </select>
               </div>
               <input type="text" name="title_ar" placeholder="Title (Arabic)" value={selectedProperty.title_ar} onChange={handleInputChange} required />
               <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description (Arabic)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
               <input type="number" name="price" placeholder="Price" value={selectedProperty.price} onChange={handleInputChange} required />
               <input type="text" name="location_ar" placeholder="Location (Arabic)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
-              <input type="text" name="exact_address" placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)" value={selectedProperty.exact_address} onChange={handleInputChange} required />
+              <input type="text" name="exact_address" placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)" value={selectedProperty.exact_address} onChange={handleInputChange}  />
               <input type="number" name="area" placeholder="Area" value={selectedProperty.area} onChange={handleInputChange} required />
-              {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && (
+              {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && selectedProperty.type !== 'CommercialgaragesRent' && (
                 <>
                   <input type="number" name="bedrooms" placeholder="Bedrooms" value={selectedProperty.bedrooms} onChange={handleInputChange} required />
                   <input type="number" name="salon" placeholder="Salon" value={selectedProperty.salon} onChange={handleInputChange} />

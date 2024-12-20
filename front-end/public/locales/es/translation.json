@@ -3,15 +3,10 @@
     "Home": "inicio",
     "buy": "vender",
     "rent": "Alquiler",
-    "regularRent": "Alquiler regular",
-    "news": "Noticias",
     "contactUs": "Contáctenos",
     "login": "Iniciar sesión",
     "logout" : "Cerrar sesión",
-    "dashboard" : "Panel",
-    "floorplotss": "Tierras",
-    "Commercialgarages": "Garajes comerciales"
-
+    "dashboard" : "Panel"
 
   },
   "properties": {
@@ -24,8 +19,8 @@
     "area": "Área",
     "type": "Tipo",
     "rent": "Alquiler",
-    "furnishedRent": "alquiler amueblado",
-    "regularRent": "alquiler regular",
+    "furnishedRent": "Alquiler diario",
+    "regularRent": "Alquiler mensual",
     "HausesForBuy": "Casas y Apartamentos",
     "buy": "vender",
     "all": "Todos",
@@ -46,6 +41,7 @@
     "pricePerSquareMeter": "por metro cuadrado",
     "kitchen": "cocina",
     "Commercialgarages": "Garajes comerciales",
+    "CommercialgaragesRent": "Garajes comerciales",
     "description": "Descripción",
     "details": "Detalles",
     "noResults": "Esta propiedad no existe actualmente",
@@ -66,8 +62,8 @@
     "desc": "alquilar - comprar - vender - Consultas inmobiliarias - Registro de propiedad",
     "contact": "Contacto",
     "contacts": {
-      "numIAM1": "Primer número adicional: 0668.55.07.04",
-      "numIAM2": "Segundo número adicional: 0668.55.06.52",
+      "numIAM1": "Primer número : 0668.55.07.04",
+      "numIAM2": "Segundo número : 0668.55.06.52",
       "address1": "Calle Ibn Sina (intersección con Calle Oqba)",
       "address2": "Barrio Al Masjid, Beni Ensar - Nador",
       "phone": "Teléfono fijo: 0536.34.81.41"
@@ -116,6 +112,6 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Encuentra tu casa en Marruecos"
+    "title":"Encuentra tu propiedad ideal en Marruecos"
   }
 }

@@ -45,7 +45,6 @@
   height: 290px; /* Set a fixed height */
 }
 
-
 .property-item.rtl {
   text-align: right;
   direction: rtl;

@@ -3,15 +3,10 @@
     "Home": "الرئيسية",
     "buy": "بيع",
     "rent": "كراء",
-    "regularRent": "الكراء العادي",
-    "news": "أخبار",
     "contactUs": "اتصل بنا",
     "login": "تسجيل الدخول",
     "logout" : "تسجيل الخروج",
-    "dashboard" : "لوحة التحكم",
-    "floorplotss": "قطع ارضية",
-    "Commercialgarages": "محلات تجارية"
-
+    "dashboard" : "لوحة التحكم"
   },
   "properties": {
     "price": "السعر",
@@ -23,8 +18,8 @@
     "area": "المساحة",
     "type": "النوع",
     "rent": "كراء ",
-    "furnishedRent": "الكراء المفروش",
-    "regularRent": "الكراء العادي",
+    "furnishedRent": "الكراء اليومي",
+    "regularRent": "الكراء الشهري",
     "HausesForBuy": "منازل و شقق",
     "buy": "بيع",
     "all": "الكل",
@@ -45,12 +40,12 @@
     "pricePerSquareMeter": "للمتر مربع",
     "kitchen": "المطبخ",
     "Commercialgarages": "محلات تجارية",
+    "CommercialgaragesRent": "محلات تجارية",
     "description": "الوصف",
     "details": "التفاصيل",
     "noResults": "هذا العقار غير موجود حاليا",
     "chooseType": "اختر النوع",
     "selectTypeMessage": "الرجاء اختيار نوع العقار"
-
 
   },
   "news": {
@@ -66,8 +61,8 @@
     "desc": "إيجار - شراء - بيع - استشارات عقارية - التحفيظ العقاري",
     "contact": "اتصال",
     "contacts": {
-      "numIAM1": "الرقم الاضافي الأول : 0668.55.07.04",
-      "numIAM2": "الرقم الاضافي الثاني : 0668.55.06.52",
+      "numIAM1": "الرقم الأول : 0668.55.07.04",
+      "numIAM2": "الرقم الثاني : 0668.55.06.52",
       "address1": "زنقة ابن سينا (تقاطع زنقة عقبة)",
       "address2": "حي المسجد، بني انصار - الناظور",
       "phone": "الهاتف الثابت : 0536.34.81.41"
@@ -81,7 +76,7 @@
     "rememberMe": "تذكرني",
     "submit": "تسجيل الدخول",
     "error": "حدث خطأ. حاول مرة اخرى.",
-    "emailPlaceholder": "",
+    "emailPlaceholder": "البريد الإلكتروني الخاص بك",
     "passwordPlaceholder": "كلمة المرور الخاصة بك"
   },
   "contact": {
@@ -114,7 +109,7 @@
     "defaultName":"العقارية"
   },
   "searchBar":{
-    "title":"ابحث عن منزلك في المغرب"
+    "title":"ابحث عن عقارك المثالي في المغرب "
   }
-  
+ 
 }

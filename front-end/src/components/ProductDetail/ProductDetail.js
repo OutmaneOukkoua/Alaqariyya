@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, redirect } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../../contexts/CartContext';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +32,7 @@ import { format } from 'date-fns';
 import { FaSpinner } from 'react-icons/fa';
 import Footer from '../Footer/Footer';
 
+const formatPrice = (value) => new Intl.NumberFormat('de-DE').format(value);
 
 function useOutsideClick(ref, callback) {
   useEffect(() => {
@@ -158,15 +159,6 @@ function ProductDetail() {
     return `https://www.google.com/maps?q=${encodeURIComponent(exactAddress)}&output=embed&maptype=satellite`;
   };
 
-  // New functions for image navigation
-  // const handlePrevImage = () => {
-  //   setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? product.length - 1 : prevIndex - 1));
-  // };
-
-  // const handleNextImage = () => {
-  //   setCurrentImageIndex((prevIndex) => (prevIndex === product.length - 1 ? 0 : prevIndex + 1));
-  // };
-
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) => {
       if (isArabic) {
@@ -198,6 +190,7 @@ function ProductDetail() {
     buy: t('properties.HausesForBuy'),
     floorplots: t('properties.floorplots'),
     Commercialgarages: t('properties.Commercialgarages'),
+    CommercialgaragesRent: t('properties.CommercialgaragesRent'),
     regularRent: t('properties.regularRent'),
     rent: t('properties.furnishedRent'),
   };
@@ -223,7 +216,7 @@ function ProductDetail() {
           <nav className={`breadcrumb ${isArabic ? 'rtl' : 'ltr'}`}>
             <span
               onClick={() => {
-                navigate('/');
+                navigate('/'); // Force reload when navigating to the homepage
               }}
             >
               {t('header.Home')}
@@ -233,7 +226,7 @@ function ProductDetail() {
               <>
                 <span
                   onClick={() => {
-                    // Navigate to the search results page for this type
+                    // Force reload when navigating to the search results page for this type
                     const searchParams = new URLSearchParams();
                     searchParams.set('type', searchType);
                     if (searchPage) searchParams.set('page', searchPage);
@@ -248,7 +241,6 @@ function ProductDetail() {
             <span>{product[0].title}</span>
           </nav>
         </div>
-
         <div className={`product-container ${isArabic ? 'rtl' : 'ltr'}`}>
           <div className="left-column">
             {/* Image Gallery */}
@@ -301,11 +293,11 @@ function ProductDetail() {
               <div className="product-price">
                 {product[0].old_price && product[0].old_price > product[0].price && (
                   <span style={{ textDecoration: 'line-through', color: 'red', margin: '10px' }}>
-                    {product[0].old_price} {t('properties.MAD')}
+                    {formatPrice(product[0].old_price)} {t('properties.MAD')}
                   </span>
                 )}
                 <span>
-                  {product[0].price} {t('properties.MAD')}
+                  {formatPrice(product[0].price)} {t('properties.MAD')}
                 </span>
               </div>
               <div className="product-meta">
@@ -320,8 +312,9 @@ function ProductDetail() {
               {/* Description Section */}
               <section className="description-section">
                 <h2>{t('properties.description')}</h2>
-                <p>{product[0].description}</p>
+                <p className="description-text">{product[0].description}</p>
               </section>
+
 
               {/* Details Section */}
               <section className="details-section">
@@ -346,7 +339,7 @@ function ProductDetail() {
                   </div>
 
                   {/* Bedrooms */}
-                  {product[0].type !== 'floorplots' && product[0].type !== 'Commercialgarages' && (
+                  {product[0].type !== 'floorplots' && product[0].type !== 'Commercialgarages' && product[0].type !== 'CommercialgaragesRent' &&(
                     <>
                       <div className="detail-card">
                         <FontAwesomeIcon icon={faBed} className="detail-icon" />
@@ -443,15 +436,13 @@ function ProductDetail() {
                         <span
                           style={{ textDecoration: 'line-through', color: 'red', margin: '10px' }}
                         >
-                          {product[0].old_price} {t('properties.MAD')}
+                          {formatPrice(product[0].old_price)} {t('properties.MAD')}
                         </span>
                       )}
                       <span>
                         {product[0].type === 'floorplots'
-                          ? `${product[0].price} ${t('properties.MAD')} ${t(
-                              'properties.pricePerSquareMeter'
-                            )}`
-                          : `${product[0].price} ${t('properties.MAD')}`}
+                          ? `${formatPrice(product[0].price)} ${t('properties.MAD')} ${t('properties.pricePerSquareMeter')}`
+                          : `${formatPrice(product[0].price)} ${t('properties.MAD')}`}
                       </span>
                     </div>
                   </div>

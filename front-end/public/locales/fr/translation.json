@@ -3,16 +3,10 @@
     "Home": "Accueil",
     "buy": "vendre",
     "rent": "loyer",
-    "regularRent": "loyer régulier",
-    "news": "Actualités",
     "contactUs": "Contactez-nous",
     "login": "Connexion",
     "logout" : "Se déconnecter",
-    "dashboard" : "Tableau de bord",
-    "floorplotss": "Terrains",
-    "Commercialgarages": "Garages commerciaux"
-
-
+    "dashboard" : "Tableau de bord"
   },
   "properties": {
     "price": "Prix",
@@ -24,8 +18,8 @@
     "area": "Superficie",
     "type": "Type",
     "rent": "loyer",
-    "furnishedRent": "location meublée",
-    "regularRent": "loyer régulier",
+    "furnishedRent": "Location journalière",
+    "regularRent": "Loyer mensuel",
     "HausesForBuy": "Maisons et appartements",
     "buy": "vendre",
     "all": "Tous",
@@ -46,6 +40,7 @@
     "pricePerSquareMeter": "par mètre carré",
     "kitchen": "Cuisine",
     "Commercialgarages": "Garages commerciaux",
+    "CommercialgaragesRent": "Garages commerciaux",
     "description": "Description",
     "details": "Détails",
     "noResults": "Cette propriété n'existe pas actuellement",
@@ -67,8 +62,8 @@
     "desc": "louer - acheter - vendre - Consultations immobilières - Conservation foncière",
     "contact": "Contact",
     "contacts": {
-      "numIAM1": "Premier numéro supplémentaire : 0668.55.07.04",
-      "numIAM2": "Deuxième numéro supplémentaire : 0668.55.06.52",
+      "numIAM1": "Premier numéro : 0668.55.07.04",
+      "numIAM2": "Deuxième numéro : 0668.55.06.52",
       "address1": "Rue Ibn Sina (intersection de la Rue Oqba)",
       "address2": "Quartier Al Masjid, Beni Ensar - Nador",
       "phone": "Téléphone fixe : 0536.34.81.41"
@@ -116,6 +111,6 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Trouvez votre maison en Maroc"
+    "title":"Trouvez votre propriété idéale au Maroc"
   }
 }

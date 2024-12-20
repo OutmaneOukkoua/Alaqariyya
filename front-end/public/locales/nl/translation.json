@@ -3,15 +3,10 @@
     "Home": "Startpagina",
     "buy": "verkopen",
     "rent": "huur",
-    "regularRent": "reguliere huur",
-    "news": "Nieuws",
     "contactUs": "Contacteer Ons",
     "login": "Inloggen",
     "logout" : "Uitloggen",
-    "dashboard" : "Dashboard",
-    "floorplotss": "Vloerpercelen",
-    "Commercialgarages": "Commerciële garages"
-
+    "dashboard" : "Dashboard"
   },
   "properties": {
     "price": "Prijs",
@@ -23,8 +18,8 @@
     "area": "Oppervlakte",
     "type": "Type",
     "rent": "huur",
-    "furnishedRent": "gemeubileerde huur",
-    "regularRent": "reguliere huur",
+    "furnishedRent": "Dagelijkse huur",
+    "regularRent": "Maandelijkse huur",
     "HausesForBuy": "Huizen en Appartementen",
     "buy": "verkopen",
     "all": "Alle",
@@ -45,6 +40,7 @@
     "pricePerSquareMeter": "per vierkante meter",
     "kitchen": "keuken",
     "Commercialgarages": "Commerciële garages",
+    "CommercialgaragesRent": "Commerciële garages",
     "description": "Beschrijving",
     "details": "Details",
     "noResults": "Deze woning bestaat momenteel niet",
@@ -65,8 +61,8 @@
     "desc": "huren - kopen - verkopen - Vastgoedadvies - Kadastrale registratie",
     "contact": "Contact",
     "contacts": {
-      "numIAM1": "Eerste extra nummer: 0668.55.07.04",
-      "numIAM2": "Tweede extra nummer: 0668.55.06.52",
+      "numIAM1": "Eerste nummer: 0668.55.07.04",
+      "numIAM2": "Tweede nummer: 0668.55.06.52",
       "address1": "Ibn Sina Straat (kruising van Oqba Straat)",
       "address2": "Al Masjid buurt, Beni Ensar - Nador",
       "phone": "Vaste lijn: 0536.34.81.41"
@@ -114,6 +110,6 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Vind uw huis in Marokko"
+    "title":"Vind uw perfecte woning in Marokko"
   }
 }

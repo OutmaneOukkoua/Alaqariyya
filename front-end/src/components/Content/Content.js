@@ -9,6 +9,7 @@ import Footer from '../Footer/Footer';
 import { FaSpinner } from 'react-icons/fa';
 import { Helmet } from 'react-helmet';
 
+const formatPrice = (value) => new Intl.NumberFormat('de-DE').format(value);
 
 function Content({ filterType, onFilterChange }) {
   const [properties, setProperties] = useState([]);
@@ -396,16 +397,17 @@ function Content({ filterType, onFilterChange }) {
                             </strong>
                             {property.old_price && property.old_price > property.price && (
                               <span className="old-price">
-                                {property.old_price} {t('properties.MAD')}
+                                {formatPrice(property.old_price)} {t('properties.MAD')}
                               </span>
                             )}
                             <span className="new-price">
-                              {property.price} {t('properties.MAD')}
+                              {formatPrice(property.price)} {t('properties.MAD')}
                             </span>
                           </p>
                           {property.type === 'rent' && (
                             <p className="small-text">* {t('properties.priceVaries')}</p>
                           )}
+                          
                         </div>
                         {property.type === 'rent' && (
                           <p>

@@ -50,7 +50,9 @@ function Header({ onFilterChange, activeFilter }) {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng.value);
+    localStorage.setItem('i18nextLng', lng.value); // Persist the selected language
   };
+  
 
   const languageOptions = [
     { value: 'ar', label: <><span className="fi fi-ma"></span> العربية</> },
@@ -61,11 +63,14 @@ function Header({ onFilterChange, activeFilter }) {
     { value: 'nl', label: <><span className="fi fi-nl"></span> Dutch</> }
   ];
 
+  const defaultLanguage = localStorage.getItem('i18nextLng') || i18n.language;
+
+
   // Updated 'Home' filter to an empty string
   const navItems = [
     { filter: '', label: t('header.Home'), link: '/' },
-    { filter: 'rent', label: t('header.rent'), link: '/' },
     { filter: 'buy', label: t('header.buy'), link: '/' },
+    { filter: 'rent', label: t('header.rent'), link: '/' },
     { filter: 'contact', label: t('header.contactUs'), link:'/contact' }
   ];
 
@@ -331,11 +336,11 @@ function Header({ onFilterChange, activeFilter }) {
             </Link>
           )}
           <Select
-            options={languageOptions}
-            onChange={changeLanguage}
-            className="language-select"
-            defaultValue={languageOptions.find((option) => option.value === i18n.language)}
-            isSearchable={false}
+          options={languageOptions}
+          onChange={changeLanguage}
+          className="language-select"
+          defaultValue={languageOptions.find((option) => option.value === defaultLanguage)}
+          isSearchable={false}
           />
         </div>
       </div>

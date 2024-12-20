@@ -2,13 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import { AuthContext } from './AuthContext';
 import { AuthContext } from '../contexts/AuthContext';
 
 import './Login.css';
 
 function Login() {
-  const { t, i18n } = useTranslation(); // Use i18n to detect current language
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
@@ -95,3 +94,4 @@ function Login() {
 }
 
 export default Login;
+

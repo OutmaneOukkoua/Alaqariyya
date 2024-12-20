@@ -2,17 +2,11 @@
   "header": {
     "Home": "Home",
     "buy": "Sell",
-    "rent": " rent",
-    "regularRent": "Regular rent",
-    "news": "News",
+    "rent": "rent",
     "contactUs": "Contact Us",
     "dashboard" : "Dashboard",
     "login": "Log in",
-    "logout" : "Log out",
-    "floorplotss": "Floor Plots",
-    "Commercialgarages": "Commercial Garages"
-
-
+    "logout" : "Log out"
   },
   
     "logout": {
@@ -31,8 +25,8 @@
       "area": "Area",
       "type": "Type",
       "rent": "rent",
-      "furnishedRent": "furnished rent",
-      "regularRent": "regular rent",
+      "furnishedRent": "Daily rent",
+      "regularRent": "Monthly rent",
       "HausesForBuy": "Houses and apartments",
       "buy": "sell",
       "all": "All",
@@ -53,6 +47,7 @@
       "pricePerSquareMeter": "per square meter",
       "kitchen": "kitchen",
       "Commercialgarages": "Commercial Garages",
+      "CommercialgaragesRent": "Commercial Garages",
       "description": "Description",
       "details": "Details",
       "noResults": "This property does not exist currently",
@@ -76,8 +71,8 @@
     "desc": "rent - buy - sell - Real Estate Consulting - Property Registration",
     "contact": "Contact",
     "contacts": {
-      "numIAM1": "First additional number: 0668.55.07.04",
-      "numIAM2": "Second additional number: 0668.55.06.52",
+      "numIAM1": "First number: 0668.55.07.04",
+      "numIAM2": "Second number: 0668.55.06.52",
       "address1": "Ibn Sina Street (intersection of Oqba Street)",
       "address2": "Al Masjid neighborhood, Beni Ensar - Nador",
       "phone": "Landline: 0536.34.81.41"
@@ -124,7 +119,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Find your home in Morocco"
+    "title":"Find your perfect property in Morocco"
   },
   
  "newsSection": {
