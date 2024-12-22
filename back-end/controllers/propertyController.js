@@ -4,7 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const { translateProperty } = require('../utils/translator');
 
+const watermarkPath = path.join(__dirname, '../watermarks', 'watermark.png'); // Ensure this path is correct
+
+
 // Add a new property
+
 exports.addProperty = async (req, res) => {
   try {
     const newProperty = {
@@ -12,9 +16,9 @@ exports.addProperty = async (req, res) => {
       title_ar: req.body.title_ar,
       description_ar: req.body.description_ar,
       price: req.body.price,
-      old_price: null, // Initially, no old price
+      old_price: null,
       location_ar: req.body.location_ar,
-      exact_address: req.body.exact_address, // <-- Added
+      exact_address: req.body.exact_address,
       bedrooms: req.body.bedrooms,
       salon: req.body.salon,
       bathrooms: req.body.bathrooms,
@@ -24,43 +28,50 @@ exports.addProperty = async (req, res) => {
       floors: req.body.floors,
       availability_date: req.body.availability_date
     };
-    
-    // Check if required fields are present
-    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar ) { // <-- Updated validation
+
+    if (!newProperty.title_ar || !newProperty.description_ar || !newProperty.location_ar) {
       return res.status(400).send('Title, description and location (Arabic) are required.');
     }
 
-    // Translate property fields if necessary
     const translations = await translateProperty(newProperty);
     Object.assign(newProperty, translations);
 
-    // Insert the new property into the database
     const sql = 'INSERT INTO properties SET ?';
     db.query(sql, newProperty, async (err, result) => {
       if (err) {
         console.error('Error inserting property:', err);
         return res.status(500).send('Database insertion error');
       }
+
       const propertyId = result.insertId;
       const images = [];
 
-      // Process and save images
       for (const [index, file] of req.files.entries()) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const outputPath = path.join(__dirname, '../uploads', uniqueSuffix + path.extname(file.originalname));
+
+        const watermark = await sharp(watermarkPath)
+        .resize({ width: 300 }) 
+        .toBuffer();
+        // Process image with Sharp, now including watermark
         await sharp(file.buffer)
           .rotate()
           .resize(800, 600)
           .jpeg({ quality: 80 })
+          .composite([{
+            input: watermark,
+            gravity: 'center', // or 'southeast', 'northwest', etc.
+            blend: 'over',    // overlay mode
+            opacity: 1      // adjust watermark transparency as needed
+          }])
           .toFile(outputPath);
 
         const isMain = req.files.length === 1 || index === 0;
         images.push([propertyId, path.basename(outputPath), isMain, index]);
       }
 
-      // Insert images into the property_images table
       const imageSql = 'INSERT INTO property_images (property_id, image_url, is_main, display_order) VALUES ?';
-      db.query(imageSql, [images], (err, result) => {
+      db.query(imageSql, [images], (err) => {
         if (err) {
           console.error('Error inserting property images:', err);
           return res.status(500).send('Database insertion error');
@@ -256,10 +267,19 @@ exports.updateProperty = async (req, res) => {
               for (const [index, file] of req.files.entries()) {
                 const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
                 const outputPath = path.join(__dirname, '../uploads', uniqueSuffix + path.extname(file.originalname));
+                const watermark = await sharp(watermarkPath)
+                .resize({ width: 300 }) 
+                .toBuffer();
                 await sharp(file.buffer)
                   .rotate()
                   .resize(800, 600)
                   .jpeg({ quality: 80 })
+                  .composite([{
+                    input: watermark,
+                    gravity: 'center', // or 'southeast', 'northwest', etc.
+                    blend: 'over',    // overlay mode
+                    opacity: 1      // adjust watermark transparency as needed
+                  }])
                   .toFile(outputPath);
 
                 const isMain = req.files.length === 1 || index === 0;

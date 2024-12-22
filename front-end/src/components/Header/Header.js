@@ -149,7 +149,7 @@ function Header({ onFilterChange, activeFilter }) {
             <meta property="og:type" content="website" />
             <meta
               property="og:image"
-              content="https://www.alaqariyya.com/logo/logoAlaqariyya.jpg"
+              content="https://www.alaqariyya.com/logo.svg"
             />
 
             <meta name="twitter:card" content="summary_large_image" />
@@ -163,7 +163,7 @@ function Header({ onFilterChange, activeFilter }) {
             />
             <meta
               name="twitter:image"
-              content="https://www.alaqariyya.com/logo/logoAlaqariyya.jpg"
+              content="https://www.alaqariyya.com/logo.svg"
             />
 
             <script type="application/ld+json">
@@ -174,7 +174,7 @@ function Header({ onFilterChange, activeFilter }) {
                 "description":
                   "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
                 "url": "https://www.alaqariyya.com",
-                "logo": "https://www.alaqariyya.com/logo/logoAlaqariyya.jpg",
+                "logo": "https://www.alaqariyya.com/logo.svg",
                 "telephone": "+212 536-348141",
                 "address": {
                   "@type": "PostalAddress",
@@ -293,7 +293,7 @@ function Header({ onFilterChange, activeFilter }) {
           </Helmet>
         <div className="header-logo">
           <Link to="/" onClick={handleLogoClick}>
-            <img src="/logo192.png" alt="Alaqariyya Logo" className="logo" />
+            <img src="/logo.svg" alt="Alaqariyya Logo" className="logo" />
           </Link>
         </div>
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>

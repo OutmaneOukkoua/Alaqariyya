@@ -39,7 +39,7 @@ function Footer() {
             <meta property="og:type" content="website" />
             <meta
               property="og:image"
-              content="https://www.alaqariyya.com/logo/logoAlaqariyya.jpg"
+              content="https://www.alaqariyya.com/logo.svg"
             />
 
             <meta name="twitter:card" content="summary_large_image" />
@@ -53,7 +53,7 @@ function Footer() {
             />
             <meta
               name="twitter:image"
-              content="https://www.alaqariyya.com/logo/logoAlaqariyya.jpg"
+              content="https://www.alaqariyya.com/logo.svg"
             />
 
             <script type="application/ld+json">
@@ -64,7 +64,7 @@ function Footer() {
                 "description":
                   "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
                 "url": "https://www.alaqariyya.com",
-                "logo": "https://www.alaqariyya.com/logo/logoAlaqariyya.jpg",
+                "logo": "https://www.alaqariyya.com/logo.svg",
                 "telephone": "+212 536-348141",
                 "address": {
                   "@type": "PostalAddress",
