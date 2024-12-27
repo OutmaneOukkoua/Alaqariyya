@@ -48,7 +48,6 @@
     "chooseType": "Wählen Sie den Typ",
     "selectTypeMessage": "Bitte wählen Sie einen Immobilientyp aus"
 
-
   },
   "news": {
     "publishedOn": "Veröffentlicht am",
@@ -99,8 +98,6 @@
     "share" : "Teilen",
     "sendEmail": "Email"
 
-
-
   },
   "goBack": {
     "Go Back": "Zurück"
@@ -114,6 +111,6 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Finden Sie Ihre perfekte Immobilie in Marokko"
+    "title":"Entdecke deine Traumimmobilie in Marokko!"
   }
 }

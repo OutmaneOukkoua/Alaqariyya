@@ -115,7 +115,7 @@
   order: 3;
 }
 
-.header-actions-ar .language-select {
+.header-actions-ar .language-selectt {
   order: 4;
   font-family: "Tajawal", sans-serif;
   font-weight: 500;
@@ -128,7 +128,7 @@
   flex-direction: row;
 }
 
-.header-actions-en .language-select {
+.header-actions-en .language-selectt {
   order: 1;
 }
 
@@ -154,13 +154,13 @@
 }
 
 /* Language Select Styles */
-.language-select {
+.language-selectt {
   font-size: 14px;
   width: 140px;
   margin-left: 10px;
 }
 
-.language-select .react-select__control {
+.language-selectt .react-select__control {
   border: 1px solid #bbb;
   border-radius: 4px;
   padding: 4px 8px;
@@ -168,22 +168,22 @@
   transition: border-color 0.3s ease;
 }
 
-.language-select .react-select__control:hover {
+.language-selectt .react-select__control:hover {
   border-color: #0d6efd;
 }
 
-.language-select .react-select__control--is-focused {
+.language-selectt .react-select__control--is-focused {
   border-color: #0d6efd;
   outline: none;
 }
 
-.language-select .react-select__single-value {
+.language-selectt .react-select__single-value {
   display: flex;
   align-items: center;
   font-size: 14px;
 }
 
-.language-select .react-select__single-value .fi {
+.language-selectt .react-select__single-value .fi {
   margin-right: 8px;
 }
 
@@ -246,7 +246,8 @@
   }
 
   .header-logo .logo {
-    height: 30px;
+    height: 40px;
+    width: 100px;
   }
 
   .header-nav ul {
@@ -287,16 +288,16 @@
   .panier-icon .fa-heart {
     font-size: 17px;
   }
-  .language-select {
+  .language-selectt {
     font-size: 12px;
     margin-left: 4px;
   }
 
-  .language-select .react-select__control {
+  .language-selectt .react-select__control {
     padding: 2px 4px;
   }
 
-  .language-select .react-select__single-value {
+  .language-selectt .react-select__single-value {
     font-size: 12px;
   }
 }
@@ -306,11 +307,11 @@
   .header-top {
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px;
+    padding: 6px 10px;
   }
 
   .header-logo .logo {
-    height: 30px;
+    height: 38px;
   }
 
   .header-nav ul {
@@ -351,17 +352,19 @@
     font-size: 17px;
   }
 
-  .language-select {
+  .language-selectt {
     font-size: 12px;
-    padding: 2px 0;
+    padding: 1px;
+    margin: 1px;
     width: auto;
   }
 
-  .language-select .react-select__control {
+  .language-selectt .react-select__control {
     padding: 2px 4px;
   }
 
-  .language-select .react-select__single-value {
+  .language-selectt .react-select__single-value {
     font-size: 12px;
   }
+  
 }

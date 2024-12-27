@@ -228,12 +228,13 @@
 }
 
 
-@media (min-width: 769px) and (max-width: 846px) {
+@media (min-width: 769px) and (max-width: 867px) {
   .search-bar-container {
     padding-top: 70px 0;
     padding-left: 0;
     padding-right: 0;
   }
+  
 }
 
 /* Mobile Devices */
@@ -245,9 +246,9 @@
   }
 
   .search-bar-background {
-    max-width: 400px;
-    padding: 40px;
-    height: 300px;
+    max-width: auto;
+    padding: 45px;
+    height: 290px;
   }
 
   .search-bar {
@@ -256,14 +257,13 @@
   }
 
   .search-bar-parag {
-    margin-bottom: 1.9rem;
-    font-size: 1.4rem;
-    line-height: 2rem;
+    margin-bottom: 1.7rem;
+    line-height: 1.9rem;
     white-space: nowrap;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: clamp(1.3rem, 2vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.4rem);
   }
   
   .search-controls {
@@ -317,7 +317,6 @@
     width: 43%; /* Set width to ensure two buttons fit on one line */
   }
 }
-
 
 /* Tablets */
 @media (min-width: 769px) and (max-width: 1324px) {

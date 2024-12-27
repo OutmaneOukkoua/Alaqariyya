@@ -211,6 +211,7 @@ exports.updateProperty = async (req, res) => {
       floors: req.body.floors,
       availability_date: req.body.availability_date,
     };
+    
 
     // Translate property fields if necessary
     const translations = await translateProperty(updatedProperty);

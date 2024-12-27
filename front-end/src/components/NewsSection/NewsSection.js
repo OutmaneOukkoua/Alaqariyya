@@ -88,7 +88,7 @@ function StaticNewsSection() {
               </div>
               <div className="news-content">
                 <h3 className="news-title">{article.title}</h3>
-                <p className="news-summary">{truncateText(article.content, 141)}</p>
+                <p className="news-summary">{truncateText(article.content, 151)}</p>
                 <button
                   className="read-more"
                   onClick={() => handleArticleClick(article.id)}
@@ -108,4 +108,3 @@ function StaticNewsSection() {
 }
 
 export default StaticNewsSection;
-

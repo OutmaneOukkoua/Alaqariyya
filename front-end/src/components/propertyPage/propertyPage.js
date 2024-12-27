@@ -45,14 +45,22 @@ function PropertyPage() {
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-    if (name === 'title_ar' || name === 'description_ar' || name === 'location_ar') {
+    // For "description_ar" we do Arabic + Markdown
+    if (name === 'description_ar') {
+      const allowArabicMarkdown = value.replace(/[^\u0600-\u06FF0-9\s:;.,!?#*()[\]_`-]/g, '');
+      setSelectedProperty((prevState) => ({
+        ...prevState,
+        [name]: allowArabicMarkdown,
+      }));
+    } 
+    else if (name === 'title_ar' || name === 'location_ar') {
       const arabicOnly = value.replace(/[^\u0600-\u06FF0-9\s:;.,!]/g, '');
 
       setSelectedProperty(prevState => ({
         ...prevState,
         [name]: type === 'number' ? parseInt(arabicOnly, 10) : arabicOnly
       }));
-    } else {
+    }else {
       setSelectedProperty(prevState => ({
         ...prevState,
         [name]: type === 'number' ? parseInt(value, 10) : value
@@ -333,7 +341,7 @@ function PropertyPage() {
                 </select>
               </div>
               <input type="text" name="title_ar" placeholder="Title (Arabic)" value={selectedProperty.title_ar} onChange={handleInputChange} required />
-              <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description (Arabic)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
+              <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description -Arabic- (Markdown allowed)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
               <input type="number" name="price" placeholder="Price" value={selectedProperty.price} onChange={handleInputChange} required />
               <input type="text" name="location_ar" placeholder="Location (Arabic)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
               <input type="text" name="exact_address" placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)" value={selectedProperty.exact_address} onChange={handleInputChange}  />

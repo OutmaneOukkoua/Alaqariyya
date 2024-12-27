@@ -31,6 +31,8 @@ import './ProductDetail.css';
 import { format } from 'date-fns';
 import { FaSpinner } from 'react-icons/fa';
 import Footer from '../Footer/Footer';
+import ReactMarkdown from 'react-markdown';
+
 
 const formatPrice = (value) => new Intl.NumberFormat('de-DE').format(value);
 
@@ -312,9 +314,10 @@ function ProductDetail() {
               {/* Description Section */}
               <section className="description-section">
                 <h2>{t('properties.description')}</h2>
-                <p className="description-text">{product[0].description}</p>
-              </section>
+                {/* <p className="description-text">{product[0].description}</p> */}
+                <ReactMarkdown>{product[0].description}</ReactMarkdown>
 
+              </section>
 
               {/* Details Section */}
               <section className="details-section">
@@ -529,7 +532,7 @@ function ProductDetail() {
                 <FontAwesomeIcon
                   icon={faChevronLeft}
                   className="modal-nav-arrow modal-left-arrow"
-                  onClick={handlePrevImage}
+                  onClick={handleNextImage}
                 />
               )}
 
@@ -543,7 +546,7 @@ function ProductDetail() {
                 <FontAwesomeIcon
                   icon={faChevronRight}
                   className="modal-nav-arrow modal-right-arrow"
-                  onClick={handleNextImage}
+                  onClick={handlePrevImage}
                 />
               )}
 

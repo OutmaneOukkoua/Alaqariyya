@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
 import './NewsArticle.css';
 import Footer from '../Footer/Footer';
 
@@ -77,8 +78,8 @@ function NewsArticle() {
               className="article-image"
             />
           </div>
-          <div className="article-content" style={{ whiteSpace: 'pre-line' }}>
-            <p>{article.content}</p>
+          <div className="article-content" >
+            <ReactMarkdown>{article.content}</ReactMarkdown>
           </div>
         </div>
         

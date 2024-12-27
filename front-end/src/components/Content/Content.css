@@ -208,7 +208,7 @@
 @media (max-width: 640px) {
   .property-item {
     flex-direction: column;
-    height: 600px;
+    height: 500px;
   }
 
   .property-imagee-container {

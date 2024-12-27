@@ -62,171 +62,198 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
-        <Helmet>
-            <html lang="ar" />
-            <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
-            <meta
-              name="description"
-              content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
-            />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta charset="UTF-8" />
-            <link rel="canonical" href="https://www.alaqariyya.com" />
+          <Helmet>
+          {/* HTML Language Attribute */}
+          <html lang="ar" />
 
-            <meta
-              property="og:title"
-              content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية"
-            />
-            <meta
-              property="og:description"
-              content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
-            />
-            <meta property="og:url" content="https://www.alaqariyya.com" />
-            <meta property="og:type" content="website" />
-            <meta
-              property="og:image"
-              content="https://www.alaqariyya.com/logo.svg"
-            />
+          {/* Title and Description */}
+          <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
+          <meta
+            name="description"
+            content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
+          />
 
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta
-              name="twitter:title"
-              content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA"
-            />
-            <meta
-              name="twitter:description"
-              content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
-            />
-            <meta
-              name="twitter:image"
-              content="https://www.alaqariyya.com/logo.svg"
-            />
+          {/* Viewport and Charset */}
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta charset="UTF-8" />
 
-            <script type="application/ld+json">
-              {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "RealEstateAgent",
-                "name": "ALAQARIYYA العقارية",
-                "description":
-                  "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
-                "url": "https://www.alaqariyya.com",
-                "logo": "https://www.alaqariyya.com/logo.svg",
+          {/* Robots Meta */}
+          <meta name="robots" content="index, follow" />
+
+          {/* Canonical Link */}
+          <link rel="canonical" href="https://www.alaqariyya.com" />
+
+          {/* Open Graph Tags */}
+          <meta property="og:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية" />
+          <meta
+            property="og:description"
+            content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
+          />
+          <meta property="og:url" content="https://www.alaqariyya.com" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="https://www.alaqariyya.com/logo.svg" />
+          <meta property="og:image:alt" content="ALAQARIYYA العقارية Logo" />
+          <meta property="og:locale" content="ar_MA" />
+
+          {/* Twitter Card Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA" />
+          <meta
+            name="twitter:description"
+            content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
+          />
+          <meta name="twitter:image" content="https://www.alaqariyya.com/logo.svg" />
+
+          {/* Location Meta Tags */}
+          <meta name="geo.placename" content="زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور، المغرب" />
+          <meta name="geo.position" content="35.1761;-2.9308" />
+          <meta name="ICBM" content="35.1761, -2.9308" />
+          <link rel="alternate" href="https://maps.app.goo.gl/ysG1ZvxgLQUj3QRN7" />
+
+          {/* JSON-LD: RealEstateAgent Schema */}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "RealEstateAgent",
+              "name": "ALAQARIYYA العقارية",
+              "description":
+                "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
+              "url": "https://www.alaqariyya.com",
+              "logo": "https://www.alaqariyya.com/logo.svg",
+              "telephone": "+212 536-348141",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
+                "addressLocality": "بني انصار",
+                "addressRegion": "الناظور",
+                "postalCode": "62000",
+                "addressCountry": "MA",
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "35.1761",
+                  "longitude": "-2.9308"
+                }
+              },
+              "openingHours": ["Mo-Fr 09:00-19:00"],
+              "contactPoint": {
+                "@type": "ContactPoint",
                 "telephone": "+212 536-348141",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress":
-                    "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
-                  "addressLocality": "بني انصار",
-                  "addressRegion": "الناظور",
-                  "postalCode": "62000",
-                  "addressCountry": "MA",
-                  "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": "35.1765",
-                    "longitude": "-2.9288",
-                  },
+                "contactType": "خدمة العملاء",
+                "availableLanguage": ["ar", "fr", "en", "es","de","nl"]
+              },
+              "areaServed": "MA",
+              "inLanguage": ["ar", "fr", "en", "es","de","nl"],
+              "serviceType": [
+                "تأجير العقارات",
+                "بيع العقارات",
+                "شراء العقارات",
+                "استشارات عقارية",
+                "تسجيل العقارات"
+              ],
+              "makesOffer": [
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "منازل",
+                    "category": "عقارات سكنية"
+                  }
                 },
-                "openingHours": ["Mo-Fr 09:00-19:00"],
-                "contactPoint": {
-                  "@type": "ContactPoint",
-                  "telephone": "+212 536-348141",
-                  "contactType": "خدمة العملاء",
-                  "availableLanguage": ["ar", "fr", "en", "es"],
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "شقق",
+                    "category": "عقارات سكنية"
+                  }
                 },
-                "areaServed": "MA",
-                "inLanguage": ["ar", "fr", "en", "es"],
-                "serviceType": [
-                  "تأجير العقارات",
-                  "بيع العقارات",
-                  "شراء العقارات",
-                  "استشارات عقارية",
-                  "تسجيل العقارات",
-                ],
-                "makesOffer": [
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "منازل",
-                      "category": "عقارات سكنية",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "شقق",
-                      "category": "عقارات سكنية",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "طوابق",
-                      "category": "عقارات سكنية",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "أراضي",
-                      "category": "عقارات",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "كراجات",
-                      "category": "عقارات",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Product",
-                      "name": "كراجات تجارية",
-                      "category": "عقارات تجارية",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "إيجار عادي",
-                      "category": "خدمات التأجير",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    "priceCurrency": "MAD",
-                    "itemOffered": {
-                      "@type": "Service",
-                      "name": "إيجار مفروش",
-                      "category": "خدمات التأجير",
-                    },
-                  },
-                ],
-                "foundingDate": "2024",
-                "currenciesAccepted": "MAD",
-                "sameAs": [
-                  "https://www.facebook.com/https://www.facebook.com/profile.php?id=61560366056640",
-                  "https://www.instagram.com/https://www.instagram.com/alaqariyya",
-                  "https://fr.airbnb.com/users/show/582106109",
-                  "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html"
-                ],
-              })}
-            </script>
-          </Helmet>
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "طوابق",
+                    "category": "عقارات سكنية"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "أراضي",
+                    "category": "عقارات"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "كراجات",
+                    "category": "عقارات"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Product",
+                    "name": "كراجات تجارية",
+                    "category": "عقارات تجارية"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "إيجار عادي",
+                    "category": "خدمات التأجير"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "priceCurrency": "MAD",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "إيجار مفروش",
+                    "category": "خدمات التأجير"
+                  }
+                }
+              ],
+              "foundingDate": "2024",
+              "currenciesAccepted": "MAD",
+              "sameAs": [
+                "https://www.facebook.com/profile.php?id=61560366056640",
+                "https://www.instagram.com/alaqariyya",
+                "https://fr.airbnb.com/users/show/582106109",
+                "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html",
+                "https://expe.app.link/2uBx1FL1yPb"
+              ]
+            })}
+          </script>
+
+          {/* JSON-LD: WebPage Schema */}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "name": "ALAQARIYYA - العقارات الأفضل في المغرب",
+              "url": "https://www.alaqariyya.com",
+              "description": "خدمات تأجير، بيع، وشراء عقارات بمهنية عالية في المغرب.",
+              "inLanguage": "ar",
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "35.1761",
+                "longitude": "-2.9308"
+              }
+            })}
+          </script>
+        </Helmet>
+
           <div className="App">
             <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
             <LanguageSelector />
