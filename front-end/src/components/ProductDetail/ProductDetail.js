@@ -184,12 +184,13 @@ function ProductDetail() {
   // Parse search parameters
   const queryParams = new URLSearchParams(location.search);
   const searchType = queryParams.get('type');
-  // const searchLocation = queryParams.get('location');
+  const searchLocation = queryParams.get('location');
   const searchPage = queryParams.get('page') || 1;
 
   // Map searchType to display name
   const typeDisplayNames = {
     buy: t('properties.HausesForBuy'),
+    apartments: t('properties.apartmentsForBuy'),
     floorplots: t('properties.floorplots'),
     Commercialgarages: t('properties.Commercialgarages'),
     CommercialgaragesRent: t('properties.CommercialgaragesRent'),
@@ -225,20 +226,22 @@ function ProductDetail() {
             </span>{' '}
             &gt;{' '}
             {searchType && (
-              <>
-                <span
-                  onClick={() => {
-                    // Force reload when navigating to the search results page for this type
-                    const searchParams = new URLSearchParams();
-                    searchParams.set('type', searchType);
-                    if (searchPage) searchParams.set('page', searchPage);
-                    navigate(`/?${searchParams.toString()}`);
-                  }}
-                >
-                  {typeDisplayNames[searchType]}
-                </span>{' '}
-                &gt;{' '}
-              </>
+            <>
+              <span
+                onClick={() => {
+                  const searchParams = new URLSearchParams();
+                  searchParams.set('type', searchType);
+                  searchParams.set('page', searchPage);
+                  if (searchLocation) {
+                    searchParams.set('location', searchLocation);
+                  }
+                  navigate(`/?${searchParams.toString()}`);
+                }}
+              >
+                {typeDisplayNames[searchType]}
+              </span>{' '}
+              &gt;{' '}
+            </>
             )}
             <span>{product[0].title}</span>
           </nav>
@@ -391,7 +394,7 @@ function ProductDetail() {
                   </div>
 
                   {/* Floors */}
-                  {(product[0].type === 'buy' || product[0].type === 'regularRent') && (
+                  {(product[0].type === 'buy' || product[0].type === 'apartments' || product[0].type === 'regularRent') && (
                     <div className="detail-card">
                       <FontAwesomeIcon icon={faBuilding} className="detail-icon" />
                       <div className="detail-text">
