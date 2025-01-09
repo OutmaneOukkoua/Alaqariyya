@@ -190,7 +190,7 @@ function ProductDetail() {
   // Map searchType to display name
   const typeDisplayNames = {
     buy: t('properties.HausesForBuy'),
-    apartments: t('properties.apartmentsForBuy'),
+    apartments: t('properties.apartments'),
     floorplots: t('properties.floorplots'),
     Commercialgarages: t('properties.Commercialgarages'),
     CommercialgaragesRent: t('properties.CommercialgaragesRent'),

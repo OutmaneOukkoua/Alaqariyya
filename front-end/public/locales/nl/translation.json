@@ -8,6 +8,7 @@
     "logout" : "Uitloggen",
     "dashboard" : "Dashboard"
   },
+  
   "properties": {
     "price": "Prijs",
     "priceWithAsterisk": "Prijs*",
@@ -21,7 +22,7 @@
     "furnishedRent": "Dagelijkse huur",
     "regularRent": "Maandelijkse huur",
     "HausesForBuy": "Huizen",
-    "apartmentsForBuy": "Appartementen",
+    "apartments": "Appartementen",
     "buy": "verkopen",
     "all": "Alle",
     "searchPlaceholder": "Voer locatie in",
@@ -30,6 +31,7 @@
     "Previous" : "Vorig",
     "Next" : "Volgende",
     "available": "Beschikbaar",
+    "notAvailable": "Niet beschikbaar",
     "Loading": "Eigenschappen laden...",
     "status": "Status",
     "floors": "vloeren",
@@ -52,7 +54,6 @@
     "publishedOn": "Gepubliceerd op",
     "noArticles": "Geen artikelen beschikbaar",
     "readMore" : "Lees meer"
-
   },
   "footer": {
     "getConnected": "Verbind met ons op sociale netwerken:",

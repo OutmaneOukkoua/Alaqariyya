@@ -28,7 +28,7 @@
       "furnishedRent": "Daily rent",
       "regularRent": "Monthly rent",
       "HausesForBuy": "Houses",
-      "apartmentsForBuy": "Apartments",
+      "apartments": "Apartments",
       "buy": "sell",
       "all": "All",
       "searchPlaceholder": "Enter location",

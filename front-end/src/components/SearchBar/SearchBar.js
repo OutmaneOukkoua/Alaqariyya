@@ -352,7 +352,7 @@ return (
               {selectionMode === 'buy' ? (
                 <>
                   <option value="buy">{t('properties.HausesForBuy')}</option>
-                  <option value="apartments">{t('properties.apartmentsForBuy')}</option>
+                  <option value="apartments">{t('properties.apartments')}</option>
                   <option value="floorplots">{t('properties.floorplots')}</option>
                   <option value="Commercialgarages">{t('properties.Commercialgarages')}</option>
                 </>
