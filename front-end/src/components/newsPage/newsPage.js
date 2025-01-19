@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast, ToastContainer } from 'react-toastify';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import AddNews from '../AddNews/AddNews';
 import './newsPage.css';
@@ -24,13 +25,19 @@ function NewsPage() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${API_URL}/news/${id}`);
-      setArticles(articles.filter(article => article.id !== id));
-      alert('News deleted successfully!');
-    } catch (error) {
-      console.error('Error deleting news article:', error);
-      alert('Error deleting news article. Please try again.');
+    const confirmDelete = window.confirm("Do you want to remove this item?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`${API_URL}/news/${id}`);
+        setArticles(articles.filter(article => article.id !== id));
+        toast.success('Property deleted successfully!', {
+                  icon: "🏠",
+                });
+        
+      } catch (error) {
+        console.error('Error deleting news article:', error);
+        toast.error('Error deleting property. Please try again.');
+      }
     }
   };
 
@@ -48,6 +55,7 @@ function NewsPage() {
 
   return (
     <div className="newsPage">
+      <ToastContainer />
       <h2>Manage News Articles</h2>
       <button className="add-news" onClick={handleAddNews}>Add News</button>
       <table className="news-table">

@@ -138,29 +138,38 @@
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin: 25px 0;
+  flex-wrap: wrap;
 }
 
 .pagination button {
-  background-color: #2980b9;
+  background-color: #3498db;
   color: #ffffff;
   border: none;
-  padding: 12px 20px;
-  margin: 0 10px;
-  border-radius: 50px;
-  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 8px;
   font-size: 1em;
+  cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  outline: none;
 }
 
 .pagination button:disabled {
-  background-color: #bdc3c7;
+  background-color: #d5d5d5;
   cursor: not-allowed;
 }
 
 .pagination button:hover:not(:disabled) {
   background-color: #1f6391;
   transform: scale(1.05);
+}
+
+.pagination button.active {
+  background-color: #2ecc71;
+  font-weight: bold;
+  cursor: default;
 }
 
 /* Loading Spinner Styles */
@@ -225,9 +234,12 @@
     font-size: 0.9em;
   }
 
+  .pagination {
+    gap: 5px;
+  }
+
   .pagination button {
-    padding: 10px 16px;
-    margin: 0 5px;
+    padding: 8px 12px;
     font-size: 0.9em;
   }
 }

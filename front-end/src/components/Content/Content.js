@@ -449,24 +449,62 @@ function Content({ filterType, onFilterChange }) {
                   ))}
                 </div>
                 {totalPages > 1 && (
-                  <div className="pagination">
-                    <button
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      aria-label="Previous Page"
-                    >
-                      {t('properties.Previous')}
-                    </button>
+                <div className="pagination">
+                  {/* Previous Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    aria-label="Previous Page"
+                  >
+                    {t('properties.Previous')}
+                  </button>
 
-                    <button
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      aria-label="Next Page"
-                    >
-                      {t('properties.Next')}
-                    </button>
-                  </div>
-                )}
+                  {/* First Page and Ellipsis */}
+                  {currentPage > 2 && (
+                    <>
+                      <button onClick={() => handlePageChange(1)}>1</button>
+                      {currentPage > 3 && <span className="ellipsis">...</span>}
+                    </>
+                  )}
+
+                  {/* Current, Previous, and Next Pages */}
+                  {Array.from({ length: 3 }, (_, index) => {
+                    const page = currentPage - 1 + index; // Show current, previous, and next pages.
+                    if (page > 0 && page <= totalPages) {
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={currentPage === page ? 'active' : ''}
+                          aria-label={`Page ${page}`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                    return null;
+                  })}
+
+                  {/* Last Page and Ellipsis */}
+                  {currentPage < totalPages - 1 && (
+                    <>
+                      {currentPage < totalPages - 2 && <span className="ellipsis">...</span>}
+                      <button onClick={() => handlePageChange(totalPages)}>
+                        {totalPages}
+                      </button>
+                    </>
+                  )}
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    aria-label="Next Page"
+                  >
+                    {t('properties.Next')}
+                  </button>
+                </div>
+              )}
               </>
             ) : (
               <div className="no-results">

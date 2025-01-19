@@ -115,18 +115,23 @@ function PropertyPage() {
     }
   };
 
+  
   const handleDeleteProperty = async (property_id) => {
-    try {
-      await axios.delete(`${API_URL}/properties/${property_id}`);
-      toast.success('Property deleted successfully!', {
-        icon: "🏠",
-      });
-      fetchProperties(currentPage, filterType);
-    } catch (error) {
-      toast.error('Error deleting property. Please try again.');
-      console.error('Error deleting property:', error);
+    const confirmDelete = window.confirm("Do you want to remove this item?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`${API_URL}/properties/${property_id}`);
+        toast.success('Property deleted successfully!', {
+          icon: "🏠",
+        });
+        fetchProperties(currentPage, filterType);
+      } catch (error) {
+        toast.error('Error deleting property. Please try again.');
+        console.error('Error deleting property:', error);
+      }
     }
   };
+  
 
   const toggleAvailability = async (property_id, currentStatus) => {
     if (currentStatus) {
@@ -303,7 +308,10 @@ function PropertyPage() {
                     <button onClick={() => openModal(property)} className="update-button">
                       <FontAwesomeIcon icon={faEdit} />
                     </button>
-                    <button onClick={() => handleDeleteProperty(property.property_id)} className="delete-button">
+                    
+                    <button 
+                      onClick={() => handleDeleteProperty(property.property_id)} 
+                      className="delete-button">
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </td>
@@ -317,9 +325,52 @@ function PropertyPage() {
           </tbody>
         </table>
         <div className="pagination">
-          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>Next</button>
-        </div>
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Previous Page"
+        >
+          Previous
+        </button>
+
+        {currentPage > 2 && (
+          <>
+            <button onClick={() => setCurrentPage(1)}>1</button>
+            {currentPage > 3 && <span className="ellipsis">...</span>}
+          </>
+        )}
+
+        {Array.from({ length: 3 }, (_, index) => {
+          const page = currentPage - 1 + index; // Show the current, previous, and next pages.
+          if (page > 0 && page <= totalPages) {
+            return (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={currentPage === page ? 'active' : ''}
+              >
+                {page}
+              </button>
+            );
+          }
+          return null;
+        })}
+
+        {currentPage < totalPages - 1 && (
+          <>
+            {currentPage < totalPages - 2 && <span className="ellipsis">...</span>}
+            <button onClick={() => setCurrentPage(totalPages)}>{totalPages}</button>
+          </>
+        )}
+
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Next Page"
+        >
+          Next
+        </button>
+      </div>
       </div>
 
       {/* modal for Updating Property */}

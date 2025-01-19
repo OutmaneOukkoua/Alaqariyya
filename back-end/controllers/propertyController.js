@@ -6,7 +6,6 @@ const { translateProperty } = require('../utils/translator');
 
 const watermarkPath = path.join(__dirname, '../watermarks', 'watermark.png'); // Ensure this path is correct
 
-
 // Add a new property
 
 exports.addProperty = async (req, res) => {

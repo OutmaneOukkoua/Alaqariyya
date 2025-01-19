@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ContactSubmissions.css';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
+import { toast, ToastContainer } from 'react-toastify';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function ContactSubmissions() {
   const [submissions, setSubmissions] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_SERVER;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   useEffect(() => {
     axios.get(`${API_URL}/contact-submissions`)
@@ -19,16 +21,24 @@ function ContactSubmissions() {
   }, [API_URL]);
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${API_URL}/contact-submissions/${id}`);
-      setSubmissions(submissions.filter(submission => submission.id !== id));
-    } catch (error) {
-      console.error('Error deleting submission:', error);
+    const confirmDelete = window.confirm("Do you want to remove this item?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`${API_URL}/contact-submissions/${id}`);
+        setSubmissions(submissions.filter(submission => submission.id !== id));
+        toast.success('Property deleted successfully!', {
+          icon: "🏠",
+        });
+      } catch (error) {
+        console.error('Error deleting submission:', error);
+        toast.error('Error deleting property. Please try again.');
+      }
     }
   };
 
   return (
     <div className="contact-submissions-container">
+      <ToastContainer />
       <h1>Contact Submissions</h1>
       
       <table className="submissions-table">
