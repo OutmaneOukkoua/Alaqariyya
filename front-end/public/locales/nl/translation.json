@@ -79,7 +79,8 @@
     "submit": "Inloggen",
     "error": "Er is een fout opgetreden. Probeer het opnieuw.",
     "emailPlaceholder": "je-email@gmail.com",
-    "passwordPlaceholder": "Je wachtwoord"
+    "passwordPlaceholder": "Je wachtwoord",
+    "invalid_characters": "Dit veld mag de volgende tekens niet bevatten: != \" ; _ +"
   },
   "contact": {
     "contactUs": "Neem contact met ons op",

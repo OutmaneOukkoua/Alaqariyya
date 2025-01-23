@@ -78,7 +78,8 @@
     "submit": "تسجيل الدخول",
     "error": "حدث خطأ. حاول مرة اخرى.",
     "emailPlaceholder": "البريد الإلكتروني الخاص بك",
-    "passwordPlaceholder": "كلمة المرور الخاصة بك"
+    "passwordPlaceholder": "كلمة المرور الخاصة بك",
+    "invalid_characters": "يجب ألا يحتوي هذا الحقل على الأحرف: != \" ; _ +"
   },
   "contact": {
     "contactUs": "اتصل بنا",

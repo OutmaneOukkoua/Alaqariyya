@@ -80,7 +80,8 @@
     "submit": "Connexion",
     "error": "Une erreur s'est produite. Veuillez réessayer.",
     "emailPlaceholder": "votre-email@gmail.com",
-    "passwordPlaceholder": "Votre mot de passe"
+    "passwordPlaceholder": "Votre mot de passe",
+    "invalid_characters": "Ce champ ne doit pas contenir les caractères : != \" ; _ +"
   },
   "contact": {
     "contactUs": "Contactez-nous",

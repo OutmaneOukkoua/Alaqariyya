@@ -79,7 +79,9 @@
     "submit": "Einloggen",
     "error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
     "emailPlaceholder": "deine-email@gmail.com",
-    "passwordPlaceholder": "Dein Passwort"
+    "passwordPlaceholder": "Dein Passwort",
+    "invalid_characters": "Dieses Feld darf die folgenden Zeichen nicht enthalten: != \" ; _ +"
+
   },
   "contact": {
     "contactUs": "Kontaktieren Sie uns",

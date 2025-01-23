@@ -79,7 +79,8 @@
     "submit": "Iniciar sesión",
     "error": "Ocurrió un error. Inténtalo de nuevo.",
     "emailPlaceholder": "tu-correo@gmail.com",
-    "passwordPlaceholder": "Tu contraseña"
+    "passwordPlaceholder": "Tu contraseña",
+    "invalid_characters": "Este campo no debe contener los caracteres: != \" ; _ +"
   },
   "contact": {
     "contactUs": "Contáctenos",

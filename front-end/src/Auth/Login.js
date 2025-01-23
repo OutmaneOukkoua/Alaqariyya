@@ -13,7 +13,10 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [validationError, setValidationError] = useState('');
   const API_URL = process.env.REACT_APP_SERVER;
+
+  const restrictedCharacters = /[!=;"_+]/;
 
   useEffect(() => {
     const userEmail = localStorage.getItem('userEmail');
@@ -23,7 +26,7 @@ function Login() {
   }, [navigate]);
 
   useEffect(() => {
-    const handlePopState = (event) => {
+    const handlePopState = () => {
       if (localStorage.getItem('userEmail')) {
         navigate('/dashboard', { replace: true });
       }
@@ -36,8 +39,19 @@ function Login() {
     };
   }, [navigate]);
 
+  const validateInput = () => {
+    if (restrictedCharacters.test(email) || restrictedCharacters.test(password)) {
+      setValidationError(t('login.invalid_characters'));
+      return false;
+    }
+    setValidationError('');
+    return true;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!validateInput()) return;
+
     try {
       const response = await axios.post(`${API_URL}/login`, { email, password });
       if (response.data.success) {
@@ -47,7 +61,7 @@ function Login() {
         setError(response.data.message);
       }
     } catch (error) {
-      setError('An error occurred. Please try again.');
+      setError(t('login.error'));
     }
   };
 
@@ -60,6 +74,7 @@ function Login() {
             <div className="col-md-7">
               <h3><strong>{t('login.title')}</strong></h3>
               {error && <p className="error">{error}</p>}
+              {validationError && <p className="error">{validationError}</p>}
               <form onSubmit={handleLogin}>
                 <div className="form-group first">
                   <label>{t('login.email')}</label>
@@ -70,6 +85,7 @@ function Login() {
                     required
                     className="form-control"
                     placeholder="your-email@gmail.com"
+                    onBlur={validateInput}
                   />
                 </div>
                 <div className="form-group last mb-3">
@@ -81,9 +97,12 @@ function Login() {
                     required
                     className="form-control"
                     placeholder="Your Password"
+                    onBlur={validateInput}
                   />
                 </div>
-                <button type="submit" className="btn btn-block btn-primary">{t('login.submit')}</button>
+                <button type="submit" className="btn btn-block btn-primary">
+                  {t('login.submit')}
+                </button>
               </form>
             </div>
           </div>
@@ -94,4 +113,3 @@ function Login() {
 }
 
 export default Login;
-
