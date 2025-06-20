@@ -143,10 +143,16 @@ function AddProperty() {
     if (
       newProperty.type !== 'floorplots' &&
       newProperty.type !== 'Commercialgarages' &&
-      newProperty.type !== 'CommercialgaragesRent'
+      newProperty.type !== 'requests' &&
+      newProperty.type !== 'apartmentsReq' &&
+      newProperty.type !== 'floorplotsReq' &&
+      newProperty.type !== 'CommercialgaragesReq' &&
+      newProperty.type !== 'CommercialgaragesRent' 
+      
     ) {
       requiredFields.push('bedrooms', 'bathrooms', 'kitchen');
-      if (newProperty.type === 'buy') {
+      
+      if (newProperty.type === 'buy' ) {
         requiredFields.push('floors');
       }
     }
@@ -164,231 +170,242 @@ function AddProperty() {
   };
 
   return (
-    <div className="add-property-container">
-      <form onSubmit={handleAddProperty} className="property-formm">
-        <ToastContainer className="toast-inside-modal" />
-        
-        <select
-          name="type"
-          value={newProperty.type}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="rent">Furnished rent</option>
-          <option value="regularRent">Regular Rent</option>
-          <option value="buy">Hauses for buy</option>
-          <option value="apartments">apartments for buy</option>
-          <option value="floorplots">Floor Plots</option>
-          <option value="Commercialgarages">Commercial Garages for buy</option>
-          <option value="CommercialgaragesRent">Commercial Garages for rent</option>
-        </select>
-        {errors.type && <p className="error-message">{errors.type}</p>}
+  <div className="add-property-container">
+    <form onSubmit={handleAddProperty} className="property-formm">
+      <ToastContainer className="toast-inside-modal" />
 
-        <input
-          type="text"
-          name="title_ar"
-          placeholder="Title (Arabic)"
-          value={newProperty.title_ar}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.title_ar && <p className="error-message">{errors.title_ar}</p>}
+      <select
+        name="type"
+        value={newProperty.type}
+        onChange={handleInputChange}
+        required
+      >
+        <option value="rent">إيجار مفروش</option>
+        <option value="regularRent">إيجار عادي</option>
+        <option value="CommercialgaragesRent">محلات تجارية للإيجار</option>
+        <option value="buy">منازل للبيع</option>
+        <option value="apartments">شقق للبيع</option>
+        <option value="floorplots">قطع أرضية للبيع</option>
+        <option value="Commercialgarages">محلات تجارية للبيع</option>
+        <option value="requests">طلبات منازل</option>
+        <option value="apartmentsReq">طلبات شقق</option>
+        <option value="floorplotsReq">طلبات قطع أرضية</option>
+        <option value="CommercialgaragesReq">طلبات محلات تجارية</option>
+      </select>
+      {errors.type && <p className="error-message">{errors.type}</p>}
 
-        {/* Description as Markdown */}
-        <textarea
-          style={{ resize: 'none' }}
-          name="description_ar"
-          placeholder="Description (Markdown allowed)"
-          value={newProperty.description_ar}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.description_ar && <p className="error-message">{errors.description_ar}</p>}
+      <input
+        type="text"
+        name="title_ar"
+        placeholder="العنوان (بالعربية)"
+        value={newProperty.title_ar}
+        onChange={handleInputChange}
+        required
+      />
+      {errors.title_ar && <p className="error-message">{errors.title_ar}</p>}
 
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={newProperty.price}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.price && <p className="error-message">{errors.price}</p>}
+      {/* Description as Markdown */}
+      <textarea
+        style={{ resize: 'none' }}
+        name="description_ar"
+        placeholder="الوصف (يسمح باستخدام Markdown)"
+        value={newProperty.description_ar}
+        onChange={handleInputChange}
+        required
+      />
+      {errors.description_ar && <p className="error-message">{errors.description_ar}</p>}
 
-        <input
-          type="text"
-          name="location_ar"
-          placeholder="Location (Arabic)"
-          value={newProperty.location_ar}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.location_ar && <p className="error-message">{errors.location_ar}</p>}
+      <input
+        type="number"
+        name="price"
+        placeholder="الثمن"
+        value={newProperty.price}
+        onChange={handleInputChange}
+        required
+      />
+      {errors.price && <p className="error-message">{errors.price}</p>}
 
-        {/* Exact Address Field */}
-        <input
-          type="text"
-          name="exact_address"
-          placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)"
-          value={newProperty.exact_address}
-          onChange={handleInputChange}
-        />
+      <input
+        type="text"
+        name="location_ar"
+        placeholder="الموقع (بالعربية)"
+        value={newProperty.location_ar}
+        onChange={handleInputChange}
+        required
+      />
+      {errors.location_ar && <p className="error-message">{errors.location_ar}</p>}
 
-        <input
-          type="number"
-          name="area"
-          placeholder="Area"
-          value={newProperty.area}
-          onChange={handleInputChange}
-          required
-        />
-        {errors.area && <p className="error-message">{errors.area}</p>}
+      {/* Exact Address Field */}
+      <input
+        type="text"
+        name="exact_address"
+        placeholder="العنوان الدقيق (e.g., 7379+44W, Beni Ansar)"
+        value={newProperty.exact_address}
+        onChange={handleInputChange}
+      />
 
-        {/* Extra fields if not certain property types */}
-        {newProperty.type !== 'floorplots' &&
-          newProperty.type !== 'Commercialgarages' &&
-          newProperty.type !== 'CommercialgaragesRent' && (
-            <>
-              <input
-                type="number"
-                name="bedrooms"
-                placeholder="Bedrooms"
-                value={newProperty.bedrooms}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
+      <input
+        type="number"
+        name="area"
+        placeholder="المساحة"
+        value={newProperty.area}
+        onChange={handleInputChange}
+        required
+      />
+      {errors.area && <p className="error-message">{errors.area}</p>}
 
-              <input
-                type="number"
-                name="salon"
-                placeholder="Salon"
-                value={newProperty.salon}
-                onChange={handleInputChange}
-              />
-
-              <input
-                type="number"
-                name="bathrooms"
-                placeholder="Bathrooms"
-                value={newProperty.bathrooms}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
-
-              <input
-                type="number"
-                name="kitchen"
-                placeholder="Kitchen"
-                value={newProperty.kitchen}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.kitchen && <p className="error-message">{errors.kitchen}</p>}
-
-              {(newProperty.type === 'buy' || newProperty.type === 'apartments' || newProperty.type === 'regularRent') && (
-                <>
-                  <input
-                    type="number"
-                    name="floors"
-                    placeholder="Number of Floors"
-                    value={newProperty.floors}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  {errors.floors && <p className="error-message">{errors.floors}</p>}
-                </>
-              )}
-            </>
-          )}
-
-        {/* For rent type (availability fields) */}
-        {newProperty.type === 'rent' && (
+      {/* Extra fields if not certain property types */}
+      {newProperty.type !== 'floorplots' &&
+        newProperty.type !== 'Commercialgarages' &&
+        newProperty.type !== 'CommercialgaragesRent' &&
+        newProperty.type !== 'requests' &&
+        newProperty.type !== 'apartmentsReq' &&
+        newProperty.type !== 'floorplotsReq' &&
+        newProperty.type !== 'CommercialgaragesReq' && (
           <>
-            <label style={{ display: 'none' }}>
-              Available:
-              <select
-                name="available"
-                value={newProperty.available}
-                onChange={handleInputChange}
-                required
-              >
-                <option value={true}>Yes</option>
-                <option value={false}>No</option>
-              </select>
-            </label>
-            {!newProperty.available && (
+            <input
+              type="number"
+              name="bedrooms"
+              placeholder="عدد غرف النوم"
+              value={newProperty.bedrooms}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.bedrooms && <p className="error-message">{errors.bedrooms}</p>}
+
+            <input
+              type="number"
+              name="salon"
+              placeholder="عددالصالونات"
+              value={newProperty.salon}
+              onChange={handleInputChange}
+            />
+
+            <input
+              type="number"
+              name="bathrooms"
+              placeholder="عدد الحمامات"
+              value={newProperty.bathrooms}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.bathrooms && <p className="error-message">{errors.bathrooms}</p>}
+
+            <input
+              type="number"
+              name="kitchen"
+              placeholder="عددالمطابخ"
+              value={newProperty.kitchen}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.kitchen && <p className="error-message">{errors.kitchen}</p>}
+
+            {(newProperty.type === 'buy' ||
+              newProperty.type === 'apartments' ||
+              newProperty.type === 'regularRent') && (
               <>
                 <input
-                  type="date"
-                  name="availability_date"
-                  placeholder="Availability Date"
-                  value={newProperty.availability_date}
+                  type="number"
+                  name="floors"
+                  placeholder="عدد الطوابق"
+                  value={newProperty.floors}
                   onChange={handleInputChange}
                   required
                 />
-                {errors.availability_date && (
-                  <p className="error-message">{errors.availability_date}</p>
-                )}
+                {errors.floors && <p className="error-message">{errors.floors}</p>}
               </>
             )}
           </>
         )}
 
-        {/* File upload */}
-        <div className="file-input">
-          <label htmlFor="files">Upload Images</label>
-          <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
-          {imageFiles.length > 0 &&
-            imageFiles.map((imageFile, index) => (
-              <div key={index}>
-                <span className="file-name">{imageFile.file.name}</span>
-                <label>
-                  Main Image:
-                  <input
-                    type="radio"
-                    name="mainImage"
-                    checked={imageFile.isMain}
-                    onChange={() =>
-                      setImageFiles((prevFiles) =>
-                        prevFiles.map((img, idx) => ({
-                          ...img,
-                          isMain: idx === index
-                        }))
-                      )
-                    }
-                  />
-                </label>
-                <label>
-                  Display Order:
-                  <input
-                    type="number"
-                    value={imageFile.displayOrder}
-                    onChange={(e) =>
-                      setImageFiles((prevFiles) =>
-                        prevFiles.map((img, idx) => ({
-                          ...img,
-                          displayOrder: idx === index ? parseInt(e.target.value, 10) : img.displayOrder
-                        }))
-                      )
-                    }
-                  />
-                </label>
-              </div>
-            ))}
-          {imageFiles.length > 0 && (
-            <span className="file-name">{imageFiles.length} file(s) selected</span>
+      {/* For rent type (availability fields) */}
+      {newProperty.type === 'rent' && (
+        <>
+          <label style={{ display: 'none' }}>
+            متوفر:
+            <select
+              name="available"
+              value={newProperty.available}
+              onChange={handleInputChange}
+              required
+            >
+              <option value={true}>نعم</option>
+              <option value={false}>لا</option>
+            </select>
+          </label>
+          {!newProperty.available && (
+            <>
+              <input
+                type="date"
+                name="availability_date"
+                placeholder="تاريخ التوفر"
+                value={newProperty.availability_date}
+                onChange={handleInputChange}
+                required
+              />
+              {errors.availability_date && (
+                <p className="error-message">{errors.availability_date}</p>
+              )}
+            </>
           )}
-        </div>
-        {errors.images && <div className="error-alert">{errors.images}</div>}
+        </>
+      )}
 
-        <button type="submit" className="btn-primary">
-          Add Property
-        </button>
-      </form>
-    </div>
-  );
+      {/* File upload */}
+      <div className="file-input">
+        <label htmlFor="files">تحميل الصور</label>
+        <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
+        {imageFiles.length > 0 &&
+          imageFiles.map((imageFile, index) => (
+            <div key={index}>
+              <span className="file-name">{imageFile.file.name}</span>
+              <label>
+                الصورة الاساسية:
+                <input
+                  type="radio"
+                  name="mainImage"
+                  checked={imageFile.isMain}
+                  onChange={() =>
+                    setImageFiles((prevFiles) =>
+                      prevFiles.map((img, idx) => ({
+                        ...img,
+                        isMain: idx === index
+                      }))
+                    )
+                  }
+                />
+              </label>
+              <label>
+                ترتيب العرض:
+                <input
+                  type="number"
+                  value={imageFile.displayOrder}
+                  onChange={(e) =>
+                    setImageFiles((prevFiles) =>
+                      prevFiles.map((img, idx) => ({
+                        ...img,
+                        displayOrder: idx === index ? parseInt(e.target.value, 10) : img.displayOrder
+                      }))
+                    )
+                  }
+                />
+              </label>
+            </div>
+          ))}
+        {imageFiles.length > 0 && (
+          <span className="file-name">{imageFiles.length} file(s) selected</span>
+        )}
+      </div>
+      {errors.images && <div className="error-alert">{errors.images}</div>}
+
+      <button type="submit" className="btn-primary">
+        إضافة عقار
+      </button>
+    </form>
+  </div>
+);
+
 }
 
 export default AddProperty;

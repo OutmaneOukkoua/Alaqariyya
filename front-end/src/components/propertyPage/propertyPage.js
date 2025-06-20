@@ -220,111 +220,109 @@ function PropertyPage() {
   };
 
   return (
-    <div className="update-property-container">
-      <ToastContainer />
-      <center><h1>Properties</h1></center>
-      
-      <button className="btn-add-property" onClick={openAddPropertyModal}>
-        Add Property
-      </button>
-      
-      {/* Filter by Type */}
-      <div className="filter-container">
-        <label htmlFor="filterType">Filter by Type:</label>
-        <select id="filterType" value={filterType} onChange={handleTypeChange}>
-          <option value="all">All Types</option>
-          <option value="rent">Furnished rent</option>
-          <option value="regularRent">Regular Rent</option>
-          <option value="buy">Hauses for buy</option>
-          <option value="apartments">apartments for buy</option>
-          <option value="floorplots">Floor Plots</option>
-          <option value="Commercialgarages">Commercial Garages</option>
-          <option value="CommercialgaragesRent">Commercial Garages for rent</option>
-        </select>
-      </div>
+  <div className="update-property-container">
+    <ToastContainer />
+    <center><h1>Properties</h1></center>
+    
+    <button className="btn-add-property" onClick={openAddPropertyModal}>
+      Add Property
+    </button>
+    
+    {/* Filter by Type */}
+    <div className="filter-container">
+      <label htmlFor="filterType">Filter by Type:</label>
+      <select id="filterType" value={filterType} onChange={handleTypeChange}>
+        <option value="all">جميع الأنواع</option>
+        <option value="rent">إيجار مفروش</option>
+        <option value="regularRent">إيجار عادي</option>
+        <option value="CommercialgaragesRent">محلات تجارية للإيجار</option>
+        <option value="buy">منازل للبيع</option>
+        <option value="apartments">شقق للبيع</option>
+        <option value="floorplots"> قطع أرضية للبيع</option>
+        <option value="Commercialgarages">محلات تجارية للبيع</option>
+        <option value="requests">طلبات منازل</option>
+        <option value="apartmentsReq">طلبات شقق</option>
+        <option value="floorplotsReq">طلبات قطع أرضية</option>
+        <option value="CommercialgaragesReq">طلبات محلات تجارية</option>
+      </select>
+    </div>
 
-      {/* Properties Table */}
-      <div className="properties-table-container">
-        <table className="properties-table">
-          <thead>
-            <tr>
-              {/* 
-              
-              
-              */}
-              <th>Title</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Location</th>
-              <th>Exact Address</th>
-              <th>Bedrooms</th>
-              <th>Salon</th>
-              <th>Bathrooms</th>
-              <th>Kitchen</th> 
-              <th>Area</th>
-              <th>Floors</th>
-              <th>Image</th>
-              <th>Available</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {properties.length > 0 ? (
-              properties.map((property) => (
-                <tr key={property.property_id}>
-                  {/* <td>{property.type}</td> */}
-                  <td>{property.title_ar || property.title}</td>
-                  <td>{property.description_ar || property.description}</td>
-                  <td>{property.price}</td>
-                  <td>{property.location_ar || property.location}</td>
-                  <td>{property.exact_address}</td>
-                  <td>{property.bedrooms}</td>
-                  <td>{property.salon}</td>
-                  <td>{property.bathrooms}</td>
-                  <td>{property.kitchen}</td> 
-                  <td>{property.area}</td>
-                  <td>{property.floors}</td>
-                  <td>
-                    <img src={`${API_URL}/uploads/${property.image_url}`} alt={property.title} className="property-image" />
-                  </td>
-                  <td>
-                    {property.type === 'rent' && (
-                      <div>
-                        <label className="toggle-switch">
-                          <input 
-                            type="checkbox" 
-                            checked={property.available} 
-                            onChange={() => toggleAvailability(property.property_id, property.available)} 
-                          />
-                          <span className="slider"></span>
-                        </label>
-                        {!property.available && (
-                          <p><strong>Availability Date:</strong> {formatDate(property.availability_date)}</p>
-                        )}
-                      </div>
-                    )}
-                  </td>
-                  <td className="actions">
-                    <button onClick={() => openModal(property)} className="update-button">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
-                    
-                    <button 
-                      onClick={() => handleDeleteProperty(property.property_id)} 
-                      className="delete-button">
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="13">No properties found</td>
+    {/* Properties Table */}
+    <div className="properties-table-container">
+      <table className="properties-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th>Exact Address</th>
+            <th>Bedrooms</th>
+            <th>Salon</th>
+            <th>Bathrooms</th>
+            <th>Kitchen</th> 
+            <th>Area</th>
+            <th>Floors</th>
+            <th>Image</th>
+            <th>Available</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {properties.length > 0 ? (
+            properties.map((property) => (
+              <tr key={property.property_id}>
+                <td>{property.title_ar || property.title}</td>
+                <td>{property.description_ar || property.description}</td>
+                <td>{property.price}</td>
+                <td>{property.location_ar || property.location}</td>
+                <td>{property.exact_address}</td>
+                <td>{property.bedrooms}</td>
+                <td>{property.salon}</td>
+                <td>{property.bathrooms}</td>
+                <td>{property.kitchen}</td> 
+                <td>{property.area}</td>
+                <td>{property.floors}</td>
+                <td>
+                  <img src={`${API_URL}/uploads/${property.image_url}`} alt={property.title} className="property-image" />
+                </td>
+                <td>
+                  {property.type === 'rent' && (
+                    <div>
+                      <label className="toggle-switch">
+                        <input 
+                          type="checkbox" 
+                          checked={property.available} 
+                          onChange={() => toggleAvailability(property.property_id, property.available)} 
+                        />
+                        <span className="slider"></span>
+                      </label>
+                      {!property.available && (
+                        <p><strong>Availability Date:</strong> {formatDate(property.availability_date)}</p>
+                      )}
+                    </div>
+                  )}
+                </td>
+                <td className="actions">
+                  <button onClick={() => openModal(property)} className="update-button">
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteProperty(property.property_id)} 
+                    className="delete-button">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
               </tr>
-            )}
-          </tbody>
-        </table>
-        <div className="pagination">
+            ))
+          ) : (
+            <tr>
+              <td colSpan="13">No properties found</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div className="pagination">
         <button
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -341,7 +339,7 @@ function PropertyPage() {
         )}
 
         {Array.from({ length: 3 }, (_, index) => {
-          const page = currentPage - 1 + index; // Show the current, previous, and next pages.
+          const page = currentPage - 1 + index;
           if (page > 0 && page <= totalPages) {
             return (
               <button
@@ -371,128 +369,132 @@ function PropertyPage() {
           Next
         </button>
       </div>
-      </div>
-
-      {/* modal for Updating Property */}
-      {showModal && (
-        <div className="modal" onClick={handleModalClick}>
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <form onSubmit={handleUpdateProperty} className="property-form">
-              <h2>Update Property</h2>
-              <img src={`${API_URL}/uploads/${selectedProperty.image_url}`} alt={selectedProperty.title} className="property-image-large" />
-              <div className="select-container">
-                <select name="type" value={selectedProperty.type} onChange={handleInputChange} required>
-                  <option value="rent">Furnished rent</option>
-                  <option value="regularRent">Regular Rent</option>
-                  <option value="buy">Hauses for buy</option>
-                  <option value="apartments">apartments for buy</option>
-                  <option value="floorplots">Floor Plots</option>
-                  <option value="Commercialgarages">Commercial Garages</option>
-                  <option value="CommercialgaragesRent">Commercial Garages for rent</option>
-
-                </select>
-              </div>
-              <input type="text" name="title_ar" placeholder="Title (Arabic)" value={selectedProperty.title_ar} onChange={handleInputChange} required />
-              <textarea style={{ resize: 'none' }} name="description_ar" placeholder="Description -Arabic- (Markdown allowed)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
-              <input type="number" name="price" placeholder="Price" value={selectedProperty.price} onChange={handleInputChange} required />
-              <input type="text" name="location_ar" placeholder="Location (Arabic)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
-              <input type="text" name="exact_address" placeholder="Exact Address (e.g., 7379+44W, Beni Ansar)" value={selectedProperty.exact_address} onChange={handleInputChange}  />
-              <input type="number" name="area" placeholder="Area" value={selectedProperty.area} onChange={handleInputChange} required />
-              {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && selectedProperty.type !== 'CommercialgaragesRent' && (
-                <>
-                  <input type="number" name="bedrooms" placeholder="Bedrooms" value={selectedProperty.bedrooms} onChange={handleInputChange} required />
-                  <input type="number" name="salon" placeholder="Salon" value={selectedProperty.salon} onChange={handleInputChange} />
-                  <input type="number" name="bathrooms" placeholder="Bathrooms" value={selectedProperty.bathrooms} onChange={handleInputChange} required />
-                  <input type="number" name="kitchen" placeholder="Kitchen" value={selectedProperty.kitchen} onChange={handleInputChange} required />
-                  {(selectedProperty.type === 'buy' || selectedProperty.type === 'apartments' || selectedProperty.type === 'regularRent') && (
-                    <input type="number" name="floors" placeholder="Number of Floors" value={selectedProperty.floors} onChange={handleInputChange} required />
-                  )}
-                  {selectedProperty.type === 'rent' && (
-                    <input
-                      type="date"
-                      name="availability_date"
-                      placeholder="Availability Date"
-                      value={selectedProperty.availability_date ? formatDate(selectedProperty.availability_date) : ''}
-                      onChange={handleInputChange}
-                      min={getTomorrowDate()}
-                      required={!selectedProperty.available}
-                    />
-                  )}
-                </>
-              )}
-              <div className="file-input">
-                <label htmlFor="files">Upload Images</label>
-                <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
-                {imageFiles.length > 0 && imageFiles.map((imageFile, index) => (
-                  <div key={index}>
-                    <span className="file-name">{imageFile.file.name}</span>
-                    <label>
-                      Main Image:
-                      <input
-                        type="radio"
-                        name="mainImage"
-                        checked={imageFile.isMain}
-                        onChange={() => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
-                          ...img,
-                          isMain: idx === index
-                        })))}
-                      />
-                    </label>
-                    <label>
-                      Display Order:
-                      <input
-                        type="number"
-                        value={imageFile.displayOrder}
-                        onChange={(e) => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
-                          ...img,
-                          displayOrder: idx === index ? parseInt(e.target.value, 10) : img.displayOrder
-                        })))}
-                      />
-                    </label>
-                  </div>
-                ))}
-                {imageFiles.length > 0 && <span className="file-name">{imageFiles.length} file(s) selected</span>}
-              </div>
-              {errors.images && <div className="error-alert">{errors.images}</div>}
-              <button type="submit" className="btn-primary">Update Property</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* modal for Adding Property */}
-      {showAddPropertyModal && (
-        <div className="modal" onClick={handleAddPropertyModalClick}>
-          <div className="modal-content">
-            <span className="close" onClick={closeAddPropertyModal}>&times;</span>
-            <AddProperty />
-          </div>
-        </div>
-      )}
-
-      {showAvailabilityModal && (
-        <div className="modal" onClick={(e) => e.target.className === 'modal' && setShowAvailabilityModal(false)}>
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowAvailabilityModal(false)}>&times;</span>
-            <form onSubmit={(e) => { e.preventDefault(); handleAvailabilitySubmit(); }}>
-              <h2>Set Availability Date</h2>
-              <input
-                type="date"
-                name="availability_date"
-                placeholder="Availability Date"
-                value={availabilityDate}
-                onChange={(e) => setAvailabilityDate(e.target.value)}
-                min={getTomorrowDate()}
-                required
-              />
-              <button type="submit" className="btn-primary">Set Availability Date</button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
-  );
+
+    {/* modal for Updating Property */}
+    {showModal && (
+      <div className="modal" onClick={handleModalClick}>
+        <div className="modal-content">
+          <span className="close" onClick={closeModal}>&times;</span>
+          <form onSubmit={handleUpdateProperty} className="property-form">
+            <h2>Update Property</h2>
+            <img src={`${API_URL}/uploads/${selectedProperty.image_url}`} alt={selectedProperty.title} className="property-image-large" />
+            <div className="select-container">
+              <select name="type" value={selectedProperty.type} onChange={handleInputChange} required>
+              <option value="rent">إيجار مفروش</option>
+              <option value="regularRent">إيجار عادي</option>
+              <option value="CommercialgaragesRent">محلات تجارية للإيجار</option>
+              <option value="buy">منازل للبيع</option>
+              <option value="apartments">شقق للبيع</option>
+              <option value="floorplots"> قطع أرضية للبيع</option>
+              <option value="Commercialgarages">محلات تجارية للبيع</option>
+              <option value="requests">طلبات منازل</option>
+              <option value="apartmentsReq">طلبات شقق</option>
+              <option value="floorplotsReq">طلبات قطع أرضية</option>
+              <option value="CommercialgaragesReq">طلبات محلات تجارية</option>
+              </select>
+            </div>
+            <input type="text" name="title_ar" placeholder="العنوان (بالعربية)" value={selectedProperty.title_ar} onChange={handleInputChange} required />
+            <textarea style={{ resize: 'none' }} name="description_ar" placeholder="الوصف (بالعربية) (Markdown مسموح)" value={selectedProperty.description_ar} onChange={handleInputChange} required />
+            <input type="number" name="price" placeholder="الثمن" value={selectedProperty.price} onChange={handleInputChange} required />
+            <input type="text" name="location_ar" placeholder="الموقع (بالعربية)" value={selectedProperty.location_ar} onChange={handleInputChange} required />
+            <input type="text" name="exact_address" placeholder="العنوان الدقيق (مثلاً، 7379+44W، بني أنصار)" value={selectedProperty.exact_address} onChange={handleInputChange}  />
+            <input type="number" name="area" placeholder="المساحة" value={selectedProperty.area} onChange={handleInputChange} required />
+            {selectedProperty.type !== 'floorplots' && selectedProperty.type !== 'Commercialgarages' && selectedProperty.type !== 'CommercialgaragesRent' && selectedProperty.type !== 'requests' && selectedProperty.type !== 'apartmentsReq'&& selectedProperty.type !== 'CommercialgaragesReq'&& selectedProperty.type !== 'floorplotsReq'  && (
+              <>
+                <input type="number" name="bedrooms" placeholder="عدد غرف النوم" value={selectedProperty.bedrooms} onChange={handleInputChange} required />
+                <input type="number" name="salon" placeholder="الصالون" value={selectedProperty.salon} onChange={handleInputChange} />
+                <input type="number" name="bathrooms" placeholder="عدد الحمامات" value={selectedProperty.bathrooms} onChange={handleInputChange} required />
+                <input type="number" name="kitchen" placeholder="المطبخ" value={selectedProperty.kitchen} onChange={handleInputChange} required />
+                {(selectedProperty.type === 'buy' || selectedProperty.type === 'apartments' || selectedProperty.type === 'regularRent') && (
+                  <input type="number" name="floors" placeholder="عدد الطوابق" value={selectedProperty.floors} onChange={handleInputChange} required />
+                )}
+                {selectedProperty.type === 'rent' && (
+                  <input
+                    type="date"
+                    name="availability_date"
+                    placeholder="تاريخ التوفر"
+                    value={selectedProperty.availability_date ? formatDate(selectedProperty.availability_date) : ''}
+                    onChange={handleInputChange}
+                    min={getTomorrowDate()}
+                    required={!selectedProperty.available}
+                  />
+                )}
+              </>
+            )}
+            <div className="file-input">
+              <label htmlFor="files">Upload Images</label>
+              <input type="file" id="files" name="images" onChange={handleFileChange} multiple />
+              {imageFiles.length > 0 && imageFiles.map((imageFile, index) => (
+                <div key={index}>
+                  <span className="file-name">{imageFile.file.name}</span>
+                  <label>
+                    Main Image:
+                    <input
+                      type="radio"
+                      name="mainImage"
+                      checked={imageFile.isMain}
+                      onChange={() => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
+                        ...img,
+                        isMain: idx === index
+                      })))}
+                    />
+                  </label>
+                  <label>
+                    Display Order:
+                    <input
+                      type="number"
+                      value={imageFile.displayOrder}
+                      onChange={(e) => setImageFiles(prevFiles => prevFiles.map((img, idx) => ({
+                        ...img,
+                        displayOrder: idx === index ? parseInt(e.target.value, 10) : img.displayOrder
+                      })))}
+                    />
+                  </label>
+                </div>
+              ))}
+              {imageFiles.length > 0 && <span className="file-name">{imageFiles.length} file(s) selected</span>}
+            </div>
+            {errors.images && <div className="error-alert">{errors.images}</div>}
+            <button type="submit" className="btn-primary">Update Property</button>
+          </form>
+        </div>
+      </div>
+    )}
+
+    {/* modal for Adding Property */}
+    {showAddPropertyModal && (
+      <div className="modal" onClick={handleAddPropertyModalClick}>
+        <div className="modal-content">
+          <span className="close" onClick={closeAddPropertyModal}>&times;</span>
+          <AddProperty />
+        </div>
+      </div>
+    )}
+
+    {showAvailabilityModal && (
+      <div className="modal" onClick={(e) => e.target.className === 'modal' && setShowAvailabilityModal(false)}>
+        <div className="modal-content">
+          <span className="close" onClick={() => setShowAvailabilityModal(false)}>&times;</span>
+          <form onSubmit={(e) => { e.preventDefault(); handleAvailabilitySubmit(); }}>
+            <h2>Set Availability Date</h2>
+            <input
+              type="date"
+              name="availability_date"
+              placeholder="تاريخ التوفر"
+              value={availabilityDate}
+              onChange={(e) => setAvailabilityDate(e.target.value)}
+              min={getTomorrowDate()}
+              required
+            />
+            <button type="submit" className="btn-primary">Set Availability Date</button>
+          </form>
+        </div>
+      </div>
+    )}
+  </div>
+);
+
 }
 
 export default PropertyPage;

@@ -85,6 +85,7 @@ exports.addProperty = async (req, res) => {
 };
 
 // Get all properties (including old_price and exact_address)
+
 exports.getProperties = async (req, res) => {
   const { type, location, page = 1, limit = 12, lang = 'ar' } = req.query;
   const offset = (page - 1) * limit;
@@ -121,8 +122,17 @@ exports.getProperties = async (req, res) => {
     params.push(`%${location}%`);
   }
 
-  sql += ' ORDER BY RAND() LIMIT ? OFFSET ?';
-  params.push(parseInt(limit), parseInt(offset));
+  // ADDED: If a 'seed' is provided, use RAND(seed) to keep ordering consistent.
+  // Otherwise, default to the existing RAND().
+  const { seed } = req.query;
+  if (seed) {
+    sql += ' ORDER BY RAND(?) LIMIT ? OFFSET ?';
+    params.push(seed, parseInt(limit), parseInt(offset));
+  } else {
+    // This is the original line (unchanged).
+    sql += ' ORDER BY RAND() LIMIT ? OFFSET ?';
+    params.push(parseInt(limit), parseInt(offset));
+  }
 
   db.query(sql, params, (err, result) => {
     if (err) {
@@ -160,6 +170,7 @@ exports.getProperties = async (req, res) => {
     });
   });
 };
+
 
 // Get a single property by ID (including old_price and exact_address)
 exports.getPropertyById = (req, res) => {

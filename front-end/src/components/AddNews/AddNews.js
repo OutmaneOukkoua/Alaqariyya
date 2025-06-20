@@ -46,35 +46,35 @@ function AddNews({ closeModal, refreshNews }) {
       <h2>Add News Article</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Title (Arabic):
+          عنوان الخبر
           <input 
             type="text" 
-            placeholder="Title (Arabic)"
+            placeholder="(عنوان (بالعربي"
             value={title_ar} 
             onChange={handleArabicInput(setTitle)} 
             required 
           />
         </label>
         <label>
-          Content (Arabic):
+          وصف الخبر
           <textarea style={{ whiteSpace: 'pre-line', resize: 'none' }}
             value={content_ar}
-            placeholder="Description (Arabic)"
+            placeholder="(الوصف (بالعربي"
             onChange={handleArabicInput(setContent)} 
             required
           ></textarea>
         </label>
         <label>
-          Image:
+          حمل صورة واحدة
           <input 
-            type="file" 
+            type="file"
             onChange={(e) => setImage(e.target.files[0])} 
             required 
           />
         </label>
         {error && <p className="error-message">{error}</p>}
         <div className="button-group">
-          <button type="submit">Add News</button>
+          <button type="submit">اضف الخبر</button>
         </div>
       </form>
     </div>

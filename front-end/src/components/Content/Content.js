@@ -1,4 +1,4 @@
-import React,{ useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,9 @@ function Content({ filterType, onFilterChange }) {
   const [initialType, setInitialType] = useState('');
   const [initialLocation, setInitialLocation] = useState('');
 
+  // ADDED: generate a random seed once per component load
+  const [seed] = useState(() => Math.floor(Math.random() * 100000));
+
   const getTranslatedField = (property, field) => {
     const fieldKey = `${field}_${currentLanguage}`;
     return property[fieldKey] || property[`${field}_en`] || 'N/A';
@@ -36,6 +39,8 @@ function Content({ filterType, onFilterChange }) {
   const fetchProperties = async ({ type = '', location = '', page = 1 }) => {
     try {
       setIsLoading(true);
+
+      // Keep the same lines, but we'll add the seed param at the end:
       let query = `?page=${page}&lang=${currentLanguage}`;
       if (type) {
         query += `&type=${type}`;
@@ -43,6 +48,9 @@ function Content({ filterType, onFilterChange }) {
       if (location) {
         query += `&location=${location}`;
       }
+
+      // ADDED: Append seed to ensure stable random ordering
+      query += `&seed=${seed}`;
 
       const response = await axios.get(`${API_URL}/properties${query}`);
 
@@ -90,6 +98,9 @@ function Content({ filterType, onFilterChange }) {
 
       // Build the search query string
       const searchParamsUrl = new URLSearchParams(params);
+      // ADDED: also pass seed in the URL so user can share the link with stable ordering
+      searchParamsUrl.set('seed', seed);
+
       navigate(`?${searchParamsUrl.toString()}`);
     } else {
       // Do not perform search; reset state
@@ -124,6 +135,9 @@ function Content({ filterType, onFilterChange }) {
     // Update the URL with the new page number
     const searchParamsUrl = new URLSearchParams(searchParams);
     searchParamsUrl.set('page', newPage);
+    // ADDED: ensure we keep seed in the URL
+    searchParamsUrl.set('seed', seed);
+
     navigate(`?${searchParamsUrl.toString()}`);
   };
 
@@ -140,6 +154,9 @@ function Content({ filterType, onFilterChange }) {
     const type = queryParams.get('type');
     const locationParam = queryParams.get('location');
     const page = queryParams.get('page') || 1;
+    // ADDED: read the seed from URL if any
+    const urlSeed = queryParams.get('seed');
+
     if (type) {
       const params = { type };
       if (locationParam) params.location = locationParam;
@@ -167,6 +184,7 @@ function Content({ filterType, onFilterChange }) {
     if (hasSearched) {
       fetchProperties({ ...searchParams, page: currentPage });
     }
+    // eslint-disable-next-line
   }, [currentLanguage]);
 
   return (
@@ -185,7 +203,7 @@ function Content({ filterType, onFilterChange }) {
 
           {/* Viewport and Charset */}
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta charset="UTF-8" />
+          <meta charSet="UTF-8" />
 
           {/* Robots Meta */}
           <meta name="robots" content="index, follow" />
@@ -368,8 +386,8 @@ function Content({ filterType, onFilterChange }) {
           onSearch={handleSearch}
           filterType={filterType}
           onFilterChange={onFilterChange}
-          initialType={initialType} // Pass initialType
-          initialLocation={initialLocation} // Pass initialLocation
+          initialType={initialType}
+          initialLocation={initialLocation}
         />
         {!hasSearched ? (
           <NewsSection />
@@ -434,7 +452,6 @@ function Content({ filterType, onFilterChange }) {
                           {property.type === 'rent' && (
                             <p className="small-text">* {t('properties.priceVaries')}</p>
                           )}
-                          
                         </div>
                         {property.type === 'rent' && (
                           <p>
@@ -449,62 +466,62 @@ function Content({ filterType, onFilterChange }) {
                   ))}
                 </div>
                 {totalPages > 1 && (
-                <div className="pagination">
-                  {/* Previous Button */}
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    aria-label="Previous Page"
-                  >
-                    {t('properties.Previous')}
-                  </button>
+                  <div className="pagination">
+                    {/* Previous Button */}
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      aria-label="Previous Page"
+                    >
+                      {t('properties.Previous')}
+                    </button>
 
-                  {/* First Page and Ellipsis */}
-                  {currentPage > 2 && (
-                    <>
-                      <button onClick={() => handlePageChange(1)}>1</button>
-                      {currentPage > 3 && <span className="ellipsis">...</span>}
-                    </>
-                  )}
+                    {/* First Page and Ellipsis */}
+                    {currentPage > 2 && (
+                      <>
+                        <button onClick={() => handlePageChange(1)}>1</button>
+                        {currentPage > 3 && <span className="ellipsis">...</span>}
+                      </>
+                    )}
 
-                  {/* Current, Previous, and Next Pages */}
-                  {Array.from({ length: 3 }, (_, index) => {
-                    const page = currentPage - 1 + index; // Show current, previous, and next pages.
-                    if (page > 0 && page <= totalPages) {
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => handlePageChange(page)}
-                          className={currentPage === page ? 'active' : ''}
-                          aria-label={`Page ${page}`}
-                        >
-                          {page}
+                    {/* Current, Previous, and Next Pages */}
+                    {Array.from({ length: 3 }, (_, index) => {
+                      const page = currentPage - 1 + index; // Show current, previous, and next pages.
+                      if (page > 0 && page <= totalPages) {
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={currentPage === page ? 'active' : ''}
+                            aria-label={`Page ${page}`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      }
+                      return null;
+                    })}
+
+                    {/* Last Page and Ellipsis */}
+                    {currentPage < totalPages - 1 && (
+                      <>
+                        {currentPage < totalPages - 2 && <span className="ellipsis">...</span>}
+                        <button onClick={() => handlePageChange(totalPages)}>
+                          {totalPages}
                         </button>
-                      );
-                    }
-                    return null;
-                  })}
+                      </>
+                    )}
 
-                  {/* Last Page and Ellipsis */}
-                  {currentPage < totalPages - 1 && (
-                    <>
-                      {currentPage < totalPages - 2 && <span className="ellipsis">...</span>}
-                      <button onClick={() => handlePageChange(totalPages)}>
-                        {totalPages}
-                      </button>
-                    </>
-                  )}
-
-                  {/* Next Button */}
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    aria-label="Next Page"
-                  >
-                    {t('properties.Next')}
-                  </button>
-                </div>
-              )}
+                    {/* Next Button */}
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      aria-label="Next Page"
+                    >
+                      {t('properties.Next')}
+                    </button>
+                  </div>
+                )}
               </>
             ) : (
               <div className="no-results">

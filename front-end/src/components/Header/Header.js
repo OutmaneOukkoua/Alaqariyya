@@ -9,7 +9,6 @@ import 'flag-icons/css/flag-icons.min.css';
 import './Header.css';
 import { Helmet } from 'react-helmet';
 
-
 function Header({ onFilterChange, activeFilter }) {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
@@ -22,21 +21,11 @@ function Header({ onFilterChange, activeFilter }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  const openDialog = () => {
-    setDialogOpen(true);
-  };
-
-  const closeDialog = () => {
-    setDialogOpen(false);
-  };
+  const openDialog = () => setDialogOpen(true);
+  const closeDialog = () => setDialogOpen(false);
 
   const handleLogout = () => {
     logout();
@@ -50,9 +39,8 @@ function Header({ onFilterChange, activeFilter }) {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng.value);
-    localStorage.setItem('i18nextLng', lng.value); // Persist the selected language
+    localStorage.setItem('i18nextLng', lng.value);
   };
-  
 
   const languageOptions = [
     { value: 'ar', label: <><span className="fi fi-ma"></span> العربية</> },
@@ -65,22 +53,22 @@ function Header({ onFilterChange, activeFilter }) {
 
   const defaultLanguage = localStorage.getItem('i18nextLng') || i18n.language;
 
-
-  // Updated 'Home' filter to an empty string
+  // Updated nav items to include 'requests'
   const navItems = [
     { filter: '', label: t('header.Home'), link: '/' },
     { filter: 'buy', label: t('header.buy'), link: '/' },
     { filter: 'rent', label: t('header.rent'), link: '/' },
-    { filter: 'contact', label: t('header.contactUs'), link:'/contact' }
+    { filter: 'requests', label: t('header.requests'), link: '/' }, // NEW BUTTON
+    { filter: 'contact', label: t('header.contactUs'), link: '/contact' }
   ];
 
   const handleNavClick = (filter, link) => {
     if (filter !== undefined) {
       onFilterChange(filter);
       navigate('/');
-    } 
+    }
     if (!filter) {
-      onFilterChange(''); // Reset filter when it's a link
+      onFilterChange('');
       navigate(link);
     }
     closeMenu();
@@ -98,10 +86,10 @@ function Header({ onFilterChange, activeFilter }) {
     <ul className={isArabic ? 'rtl' : 'ltr'}>
       {items.map((item, index) => {
         const isFilter = item.filter !== undefined;
-        const isActive = isFilter 
+        const isActive = isFilter
           ? item.filter === activeFilter
           : item.link === location.pathname;
-        
+
         return (
           <li key={index}>
             <Link
@@ -126,7 +114,7 @@ function Header({ onFilterChange, activeFilter }) {
   return (
     <header className="header">
       <div className={`header-top ${isArabic ? 'header-top-ar' : ''}`}>
-        <Helmet>
+          <Helmet>
           {/* HTML Language Attribute */}
           <html lang="ar" />
 
@@ -326,7 +314,7 @@ function Header({ onFilterChange, activeFilter }) {
         <nav className={`header-nav ${menuOpen ? 'open' : ''}`}>
           {renderNavItems(navItems)}
         </nav>
-        <div className={`header-actions ${isArabic ? 'header-actions-ar' : 'header-actions-en'}`}> {/*change direction from left to right : header-actions-en -> header-actions-ar */}
+        <div className={`header-actions ${isArabic ? 'header-actions-ar' : 'header-actions-en'}`}>
           <button className="menu-toggle" onClick={toggleMenu}>
             <i className="fas fa-bars"></i>
           </button>
@@ -363,11 +351,11 @@ function Header({ onFilterChange, activeFilter }) {
             </Link>
           )}
           <Select
-          options={languageOptions}
-          onChange={changeLanguage}
-          className="language-selectt"
-          defaultValue={languageOptions.find((option) => option.value === defaultLanguage)}
-          isSearchable={false}
+            options={languageOptions}
+            onChange={changeLanguage}
+            className="language-selectt"
+            defaultValue={languageOptions.find((option) => option.value === defaultLanguage)}
+            isSearchable={false}
           />
         </div>
       </div>

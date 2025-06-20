@@ -193,6 +193,10 @@ function ProductDetail() {
     apartments: t('properties.apartments'),
     floorplots: t('properties.floorplots'),
     Commercialgarages: t('properties.Commercialgarages'),
+    requests: t('properties.HausesForBuy'),
+    apartmentsReq: t('properties.apartments'),
+    floorplotsReq: t('properties.floorplots'),
+    CommercialgaragesReq: t('properties.Commercialgarages'),
     CommercialgaragesRent: t('properties.CommercialgaragesRent'),
     regularRent: t('properties.regularRent'),
     rent: t('properties.furnishedRent'),
@@ -345,7 +349,7 @@ function ProductDetail() {
                   </div>
 
                   {/* Bedrooms */}
-                  {product[0].type !== 'floorplots' && product[0].type !== 'Commercialgarages' && product[0].type !== 'CommercialgaragesRent' &&(
+                  {product[0].type !== 'floorplots' && product[0].type !== 'Commercialgarages' && product[0].type !== 'CommercialgaragesRent' &&  product[0].type !== 'requests' && product[0].type !== 'apartmentsReq' && product[0].type !== 'floorplotsReq' && product[0].type !== 'CommercialgaragesReq' &&(
                     <>
                       <div className="detail-card">
                         <FontAwesomeIcon icon={faBed} className="detail-icon" />
@@ -394,7 +398,7 @@ function ProductDetail() {
                   </div>
 
                   {/* Floors */}
-                  {(product[0].type === 'buy' || product[0].type === 'apartments' || product[0].type === 'regularRent') && (
+                  {(product[0].type === 'buy' || product[0].type === 'apartments' || product[0].type === 'regularRent' ) && (
                     <div className="detail-card">
                       <FontAwesomeIcon icon={faBuilding} className="detail-icon" />
                       <div className="detail-text">
@@ -446,7 +450,7 @@ function ProductDetail() {
                         </span>
                       )}
                       <span>
-                        {product[0].type === 'floorplots'
+                        {product[0].type === 'floorplots' || product[0].type === 'floorplotsReq'
                           ? `${formatPrice(product[0].price)} ${t('properties.MAD')} ${t('properties.pricePerSquareMeter')}`
                           : `${formatPrice(product[0].price)} ${t('properties.MAD')}`}
                       </span>
