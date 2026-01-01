@@ -51,6 +51,33 @@
     color: black; /* Black text on hover */
     border: 2px solid #4CAF50; /* Green border on hover */
   }
+
+  .pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.pagination button {
+  background: #3571f3;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  color: #233a69;
+  font-weight: 600;
+}
+
   /* Mobile styles */
 /* Tablet styles */
 @media (max-width: 1024px) {

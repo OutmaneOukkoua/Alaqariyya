@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 // Components
@@ -18,7 +18,14 @@ import AddNews from './components/AddNews/AddNews';
 import NewsPage from './components/newsPage/newsPage';
 import ContactSubmissions from './components/ContactUs/ContactSubmissions';
 import Statistique from './components/Statistique/Statistique';
-import NewsArticle from './components/NewsArticle/NewsArticle'; // Import the new component
+import NewsArticle from './components/NewsArticle/NewsArticle';
+import About from './components/About/About';
+import Services from './components/Services/Services';
+import Blog from './components/blog/Blog';
+import FloatingContact from "./components/FloatingContact/FloatingContact";
+
+// i18n
+import { useTranslation } from 'react-i18next';
 
 // Contexts
 import { CartProvider } from './contexts/CartContext';
@@ -34,11 +41,20 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 // SEO
 import { Helmet } from 'react-helmet';
 
-function App() {
+const SUPPORTED_LANGS = ['ar', 'en', 'fr', 'de', 'es', 'nl'];
+
+function AppShell() {
   const [filterType, setFilterType] = React.useState('');
 
   const API_URL = process.env.REACT_APP_SERVER;
   const hasVisited = React.useRef(false);
+
+  const { i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+
+  const lngFromUrl = params.lng;
 
   React.useEffect(() => {
     if (!hasVisited.current) {
@@ -52,284 +68,175 @@ function App() {
           console.error('Error incrementing visitor count:', error);
         });
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleFilterChange = (type) => {
     setFilterType(type);
   };
 
+  // ✅ 1) Sync i18n language from URL (/ar, /fr, ...)
+  React.useEffect(() => {
+    if (!lngFromUrl) return;
+
+    if (!SUPPORTED_LANGS.includes(lngFromUrl)) {
+      const fallback = i18n.language && SUPPORTED_LANGS.includes(i18n.language) ? i18n.language : 'ar';
+      navigate(`/${fallback}`, { replace: true });
+      return;
+    }
+
+    if (i18n.language !== lngFromUrl) {
+      i18n.changeLanguage(lngFromUrl);
+      localStorage.setItem('i18nextLng', lngFromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lngFromUrl]);
+
+  // ✅ 2) If user changes language from Header (i18n.changeLanguage),
+  // update URL prefix while keeping the same page + querystring.
+  const lastSyncedLng = React.useRef(null);
+
+  React.useEffect(() => {
+    const currentLng = i18n.language;
+
+    if (!currentLng || !SUPPORTED_LANGS.includes(currentLng)) return;
+    if (!lngFromUrl) return;
+
+    // prevent loops
+    if (lastSyncedLng.current === currentLng && lngFromUrl === currentLng) return;
+
+    // If URL and i18n differ, rewrite URL to match i18n
+    if (lngFromUrl !== currentLng) {
+      // remove current "/{lng}" prefix from pathname
+      const prefix = `/${lngFromUrl}`;
+      const restPath = location.pathname.startsWith(prefix)
+        ? location.pathname.slice(prefix.length) || '/'
+        : location.pathname || '/';
+
+      const nextPath = `/${currentLng}${restPath === '/' ? '' : restPath}${location.search}`;
+      lastSyncedLng.current = currentLng;
+      navigate(nextPath, { replace: true });
+    } else {
+      lastSyncedLng.current = currentLng;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18n.language, lngFromUrl, location.pathname, location.search]);
+
+  const hideFloatingContact = location.pathname.includes("/dashboard");
+
+  return (
+    <div className="App">
+      <Helmet
+        htmlAttributes={{ lang: i18n.language || "ar" }}
+        titleTemplate="%s | ALAQARIYYA العقارية"
+        defaultTitle="ALAQARIYYA العقارية"
+      >
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index,follow" />
+      </Helmet>
+      
+      <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
+      <LanguageSelector />
+      <Routes>
+        <Route
+          path="/"
+          element={<Content filterType={filterType} onFilterChange={handleFilterChange} />}
+        />
+
+        <Route path="/news/:id" element={<NewsArticle />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/blog" element={<Blog />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/add-property"
+          element={
+            <ProtectedRoute>
+              <AddProperty />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/property-page"
+          element={
+            <ProtectedRoute>
+              <PropertyPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/add-news"
+          element={
+            <ProtectedRoute>
+              <AddNews />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/news-page"
+          element={
+            <ProtectedRoute>
+              <NewsPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/contact-submissions"
+          element={
+            <ProtectedRoute>
+              <ContactSubmissions />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/statistique"
+          element={
+            <ProtectedRoute>
+              <Statistique />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      {!hideFloatingContact && <FloatingContact />}
+    </div>
+  );
+}
+
+function App() {
+  // ✅ redirect "/" -> "/{lang}" based on saved language (or fallback)
+  const savedLng = localStorage.getItem('i18nextLng');
+  const initialLng = savedLng && SUPPORTED_LANGS.includes(savedLng) ? savedLng : 'ar';
+
   return (
     <AuthProvider>
       <CartProvider>
         <Router>
-          <Helmet>
-          {/* HTML Language Attribute */}
-          <html lang="ar" />
-
-          {/* Title and Description */}
-          <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
-          <meta
-            name="description"
-            content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
-          />
-
-          {/* Viewport and Charset */}
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta charset="UTF-8" />
-
-          {/* Robots Meta */}
-          <meta name="robots" content="index, follow" />
-
-          {/* Canonical Link */}
-          <link rel="canonical" href="https://www.alaqariyya.com" />
-
-          {/* Open Graph Tags */}
-          <meta property="og:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية" />
-          <meta
-            property="og:description"
-            content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
-          />
-          <meta property="og:url" content="https://www.alaqariyya.com" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="https://www.alaqariyya.com/logo.svg" />
-          <meta property="og:image:alt" content="ALAQARIYYA العقارية Logo" />
-          <meta property="og:locale" content="ar_MA" />
-
-          {/* Twitter Card Tags */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA" />
-          <meta
-            name="twitter:description"
-            content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
-          />
-          <meta name="twitter:image" content="https://www.alaqariyya.com/logo.svg" />
-
-          {/* Location Meta Tags */}
-          <meta name="geo.placename" content="زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور، المغرب" />
-          <meta name="geo.position" content="35.1761;-2.9308" />
-          <meta name="ICBM" content="35.1761, -2.9308" />
-          <link rel="alternate" href="https://maps.app.goo.gl/ysG1ZvxgLQUj3QRN7" />
-
-          {/* JSON-LD: RealEstateAgent Schema */}
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "RealEstateAgent",
-              "name": "ALAQARIYYA العقارية",
-              "description":
-                "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
-              "url": "https://www.alaqariyya.com",
-              "logo": "https://www.alaqariyya.com/logo.svg",
-              "telephone": "+212 536-348141",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
-                "addressLocality": "بني انصار",
-                "addressRegion": "الناظور",
-                "postalCode": "62000",
-                "addressCountry": "MA",
-                "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": "35.1761",
-                  "longitude": "-2.9308"
-                }
-              },
-              "openingHours": ["Mo-Fr 09:00-19:00"],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+212 536-348141",
-                "contactType": "خدمة العملاء",
-                "availableLanguage": ["ar", "fr", "en", "es","de","nl"]
-              },
-              "areaServed": "MA",
-              "inLanguage": ["ar", "fr", "en", "es","de","nl"],
-              "serviceType": [
-                "تأجير العقارات",
-                "بيع العقارات",
-                "شراء العقارات",
-                "استشارات عقارية",
-                "تسجيل العقارات"
-              ],
-              "makesOffer": [
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "منازل",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "شقق",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "طوابق",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "أراضي",
-                    "category": "عقارات"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "كراجات",
-                    "category": "عقارات"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "كراجات تجارية",
-                    "category": "عقارات تجارية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "إيجار عادي",
-                    "category": "خدمات التأجير"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "إيجار مفروش",
-                    "category": "خدمات التأجير"
-                  }
-                }
-              ],
-              "foundingDate": "2024",
-              "currenciesAccepted": "MAD",
-              "sameAs": [
-                "https://www.facebook.com/profile.php?id=61560366056640",
-                "https://www.instagram.com/alaqariyya",
-                "https://fr.airbnb.com/users/show/582106109",
-                "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html",
-                "https://expe.app.link/2uBx1FL1yPb"
-              ]
-            })}
-          </script>
-
-          {/* JSON-LD: WebPage Schema */}
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              "name": "ALAQARIYYA - العقارات الأفضل في المغرب",
-              "url": "https://www.alaqariyya.com",
-              "description": "خدمات تأجير، بيع، وشراء عقارات بمهنية عالية في المغرب.",
-              "inLanguage": "ar",
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "35.1761",
-                "longitude": "-2.9308"
-              }
-            })}
-          </script>
-        </Helmet>
-
-          <div className="App">
-            <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
-            <LanguageSelector />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Content filterType={filterType} onFilterChange={handleFilterChange} />
-                }
-              />
-              {/* Add the new route for news articles */}
-              <Route path="/news/:id" element={<NewsArticle />} />
-              {/* Other routes */}
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/welcome" element={<Welcome />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-property"
-                element={
-                  <ProtectedRoute>
-                    <AddProperty />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/property-page"
-                element={
-                  <ProtectedRoute>
-                    <PropertyPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/add-news"
-                element={
-                  <ProtectedRoute>
-                    <AddNews />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/news-page"
-                element={
-                  <ProtectedRoute>
-                    <NewsPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/contact-submissions"
-                element={
-                  <ProtectedRoute>
-                    <ContactSubmissions />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/statistique"
-                element={
-                  <ProtectedRoute>
-                    <Statistique />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Navigate to={`/${initialLng}`} replace />} />
+            <Route path="/:lng/*" element={<AppShell />} />
+          </Routes>
         </Router>
       </CartProvider>
     </AuthProvider>

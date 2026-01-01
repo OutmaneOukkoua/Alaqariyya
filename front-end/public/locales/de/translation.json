@@ -1,9 +1,9 @@
 {
   "header": {
     "Home": "Startseite",
-    "buy": "Verkaufen",
-    "rent": "Mieten",
-    "requests": "Anfragen",
+    "about": "Über uns",
+    "services": "Leistungen",
+    "blog": "Blog",
     "contactUs": "Kontaktieren Sie uns",
     "login": "Anmelden",
     "logout" : "Abmelden",
@@ -36,6 +36,7 @@
     "Next" : "Nächste",
     "available": "Verfügbar",
     "notAvailable": "Nicht Verfügbar",
+    "notAvailableRent": "Reserviert",
     "status": "Status",
     "floors": "Böden",
     "floors1": "Boden",
@@ -51,7 +52,9 @@
     "details": "Details",
     "noResults": "Diese Immobilie existiert derzeit nicht",
     "chooseType": "Wählen Sie den Typ",
-    "selectTypeMessage": "Bitte wählen Sie einen Immobilientyp aus"
+    "selectTypeMessage": "Bitte wählen Sie einen Immobilientyp aus",
+    "availableFrom": "Verfügbar ab"
+
 
   },
   "news": {
@@ -65,14 +68,16 @@
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya ist eine Agentur, die ihren Kunden ermöglicht, alles, was mit Immobilien zu tun hat, zu mieten, zu kaufen und zu verkaufen, sei es Grundstücke, Wohnungen, Appartements Geschäfte, Häuser usw.",
     "products": "Produkte",
-    "desc": "mieten - kaufen - verkaufen - Immobilienberatung - Grundbuchwesen",
+    "desc": "mieten - kaufen - verkaufen - Immobilienberatung - Grundbuchwesen ...",
     "contact": "Kontakt",
     "contacts": {
       "numIAM1": "Erste Nummer: 0668.55.07.04",
       "numIAM2": "Zweite Nummer: 0668.55.06.52",
-      "address1": "Ibn Sina Straße (Kreuzung der Oqba Straße)",
-      "address2": "Al Masjid Viertel, Beni Ensar - Nador",
-      "phone": "Festnetz: 0536.34.81.41"
+      "address1": "Beni Ansar, Viertel Al-Masjid",
+      "address2": "Nador, Viertel Al-Khattabi",
+      "phoneBN": "Festnetz - Beni Ansar : 0536.34.81.41",
+      "phoneND": "Festnetz - Nador : 0538.78.23.96"
+
     },
     "copyRight": "Alle Rechte vorbehalten © 2024"
   },
@@ -103,8 +108,30 @@
     "messageFailed": "Nachricht konnte nicht gesendet werden",
     "close" : "annullieren",
     "share" : "Teilen",
-    "sendEmail": "Email"
-
+    "sendEmail": "Email",
+    "subtitle": "Haben Sie eine Frage zum Kaufen, Verkaufen oder Mieten einer Immobilie? Füllen Sie das Formular aus oder kontaktieren Sie uns direkt.",
+    "directContact": "Direkter Kontakt",
+    "officeHours": "Öffnungszeiten",
+    "officeHoursText": "Montag – Samstag: 09:00 bis 18:00",
+    "sendUsMessage": "Senden Sie uns eine Nachricht",
+    "formHint": "Sagen Sie uns, welche Immobilie oder welchen Service Sie suchen – das Alaqariyya-Team meldet sich bei Ihnen.",
+    "ourOffices": "Unsere Büros",
+    "mainOfficeNador": "Hauptbüro – Nador",
+    "secondOfficeBeniAnsar": "Zweites Büro – Beni Ansar",
+    "openGoogleMaps": "In Google Maps öffnen",
+    "customerServiceTeam": "Kundenservice-Team",
+    "teamHint": "Wählen Sie das Teammitglied, das am besten zu Ihrer Sprache passt.",
+    "sending": "Wird gesendet...",
+    "languagesLabel": "Sprachen:",
+    "phoneFixBN": "Festnetz - Beni Ansar",
+    "phoneFixND": "Festnetz - Nador",
+    "teamMembers": {
+      "1": { "name": "Abd elrazzak", "role": "Immobilienmakler", "languages": "Arabisch, Tamazight" },
+      "2": { "name": "Zakaria", "role": "Immobilienmakler", "languages": "Arabisch, Tamazight" },
+      "3": { "name": "Jamal", "role": "Immobilienmakler", "languages": "Arabisch, Spanisch, Tamazight" },
+      "4": { "name": "Abd elkarim", "role": "Immobilienmakler", "languages": "Arabisch, Französisch, Tamazight" },
+      "5": { "name": "Jawhara", "role": "Immobilienmaklerin", "languages": "Arabisch, Tamazight" }
+    }
   },
   "goBack": {
     "Go Back": "Zurück"
@@ -118,6 +145,218 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Entdecke deine Traumimmobilie in Marokko!"
+    "title":"Entdecke deine Traumimmobilie in Marokko!",
+    "loadingCities": "Städte werden geladen...",
+    "allCities": "Alle Städte"
+  },
+
+  "about": {
+    "badge": "Über uns",
+    "title": "Alaqariyya – Ein modernes Immobiliennetzwerk für Marokkaner im In- und Ausland",
+    "intro": "Alaqariyya ist mehr als nur eine kleine lokale Agentur. Es ist ein wachsendes Immobilienprojekt, aufgebaut auf echter Markterfahrung in Marokko und den Bedürfnissen von Marokkanern im Ausland, die einen klaren und verlässlichen Service suchen.",
+    "storyTitle": "Unsere Geschichte",
+    "storyText": "Alaqariyya entstand aus einer einfachen Beobachtung: Viele Immobiliensuchende in Marokko haben dieselben Probleme – unvollständige Informationen, unklare Fotos und kaum Nachverfolgung nach dem ersten Kontakt. Deshalb haben wir eine Agentur aufgebaut, die Felderfahrung, digitale Tools und menschliche Kommunikation verbindet – mit einem Ziel: Klarheit in jedem Schritt.",
+    "forWhomTitle": "Unsere Leistungen",
+    "forWhomText": "Wir unterstützen vor allem Familien und Einzelpersonen auf Wohnungssuche, Investoren mit Fokus auf solide Rendite sowie Marokkaner in Europa, die vor Ort einen vertrauenswürdigen Ansprechpartner brauchen.",
+    "forWhomPoints": [
+      "Menschen in Marokko, die eine Wohnung, ein Haus oder ein Geschäft kaufen oder mieten möchten.",
+      "Marokkaner im Ausland, die jemanden Zuverlässigen für die lokale Betreuung ihrer Anliegen brauchen.",
+      "Investoren, die realistische Immobilienchancen in verschiedenen marokkanischen Städten suchen."
+    ],
+    "workTitle": "So arbeiten wir",
+    "workSteps": [
+      { "title": "1. Wir verstehen zuerst Ihre echten Bedürfnisse", "text": "Bevor wir Objekte vorschlagen, klären wir Ihre familiäre und finanzielle Situation, die gewünschte Stadt oder Gegend und den passenden Immobilientyp." },
+      { "title": "2. Klare Optionen, ohne Druck", "text": "Sie erhalten passende Vorschläge mit klaren Informationen, echten Fotos und – wenn möglich – Videos, damit Sie in Ruhe entscheiden können, ob in Marokko oder im Ausland." },
+      { "title": "3. Begleitung von der Besichtigung bis zur Unterschrift", "text": "Wir begleiten Besichtigungen, Verhandlungen und den administrativen Teil – und erklären Vertragsbedingungen sowie alle Kosten, bevor Sie sich binden." }
+    ],
+    "whyTitle": "Warum Alaqariyya?",
+    "whyPoints": [
+      "Transparente Informationen und Preise – ohne übertriebene Versprechen.",
+      "Ständige Kommunikation per Telefon, WhatsApp und E-Mail – besonders für Kunden im Ausland.",
+      "Respekt für Ihre Zeit: klare Termine, organisierte Besichtigungen und seriöse Nachverfolgung.",
+      "Ein Team, das Felderfahrung und digitales Marketing kombiniert, um Ihre Immobilie besser sichtbar zu machen und fair zu verkaufen oder zu vermieten."
+    ],
+    "statsTitle": "Was uns praktisch unterscheidet",
+    "stats": [
+      { "label": "Mehrere Städte", "text": "Wir bauen ein Netzwerk in mehreren marokkanischen Städten auf und erweitern Schritt für Schritt." },
+      { "label": "Service aus der Ferne", "text": "Komplette Koordination für Marokkaner im Ausland: Besichtigungen, Videos, Dokumentation und regelmäßige Updates." },
+      { "label": "Qualität statt Quantität", "text": "Lieber weniger Objekte mit echtem Service als eine große Liste ohne ernsthafte Betreuung." }
+    ],
+    "closingTitle": "Unsere Botschaft",
+    "closingText": "Ob Sie in Marokko leben oder im Ausland: Unser Ziel ist, dass Sie sich in jeder Phase sicher und gut informiert fühlen. Mit Alaqariyya „verkaufen wir nicht nur eine Immobilie“ – wir helfen Ihnen, eine Wohn- oder Investitionsentscheidung zu treffen, die für Sie und Ihre Familie passt."
+  },
+  
+  "services": {
+    "badge": "Leistungen",
+    "title": "Rundum-Immobilienservice – vom ersten Kontakt bis zur Schlüsselübergabe",
+    "intro": "Bei Alaqariyya bieten wir nicht nur eine einzelne Leistung an. Wir begleiten Sie durch den gesamten Prozess – vom ersten Gespräch bis zum unterschriebenen Vertrag, ob Eigentümer, Käufer, Mieter oder Investor – in Marokko oder aus dem Ausland.",
+    "sectionsTitle": "Was bieten wir an?",
+    "bestForLabel": "Ideal für:",
+    "items": {
+      "sales": {
+        "title": "Immobilienverkauf",
+        "text": "Wir unterstützen Sie dabei, Ihre Wohnung, Ihr Haus oder Ihre Gewerbeeinheit effizient und transparent zu verkaufen.",
+        "bullets": [
+          "Erste Preis-Einschätzung basierend auf Lage und aktueller Marktsituation.",
+          "Vollständiges Objektprofil (Fotos, Video, klare Beschreibung, technische Details).",
+          "Veröffentlichung auf mehreren Kanälen und Filterung seriöser Interessenten.",
+          "Begleitung der Verhandlung bis zu einer fairen Einigung."
+        ],
+        "bestFor": "Eigentümer, die ihre Immobilie zu einem fairen Preis verkaufen möchten – ohne Zeit zu verlieren."
+      },
+      "rentals": {
+        "title": "Vermietung",
+        "text": "Ob Sie Ihre Immobilie vermieten oder selbst etwas mieten möchten – wir bringen beide Seiten transparent zusammen.",
+        "bullets": [
+          "Kurz- und Langzeitmiete je nach Bedarf.",
+          "Klare Erklärung des Mietvertrags vor der Unterschrift.",
+          "Transparente Kosten (Kaution, monatliche Miete, Nebenkosten).",
+          "Nachbetreuung bei Fragen oder Problemen in der ersten Zeit nach Einzug."
+        ],
+        "bestFor": "Eigentümer und Mieter, die eine klare, respektvolle und gut organisierte Mietbeziehung wünschen."
+      },
+      "management": {
+        "title": "Immobilienverwaltung",
+        "text": "Besonders hilfreich für im Ausland lebende Marokkaner sowie Eigentümer, die keine Zeit für die tägliche Betreuung haben.",
+        "bullets": [
+          "Bearbeitung von Anrufen und Anfragen zur Immobilie.",
+          "Organisation von Besichtigungen und Auswahl nach vereinbarten Kriterien.",
+          "Kontrolle (Miete, Verpflichtungen, einfache Instandhaltung).",
+          "Regelmäßige kurze Updates zum Status der Immobilie und den Einnahmen."
+        ],
+        "bestFor": "Eigentümer, die Ruhe und regelmäßige Übersicht darüber möchten, was mit ihrer Immobilie passiert."
+      },
+      "digitalMarketing": {
+        "title": "Digitales Immobilienmarketing",
+        "text": "Statt einer einfachen Anzeige nutzen wir digitale Tools, damit Ihre Immobilie auffällt und die richtigen Personen erreicht.",
+        "bullets": [
+          "Professionelle Foto- und Videoaufnahmen.",
+          "Gezielte bezahlte Kampagnen auf passenden Plattformen.",
+          "Monitoring der Performance und Optimierung bei Bedarf.",
+          "Stärken der Immobilie ehrlich und attraktiv hervorheben."
+        ],
+        "bestFor": "Eigentümer, die starke Sichtbarkeit auf lokalen und online Märkten wollen."
+      }
+    },
+    "processTitle": "Wie läuft Ihre Anfrage ab?",
+    "processIntro": "Wir halten den Ablauf bewusst einfach und verständlich – ohne versteckte Schritte oder komplizierten Fachjargon.",
+    "processSteps": [
+      {
+        "label": "1. Kostenloses Erstgespräch",
+        "text": "Wir hören uns Ihre Situation und Ihr Ziel (verkaufen, kaufen, mieten, investieren) an und erklären realistische Möglichkeiten klar und verständlich."
+      },
+      {
+        "label": "2. Klarer Aktionsplan",
+        "text": "Wir stimmen die nächsten Schritte, die passende Leistung und die gegenseitigen Erwartungen mit Ihnen ab."
+      },
+      {
+        "label": "3. Umsetzung und Nachverfolgung",
+        "text": "Wir starten und halten Sie auf dem Laufenden: Anfragen, Besichtigungen, Angebote, Verhandlungen … bis zum gewünschten Ergebnis."
+      }
+    ],
+    "whoTitle": "Für wen sind unsere Leistungen?",
+    "whoPoints": [
+      "Familien, die ein gutes Zuhause in einer passenden Gegend zu einem fairen Preis suchen.",
+      "Im Ausland lebende Marokkaner, die einen verlässlichen Kontakt vor Ort benötigen.",
+      "Eigentümer, die professionell verkaufen oder vermieten möchten.",
+      "Investoren, die realistische und geprüfte Chancen suchen – keine Zufallsanzeigen."
+    ],
+    "closingTitle": "Wie starten wir?",
+    "closingText": "Kontaktieren Sie uns und sagen Sie uns, worum es geht: verkaufen, kaufen, mieten oder einfach Beratung. Wir empfehlen die passende Leistung und gehen Schritt für Schritt weiter – ohne Druck."
+  },
+  "blog": {
+    "metaTitle": "Alaqariyya – Blog",
+    "metaDescription": "Immobilienartikel und Tipps von Alaqariyya zum Kaufen, Verkaufen und Mieten von Immobilien in Marokko.",
+    "heroTitle": "Immobilien-Blog",
+    "heroSubtitle": "Kurze, praktische Artikel, die dir helfen, den marokkanischen Immobilienmarkt zu verstehen und bessere Entscheidungen beim Kaufen, Mieten oder Investieren zu treffen.",
+    "loading": "Artikel werden geladen...",
+    "empty": "Derzeit sind noch keine Artikel verfügbar.",
+    "readArticle": "Artikel lesen",
+    "pagination": {
+      "previous": "Zurück",
+      "next": "Weiter"
+    },
+    "placeholderImageUrl": "https://via.placeholder.com/800x450?text=Immobilien+in+Marokko",
+    "errors": {
+      "fetchPosts": "Fehler beim Laden der Blogartikel:"
+    }
+  },
+  "newsArticle": {
+    "metaTitlePrefix": "{{title}} – Alaqariyya News",
+    "back": "Zurück ←",
+    "readingTime": "{{minutes}} Min. Lesezeit",
+    "youtubeTitle": "YouTube-Video",
+    "categories": {
+      "market": "Markt",
+      "legal": "Rechtsleitfaden",
+      "tips": "Tipps",
+      "investment": "Investition",
+      "other": "Sonstiges"
+    }
+  },
+  "content": {
+    "pageTitle": "Immobilien",
+    "readMoreArticles": "Mehr Artikel lesen ↪",
+    "readMoreArticlesAria": "Mehr Artikel lesen",
+    "discoverMoreProperties": "Mehr Immobilien entdecken ↪",
+    "discoverMorePropertiesAria": "Mehr Immobilien entdecken",
+    "viewDetails": "Details ansehen",
+    "viewDetailsAria": "Details ansehen: {{title}}",
+    "soldPill": "Diese Immobilie ist nicht verfügbar",
+    "soldInline": "NICHT VERFÜGBAR",
+    "soldAria": "Die Immobilie ist nicht verfügbar"
+  },
+  "clientReviews": {
+    "title": "Kundenbewertungen auf Google",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "viewAllLink": "Alle Bewertungen auf Google Maps ansehen ↪",
+    "sectionAria": "Kundenbewertungen im Google-Stil",
+    "paginationAria": "Bewertungen-Paginierung",
+    "prevAria": "Zurück",
+    "nextAria": "Weiter",
+    "goToPageAria": "Zur Seite {{page}}",
+    "ratingAria": "Bewertung {{value}} von 5"
+  },
+  "featured": {
+    "title": "Ausgewählte Immobilien",
+    "featured": "Empfohlen",
+    "forSale": "Zu verkaufen",
+    "negotiable": "Verhandelbar",
+    "viewDetails": "Details anzeigen: {{title}}",
+    "apartment": "Wohnung",
+    "villa": "Villa",
+    "house": "Haus",
+    "commercial": "Gewerbe",
+    "land": "Grundstück",
+    "area": "Fläche",
+    "bedrooms": "Schlafzimmer",
+    "salon": "Wohnzimmer",
+    "bathrooms": "Badezimmer",
+    "loading": "Empfohlene Immobilien werden geladen...",
+    "loadFailed": "Empfohlene Immobilien konnten nicht geladen werden.",
+    "empty": "Zurzeit sind keine empfohlenen Immobilien verfügbar"
+  },
+  "productDetail": {
+    "propertyNotFound": "Immobilie nicht gefunden",
+    "backToHome": "Zur Startseite",
+    "searchResults": "Suchergebnisse",
+    "previousImage": "Vorheriges Bild",
+    "nextImage": "Nächstes Bild",
+    "propertyLocation": "Standort der Immobilie",
+    "shareNotSupported": "Dein Browser unterstützt das Teilen nicht.",
+    "copyUrl": "Du kannst die URL kopieren",
+    "soldBadge": "Diese Immobilie ist nicht verfügbar",
+    "soldShort": "NICHT VERFÜGBAR",
+    "soldTooltip": "Immobilie nicht verfügbar",
+    "sold": "Nicht verfügbar",
+    "addToFavorites": "Zu Favoriten hinzufügen",
+    "propertyStatus": "Status der Immobilie",
+    "available": "Verfügbar",
+    "allRent": "Alle Mietobjekte",
+    "allRequests": "Alle Anfragen",
+    "whatsapp": "WhatsApp"
   }
+
+
 }

@@ -1,9 +1,9 @@
 {
   "header": {
     "Home": "Startpagina",
-    "buy": "verkopen",
-    "rent": "huur",
-    "requests": "verzoeken",
+    "about": "Over ons",
+    "services": "Diensten",
+    "blog": "Blog",
     "contactUs": "Contacteer Ons",
     "login": "Inloggen",
     "logout" : "Uitloggen",
@@ -37,6 +37,7 @@
     "Next" : "Volgende",
     "available": "Beschikbaar",
     "notAvailable": "Niet beschikbaar",
+    "notAvailableRent": "Gereserveerd",
     "Loading": "Eigenschappen laden...",
     "status": "Status",
     "floors": "vloeren",
@@ -53,7 +54,9 @@
     "details": "Details",
     "noResults": "Deze woning bestaat momenteel niet",
     "chooseType": "Kies het type",
-    "selectTypeMessage": "Selecteer een type eigendom alstublieft"
+    "selectTypeMessage": "Selecteer een type eigendom alstublieft",
+    "availableFrom": "Beschikbaar vanaf"
+
   },
   "news": {
     "publishedOn": "Gepubliceerd op",
@@ -65,14 +68,15 @@
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya is een agentschap dat zijn klanten in staat stelt alles te huren, kopen en verkopen wat met onroerend goed te maken heeft, of het nu gaat om stukken land, appartementen, winkels, huizen, enz.",
     "products": "Producten",
-    "desc": "huren - kopen - verkopen - Vastgoedadvies - Kadastrale registratie",
+    "desc": "huren - kopen - verkopen - Vastgoedadvies - Kadastrale registratie ...",
     "contact": "Contact",
     "contacts": {
       "numIAM1": "Eerste nummer: 0668.55.07.04",
       "numIAM2": "Tweede nummer: 0668.55.06.52",
-      "address1": "Ibn Sina Straat (kruising van Oqba Straat)",
-      "address2": "Al Masjid buurt, Beni Ensar - Nador",
-      "phone": "Vaste lijn: 0536.34.81.41"
+      "address1": "Beni Ansar, wijk Al-Masjid",
+      "address2": "Nador, wijk Al-Khattabi",
+      "phoneBN": "Vaste lijn - Beni Ansar : 0536.34.81.41",
+      "phoneND": "Vaste lijn - Nador : 0538.78.23.96"
     },
     "copyRight": "Alle rechten voorbehouden © 2024"
   },
@@ -102,8 +106,30 @@
     "messageFailed": "Bericht verzenden mislukt",
     "close" : "annuleren",
     "share" : "Delen",
-    "sendEmail": "Email"
-
+    "sendEmail": "Email",
+    "subtitle": "Heb je een vraag over het kopen, verkopen of huren van een woning? Vul het formulier in of neem direct contact met ons op.",
+    "directContact": "Direct contact",
+    "officeHours": "Openingstijden",
+    "officeHoursText": "Maandag – Zaterdag: 09:00 tot 18:00",
+    "sendUsMessage": "Stuur ons een bericht",
+    "formHint": "Vertel ons welk type woning of service je zoekt, dan neemt het Alaqariyya-team contact met je op.",
+    "ourOffices": "Onze kantoren",
+    "mainOfficeNador": "Hoofdkantoor – Nador",
+    "secondOfficeBeniAnsar": "Tweede kantoor – Beni Ansar",
+    "openGoogleMaps": "Openen in Google Maps",
+    "customerServiceTeam": "Klantenservice",
+    "teamHint": "Kies het teamlid dat het beste bij jouw taal past.",
+    "sending": "Bezig met verzenden...",
+    "languagesLabel": "Talen:",
+    "phoneFixBN": "Vaste telefoon - Beni Ansar",
+    "phoneFixND": "Vaste telefoon - Nador",
+    "teamMembers": {
+      "1": { "name": "Abd elrazzak", "role": "Makelaar", "languages": "Arabisch, Tamazight" },
+      "2": { "name": "Zakaria", "role": "Makelaar", "languages": "Arabisch, Tamazight" },
+      "3": { "name": "Jamal", "role": "Makelaar", "languages": "Arabisch, Spaans, Tamazight" },
+      "4": { "name": "Abd elkarim", "role": "Makelaar", "languages": "Arabisch, Frans, Tamazight" },
+      "5": { "name": "Jawhara", "role": "Makelaar", "languages": "Arabisch, Tamazight" }
+    }
 
   },
   "goBack": {
@@ -118,6 +144,218 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Ontdek je droomwoning in Marokko!"
+    "title":"Ontdek je droomwoning in Marokko!",
+    "loadingCities": "Steden laden...",
+    "allCities": "Alle steden"
+  },
+
+  "about": {
+    "badge": "Over ons",
+    "title": "Alaqariyya – Een modern vastgoednetwerk voor Marokkanen in eigen land en in het buitenland",
+    "intro": "Alaqariyya is meer dan een kleine lokale makelaar. Het is een groeiend vastgoedproject, opgebouwd uit echte ervaring met de Marokkaanse markt en de behoeften van Marokkanen in het buitenland die een duidelijke en betrouwbare service willen.",
+    "storyTitle": "Ons verhaal",
+    "storyText": "Alaqariyya begon met een eenvoudige observatie: veel mensen die in Marokko vastgoed zoeken, lopen tegen dezelfde problemen aan – onvolledige informatie, onduidelijke foto’s en weinig opvolging na het eerste contact. Daarom bouwen we een makelaarsdienst die praktijkervaring, digitale tools en menselijk contact combineert, met één doel: duidelijkheid bij elke stap.",
+    "forWhomTitle": "Onze diensten",
+    "forWhomText": "We helpen vooral gezinnen en particulieren die een degelijke woning zoeken, investeerders die mikken op een goede opbrengst, en Marokkanen in Europa die ter plaatse een betrouwbare vertegenwoordiger nodig hebben.",
+    "forWhomPoints": [
+      "Inwoners van Marokko die een appartement, huis of winkelpand willen kopen of huren.",
+      "Marokkanen in het buitenland die iemand nodig hebben om hun dossiers lokaal betrouwbaar op te volgen.",
+      "Investeerders die realistische kansen zoeken in verschillende Marokkaanse steden."
+    ],
+    "workTitle": "Hoe we werken",
+    "workSteps": [
+      { "title": "1. We begrijpen eerst je echte behoeften", "text": "Voor we iets voorstellen, nemen we de tijd om je gezinssituatie en budget te begrijpen, je gewenste stad of buurt en het type vastgoed dat bij je past." },
+      { "title": "2. Duidelijke opties, zonder druk", "text": "We sturen geschikte opties met heldere info, echte foto’s en video’s wanneer beschikbaar, zodat je rustig kunt beslissen, of je nu in Marokko bent of in het buitenland." },
+      { "title": "3. Begeleiding van eerste bezoek tot contract", "text": "We begeleiden bezoeken, onderhandelingen en administratie, en leggen contractvoorwaarden en alle kosten uit vóór je je vastlegt." }
+    ],
+    "whyTitle": "Waarom Alaqariyya?",
+    "whyPoints": [
+      "Transparante informatie en prijzen, zonder overdreven beloftes.",
+      "Doorlopende communicatie via telefoon, WhatsApp en e-mail – vooral voor klanten in het buitenland.",
+      "Respect voor tijd: duidelijke afspraken, georganiseerde bezoeken en serieuze opvolging.",
+      "Een team dat praktijkwerk combineert met digitale marketing, voor betere zichtbaarheid en een eerlijke verkoop of verhuur."
+    ],
+    "statsTitle": "Wat ons in de praktijk onderscheidt",
+    "stats": [
+      { "label": "Meerdere steden", "text": "We bouwen een netwerk in meerdere Marokkaanse steden en breiden stap voor stap uit." },
+      { "label": "Service op afstand", "text": "Volledige coördinatie voor Marokkanen in het buitenland: bezoeken, video’s, documentatie en regelmatige updates." },
+      { "label": "Kwaliteit boven kwantiteit", "text": "We kiezen liever voor minder panden met goede opvolging dan voor een grote lijst zonder echte service." }
+    ],
+    "closingTitle": "Onze boodschap",
+    "closingText": "Woon je in Marokko of in het buitenland: ons doel is dat je je in elke fase veilig en goed geïnformeerd voelt. Met Alaqariyya “verkopen we niet alleen vastgoed”: we helpen je een woon- of investeringskeuze te maken waar jij en je familie echt achter staan."
+  },
+  
+  "services": {
+    "badge": "Diensten",
+    "title": "Complete vastgoedservice – van eerste contact tot sleuteloverdracht",
+    "intro": "Bij Alaqariyya bieden we niet slechts één dienst. We begeleiden je door het volledige traject: van het eerste gesprek tot het getekende contract, of je nu eigenaar, koper, huurder of investeerder bent – in Marokko of vanuit het buitenland.",
+    "sectionsTitle": "Wat bieden we aan?",
+    "bestForLabel": "Ideaal voor:",
+    "items": {
+      "sales": {
+        "title": "Verkoop van vastgoed",
+        "text": "We helpen je om je appartement, huis of commerciële ruimte zo efficiënt en transparant mogelijk te verkopen.",
+        "bullets": [
+          "Eerste prijsinschatting op basis van locatie en marktsituatie.",
+          "Een compleet dossier (foto’s, video, duidelijke beschrijving, technische details).",
+          "Publicatie op meerdere kanalen en filtering van serieuze kopers.",
+          "Begeleiding bij onderhandelingen tot een eerlijke overeenkomst."
+        ],
+        "bestFor": "Eigenaren die hun woning voor een eerlijke prijs willen verkopen zonder tijd te verspillen."
+      },
+      "rentals": {
+        "title": "Verhuur",
+        "text": "Of je nu je woning wilt verhuren of zelf iets wilt huren, wij zorgen voor duidelijke afspraken aan beide kanten.",
+        "bullets": [
+          "Korte- en langetermijnverhuur afhankelijk van je behoefte.",
+          "Duidelijke uitleg van het huurcontract vóór ondertekening.",
+          "Transparantie over kosten (borg, maandelijkse huur, extra kosten).",
+          "Nazorg bij vragen of problemen in de eerste periode na intrek."
+        ],
+        "bestFor": "Eigenaren en huurders die een duidelijke, respectvolle en georganiseerde huurrelatie willen."
+      },
+      "management": {
+        "title": "Vastgoedbeheer",
+        "text": "Vooral handig voor Marokkanen in het buitenland en voor eigenaren die geen tijd hebben voor dagelijkse opvolging.",
+        "bullets": [
+          "Afhandeling van telefoontjes en aanvragen over je vastgoed.",
+          "Bezoeken organiseren en huurders selecteren volgens afgesproken criteria.",
+          "Opvolging (huur, afspraken, basisonderhoud).",
+          "Korte periodieke updates over status en inkomsten."
+        ],
+        "bestFor": "Elke eigenaar die gemoedsrust wil en zicht wil houden op wat er gebeurt met het vastgoed."
+      },
+      "digitalMarketing": {
+        "title": "Digitale vastgoedmarketing",
+        "text": "In plaats van een simpele advertentie gebruiken we digitale tools om je vastgoed beter zichtbaar te maken voor de juiste doelgroep.",
+        "bullets": [
+          "Professionele foto- en videosessies.",
+          "Gerichte betaalde campagnes op passende platforms.",
+          "Monitoring van de resultaten en bijsturen waar nodig.",
+          "De sterke punten eerlijk en aantrekkelijk presenteren."
+        ],
+        "bestFor": "Eigenaren die sterke zichtbaarheid willen, zowel lokaal als online."
+      }
+    },
+    "processTitle": "Hoe behandelen we je aanvraag?",
+    "processIntro": "We houden het proces eenvoudig en duidelijk, zonder verborgen stappen of ingewikkelde termen.",
+    "processSteps": [
+      {
+        "label": "1. Gratis eerste adviesgesprek",
+        "text": "We luisteren naar je situatie en je doel (verkopen, kopen, huren, investeren) en leggen helder uit wat realistisch mogelijk is."
+      },
+      {
+        "label": "2. Duidelijk actieplan",
+        "text": "We spreken samen de volgende stappen af, de juiste dienst en wat je van ons en van de markt mag verwachten."
+      },
+      {
+        "label": "3. Uitvoering en opvolging",
+        "text": "We starten en houden je op de hoogte: aanvragen, bezoeken, biedingen, onderhandelingen… tot het gewenste resultaat."
+      }
+    ],
+    "whoTitle": "Voor wie zijn onze diensten?",
+    "whoPoints": [
+      "Gezinnen die een nette woning zoeken in een geschikte buurt tegen een redelijke prijs.",
+      "Marokkanen in het buitenland die een betrouwbare contactpersoon in Marokko nodig hebben.",
+      "Eigenaren die professioneel willen verkopen of verhuren.",
+      "Investeerders die realistische en geanalyseerde kansen zoeken – geen willekeurige advertenties."
+    ],
+    "closingTitle": "Hoe starten we?",
+    "closingText": "Neem contact met ons op en vertel wat je overweegt: verkopen, kopen, huren of gewoon advies. We stellen de meest geschikte dienst voor en gaan stap voor stap verder, zonder druk."
+  },
+  "blog": {
+    "metaTitle": "Alaqariyya – Blog",
+    "metaDescription": "Vastgoedartikelen en tips van Alaqariyya over kopen, verkopen en huren in Marokko.",
+    "heroTitle": "Vastgoedblog",
+    "heroSubtitle": "Korte, praktische artikelen om de Marokkaanse vastgoedmarkt beter te begrijpen en betere keuzes te maken bij kopen, huren of investeren.",
+    "loading": "Artikelen worden geladen...",
+    "empty": "Er zijn nog geen artikelen beschikbaar.",
+    "readArticle": "Artikel lezen",
+    "pagination": {
+      "previous": "Vorige",
+      "next": "Volgende"
+    },
+    "placeholderImageUrl": "https://via.placeholder.com/800x450?text=Vastgoed+in+Marokko",
+    "errors": {
+      "fetchPosts": "Fout bij het ophalen van blogartikelen:"
+    }
+  },
+  "newsArticle": {
+    "metaTitlePrefix": "{{title}} – Alaqariyya Nieuws",
+    "back": "Terug ←",
+    "readingTime": "{{minutes}} min leestijd",
+    "youtubeTitle": "YouTube-video",
+    "categories": {
+      "market": "Markt",
+      "legal": "Juridische gids",
+      "tips": "Tips",
+      "investment": "Investering",
+      "other": "Overig"
+    }
+  },
+  "content": {
+    "pageTitle": "Woningen",
+    "readMoreArticles": "Meer artikelen lezen ↪",
+    "readMoreArticlesAria": "Meer artikelen lezen",
+    "discoverMoreProperties": "Meer woningen ontdekken ↪",
+    "discoverMorePropertiesAria": "Meer woningen ontdekken",
+    "viewDetails": "Details bekijken",
+    "viewDetailsAria": "Details bekijken van {{title}}",
+    "soldPill": "Dit pand is niet beschikbaar",
+    "soldInline": "NIET BESCHIKBAAR",
+    "soldAria": "Het pand is niet beschikbaar"
+  },
+  "clientReviews": {
+    "title": "Klantbeoordelingen op Google",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "viewAllLink": "Bekijk alle reviews op Google Maps ↪",
+    "sectionAria": "Klantreviews in Google-stijl",
+    "paginationAria": "Paginering van reviews",
+    "prevAria": "Vorige",
+    "nextAria": "Volgende",
+    "goToPageAria": "Ga naar pagina {{page}}",
+    "ratingAria": "Beoordeling {{value}} van 5"
+  },
+  "featured": {
+    "title": "Uitgelichte woningen",
+    "featured": "Uitgelicht",
+    "forSale": "Te koop",
+    "negotiable": "Onderhandelbaar",
+    "viewDetails": "Bekijk details van {{title}}",
+    "apartment": "Appartement",
+    "villa": "Villa",
+    "house": "Huis",
+    "commercial": "Commercieel",
+    "land": "Grond",
+    "area": "Oppervlakte",
+    "bedrooms": "Slaapkamers",
+    "salon": "Woonkamers",
+    "bathrooms": "Badkamers",
+    "loading": "Uitgelichte panden worden geladen...",
+    "loadFailed": "Uitgelichte panden konden niet geladen worden.",
+    "empty": "Er zijn momenteel geen uitgelichte panden"
+  },
+  "productDetail": {
+    "propertyNotFound": "Woning niet gevonden",
+    "backToHome": "Terug naar home",
+    "searchResults": "Zoekresultaten",
+    "previousImage": "Vorige afbeelding",
+    "nextImage": "Volgende afbeelding",
+    "propertyLocation": "Locatie van de woning",
+    "shareNotSupported": "Je browser ondersteunt delen niet.",
+    "copyUrl": "Je kunt de URL kopiëren",
+    "soldBadge": "Dit pand is niet beschikbaar",
+    "soldShort": "NIET BESCHIKBAAR",
+    "soldTooltip": "Pand niet beschikbaar",
+    "sold": "Niet beschikbaar",
+    "addToFavorites": "Toevoegen aan favorieten",
+    "propertyStatus": "Status van de woning",
+    "available": "Beschikbaar",
+    "allRent": "Alle huurwoningen",
+    "allRequests": "Alle aanvragen",
+    "whatsapp": "WhatsApp"
   }
+
+
 }

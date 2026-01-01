@@ -1,0 +1,35 @@
+ALTER TABLE `news`
+  ADD COLUMN `category` varchar(100) DEFAULT NULL,
+  ADD COLUMN `youtube_url` varchar(255) DEFAULT NULL;
+
+
+ALTER TABLE properties
+  ADD COLUMN is_sold TINYINT(1) NOT NULL DEFAULT 0 AFTER kitchen,
+  ADD COLUMN sold_date DATE NULL AFTER is_sold;
+
+
+CREATE TABLE `cities` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name_ar` VARCHAR(120) NOT NULL,
+  `name_fr` VARCHAR(120) NOT NULL,
+  `slug` VARCHAR(140) NOT NULL UNIQUE,
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+ALTER TABLE `properties`
+  ADD COLUMN `city_id` INT NULL AFTER `type`;
+
+ALTER TABLE `properties`
+  ADD CONSTRAINT `fk_properties_city`
+  FOREIGN KEY (`city_id`) REFERENCES `cities`(`id`)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL;
+
+ALTER TABLE `properties`
+  ADD COLUMN `is_featured` TINYINT(1) NOT NULL DEFAULT 0 AFTER `is_sold`,
+  ADD COLUMN `featured_at` TIMESTAMP NULL DEFAULT NULL AFTER `is_featured`;
+
+CREATE INDEX `idx_properties_featured` ON `properties` (`is_featured`, `featured_at`);

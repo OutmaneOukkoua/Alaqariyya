@@ -19,7 +19,6 @@
 }
 
 /* Add News Button */
-
 .add-news {
   background-color: green;
   color: white;
@@ -34,19 +33,18 @@
 }
 
 .add-news:hover {
-  background-color: #28a745; /* Slightly lighter green for hover effect */
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  background-color: #28a745;
+  transform: scale(1.05);
 }
 
 .add-news:active {
-  transform: scale(1); /* Reset zoom effect on click */
+  transform: scale(1);
 }
 
 .add-news:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5); /* Add a subtle focus ring */
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
 }
-
 
 /* Table Styling */
 .news-table {
@@ -57,7 +55,8 @@
   color: #333;
 }
 
-.news-table th, .news-table td {
+.news-table th,
+.news-table td {
   padding: 12px;
   border: 1px solid #ddd;
   text-align: left;
@@ -91,6 +90,105 @@
   background-color: darkred;
 }
 
+/* ===========================
+   MODAL (تكبير عرض المودال)
+=========================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 18px;
+  /* هنا كبرنا المودال */
+  max-width: 760px;        /* كان صغير، الآن أعرض */
+  width: 96%;
+  margin: 0 auto;
+  box-shadow: 0 20px 50px -28px rgba(15, 23, 42, 0.7);
+  position: relative;
+  padding: 18px 22px 24px;
+}
+
+/* زر الإغلاق داخل المودال */
+.modal-content .close {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+.modal-content .close:hover {
+  color: #111827;
+}
+
+.news-content-cell {
+  max-width: 420px;
+  cursor: pointer;
+  user-select: none;
+  color: #0f172a;
+}
+
+.news-content-cell:hover {
+  text-decoration: underline;
+}
+
+.news-content-modal h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.news-content-full {
+  white-space: pre-wrap;
+  line-height: 1.8;
+  font-size: 15px;
+  color: #111827;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  max-height: 55vh;
+  overflow: auto;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.pagination button {
+  background: #3070fa;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  color: #253a68;
+  font-weight: 600;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .newsPage {
@@ -101,7 +199,8 @@
     font-size: 20px;
   }
 
-  .news-table th, .news-table td {
+  .news-table th,
+  .news-table td {
     padding: 8px;
     font-size: 14px;
   }
@@ -110,6 +209,7 @@
     padding: 6px 12px;
     font-size: 14px;
   }
+
   .add-news {
     padding: 8px 16px;
     font-size: 0.9em;
@@ -117,6 +217,12 @@
   }
 
   .add-news:hover {
-    transform: scale(1.02); /* Further reduce zoom effect on hover */
+    transform: scale(1.02);
+  }
+
+  /* المودال على الموبايل يبقى واسع لكن مع حواف مريحة */
+  .modal-content {
+    max-width: 95%;
+    padding: 16px 16px 22px;
   }
 }

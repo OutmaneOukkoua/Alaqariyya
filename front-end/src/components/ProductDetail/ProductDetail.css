@@ -61,11 +61,6 @@
   margin-right: 20px;
 }
 
-.product-info h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
 .product-price {
   font-size: 28px;
   color: #28a745;
@@ -200,47 +195,6 @@
   cursor: pointer;
 }
 
-.main-image,
-.nav-arrow {
-  user-select: none; /* Prevents selection */
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE/Edge */
-}
-
-
-.nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 30px; /* Reduce the size for a more subtle look */
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4); /* Add a background for better visibility */
-  padding: 10px;
-  border-radius: 50%; /* Make it circular */
-  transition: background-color 0.3s, transform 0.3s ease; /* Add smooth hover transition */
-}
-
-/* Add hover effect for a more interactive feel */
-.nav-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.1); /* Slightly increase the size on hover */
-}
-
-.left-arrow {
-  left: 10px;
-}
-
-.right-arrow {
-  right: 10px;
-}
-
-.nav-arrow:hover {
-  color: #fff;
-}
-
 .heartt-icon {
   position: absolute;
   top: 15px;
@@ -259,7 +213,7 @@
   display: flex;
   margin-top: 10px;
   overflow-x: auto;
-  max-width: calc((80px + 10px) * 9 - 10px); /* Width for 9 images */
+  max-width: calc((80px + 10px) * 9 - 10px);
 }
 
 .thumbnails img {
@@ -288,13 +242,6 @@
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.seller-info h3 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  color: #333;
-  text-align: center;
 }
 
 .seller-profile {
@@ -362,63 +309,6 @@
   background-color: #5a6268;
 }
 
-/* Modals */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 5px;
-  padding: 30px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
-.modal-btn,
-.modal-btn-w,
-.modal-close {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 15px;
-  transition: background-color 0.3s;
-}
-
-.modal-btn-w {
-  background-color: #25d366;
-}
-
-.modal-close {
-  background-color: #6c757d;
-}
-
-.modal-btn:hover {
-  background-color: #0056b3;
-}
-
-.modal-btn-w:hover {
-  background-color: #128c7e;
-}
-
-.modal-close:hover {
-  background-color: #5a6268;
-}
-
 /* Image Modal */
 .image-modal {
   position: fixed;
@@ -426,7 +316,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Reduced opacity */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -442,17 +332,24 @@
   border-radius: 8px;
 }
 
+.image-modal-content:has(.enlarged-image){
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
 .enlarged-image {
   width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 8px;
-  user-select: none; /* Prevents selection */
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE/Edge */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
-
 
 .close-modal {
   position: absolute;
@@ -461,37 +358,6 @@
   color: #333;
   font-size: 30px;
   cursor: pointer;
-}
-
-.modal-nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 30px; /* Reduce the size for a more subtle look */
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.4); /* Add a background for better visibility */
-  padding: 10px;
-  border-radius: 50%; /* Make it circular */
-  transition: background-color 0.3s, transform 0.3s ease; /* Add smooth hover transition */
-}
-
-.modal-nav-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.1); /* Slightly increase the size on hover */
-}
-
-.modal-left-arrow {
-  left: 30px;
-}
-
-.modal-right-arrow {
-  right: 30px;
-}
-
-.modal-nav-arrow:hover {
-  color: #007bff;
 }
 
 .modal-heart-icon {
@@ -507,30 +373,173 @@
   color: red;
 }
 
-/* ProductDetail.css */
-
+/* Loading */
 .loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Adjust height as needed */
+  height: 100vh;
 }
 
 .spinner {
-  font-size: 50px; /* Adjust size as needed */
-  color: #555; /* Adjust color as needed */
+  font-size: 50px;
+  color: #555;
   animation: spin 1s linear infinite;
   margin-bottom: 10px;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ====== ✅ Prevent Selection / Drag Blue Highlight ====== */
+.image-gallery,
+.main-image,
+.image-modal-content,
+.thumbnails,
+.main-image img,
+.enlarged-image,
+.thumbnails img {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ✅ Smooth fade classes */
+.is-hidden { opacity: 0; }
+.is-visible { opacity: 1; transition: opacity 180ms ease; }
+
+/* ===== ✅ Buttons arrows instead of icon click ===== */
+.nav-btn,
+.modal-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-btn:hover,
+.modal-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.nav-btn.left { left: 10px; }
+.nav-btn.right { right: 10px; }
+
+.modal-nav-btn.left { left: 12px; }
+.modal-nav-btn.right { right: 12px; }
+
+/* ===== SOLD Overlay ===== */
+.sold-image img {
+  filter: grayscale(100%) brightness(0.7);
+}
+
+.sold-overlay-detail {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.sold-badge-detail {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(220, 38, 38, 0.45);
+}
+
+.product-title {
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sold-inline-detail {
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.price-sold-detail {
+  opacity: 0.6;
+}
+
+.sold-status-card {
+  border: 1px dashed rgba(220, 38, 38, 0.35);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.sold-status-card.available {
+  border-color: rgba(22, 163, 74, 0.35);
+  background: rgba(22, 163, 74, 0.06);
+}
+
+.sold-status-card.sold {
+  border-color: rgba(220, 38, 38, 0.35);
+  background: rgba(220, 38, 38, 0.06);
+}
+
+/* ===== Modal ===== */
+.modalT {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalT-btn,
+.modalT-btn-w,
+.modalT-close {
+  width: 100%;
+  padding: 14px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.modalT-btn { background: #2563eb; }
+.modalT-btn-w { background: #25d366; }
+.modalT-close { background: #6c7570; }
+
+.breadcrumb.rtl {
+  direction: rtl;
+}
+
+.seller-info{
+  position: relative;
+  padding: 28px 18px 14px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,.10);
 }
 
 /* Optional: Style the loading text */
@@ -539,9 +548,6 @@
   color: #555;
 }
 
-.description-text {
-  white-space: pre-line;
-}
 
 /* Existing Mobile Styles */
 @media (max-width: 768px) {
@@ -576,13 +582,6 @@
     font-size: 14px;
     padding: 10px;
   }
-  
-  .modal-btn,
-  .modal-btn-w,
-  .modal-close {
-    font-size: 14px;
-    padding: 12px;
-  }
 
   .details-section h2 {
     font-size: 24px;
@@ -595,27 +594,24 @@
   .detail-text {
     font-size: 16px;
   }
+
   .image-modal-content {
     width: 90%;
     max-width: none;
     padding: 15px;
   }
 
-  .modal-nav-arrow {
-    font-size: 30px;
-  }
-
   .close-modal,
   .modal-heart-icon {
     font-size: 30px;
   }
+
   .main-image {
     position: relative;
     width: 100%;
     overflow: hidden;
     border-radius: 5px;
   }
-
 }
 
 /* New Tablet Styles (769px to 1024px) */
@@ -623,15 +619,13 @@
   .ProductDetail {
     padding-top: 10px;
   }
-  
+
   .left-column {
     margin-right: 15px;
-
   }
 
   .right-column {
     margin-right: 0;
-
   }
 
   .main-image {
@@ -641,10 +635,6 @@
 
   .product-price {
     font-size: 24px;
-  }
-
-  .product-info h1 {
-    font-size: 22px;
   }
 
   .product-meta {
@@ -700,23 +690,16 @@
 
 /* New Large Tablet/Desktop Styles (Up to 1024px if needed) */
 @media (max-width: 1024px) {
-
   .details-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
   }
 
-  /* Modify button sizes */
   .contact-btn,
   .email-btn,
   .share-btn {
     padding: 10px;
     font-size: 15px;
-  }
-
-  /* Adjust font sizes for better readability */
-  .product-info h1 {
-    font-size: 20px;
   }
 
   .product-price {
@@ -727,16 +710,15 @@
     font-size: 16px;
   }
 
-  /* Adjust image sizes */
   .main-image {
     max-width: 550px;
   }
 
   .thumbnails {
     display: flex;
-    overflow-x: auto; /* Enable horizontal scroll */
-    max-width: calc((70px + 10px) * 7 - 10px); /* Width for 6 images */
-    padding-bottom: 10px; /* Add padding for better look */
+    overflow-x: auto;
+    max-width: calc((70px + 10px) * 7 - 10px);
+    padding-bottom: 10px;
   }
 
   .thumbnails img {

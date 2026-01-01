@@ -1,12 +1,23 @@
-import React from 'react';
-import './AddToPanier.css';
-import { useCart } from './CartContext';
+// components/AddToPanier/AddToPanier.jsx
+import React from "react";
+import "./AddToPanier.css";
+import { useCart } from "../../contexts/CartContext";
 
 function AddToPanier({ product }) {
   const { dispatch } = useCart();
 
   const handleAddToCart = () => {
-    dispatch({ type: 'ADD_TO_CART', product });
+    const id = product?.property_id ?? product?.id;
+    if (!id) return;
+
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        productId: id,
+        image_url: product?.image_url,
+        price: product?.price,
+      },
+    });
   };
 
   return (

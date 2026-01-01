@@ -1,156 +1,130 @@
-.login-container {
-  display: flex;
-  height: 100vh;
-  max-width: 1280px; /* Set a max-width for the container */
-  margin: 0 auto; /* Center the container */
+/* صفحة كاملة بخلفية هادئة */
+.login-page{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f6f7fb;
 }
 
-.bg {
-  flex: 1;
-  background-image: url('/public/login.jpg');
-  height: auto; /* Allow height to adjust based on content */
-  background-size: cover; /* Ensure the image covers the container */
-  background-position: center;
+/* الإطار (Card) الذي يحتوي الصورة + الفورم */
+.login-shell{
+  width: min(1020px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #e6e8ef;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -28px rgba(15, 23, 42, .35);
 }
 
-.contents {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+/* RTL/LTR فقط للتنسيق */
+.login-shell.ltr{ direction: ltr; text-align: left; }
+.login-shell.rtl{ direction: rtl; text-align: right; }
+
+/* القسم الخاص بالصورة */
+.login-media{
+  position: relative;
+  background: #111827;
+  min-height: 520px;
 }
-/* General styles for container */
-.container {
-  max-width: 600px;
+
+.login-image{
   width: 100%;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* LTR layout */
-.ltr .container {
-  direction: ltr;
-  text-align: left;
-}
-
-/* RTL layout */
-.rtl .container {
-  direction: rtl;
-  text-align: right;
-}
-
-/* Other styles remain unchanged */
-
-
-h3 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
+  height: 100%;
+  object-fit: cover;
   display: block;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #555;
+  opacity: .92;
 }
 
-.form-control {
-  width: 90%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
+/* طبقة لطيفة فوق الصورة */
+.login-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(0,0,0,.35), rgba(0,0,0,.10));
 }
 
-.btn-primary {
-  width: 95%;
-  padding: 1rem;
-  font-size: 1.2rem;
-  background-color: #007bff;
-  border: none;
-  border-radius: 0.25rem;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.control--checkbox {
+/* الفورم */
+.login-form{
+  padding: 34px 32px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.control--checkbox .caption {
-  margin-left: 0.5rem;
+.login-title{
+  margin: 0 0 18px 0;
+  font-size: 26px;
+  color: #111827;
 }
 
-.forgot-pass {
-  text-decoration: none;
-  color: #007bff;
+.form-group{
+  margin-bottom: 14px;
 }
 
-.forgot-pass:hover {
-  text-decoration: underline;
+.form-group label{
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #374151;
 }
 
-.error {
-  color: red;
-  margin-bottom: 1rem;
+.form-control{
+  width: 93%;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background: #fff;
+  transition: box-shadow .2s, border-color .2s;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column; /* Stack the elements vertically */
-    padding: 5px; /* Add some padding for mobile */
-  }
+.form-control:focus{
+  border-color: #8b8cf6;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, .16);
+}
 
-  .bg {
-    flex: 1;
-    height: 100px; /* Reduce the height for mobile */
-    background-size: contain; /* Ensure the image scales down */
-    background-position: center;
-    background-repeat: no-repeat;
-  }
+.btn-primary{
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #111827;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform .06s, opacity .2s;
+}
 
-  .contents {
-    flex: 1;
-    justify-content: flex-start; /* Align the content to the top */
-    padding: 10px;
-  }
+.btn-primary:hover{ opacity: .92; }
+.btn-primary:active{ transform: translateY(1px); }
 
-  .container {
-    width: 100%;
-  }
+.error{
+  color: #b42318;
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
 
-  h3 {
-    font-size: 1.5rem; /* Adjust the font size */
-    margin-top: 10px; /* Add margin top to separate from bg */
+/* موبايل */
+@media (max-width: 900px){
+  .login-shell{
+    grid-template-columns: 1fr;
   }
-
-  .form-group {
-    margin-bottom: 0.5rem; /* Reduce margin between form groups */
+  .login-media{
+    min-height: 180px;
   }
-
-  .form-control {
-    padding: 0.75rem; /* Adjust padding */
-    font-size: 1rem; /* Adjust font size */
+  .login-form{
+    padding: 22px 18px;
   }
-
-  .btn-primary {
-    padding: 0.75rem; /* Adjust padding */
-    font-size: 1rem; /* Adjust font size */
+  .login-title{
+    font-size: 22px;
   }
 }

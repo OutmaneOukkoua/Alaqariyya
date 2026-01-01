@@ -1,0 +1,368 @@
+:root {
+  --primary: #5a52f2;
+  --primary-dark: #4843d0;
+
+  --text: #0f172a;
+  --muted: #475569;
+
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --border: #e5e7eb;
+
+  --shadow: 0 18px 45px -30px rgba(15, 23, 42, 0.55);
+  --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.06);
+
+  --radius-lg: 18px;
+  --radius-md: 14px;
+}
+
+/* الصفحة */
+.about-page {
+  min-height: 100vh;
+  padding: 90px 16px 50px;
+  background: radial-gradient(
+      900px 420px at 10% 0%,
+      rgba(90, 82, 242, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 420px at 90% 10%,
+      rgba(14, 165, 233, 0.12),
+      transparent 55%
+    ),
+    var(--bg);
+}
+
+.about-page.rtl {
+  direction: rtl;
+  text-align: right;
+}
+.about-page.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.about-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ===== HERO (أعلى الصفحة) ===== */
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(90, 82, 242, 0.12);
+  color: var(--primary-dark);
+  font-weight: 700;
+  border: 1px solid rgba(90, 82, 242, 0.18);
+  box-shadow: 0 10px 20px -18px rgba(90, 82, 242, 0.6);
+  margin-bottom: 10px;
+}
+
+.about-title {
+  font-size: 34px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.about-intro {
+  font-size: 15.5px;
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 0 0 28px;
+  max-width: 900px;
+}
+
+/* ===== Grid: قصتنا / لمن نخدم ===== */
+.about-layout {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+@media (min-width: 900px) {
+  .about-layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+.about-block {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-block::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  inset-inline-end: -60px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle,
+    rgba(90, 82, 242, 0.18),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.about-subtitle {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.about-text {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* Lists */
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-list li {
+  font-size: 14px;
+  color: #334155;
+  position: relative;
+  padding-inline-start: 26px;
+  line-height: 1.7;
+}
+
+.about-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), #0ea5e9);
+  box-shadow: 0 10px 18px -14px rgba(90, 82, 242, 0.8);
+}
+
+/* ===== Steps ===== */
+.about-steps {
+  margin: 24px 0 12px;
+}
+
+.about-steps-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+@media (min-width: 900px) {
+  .about-steps-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.about-step-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 16px 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-step-card::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  inset-inline-start: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(
+    circle,
+    rgba(14, 165, 233, 0.15),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.about-step-card h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.about-step-card p {
+  margin: 0;
+  font-size: 13.8px;
+  color: #475569;
+  line-height: 1.75;
+}
+
+/* ===== Why ===== */
+.about-why {
+  margin: 18px 0 10px;
+}
+
+.about-why-list li::before {
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  border-radius: 6px;
+  background: rgba(22, 163, 74, 0.14);
+  box-shadow: none;
+}
+
+.about-why-list li {
+  padding-inline-start: 30px;
+}
+
+.about-why-list li::after {
+  content: "✓";
+  position: absolute;
+  inset-inline-start: 4px;
+  top: 0px;
+  font-size: 13px;
+  color: #16a34a;
+  font-weight: 900;
+}
+
+/* ===== Stats ===== */
+.about-stats-section {
+  margin: 24px 0 12px;
+}
+
+.about-stats-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+@media (min-width: 900px) {
+  .about-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.about-stat-card {
+  border-radius: var(--radius-lg);
+  padding: 16px 16px;
+  border: 1px solid rgba(90, 82, 242, 0.18);
+  background: linear-gradient(
+    180deg,
+    rgba(90, 82, 242, 0.08),
+    rgba(255, 255, 255, 0.9)
+  );
+  box-shadow: var(--shadow-soft);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-stat-card h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: #1d4ed8;
+}
+
+.about-stat-card p {
+  margin: 0;
+  font-size: 13.8px;
+  color: #1e293b;
+  line-height: 1.75;
+}
+
+/* ===== Closing ===== */
+.about-closing {
+  margin-top: 24px;
+  border-radius: 22px;
+  padding: 18px 18px;
+  background: linear-gradient(135deg, #0f172a, #111827);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-closing::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+      900px 300px at 10% 0%,
+      rgba(90, 82, 242, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 300px at 90% 0%,
+      rgba(14, 165, 233, 0.18),
+      transparent 55%
+    );
+  pointer-events: none;
+}
+
+.about-closing .about-subtitle {
+  color: #f8fafc;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.about-closing .about-text {
+  color: rgba(248, 250, 252, 0.88);
+  position: relative;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .about-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-page {
+    padding-top: 78px;
+  }
+
+  .about-title {
+    font-size: 24px;
+  }
+
+  .about-intro {
+    font-size: 14.5px;
+  }
+
+  .about-block,
+  .about-step-card,
+  .about-stat-card,
+  .about-closing {
+    padding: 14px 14px;
+    border-radius: 18px;
+  }
+}

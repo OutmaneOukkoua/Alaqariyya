@@ -1,44 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import emailjs from 'emailjs-com';
-import { useTranslation } from 'react-i18next';
-import './ContactUs.css';
-import Footer from '../Footer/Footer';
+import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
+import emailjs from "emailjs-com";
+import { useTranslation } from "react-i18next";
+import "./ContactUs.css";
 
-import { Helmet } from 'react-helmet';
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Footer from "../Footer/Footer";
+import SEO from "../../SEO/SEO";
 
 function ContactUs() {
   const { t, i18n } = useTranslation();
-  const isArabic = i18n.language === 'ar';
+  const isArabic = i18n.language === "ar";
   const API_URL = process.env.REACT_APP_SERVER;
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
-  const [alertMessage, setAlertMessage] = useState('');
-  const [alertType, setAlertType] = useState('');
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const teamMembers = useMemo(
+    () => [
+      {
+        id: 1,
+        name: t("contact.teamMembers.1.name"),
+        role: t("contact.teamMembers.1.role"),
+        languages: t("contact.teamMembers.1.languages"),
+        phoneDisplay: "07 000 57 111",
+        phoneRaw: "212700057111",
+        whatsDisplay: "07 000 57 111",
+        whatsRaw: "212700057111",
+        initial: "A",
+        color: "linear-gradient(135deg, #f97316, #ea580c)",
+      },
+      {
+        id: 2,
+        name: t("contact.teamMembers.2.name"),
+        role: t("contact.teamMembers.2.role"),
+        languages: t("contact.teamMembers.2.languages"),
+        phoneDisplay: "06 59 25 10 19",
+        phoneRaw: "212659251019",
+        whatsDisplay: "06 59 25 10 19",
+        whatsRaw: "212659251019",
+        initial: "Z",
+        color: "linear-gradient(135deg, #ec4899, #db2777)",
+      },
+      {
+        id: 3,
+        name: t("contact.teamMembers.3.name"),
+        role: t("contact.teamMembers.3.role"),
+        languages: t("contact.teamMembers.3.languages"),
+        phoneDisplay: "06 02 72 05 36",
+        phoneRaw: "212602720536",
+        whatsDisplay: "06 02 72 05 36",
+        whatsRaw: "212602720536",
+        initial: "J",
+        color: "linear-gradient(135deg, #22c55e, #16a34a)",
+      },
+      {
+        id: 4,
+        name: t("contact.teamMembers.4.name"),
+        role: t("contact.teamMembers.4.role"),
+        languages: t("contact.teamMembers.4.languages"),
+        phoneDisplay: "06 47 00 61 11",
+        phoneRaw: "212647006111",
+        whatsDisplay: "06 47 00 61 11",
+        whatsRaw: "212647006111",
+        initial: "A",
+        color: "linear-gradient(135deg, #3b82f6, #2563eb)",
+      },
+      {
+        id: 5,
+        name: t("contact.teamMembers.5.name"),
+        role: t("contact.teamMembers.5.role"),
+        languages: t("contact.teamMembers.5.languages"),
+        phoneDisplay: "07 000 58 111",
+        phoneRaw: "212700058111",
+        whatsDisplay: "07 000 58 111",
+        whatsRaw: "212700058111",
+        initial: "J",
+        color: "linear-gradient(135deg, #a855f7, #7c3aed)",
+      },
+    ],
+    [t]
+  );
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const dataToSubmit = { ...formData }; // Capture formData before resetting
+    const dataToSubmit = { ...formData };
+
     try {
-      // Submit form data to backend
+      setIsSubmitting(true);
+
       await axios.post(`${API_URL}/contact-submissions`, dataToSubmit);
 
-      // Send email using emailjs
       const templateParams = {
-        to_name: 'Alaqariyya',
+        to_name: "Alaqariyya",
         from_name: dataToSubmit.name,
         from_email: dataToSubmit.email,
         from_phone: dataToSubmit.phone,
@@ -47,340 +120,247 @@ function ContactUs() {
       };
 
       await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,   // Service ID
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,  // Template ID
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         templateParams,
-        process.env.REACT_APP_EMAILJS_USER_ID       // User ID (Public Key)
+        process.env.REACT_APP_EMAILJS_USER_ID
       );
 
-      setAlertMessage(t('contact.messageSent'));
-      setAlertType('success');
+      setAlertMessage(t("contact.messageSent"));
+      setAlertType("success");
 
-      // Reset form
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
       });
     } catch (error) {
-      setAlertMessage(t('contact.messageFailed'));
-      setAlertType('error');
+      setAlertMessage(t("contact.messageFailed"));
+      setAlertType("error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
-    if (alertMessage) {
-      const timer = setTimeout(() => {
-        setAlertMessage('');
-        setAlertType('');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
+    if (!alertMessage) return;
+    const timer = setTimeout(() => {
+      setAlertMessage("");
+      setAlertType("");
+    }, 3000);
+    return () => clearTimeout(timer);
   }, [alertMessage]);
 
   return (
     <>
-      <Helmet>
-        {/* HTML Language Attribute */}
-        <html lang="ar" />
+      <SEO
+        title={t("contact.metaTitle", { defaultValue: "ALAQARIYYA العقارية - تواصل معنا" })}
+        description={t("contact.metaDescription", {
+          defaultValue: "تواصل مع ALAQARIYYA العقارية في الناظور ونواحيها لبيع وشراء وتأجير العقارات والاستشارات.",
+        })}
+        path={`/${i18n.language || "en"}/contact`}
+      />
+      <div className={`contact-page-v2 ${isArabic ? "rtl" : "ltr"}`}>
+        {/* HERO */}
+        <section className="contact-v2-hero">
+          <h1>{t("contact.contactUs")}</h1>
+          <p>{t("contact.subtitle")}</p>
+        </section>
 
-        {/* Title and Description */}
-        <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
-        <meta
-          name="description"
-          content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
-        />
+        {/* TOP INFO CARDS */}
+        <section className="contact-v2-info">
+          <div className="contact-v2-info-card">
+            <h3>{t("contact.directContact")}</h3>
+            <p>
+              <span>{t("contact.email")} :</span>{" "}
+              <a href="mailto:alaqariyya@gmail.com">alaqariyya@gmail.com</a>
+            </p>
+            
+            <p>
+              <span>{t("contact.phoneFixND")} :</span>{" "}
+              <a className="phone-ltr" href="tel:+212538782396">
+                0538 78 23 96
+              </a>
+            </p>
 
-        {/* Viewport and Charset */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charset="UTF-8" />
-
-        {/* Robots Meta */}
-        <meta name="robots" content="index, follow" />
-
-        {/* Canonical Link */}
-        <link rel="canonical" href="https://www.alaqariyya.com" />
-
-        {/* Open Graph Tags */}
-        <meta property="og:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية" />
-        <meta
-          property="og:description"
-          content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
-        />
-        <meta property="og:url" content="https://www.alaqariyya.com" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.alaqariyya.com/logo.svg" />
-        <meta property="og:image:alt" content="ALAQARIYYA العقارية Logo" />
-        <meta property="og:locale" content="ar_MA" />
-
-        {/* Twitter Card Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA" />
-        <meta
-          name="twitter:description"
-          content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
-        />
-        <meta name="twitter:image" content="https://www.alaqariyya.com/logo.svg" />
-
-        {/* Location Meta Tags */}
-        <meta name="geo.placename" content="زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور، المغرب" />
-        <meta name="geo.position" content="35.1761;-2.9308" />
-        <meta name="ICBM" content="35.1761, -2.9308" />
-        <link rel="alternate" href="https://maps.app.goo.gl/ysG1ZvxgLQUj3QRN7" />
-
-        {/* JSON-LD: RealEstateAgent Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "RealEstateAgent",
-            "name": "ALAQARIYYA العقارية",
-            "description":
-              "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
-            "url": "https://www.alaqariyya.com",
-            "logo": "https://www.alaqariyya.com/logo.svg",
-            "telephone": "+212 536-348141",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
-              "addressLocality": "بني انصار",
-              "addressRegion": "الناظور",
-              "postalCode": "62000",
-              "addressCountry": "MA",
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "35.1761",
-                "longitude": "-2.9308"
-              }
-            },
-            "openingHours": ["Mo-Fr 09:00-19:00"],
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+212 536-348141",
-              "contactType": "خدمة العملاء",
-              "availableLanguage": ["ar", "fr", "en", "es","de","nl"]
-            },
-            "areaServed": "MA",
-            "inLanguage": ["ar", "fr", "en", "es","de","nl"],
-            "serviceType": [
-              "تأجير العقارات",
-              "بيع العقارات",
-              "شراء العقارات",
-              "استشارات عقارية",
-              "تسجيل العقارات"
-            ],
-            "makesOffer": [
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "منازل",
-                  "category": "عقارات سكنية"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "شقق",
-                  "category": "عقارات سكنية"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "طوابق",
-                  "category": "عقارات سكنية"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "أراضي",
-                  "category": "عقارات"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "كراجات",
-                  "category": "عقارات"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "كراجات تجارية",
-                  "category": "عقارات تجارية"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "إيجار عادي",
-                  "category": "خدمات التأجير"
-                }
-              },
-              {
-                "@type": "Offer",
-                "priceCurrency": "MAD",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "إيجار مفروش",
-                  "category": "خدمات التأجير"
-                }
-              }
-            ],
-            "foundingDate": "2024",
-            "currenciesAccepted": "MAD",
-            "sameAs": [
-              "https://www.facebook.com/profile.php?id=61560366056640",
-              "https://www.instagram.com/alaqariyya",
-              "https://fr.airbnb.com/users/show/582106109",
-              "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html",
-              "https://expe.app.link/2uBx1FL1yPb"
-            ]
-          })}
-        </script>
-
-        {/* JSON-LD: WebPage Schema */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "ALAQARIYYA - العقارات الأفضل في المغرب",
-            "url": "https://www.alaqariyya.com",
-            "description": "خدمات تأجير، بيع، وشراء عقارات بمهنية عالية في المغرب.",
-            "inLanguage": "ar",
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "35.1761",
-              "longitude": "-2.9308"
-            }
-          })}
-        </script>
-      </Helmet>
-
-
-      <div className={`contact-container ${isArabic ? 'rtl' : 'ltr'}`}>
-        <div className="contact-header">
-          <h1>{t('contact.contactUs')}</h1>
-        </div>
-
-        <div className="contact-content">
-          {/* Contact Form */}
-          <form className="contact-form" onSubmit={handleSubmit}>
-            {alertMessage && (
-              <div className={`alert alert-${alertType}`}>
-                {alertMessage}
-              </div>
-            )}
-
-            <div className="form-group">
-              <label htmlFor="name">{t('contact.name')} *</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">{t('contact.eMail')} *</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="phone">{t('contact.phone')} *</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="subject">{t('contact.subject')} *</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="message">{t('contact.message')} *</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows="5"
-                required
-                style={{resize: 'none'}}
-              ></textarea>
-            </div>
-
-            <button type="submit" className="submit-button">{t('contact.send')}</button>
-          </form>
-
-          {/* Map and Contact Info */}
-          <div className="map-and-info">
-            <div className="map-container">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4089.2370257556186!2d-2.9364044206542848!3d35.260848274982706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7709002698ceaf%3A0xbe4e719ebdef6266!2zQWxhcWFyaXl5YSAtINin2YTYudmC2KfYsdmK2Kk!5e1!3m2!1sen!2sus!4v1723970680540!5m2!1sen!2sus"
-                width="600"
-                height="450"
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Location"
-              ></iframe>
-            </div>
-            <div className="contact-info">
-              <table>
-                <tr>
-                  <td><strong>{t('contact.email')}:</strong></td>
-                  <td>alaqariyya@gmail.com</td>
-                </tr>
-                <tr>
-                  <td><strong>{t('contact.phone')}:</strong></td>
-                  <td>0536.34.8141</td>
-                </tr>
-              </table>
-            </div>
+            <p>
+              <span>{t("contact.phoneFixBN")} :</span>{" "}
+              <a className="phone-ltr" href="tel:+212536348141">
+                0536 34 81 41
+              </a>
+            </p>
           </div>
-        </div>
+
+          <div className="contact-v2-info-card">
+            <h3>{t("contact.officeHours")}</h3>
+            <p>{t("contact.officeHoursText")}</p>
+          </div>
+
+          <div className="contact-v2-info-card offices-inline-card">
+            <h3>{t("contact.ourOffices")}</h3>
+
+            <p className="office-inline">
+              <span className="office-inline-label">{t("contact.mainOfficeNador")}</span>
+              <a
+                href="https://maps.app.goo.gl/XLtKoYwp8kySzyXS9"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-v2-map-link"
+              >
+                <span className="map-icon">📍</span>
+                {t("contact.openGoogleMaps")}
+              </a>
+            </p>
+
+            <p className="office-inline">
+              <span className="office-inline-label">{t("contact.secondOfficeBeniAnsar")}</span>
+              <a
+                href="https://maps.app.goo.gl/HXVg6BHdvUHCQ1sX6"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-v2-map-link"
+              >
+                <span className="map-icon">📍</span>
+                {t("contact.openGoogleMaps")}
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* MESSAGE FORM */}
+        <section className="contact-v2-form-section">
+          <div className="contact-v2-form-card">
+            <h2>{t("contact.sendUsMessage")}</h2>
+            <p className="contact-v2-form-subtitle">{t("contact.formHint")}</p>
+
+            {alertMessage && <div className={`alert alert-${alertType}`}>{alertMessage}</div>}
+
+            <form className="contact-v2-form" onSubmit={handleSubmit}>
+              <div className="contact-v2-form-row">
+                <div className="contact-v2-field">
+                  <label htmlFor="name">{t("contact.name")} *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder={t("contact.name")}
+                  />
+                </div>
+
+                <div className="contact-v2-field">
+                  <label htmlFor="phone">{t("contact.phone")} *</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    placeholder={t("contact.phone")}
+                  />
+                </div>
+              </div>
+
+              <div className="contact-v2-form-row">
+                <div className="contact-v2-field">
+                  <label htmlFor="email">{t("contact.eMail")} *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder={t("contact.eMail")}
+                  />
+                </div>
+
+                <div className="contact-v2-field">
+                  <label htmlFor="subject">{t("contact.subject")} *</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder={t("contact.subject")}
+                  />
+                </div>
+              </div>
+
+              <div className="contact-v2-field">
+                <label htmlFor="message">{t("contact.message")} *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows="5"
+                  required
+                  style={{ resize: "none" }}
+                  placeholder={t("contact.message")}
+                />
+              </div>
+
+              <button type="submit" className="contact-v2-submit" disabled={isSubmitting}>
+                {isSubmitting ? t("contact.sending") : t("contact.send")}
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* TEAM SECTION */}
+        <section className="contact-v2-team-section">
+          <h2 className="contact-v2-team-title">{t("contact.customerServiceTeam")}</h2>
+          <p className="contact-v2-team-subtitle">{t("contact.teamHint")}</p>
+
+          <div className="contact-v2-team-grid">
+            {teamMembers.map((member) => (
+              <div className="contact-v2-team-card" key={member.id}>
+                <div className="contact-v2-avatar" style={{ backgroundImage: member.color }}>
+                  <span className="contact-v2-avatar-letter">{member.initial}</span>
+                </div>
+
+                <div className="contact-v2-team-info">
+                  <h3>
+                    {member.name} <span className="contact-role">— {member.role}</span>
+                  </h3>
+
+                  <p className="contact-v2-team-languages">
+                    {t("contact.languagesLabel")} <span>{member.languages}</span>
+                  </p>
+
+                  <p className="contact-v2-team-phone">
+                    <FontAwesomeIcon icon={faPhone} />
+                    <a className="phone-ltr" href={`tel:${member.phoneRaw}`}>
+                      {member.phoneDisplay}
+                    </a>
+                  </p>
+
+                  <p className="contact-v2-team-phone contact-v2-team-phone--whatsapp">
+                    <FontAwesomeIcon icon={faWhatsapp} />
+                    <a
+                      className="phone-ltr"
+                      href={`https://wa.me/${member.whatsRaw}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {member.whatsDisplay}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
+
       <Footer />
     </>
   );

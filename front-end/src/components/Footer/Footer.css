@@ -146,6 +146,29 @@
   justify-content: flex-start;
 }
 
+/* Footer.css */
+.footer-link{
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-link:hover{
+  text-decoration: underline;
+}
+
+/* YouTube */
+.social-icons a.icon-youtube {
+  background-color: #FF0000; /* الأحمر الرسمي لليوتيوب */
+}
+
+.social-icons a.icon-youtube:hover {
+  background-color: #cc0000; /* أغمق قليلاً عند hover */
+}
+
 /* Responsive Styles */
 @media (max-width: 767px) {
   .Footer .Footer-content {

@@ -1,9 +1,9 @@
 {
   "header": {
     "Home": "Home",
-    "buy": "Sell",
-    "rent": "rent",
-    "requests": "requests",
+    "about": "About Us",
+    "services": "Services",
+    "blog": "Blog",
     "contactUs": "Contact Us",
     "dashboard" : "Dashboard",
     "login": "Log in",
@@ -43,6 +43,7 @@
       "Next" : "Next",
       "available": "Available",
       "notAvailable": "Not Available",
+      "notAvailableRent": "Reserved",
       "status": "Status",
       "floors": "Floors",
       "floors1": "Floor",
@@ -59,7 +60,9 @@
       "noResults": "This property does not exist currently",
       "chooseType": "Choose the type",
       "chooseTypeRequired": "Please choose a property type.",
-      "selectTypeMessage": "Please select a property type"
+      "selectTypeMessage": "Please select a property type",
+      "availableFrom": "Available from"
+
 
     },
     "news": {
@@ -74,14 +77,16 @@
     "companyName": "Alaqariyya",
     "companyDescription": "Alaqariyya is an agency that enables its clients to rent, buy and sell everything related to real estate, whether it is plots of land, apartments, shops, houses, etc.",
     "products": "Products",
-    "desc": "rent - buy - sell - Real Estate Consulting - Property Registration",
+    "desc": "rent - buy - sell - Real Estate Consulting - Property Registration ...",
     "contact": "Contact",
     "contacts": {
       "numIAM1": "First number: 0668.55.07.04",
       "numIAM2": "Second number: 0668.55.06.52",
-      "address1": "Ibn Sina Street (intersection of Oqba Street)",
-      "address2": "Al Masjid neighborhood, Beni Ensar - Nador",
-      "phone": "Landline: 0536.34.81.41"
+      "address1": "Beni Ansar, Al-Masjid District",
+      "address2": "Nador, Al-Khattabi District",
+      "phoneBN": "Landline - Beni Ansar : 0536.34.81.41",
+      "phoneND": "Landline - Nador : 0538.78.23.96"
+
     },
     "copyRight": "All rights reserved © 2024"
   },
@@ -112,7 +117,30 @@
     "messageFailed": "Failed to send message",
     "close" : "cancel",
     "share" : "Share",
-    "sendEmail": "Email"
+    "sendEmail": "Email",
+    "subtitle": "Do you have a question about buying, selling, or renting a property? Fill in the form or contact us directly.",
+    "directContact": "Direct contact",
+    "officeHours": "Office hours",
+    "officeHoursText": "Monday – Saturday: 09:00 to 18:00",
+    "sendUsMessage": "Send us a message",
+    "formHint": "Tell us what property or service you are looking for, and the Alaqariyya team will get back to you.",
+    "ourOffices": "Our offices",
+    "mainOfficeNador": "Main office – Nador",
+    "secondOfficeBeniAnsar": "Second office – Beni Ansar",
+    "openGoogleMaps": "Open in Google Maps",
+    "customerServiceTeam": "Customer Service Team",
+    "teamHint": "Choose the team member that best matches your language.",
+    "sending": "Sending...",
+    "languagesLabel": "Languages:",
+    "phoneFixBN": "Landline - Beni Ansar",
+    "phoneFixND": "Landline - Nador",
+    "teamMembers": {
+      "1": { "name": "Abd elrazzak", "role": "Real Estate Agent", "languages": "Arabic, Tamazight" },
+      "2": { "name": "Zakaria", "role": "Real Estate Agent", "languages": "Arabic, Tamazight" },
+      "3": { "name": "Jamal", "role": "Real Estate Agent", "languages": "Arabic, Spanish, Tamazight" },
+      "4": { "name": "Abd elkarim", "role": "Real Estate Agent", "languages": "Arabic, French, Tamazight" },
+      "5": { "name": "Jawhara", "role": "Real Estate Agent", "languages": "Arabic, Tamazight" }
+    }
 
   },
   "goBack": {
@@ -127,14 +155,224 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Discover your perfect property in Morocco!"
+    "title":"Discover your perfect property in Morocco!",
+    "loadingCities": "Loading cities...",
+    "allCities": "All cities"
   },
   
  "newsSection": {
       "title": "Latest News",
       "readMore": "Read More",
       "noNews": "No news available at the moment."
-    }
-    
+    },
+
+  "about": {
+    "badge": "About us",
+    "title": "Alaqariyya – A modern real-estate network for Moroccans at home and abroad",
+    "intro": "Alaqariyya is more than a small local agency. It is a growing real-estate project built from real experience with the Moroccan market and with the needs of Moroccans living abroad who want a service they can truly trust.",
+    "storyTitle": "Our story",
+    "storyText": "The idea of Alaqariyya started from a simple observation: most people searching for property in Morocco face the same issues – incomplete information, unclear photos and little follow-up after the first call. We decided to build an agency that combines field experience, digital tools and human communication with one goal: clarity at every step.",
+    "forWhomTitle": "Our services",
+    "forWhomText": "We mainly serve families and individuals looking for a decent home, investors searching for properties with good returns and Moroccans living in Europe who need a trusted representative on the ground.",
+    "forWhomPoints": [
+      "Residents in Morocco looking to buy or rent an apartment, house or shop.",
+      "Moroccans abroad who need someone reliable to follow up their files locally.",
+      "Investors who want realistic property opportunities in different Moroccan cities."
+    ],
+    "workTitle": "How we work",
+    "workSteps": [
+      { "title": "1. We start by understanding your real needs", "text": "Before suggesting any property, we take time to understand your family and financial situation, your preferred city or area and the type of property that fits you." },
+      { "title": "2. Clear options, no pressure", "text": "We send you suitable options with clear written information, real photos and videos when available, so you can decide calmly whether you are in Morocco or abroad." },
+      { "title": "3. Support from first visit to signed contract", "text": "We assist you during visits, negotiation and the administrative side, explaining contract terms and all costs before any commitment." }
+    ],
+    "whyTitle": "Why choose Alaqariyya?",
+    "whyPoints": [
+      "Transparent information and pricing, without exaggerated promises.",
+      "Constant communication by phone, WhatsApp and email – especially for clients abroad.",
+      "Strong respect for time: organised visits, clear appointments and serious follow-up.",
+      "A team that combines field work with digital marketing, giving your property better visibility and better chances to sell or rent at a fair price."
+    ],
+    "statsTitle": "What makes us different in practice?",
+    "stats": [
+      { "label": "Multi-city coverage", "text": "We are building a network that covers several Moroccan cities, with a plan to expand step by step." },
+      { "label": "Remote-friendly service", "text": "Full coordination for Moroccans abroad: visits, videos, documentation and regular updates." },
+      { "label": "Quality over quantity", "text": "We prefer fewer properties with serious follow-up rather than a big list with no real service." }
+    ],
+    "closingTitle": "Our message to you",
+    "closingText": "Whether you live in Morocco or abroad, our goal is to make you feel safe and informed at every stage of your real-estate project. With Alaqariyya, we do not just “sell you a property”; we help you make a housing or investment decision that you and your family can feel comfortable with."
+  },
   
+  "services": {
+    "badge": "Services",
+    "title": "Complete real-estate services – from first call to keys in hand",
+    "intro": "At Alaqariyya, we do not offer just one service. We guide you through a full journey: from the first conversation to the signed contract, whether you are an owner, a buyer, a tenant or an investor – in Morocco or abroad.",
+    "sectionsTitle": "What do we offer?",
+    "bestForLabel": "Best for:",
+    "items": {
+      "sales": {
+        "title": "Property sales",
+        "text": "We help you sell your apartment, house or commercial unit in the most efficient and transparent way possible.",
+        "bullets": [
+          "Initial price guidance based on location and current market conditions.",
+          "A complete property file (photos, video, clear description, technical details).",
+          "Publishing your listing on multiple channels and filtering serious buyers.",
+          "Support in negotiation until both parties reach a fair agreement."
+        ],
+        "bestFor": "Owners who want to sell their property at a fair price without wasting time."
+      },
+      "rentals": {
+        "title": "Rentals",
+        "text": "Whether you want to rent out your property or find a place to rent, we help you match expectations on both sides.",
+        "bullets": [
+          "Short-term and long-term rental options depending on your needs.",
+          "Clear explanation of the rental contract before signing.",
+          "Clarifying financial conditions (deposit, monthly payment, extra costs).",
+          "Follow-up for questions or issues in the first period after move-in."
+        ],
+        "bestFor": "Owners and tenants who want a clear, respectful and organised rental relationship."
+      },
+      "management": {
+        "title": "Property management",
+        "text": "This service is especially useful for Moroccans living abroad and for owners who do not have time for day-to-day follow-up.",
+        "bullets": [
+          "Handling calls and enquiries related to your property.",
+          "Organising visits and selecting tenants according to agreed criteria.",
+          "Monitoring performance (rent, commitments, basic maintenance).",
+          "Sending you short, periodic updates on the status of the property and income."
+        ],
+        "bestFor": "Any owner who wants peace of mind and regular visibility on what is happening with their property."
+      },
+      "digitalMarketing": {
+        "title": "Digital real-estate marketing",
+        "text": "Instead of a basic listing, we use digital marketing tools to make your property stand out and reach more of the right people.",
+        "bullets": [
+          "Professional photo and video sessions for your property.",
+          "Targeted paid campaigns on the right platforms for your type of property.",
+          "Monitoring engagement and adjusting the campaign when needed.",
+          "Highlighting the strengths of your property honestly and attractively."
+        ],
+        "bestFor": "Owners who want strong visibility for their property in both local and online markets."
+      }
+    },
+    "processTitle": "How do we handle your request?",
+    "processIntro": "We try to keep our process simple and easy to understand, with no hidden steps or confusing jargon.",
+    "processSteps": [
+      {
+        "label": "1. Free initial consultation",
+        "text": "We listen to your situation and your goal (sell, buy, rent, invest) and explain what is realistically possible in clear terms."
+      },
+      {
+        "label": "2. Clear action plan",
+        "text": "We agree with you on the next steps, the type of service that fits you and what you can expect from us and from the market."
+      },
+      {
+        "label": "3. Execution and follow-up",
+        "text": "We start working and keep you informed: enquiries, visits, offers, negotiation… until we reach the result you are aiming for."
+      }
+    ],
+    "whoTitle": "Who are our services for?",
+    "whoPoints": [
+      "Families looking for a decent home in a suitable area at a reasonable price.",
+      "Moroccans living abroad who need a trusted local contact in Morocco.",
+      "Property owners who want to sell or rent their assets in a professional way.",
+      "Investors who want realistic, analysed opportunities – not random listings."
+    ],
+    "closingTitle": "How do we start?",
+    "closingText": "Just contact us and tell us what you are thinking about: selling, buying, renting or simply asking for advice. We will suggest the most suitable service and move forward step by step, without pressure to decide quickly."
+  },
+  "blog": {
+    "metaTitle": "Alaqariyya – Blog",
+    "metaDescription": "Real estate articles and tips by Alaqariyya about buying, selling and renting properties in Morocco.",
+    "heroTitle": "Real Estate Blog",
+    "heroSubtitle": "Short, practical articles to help you understand the Moroccan property market and make better decisions when buying, renting or investing.",
+    "loading": "Loading articles...",
+    "empty": "No articles available yet.",
+    "readArticle": "Read article",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "placeholderImageUrl": "https://via.placeholder.com/800x450?text=Real+Estate+in+Morocco",
+    "errors": {
+      "fetchPosts": "Error fetching blog posts:"
+    }
+  },
+  "newsArticle": {
+    "metaTitlePrefix": "{{title}} – Alaqariyya News",
+    "back": "Back ←",
+    "readingTime": "{{minutes}} min read",
+    "youtubeTitle": "YouTube video",
+    "categories": {
+      "market": "Market",
+      "legal": "Legal Guide",
+      "tips": "Tips",
+      "investment": "Investment",
+      "other": "Other"
+    }
+  },
+  "content": {
+    "pageTitle": "Properties",
+    "readMoreArticles": "Read more articles ↪",
+    "readMoreArticlesAria": "Read more articles",
+    "discoverMoreProperties": "Discover more properties ↪",
+    "discoverMorePropertiesAria": "Discover more properties",
+    "viewDetails": "View details",
+    "viewDetailsAria": "View details for {{title}}",
+    "soldPill": "This property is not available",
+    "soldInline": "UNAVAILABLE",
+    "soldAria": "The property is not available"
+  },
+  "clientReviews": {
+    "title": "Customer Reviews on Google",
+    "previous": "Previous",
+    "next": "Next",
+    "viewAllLink": "View all reviews on Google Maps ↪",
+    "sectionAria": "Google-style customer reviews",
+    "paginationAria": "Reviews pagination",
+    "prevAria": "Previous",
+    "nextAria": "Next",
+    "goToPageAria": "Go to page {{page}}",
+    "ratingAria": "Rating {{value}} out of 5"
+  },
+  "featured": {
+    "title": "Our Featured Properties",
+    "featured": "Featured",
+    "forSale": "For Sale",
+    "negotiable": "Negotiable",
+    "viewDetails": "View details for {{title}}",
+    "apartment": "Apartment",
+    "villa": "Villa",
+    "house": "House",
+    "commercial": "Commercial",
+    "land": "Land",
+    "area": "Area",
+    "bedrooms": "Bedrooms",
+    "salon": "Living rooms",
+    "bathrooms": "Bathrooms",
+    "loading": "Loading featured properties...",
+    "loadFailed": "Failed to load featured properties.",
+    "empty": "No featured properties available right now"
+  },
+  "productDetail": {
+    "propertyNotFound": "Property not found",
+    "backToHome": "Back to Home",
+    "searchResults": "Search results",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "propertyLocation": "Property Location",
+    "shareNotSupported": "Your browser does not support sharing.",
+    "copyUrl": "You can copy the URL",
+    "soldBadge": "This property is not available",
+    "soldShort": "UNAVAILABLE",
+    "soldTooltip": "Property not available",
+    "sold": "Unavailable",
+    "addToFavorites": "Add to favorites",
+    "propertyStatus": "Property status",
+    "available": "Available",
+    "allRent": "All rent properties",
+    "allRequests": "All requests",
+    "whatsapp": "WhatsApp"
+  }
+
+
 }

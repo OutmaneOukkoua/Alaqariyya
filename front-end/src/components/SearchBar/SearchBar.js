@@ -1,418 +1,265 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import './SearchBar.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Helmet } from 'react-helmet';
+// SearchBar.js
+import React, { useEffect, useMemo, useState, useCallback } from "react";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+import "./SearchBar.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
-function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialLocation }) {
+function SearchBar({ onSearch, filterType, onFilterChange, initialType, initialCityId }) {
   const { t, i18n } = useTranslation();
+  const API_URL = process.env.REACT_APP_SERVER;
 
-  // Initialize state from sessionStorage or use initial props/defaults
-  const [location, setLocation] = useState(() => {
-    return sessionStorage.getItem('location') || initialLocation || '';
-  });
+  const isArabic = i18n.language === "ar";
 
-  const [selectedType, setSelectedType] = useState(() => {
-    return sessionStorage.getItem('selectedType') || initialType || '';
-  });
+  /* ===================== Cities ===================== */
+  const [cities, setCities] = useState([]);
+  const [citiesLoading, setCitiesLoading] = useState(false);
 
-  const [selectedTypeError, setSelectedTypeError] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  /* ===================== Filters ===================== */
+  const [cityId, setCityId] = useState(() => sessionStorage.getItem("city_id") || initialCityId || "");
 
-  const [selectionMode, setSelectionMode] = useState(() => {
-    return sessionStorage.getItem('selectionMode') || filterType || 'buy';
-  });
+  const [selectionMode, setSelectionMode] = useState(
+    () => sessionStorage.getItem("selectionMode") || filterType || "buy"
+  );
 
-  // Persist location to sessionStorage
+  const [selectedType, setSelectedType] = useState(
+    () => sessionStorage.getItem("selectedType") || initialType || ""
+  );
+
+  // ✅ seed to keep same order + breadcrumb context
+  const [seed, setSeed] = useState(() => sessionStorage.getItem("seed") || "");
+
+  /* ===================== Background (KEEP ONLY FIRST IMAGE) ===================== */
+  const backgroundImage = useMemo(() => "/searchbar/1.jpeg", []);
+
+  /* ===================== Helpers ===================== */
+  const getAllValueForMode = (mode) => {
+    if (mode === "buy") return "all_buy";
+    if (mode === "rent") return "all_rent";
+    // if (mode === "requests") return "all_requests";
+    return "";
+  };
+
+  const cityLabel = (c) => (isArabic ? c.name_ar : c.name_fr);
+
+  const makeSeed = useCallback(() => {
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  }, []);
+
+  /* ===================== Persist ===================== */
+  useEffect(() => sessionStorage.setItem("city_id", cityId), [cityId]);
+  useEffect(() => sessionStorage.setItem("selectedType", selectedType), [selectedType]);
+  useEffect(() => sessionStorage.setItem("selectionMode", selectionMode), [selectionMode]);
   useEffect(() => {
-    sessionStorage.setItem('location', location);
-  }, [location]);
+    if (seed) sessionStorage.setItem("seed", seed);
+  }, [seed]);
 
-  // Persist selectedType to sessionStorage
+  /* ===================== Background preload (ONLY ONE IMAGE) ===================== */
   useEffect(() => {
-    sessionStorage.setItem('selectedType', selectedType);
-  }, [selectedType]);
+    const img = new Image();
+    img.src = backgroundImage;
+  }, [backgroundImage]);
 
-  // Persist selectionMode to sessionStorage
+  /* ===================== Sync mode ===================== */
   useEffect(() => {
-    sessionStorage.setItem('selectionMode', selectionMode);
-  }, [selectionMode]);
-
-  // Array of background images
-  const backgroundImages = [
-    '/searchbar/1.jpg',
-    '/searchbar/2.jpg',
-    '/searchbar/3.jpg',
-    '/searchbar/4.jpg',
-    '/searchbar/5.jpg',
-    '/searchbar/6.jpg',
-    '/searchbar/7.jpg',
-    '/searchbar/8.jpg',
-    '/searchbar/9.jpg',
-    '/searchbar/10.jpg'
-  ];
-
-  // Preload images when the component mounts
-  useEffect(() => {
-    const preloadImages = () => {
-      backgroundImages.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-      });
-    };
-
-    preloadImages();
-  }, [backgroundImages]);
-
-  useEffect(() => {
-    if (filterType === 'rent' || filterType === 'buy'|| filterType === 'requests') {
-      setSelectionMode(filterType);
-      setSelectedType(''); // Reset selectedType when mode changes
-      setSelectedTypeError(false); // Clear error when mode changes
+    // if (["buy", "rent", "requests"].includes(filterType)) {
+    if (["buy", "rent"].includes(filterType)) {
+    setSelectionMode(filterType);
+      setSelectedType(getAllValueForMode(filterType));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterType]);
 
+  /* ===================== Initial values ===================== */
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % backgroundImages.length
-      );
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
-
-  // Update selectedType when initialType changes
-  useEffect(() => {
-    setSelectedType(initialType || '');
+    if (initialType) {
+      setSelectedType(initialType);
+    } else {
+      setSelectedType(getAllValueForMode(selectionMode));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialType]);
 
-  // Update location when initialLocation changes
   useEffect(() => {
-    setLocation(initialLocation || '');
-  }, [initialLocation]);
+    setCityId(initialCityId || "");
+  }, [initialCityId]);
 
-  const handleFilterChange = (e) => {
-    const type = e.target.value;
-    setSelectedType(type);
-    setSelectedTypeError(false); // Clear the error when user selects a type
-  };
+  /* ===================== Load cities ===================== */
+  useEffect(() => {
+    const loadCities = async () => {
+      try {
+        setCitiesLoading(true);
+        const resp = await axios.get(`${API_URL}/cities`);
+        const list = Array.isArray(resp.data) ? resp.data : resp.data?.cities || [];
 
-  const handleLocationChange = (e) => {
-    const updatedLocation = e.target.value;
-    setLocation(updatedLocation);
-  };
+        setCities(
+          list
+            .filter((c) => c && (c.id || c.city_id))
+            .map((c) => ({
+              id: String(c.id ?? c.city_id),
+              name_ar: c.name_ar ?? "",
+              name_fr: c.name_fr ?? "",
+            }))
+            .sort((a, b) => (a.name_fr || "").localeCompare(b.name_fr || ""))
+        );
+      } catch (e) {
+        console.error("Error loading cities:", e);
+      } finally {
+        setCitiesLoading(false);
+      }
+    };
 
-  const handleSearchClick = () => {
-    if (selectedType) {
-      onSearch({ type: selectedType, location });
-    } else {
-      setSelectedTypeError(true); // Set error state to true
+    if (API_URL) loadCities();
+  }, [API_URL]);
+
+  /* ===================== Options per mode ===================== */
+  const typeOptions = useMemo(() => {
+    if (selectionMode === "buy") {
+      return [
+        { value: "all_buy", label: t("properties.all") },
+        { value: "buy", label: t("properties.HausesForBuy") },
+        { value: "apartments", label: t("properties.apartments") },
+        { value: "floorplots", label: t("properties.floorplots") },
+        { value: "Commercialgarages", label: t("properties.Commercialgarages") },
+      ];
     }
-  };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearchClick();
+    if (selectionMode === "rent") {
+      return [
+        { value: "all_rent", label: t("properties.all") },
+        { value: "regularRent", label: t("properties.regularRent") },
+        { value: "rent", label: t("properties.furnishedRent") },
+        { value: "CommercialgaragesRent", label: t("properties.Commercialgarages") },
+      ];
     }
-  };
 
+    // if (selectionMode === "requests") {
+    //   return [
+    //     { value: "all_requests", label: t("properties.all") },
+    //     { value: "requests", label: t("properties.HausesForBuy") },
+    //     { value: "apartmentsReq", label: t("properties.apartments") },
+    //     { value: "floorplotsReq", label: t("properties.floorplots") },
+    //     { value: "CommercialgaragesReq", label: t("properties.Commercialgarages") },
+    //   ];
+    // }
+
+    return [];
+  }, [selectionMode, t]);
+
+  /* ===================== Handlers ===================== */
   const handleModeChange = (mode) => {
     setSelectionMode(mode);
     onFilterChange(mode);
-    setSelectedType(''); // Reset selectedType when mode changes
-    setSelectedTypeError(false); // Clear error when mode changes
+    setSelectedType(getAllValueForMode(mode));
   };
 
-return (
-  <div className={`search-bar-container ${i18n.language === 'ar' ? 'rtl' : 'ltr'}`}>
-    <Helmet>
-      {/* HTML Language Attribute */}
-      <html lang="ar" />
-        
-      {/* Title and Description */}
-      <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
-      <meta
-        name="description"
-        content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
-      />
-        
-      {/* Viewport and Charset */}
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta charset="UTF-8" />
-        
-      {/* Robots Meta */}
-      <meta name="robots" content="index, follow" />
-        
-      {/* Canonical Link */}
-      <link rel="canonical" href="https://www.alaqariyya.com" />
-        
-      {/* Open Graph Tags */}
-      <meta property="og:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية" />
-      <meta
-        property="og:description"
-        content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
-      />
-      <meta property="og:url" content="https://www.alaqariyya.com" />
-      <meta property="og:type" content="website" />
-      <meta property="og:image" content="https://www.alaqariyya.com/logo.svg" />
-      <meta property="og:image:alt" content="ALAQARIYYA العقارية Logo" />
-      <meta property="og:locale" content="ar_MA" />
-        
-      {/* Twitter Card Tags */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA" />
-      <meta
-        name="twitter:description"
-        content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
-      />
-      <meta name="twitter:image" content="https://www.alaqariyya.com/logo.svg" />
-        
-      {/* Location Meta Tags */}
-      <meta name="geo.placename" content="زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور، المغرب" />
-      <meta name="geo.position" content="35.1761;-2.9308" />
-      <meta name="ICBM" content="35.1761, -2.9308" />
-      <link rel="alternate" href="https://maps.app.goo.gl/ysG1ZvxgLQUj3QRN7" />
-        
-      {/* JSON-LD: RealEstateAgent Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "RealEstateAgent",
-          "name": "ALAQARIYYA العقارية",
-          "description":
-            "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
-          "url": "https://www.alaqariyya.com",
-          "logo": "https://www.alaqariyya.com/logo.svg",
-          "telephone": "+212 536-348141",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
-            "addressLocality": "بني انصار",
-            "addressRegion": "الناظور",
-            "postalCode": "62000",
-            "addressCountry": "MA",
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "35.1761",
-              "longitude": "-2.9308"
-            }
-          },
-          "openingHours": ["Mo-Fr 09:00-19:00"],
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+212 536-348141",
-            "contactType": "خدمة العملاء",
-            "availableLanguage": ["ar", "fr", "en", "es","de","nl"]
-          },
-          "areaServed": "MA",
-          "inLanguage": ["ar", "fr", "en", "es","de","nl"],
-          "serviceType": [
-            "تأجير العقارات",
-            "بيع العقارات",
-            "شراء العقارات",
-            "استشارات عقارية",
-            "تسجيل العقارات"
-          ],
-          "makesOffer": [
-            {
-              "@type": "Offer",
-              "priceCurrency": "MAD",
-              "itemOffered": {
-              "@type": "Product",
-              "name": "منازل",
-              "category": "عقارات سكنية"
-              }
-            },
-            {
-              "@type": "Offer",
-              "priceCurrency": "MAD",
-              "itemOffered": {
-              "@type": "Product",
-              "name": "شقق",
-              "category": "عقارات سكنية"
-              }
-            },
-            {
-              "@type": "Offer",
-              "priceCurrency": "MAD",
-              "itemOffered": {
-              "@type": "Product",
-              "name": "طوابق",
-              "category": "عقارات سكنية"
-            }
-          },
-          {
-            "@type": "Offer",
-            "priceCurrency": "MAD",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "أراضي",
-              "category": "عقارات"
-            }
-          },
-          {
-            "@type": "Offer",
-            "priceCurrency": "MAD",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "كراجات",
-              "category": "عقارات"
-            }
-          },
-          {
-            "@type": "Offer",
-            "priceCurrency": "MAD",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "كراجات تجارية",
-              "category": "عقارات تجارية"
-            }
-          },
-          {
-            "@type": "Offer",
-            "priceCurrency": "MAD",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "إيجار عادي",
-              "category": "خدمات التأجير"
-            }
-          },
-          {
-            "@type": "Offer",
-            "priceCurrency": "MAD",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "إيجار مفروش",
-              "category": "خدمات التأجير"
-            }
-          }
-                  ],
-                  "foundingDate": "2024",
-                  "currenciesAccepted": "MAD",
-                  "sameAs": [
-                  "https://www.facebook.com/profile.php?id=61560366056640",
-                  "https://www.instagram.com/alaqariyya",
-                  "https://fr.airbnb.com/users/show/582106109",
-                  "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html",
-                  "https://expe.app.link/2uBx1FL1yPb"
-                  ]
-                })}
-              </script>
-        
-              {/* JSON-LD: WebPage Schema */}
-              <script type="application/ld+json">
-                {JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "WebPage",
-                  "name": "ALAQARIYYA - العقارات الأفضل في المغرب",
-                  "url": "https://www.alaqariyya.com",
-                  "description": "خدمات تأجير، بيع، وشراء عقارات بمهنية عالية في المغرب.",
-                  "inLanguage": "ar",
-                  "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": "35.1761",
-                  "longitude": "-2.9308"
-                  }
-                })}
-              </script>
-        </Helmet>
-    <div
-      className="search-bar-background"
-      style={{
-        backgroundImage: `url(${backgroundImages[currentImageIndex]})`,
-        transition: 'background-image 0.5s ease-in-out', // Optional for smooth transition
-      }}
-    >
-      <div className="search-bar">
-        <p className="search-bar-parag">{t('searchBar.title')}</p>
-        <div className="search-controls">
-          <div className="mode-button-container">
-            <button
-              className={`mode-button ${selectionMode === 'buy' ? 'active' : ''}`}
-              onClick={() => handleModeChange('buy')}
-            >
-              {t('properties.buy')}
-            </button>
-            <button
-              className={`mode-button ${selectionMode === 'rent' ? 'active' : ''}`}
-              onClick={() => handleModeChange('rent')}
-            >
-              {t('properties.rent')}
-            </button>
-            <button
-              className={`mode-button ${selectionMode === 'requests' ? 'active' : ''}`}
-              onClick={() => handleModeChange('requests')}
-            >
-              {t('properties.requests')}
-            </button>
-          </div>
+  const handleSearchClick = () => {
+    const newSeed = makeSeed();
+    setSeed(newSeed);
 
-          <div className="filter-select-container">
-            <select
-              className={`filter-select ${selectedTypeError ? 'error' : ''}`}
-              value={selectedType}
-              onChange={handleFilterChange}
-              aria-label={t('properties.selectFilter')}
-            >
-              <option value="">{t('properties.chooseType')}</option>
-              
-                {selectionMode === 'buy' ? (
-                <>
-                  <option value="buy">{t('properties.HausesForBuy')}</option>
-                  <option value="apartments">{t('properties.apartments')}</option>
-                  <option value="floorplots">{t('properties.floorplots')}</option>
-                  <option value="Commercialgarages">{t('properties.Commercialgarages')}</option>
-                </>
-              ) : selectionMode === 'rent' ? (
-                <>
-                  <option value="regularRent">{t('properties.regularRent')}</option>
-                  <option value="rent">{t('properties.furnishedRent')}</option>
-                  <option value="CommercialgaragesRent">{t('properties.Commercialgarages')}</option>
-                </>
-              ) : selectionMode === 'requests' ? (
-                <>
-                  <option value="requests">{t('properties.HausesForBuy')}</option>
-                  <option value="apartmentsReq">{t('properties.apartments')}</option>
-                  <option value="floorplotsReq">{t('properties.floorplots')}</option>
-                  <option value="CommercialgaragesReq">{t('properties.Commercialgarages')}</option>
-                </>
-              ) : null}
+    onSearch({
+      type: selectedType,
+      city_id: cityId,
+      mode: selectionMode,
+      page: 1,
+      seed: newSeed,
+    });
+  };
 
-            </select>
-            {selectedTypeError && (
-              <p
-                className="error-message"
-                style={{ fontSize: '12px', margin: '0', color: '#e63946' }}
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearchClick();
+  };
+
+  /* ===================== Render ===================== */
+  return (
+    <div className={`search-bar-container ${isArabic ? "rtl" : "ltr"}`}>
+      <div
+        className="search-bar-background"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+        }}
+      >
+        <div className="search-bar">
+          <p className="search-bar-parag">{t("searchBar.title")}</p>
+
+          <div className="search-controls">
+            <div className="mode-button-container">
+              <button
+                type="button"
+                className={`mode-button ${selectionMode === "buy" ? "active" : ""}`}
+                onClick={() => handleModeChange("buy")}
               >
-                {t('properties.selectTypeMessage')}
-              </p>
-            )}
-          </div>
+                {t("properties.buy")}
+              </button>
 
-          <div className="search-input-container">
-            <input
-              type="text"
-              id="location-search"
-              value={location}
-              onChange={handleLocationChange}
-              onKeyPress={handleKeyPress}
-              placeholder={t('properties.searchPlaceholder')}
-              aria-label={t('properties.searchPlaceholder')}
-            />
-            <button
-              className="search-icon-button"
-              onClick={handleSearchClick}
-              aria-label={t('properties.searchButton')}
-            >
-              <i className="fas fa-search"></i>
-            </button>
+              <button
+                type="button"
+                className={`mode-button ${selectionMode === "rent" ? "active" : ""}`}
+                onClick={() => handleModeChange("rent")}
+              >
+                {t("properties.rent")}
+              </button>
+
+              {/* <button
+                type="button"
+                className={`mode-button ${selectionMode === "requests" ? "active" : ""}`}
+                onClick={() => handleModeChange("requests")}
+              >
+                {t("properties.requests")}
+              </button> */}
+            </div>
+
+            <div className="filter-select-container">
+              <select
+                className="filter-select"
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                onKeyDown={handleKeyDown}
+                aria-label={t("searchBar.typeAria", { defaultValue: "Property type" })}
+              >
+                {typeOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="search-input-container">
+              <select
+                value={cityId}
+                onChange={(e) => setCityId(e.target.value)}
+                onKeyDown={handleKeyDown}
+                disabled={citiesLoading}
+                className="city-select"
+                aria-label={t("searchBar.cityAria", { defaultValue: "City" })}
+              >
+                <option value="">
+                  {citiesLoading ? t("searchBar.loadingCities") : t("searchBar.allCities")}
+                </option>
+
+                {cities.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {cityLabel(c)}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                type="button"
+                className="search-icon-button"
+                onClick={handleSearchClick}
+                disabled={citiesLoading}
+                aria-label={t("searchBar.searchAria", { defaultValue: "Search" })}
+              >
+                <i className="fas fa-search" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default SearchBar;
-

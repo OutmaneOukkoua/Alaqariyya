@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import SearchBar from '../SearchBar/SearchBar';
-import NewsSection from '../NewsSection/NewsSection';
-import './Content.css';
-import Footer from '../Footer/Footer';
-import { FaSpinner } from 'react-icons/fa';
-import { Helmet } from 'react-helmet';
+// Content.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, useLocation, useParams } from "react-router-dom"; // ✅ add useParams
+import { useTranslation } from "react-i18next";
+import SearchBar from "../SearchBar/SearchBar";
+import NewsSection from "../NewsSection/NewsSection";
+import "./Content.css";
+import Footer from "../Footer/Footer";
+import { FaSpinner } from "react-icons/fa";
+import ClientReviews from "../ClientReviews/ClientReviews";
+import FeaturedProperties from "../FeaturedProperties/FeaturedProperties";
+import SEO from "../../SEO/SEO";
 
-const formatPrice = (value) => new Intl.NumberFormat('de-DE').format(value);
+const formatPrice = (value) => new Intl.NumberFormat("de-DE").format(value);
 
 function Content({ filterType, onFilterChange }) {
   const [properties, setProperties] = useState([]);
@@ -18,38 +21,45 @@ function Content({ filterType, onFilterChange }) {
   const [hasSearched, setHasSearched] = useState(false);
   const [searchParams, setSearchParams] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
   const { t, i18n } = useTranslation();
-  const currentLanguage = i18n.language || 'en';
+  const currentLanguage = i18n.language || "en";
+  const isArabic = currentLanguage === "ar";
+
   const API_URL = process.env.REACT_APP_SERVER;
   const navigate = useNavigate();
-  const location = useLocation(); // New hook
+  const location = useLocation();
 
-  // New state variables to store initial search parameters
-  const [initialType, setInitialType] = useState('');
-  const [initialLocation, setInitialLocation] = useState('');
+  // ✅ read language from URL
+  const { lng } = useParams();
+  const currentLng = lng || currentLanguage || "en"; // fallback
 
-  // ADDED: generate a random seed once per component load
+  const [initialType, setInitialType] = useState("");
+  const [initialCityId, setInitialCityId] = useState("");
+
   const [seed] = useState(() => Math.floor(Math.random() * 100000));
 
   const getTranslatedField = (property, field) => {
+    const direct = property?.[field];
+    if (direct !== undefined && direct !== null && String(direct).trim() !== "") return direct;
+
     const fieldKey = `${field}_${currentLanguage}`;
-    return property[fieldKey] || property[`${field}_en`] || 'N/A';
+    const localized = property?.[fieldKey];
+    if (localized !== undefined && localized !== null && String(localized).trim() !== "") return localized;
+
+    const en = property?.[`${field}_en`];
+    if (en !== undefined && en !== null && String(en).trim() !== "") return en;
+
+    return "N/A";
   };
 
-  const fetchProperties = async ({ type = '', location = '', page = 1 }) => {
+  const fetchProperties = async ({ type = "", city_id = "", page = 1 }) => {
     try {
       setIsLoading(true);
 
-      // Keep the same lines, but we'll add the seed param at the end:
       let query = `?page=${page}&lang=${currentLanguage}`;
-      if (type) {
-        query += `&type=${type}`;
-      }
-      if (location) {
-        query += `&location=${location}`;
-      }
-
-      // ADDED: Append seed to ensure stable random ordering
+      if (type) query += `&type=${encodeURIComponent(type)}`;
+      if (city_id) query += `&city_id=${encodeURIComponent(city_id)}`;
       query += `&seed=${seed}`;
 
       const response = await axios.get(`${API_URL}/properties${query}`);
@@ -57,9 +67,9 @@ function Content({ filterType, onFilterChange }) {
       if (response.data && response.data.properties) {
         const translatedProperties = response.data.properties.map((property) => ({
           ...property,
-          title: getTranslatedField(property, 'title'),
-          location: getTranslatedField(property, 'location'),
-          description: getTranslatedField(property, 'description'),
+          title: getTranslatedField(property, "title"),
+          description: getTranslatedField(property, "description"),
+          location: property.location ?? "N/A",
         }));
 
         setProperties(translatedProperties);
@@ -69,7 +79,7 @@ function Content({ filterType, onFilterChange }) {
         setProperties([]);
       }
     } catch (error) {
-      console.error('Error fetching properties:', error);
+      console.error("Error fetching properties:", error);
       setProperties([]);
     } finally {
       setIsLoading(false);
@@ -77,15 +87,14 @@ function Content({ filterType, onFilterChange }) {
   };
 
   useEffect(() => {
-    if (filterType === '') {
-      // Reset search
+    if (filterType === "") {
       setHasSearched(false);
       setProperties([]);
       setCurrentPage(1);
       setTotalPages(1);
       setSearchParams({});
-      setInitialType('');
-      setInitialLocation('');
+      setInitialType("");
+      setInitialCityId("");
     }
   }, [filterType]);
 
@@ -94,389 +103,334 @@ function Content({ filterType, onFilterChange }) {
       fetchProperties({ ...params, page: 1 });
       setSearchParams(params);
       setHasSearched(true);
-      onFilterChange(params.type);
 
-      // Build the search query string
-      const searchParamsUrl = new URLSearchParams(params);
-      // ADDED: also pass seed in the URL so user can share the link with stable ordering
-      searchParamsUrl.set('seed', seed);
+      if (params.mode) onFilterChange(params.mode);
 
+      const searchParamsUrl = new URLSearchParams();
+      searchParamsUrl.set("type", params.type);
+      if (params.mode) searchParamsUrl.set("mode", params.mode);
+      if (params.city_id) searchParamsUrl.set("city_id", params.city_id);
+      searchParamsUrl.set("seed", seed);
+
+      // ✅ keep same page but with query string
       navigate(`?${searchParamsUrl.toString()}`);
     } else {
-      // Do not perform search; reset state
       setHasSearched(false);
       setProperties([]);
       setCurrentPage(1);
       setTotalPages(1);
       setSearchParams({});
-      onFilterChange('');
-      navigate('/');
+      onFilterChange("");
+
+      // ✅ go to language root instead of "/"
+      navigate(`/${currentLng}`);
     }
   };
 
   const handlePropertyClick = (propertyId) => {
     axios
       .post(`${API_URL}/clicks/${propertyId}`)
-      .then(() => console.log('Click count incremented'))
-      .catch((error) => console.error('Error incrementing click count:', error));
+      .then(() => console.log("Click count incremented"))
+      .catch((error) => console.error("Error incrementing click count:", error));
 
-    // Include search parameters in the navigation
-    navigate(`/product/${propertyId}${location.search}`);
+    // ✅ include language in URL + keep current query
+    navigate(`/${currentLng}/product/${propertyId}${location.search}`);
   };
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
 
-    // Use the stored search parameters for pagination
     fetchProperties({ ...searchParams, page: newPage });
     setCurrentPage(newPage);
     window.scrollTo(0, 0);
 
-    // Update the URL with the new page number
-    const searchParamsUrl = new URLSearchParams(searchParams);
-    searchParamsUrl.set('page', newPage);
-    // ADDED: ensure we keep seed in the URL
-    searchParamsUrl.set('seed', seed);
+    const searchParamsUrl = new URLSearchParams();
+    if (searchParams.type) searchParamsUrl.set("type", searchParams.type);
+    if (searchParams.mode) searchParamsUrl.set("mode", searchParams.mode);
+    if (searchParams.city_id) searchParamsUrl.set("city_id", searchParams.city_id);
+    searchParamsUrl.set("page", newPage);
+    searchParamsUrl.set("seed", seed);
 
+    // ✅ keep same page but update query string
     navigate(`?${searchParamsUrl.toString()}`);
   };
 
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
-    }
-    return text;
-  };
-
-  // New useEffect to read search parameters from URL
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
-    const type = queryParams.get('type');
-    const locationParam = queryParams.get('location');
-    const page = queryParams.get('page') || 1;
-    // ADDED: read the seed from URL if any
-    const urlSeed = queryParams.get('seed');
+    const type = queryParams.get("type");
+    const mode = queryParams.get("mode");
+    const city_id = queryParams.get("city_id") || "";
+    const page = queryParams.get("page") || 1;
 
     if (type) {
       const params = { type };
-      if (locationParam) params.location = locationParam;
+      if (city_id) params.city_id = city_id;
+      if (mode) params.mode = mode;
+
       fetchProperties({ ...params, page });
       setSearchParams(params);
       setHasSearched(true);
-      onFilterChange(type);
-      setCurrentPage(parseInt(page));
+
+      // if (mode === "buy" || mode === "rent" || mode === "requests") {
+      if (mode === "buy" || mode === "rent" ) {
+      onFilterChange(mode);
+      } else {
+        if (type === "all_buy") onFilterChange("buy");
+        else if (type === "all_rent") onFilterChange("rent");
+        // else if (type === "all_requests") onFilterChange("requests");
+        else onFilterChange(type);
+      }
+
+      setCurrentPage(parseInt(page, 10));
       setInitialType(type);
-      setInitialLocation(locationParam || '');
+      setInitialCityId(city_id || "");
     } else {
       setHasSearched(false);
       setProperties([]);
       setCurrentPage(1);
       setTotalPages(1);
       setSearchParams({});
-      onFilterChange('');
-      setInitialType('');
-      setInitialLocation('');
+      onFilterChange("");
+      setInitialType("");
+      setInitialCityId("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
-  // Existing useEffect to re-fetch properties when the language changes
   useEffect(() => {
-    if (hasSearched) {
-      fetchProperties({ ...searchParams, page: currentPage });
-    }
+    if (hasSearched) fetchProperties({ ...searchParams, page: currentPage });
     // eslint-disable-next-line
   }, [currentLanguage]);
 
+  const formatAvailabilityDate = (raw, locale = "en") => {
+  // تجاهل NULL و 0000-00-00 و strings الفارغة
+  if (!raw || raw === "0000-00-00") return null;
+
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return null;
+
+  // تنسيق تاريخ حسب اللغة
+  return new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+};
+
+
   return (
     <>
-      <div className={`Content ${currentLanguage === 'ar' ? 'rtl' : 'ltr'}`}>
-        <Helmet>
-          {/* HTML Language Attribute */}
-          <html lang="ar" />
+      <SEO
+        title={t("content.pageTitle")}
+        description={t("content.pageDescription")}
+        path={`/${currentLng}${location.search}`}
+      />
 
-          {/* Title and Description */}
-          <title>تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية</title>
-          <meta
-            name="description"
-            content="تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش."
-          />
-
-          {/* Viewport and Charset */}
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta charSet="UTF-8" />
-
-          {/* Robots Meta */}
-          <meta name="robots" content="index, follow" />
-
-          {/* Canonical Link */}
-          <link rel="canonical" href="https://www.alaqariyya.com" />
-
-          {/* Open Graph Tags */}
-          <meta property="og:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA العقارية" />
-          <meta
-            property="og:description"
-            content="اكتشف جميع خيارات العقارات في المغرب مع ALAQARIYYA. خدمات تأجير وبيع وشراء واستشارات عقارية لجميع أنواع العقارات من منازل، شقق، أراضي، كراجات."
-          />
-          <meta property="og:url" content="https://www.alaqariyya.com" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="https://www.alaqariyya.com/logo.svg" />
-          <meta property="og:image:alt" content="ALAQARIYYA العقارية Logo" />
-          <meta property="og:locale" content="ar_MA" />
-
-          {/* Twitter Card Tags */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="تأجير وبيع وشراء العقارات في المغرب - ALAQARIYYA" />
-          <meta
-            name="twitter:description"
-            content="استكشاف العقارات مع ALAQARIYYA - خدمات شاملة لتأجير وشراء وبيع العقارات في المغرب."
-          />
-          <meta name="twitter:image" content="https://www.alaqariyya.com/logo.svg" />
-
-          {/* Location Meta Tags */}
-          <meta name="geo.placename" content="زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور، المغرب" />
-          <meta name="geo.position" content="35.1761;-2.9308" />
-          <meta name="ICBM" content="35.1761, -2.9308" />
-          <link rel="alternate" href="https://maps.app.goo.gl/ysG1ZvxgLQUj3QRN7" />
-
-          {/* JSON-LD: RealEstateAgent Schema */}
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "RealEstateAgent",
-              "name": "ALAQARIYYA العقارية",
-              "description":
-                "تأجير، بيع، شراء، استشارات عقارية، تسجيل العقارات في المغرب. منازل، شقق، طوابق، أراضي، كراجات، كراجات تجارية، إيجار عادي وإيجار مفروش.",
-              "url": "https://www.alaqariyya.com",
-              "logo": "https://www.alaqariyya.com/logo.svg",
-              "telephone": "+212 536-348141",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "زنقة ابن سينا (تقاطع زنقة عقبة) - حي المسجد، بني انصار - الناظور",
-                "addressLocality": "بني انصار",
-                "addressRegion": "الناظور",
-                "postalCode": "62000",
-                "addressCountry": "MA",
-                "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": "35.1761",
-                  "longitude": "-2.9308"
-                }
-              },
-              "openingHours": ["Mo-Fr 09:00-19:00"],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+212 536-348141",
-                "contactType": "خدمة العملاء",
-                "availableLanguage": ["ar", "fr", "en", "es","de","nl"]
-              },
-              "areaServed": "MA",
-              "inLanguage": ["ar", "fr", "en", "es","de","nl"],
-              "serviceType": [
-                "تأجير العقارات",
-                "بيع العقارات",
-                "شراء العقارات",
-                "استشارات عقارية",
-                "تسجيل العقارات"
-              ],
-              "makesOffer": [
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "منازل",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "شقق",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "طوابق",
-                    "category": "عقارات سكنية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "أراضي",
-                    "category": "عقارات"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "كراجات",
-                    "category": "عقارات"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Product",
-                    "name": "كراجات تجارية",
-                    "category": "عقارات تجارية"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "إيجار عادي",
-                    "category": "خدمات التأجير"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "priceCurrency": "MAD",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "إيجار مفروش",
-                    "category": "خدمات التأجير"
-                  }
-                }
-              ],
-              "foundingDate": "2024",
-              "currenciesAccepted": "MAD",
-              "sameAs": [
-                "https://www.facebook.com/profile.php?id=61560366056640",
-                "https://www.instagram.com/alaqariyya",
-                "https://fr.airbnb.com/users/show/582106109",
-                "https://www.booking.com/hotel/ma/alaqariyya-l-qry.html",
-                "https://expe.app.link/2uBx1FL1yPb"
-              ]
-            })}
-          </script>
-
-          {/* JSON-LD: WebPage Schema */}
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              "name": "ALAQARIYYA - العقارات الأفضل في المغرب",
-              "url": "https://www.alaqariyya.com",
-              "description": "خدمات تأجير، بيع، وشراء عقارات بمهنية عالية في المغرب.",
-              "inLanguage": "ar",
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "35.1761",
-                "longitude": "-2.9308"
-              }
-            })}
-          </script>
-        </Helmet>
-
+      <div className={`Content ${isArabic ? "rtl" : "ltr"}`}>
         <SearchBar
           onSearch={handleSearch}
           filterType={filterType}
           onFilterChange={onFilterChange}
           initialType={initialType}
-          initialLocation={initialLocation}
+          initialCityId={initialCityId}
         />
+
         {!hasSearched ? (
-          <NewsSection />
+          <>
+            <NewsSection />
+
+            <div className="news-more-wrapper">
+              <button
+                className="news-more-button"
+                onClick={() => navigate(`/${currentLng}/blog`)} // ✅
+                aria-label={t("content.readMoreArticlesAria")}
+                type="button"
+              >
+                {t("content.readMoreArticles")}
+              </button>
+            </div>
+
+            <FeaturedProperties />
+
+            <div className="news-more-wrapper">
+              <button
+                className="news-more-button"
+                onClick={() => navigate(`/${currentLng}?type=all_buy&mode=buy`)} // ✅
+                aria-label={t("content.discoverMorePropertiesAria")}
+                type="button"
+              >
+                {t("content.discoverMoreProperties")}
+              </button>
+            </div>
+
+            <ClientReviews isArabic={isArabic} />
+          </>
         ) : (
           <div className="properties-section">
             {isLoading ? (
               <div className="loadingg">
                 <FaSpinner className="spinnerr" />
-                <p>{t('properties.Loading')}</p>
+                <p>{t("properties.Loading")}</p>
               </div>
             ) : properties.length > 0 ? (
               <>
                 <div className="properties-list">
-                  {properties.map((property) => (
-                    <div
-                      key={property.property_id}
-                      className={`property-item ${
-                        currentLanguage === 'ar' ? 'rtl' : 'ltr'
-                      }`}
-                      onClick={() => handlePropertyClick(property.property_id)}
-                      tabIndex="0"
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') handlePropertyClick(property.property_id);
-                      }}
-                      aria-label={`View details for ${property.title}`}
-                    >
-                      <div className="property-imagee-container">
-                        <img
-                          src={`${API_URL}/uploads/${property.image_url}`}
-                          alt={property.title}
-                          className="property-imagee"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="property-info">
-                        <h3 className="title-p">{property.title}</h3>
-                        <p>
-                          <strong className="strongg">{t('properties.description')}:</strong>{' '}
-                          {truncateText(property.description, 190)}
-                        </p>
-                        <p>
-                          <strong className="strongg">{t('properties.location')}:</strong>{' '}
-                          {property.location}
-                        </p>
-                        <div className="price-container">
-                          <p>
-                            <strong className="strongg">
-                              {property.type === 'rent'
-                                ? t('properties.priceWithAsterisk')
-                                : t('properties.price')}
-                              :
-                            </strong>
-                            {property.old_price && property.old_price > property.price && (
-                              <span className="old-price">
-                                {formatPrice(property.old_price)} {t('properties.MAD')}
-                              </span>
-                            )}
-                            <span className="new-price">
-                              {formatPrice(property.price)} {t('properties.MAD')}
-                            </span>
-                          </p>
-                          {property.type === 'rent' && (
-                            <p className="small-text">* {t('properties.priceVaries')}</p>
+                  {properties.map((property) => {
+                    const isSold = !!property.is_sold;
+
+                    return (
+                      <div
+                        key={property.property_id}
+                        className={`property-item ${isArabic ? "rtl" : "ltr"} ${isSold ? "is-sold" : ""}`}
+                        onClick={() => handlePropertyClick(property.property_id)}
+                        tabIndex="0"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") handlePropertyClick(property.property_id);
+                        }}
+                        aria-label={t("content.viewDetailsAria", { title: property.title })}
+                      >
+                        <div className="property-imagee-container">
+                          <img
+                            src={`${API_URL}/uploads/${property.image_url}`}
+                            alt={property.title}
+                            className="property-imagee"
+                            loading="lazy"
+                          />
+
+                          {isSold && (
+                            <div className="sold-overlay-center" aria-label={t("content.soldAria")}>
+                              <div className="sold-pill">{t("content.soldPill")}</div>
+                            </div>
                           )}
                         </div>
-                        {property.type === 'rent' && (
-                          <p>
-                            <strong className="strongg">{t('properties.status')}:</strong>{' '}
-                            {property.available
-                              ? t('properties.available')
-                              : t('properties.notAvailable')}
-                          </p>
-                        )}
+
+                        <div className="property-info">
+                          <div className="property-top">
+                            <h3 className="title-p">
+                              {property.title}
+                              {isSold && <span className="sold-inline">{t("content.soldInline")}</span>}
+                            </h3>
+
+                            <div className={`price-pill ${isSold ? "price-sold" : ""}`}>
+                              {property.old_price && property.old_price > property.price && (
+                                <span className="old-price">
+                                  {formatPrice(property.old_price)} {t("properties.MAD")}
+                                </span>
+                              )}
+                              <span className="new-price">
+                                {formatPrice(property.price)} {t("properties.MAD")}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="property-location">
+                            <span className="loc-dot" />
+                            <span className="loc-text">{property.location}</span>
+                          </div>
+
+                          <div className="property-chips">
+                            {property.area && (
+                              <span className="chip">
+                                <span className="chip-label">{t("properties.area")}</span>
+                                <span className="chip-value">{property.area} m²</span>
+                              </span>
+                            )}
+
+                            {property.type !== "floorplots" &&
+                              property.type !== "Commercialgarages" &&
+                              property.type !== "CommercialgaragesRent" && (
+                              // property.type !== "requests" &&
+                              // property.type !== "apartmentsReq" &&
+                              // property.type !== "floorplotsReq" &&
+                              // property.type !== "CommercialgaragesReq" && (
+                                <>
+                                  {property.bedrooms != null && (
+                                    <span className="chip">
+                                      <span className="chip-label">{t("properties.bedrooms")}</span>
+                                      <span className="chip-value">{property.bedrooms}</span>
+                                    </span>
+                                  )}
+                                  {property.salon != null && (
+                                    <span className="chip">
+                                      <span className="chip-label">{t("properties.salon")}</span>
+                                      <span className="chip-value">{property.salon}</span>
+                                    </span>
+                                  )}
+                                  {property.bathrooms != null && (
+                                    <span className="chip">
+                                      <span className="chip-label">{t("properties.bathrooms")}</span>
+                                      <span className="chip-value">{property.bathrooms}</span>
+                                    </span>
+                                  )}
+                                  {property.kitchen != null && (
+                                    <span className="chip">
+                                      <span className="chip-label">{t("properties.kitchen")}</span>
+                                      <span className="chip-value">{property.kitchen}</span>
+                                    </span>
+                                  )}
+                                </>
+                              )}
+
+                            {(property.type === "buy" || property.type === "apartments" || property.type === "regularRent") &&
+                              property.floors != null && (
+                                <span className="chip">
+                                  <span className="chip-label">{t("properties.floors")}</span>
+                                  <span className="chip-value">{property.floors}</span>
+                                </span>
+                              )}
+
+                            {/* {property.type === "rent" && (
+                              <span className={`chip status ${property.available ? "ok" : "no"}`}>
+                                <span className="chip-label">{t("properties.status")}</span>
+                                <span className="chip-value">
+                                  {property.available ? t("properties.available") : t("properties.notAvailable")}
+                                </span>
+                              </span>
+                            )} */}
+                            {property.type === "rent" && (() => {
+                              const availDate = formatAvailabilityDate(property.availability_date, currentLanguage);
+
+                              return (
+                                <span className={`chip status ${property.available ? "ok" : "no"}`}>
+                                  <span className="chip-label">{t("properties.status")}</span>
+
+                                  <span className="chip-value">
+                                    {property.available ? (
+                                      t("properties.available")
+                                    ) : (
+                                      <>
+                                        {t("properties.notAvailableRent")}
+                                        {availDate && (
+                                          <span className="availability-date">
+                                            {" "}• {t("properties.availableFrom")} {availDate}
+                                          </span>
+                                        )}
+                                      </>
+                                    )}
+                                  </span>
+                                </span>
+                              );
+                            })()}
+                          </div>
+                          <div className="property-bottom">
+                            {property.type === "rent" && <span className="hint">* {t("properties.priceVaries")}</span>}
+                            <span className="cta">
+                              {t("content.viewDetails")}
+                              <span className="cta-arrow">→</span>
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
+
                 {totalPages > 1 && (
                   <div className="pagination">
-                    {/* Previous Button */}
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      aria-label="Previous Page"
+                      aria-label={t("properties.Previous")}
                     >
-                      {t('properties.Previous')}
+                      {t("properties.Previous")}
                     </button>
 
-                    {/* First Page and Ellipsis */}
                     {currentPage > 2 && (
                       <>
                         <button onClick={() => handlePageChange(1)}>1</button>
@@ -484,15 +438,14 @@ function Content({ filterType, onFilterChange }) {
                       </>
                     )}
 
-                    {/* Current, Previous, and Next Pages */}
                     {Array.from({ length: 3 }, (_, index) => {
-                      const page = currentPage - 1 + index; // Show current, previous, and next pages.
+                      const page = currentPage - 1 + index;
                       if (page > 0 && page <= totalPages) {
                         return (
                           <button
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            className={currentPage === page ? 'active' : ''}
+                            className={currentPage === page ? "active" : ""}
                             aria-label={`Page ${page}`}
                           >
                             {page}
@@ -502,35 +455,32 @@ function Content({ filterType, onFilterChange }) {
                       return null;
                     })}
 
-                    {/* Last Page and Ellipsis */}
                     {currentPage < totalPages - 1 && (
                       <>
                         {currentPage < totalPages - 2 && <span className="ellipsis">...</span>}
-                        <button onClick={() => handlePageChange(totalPages)}>
-                          {totalPages}
-                        </button>
+                        <button onClick={() => handlePageChange(totalPages)}>{totalPages}</button>
                       </>
                     )}
 
-                    {/* Next Button */}
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
-                      aria-label="Next Page"
+                      aria-label={t("properties.Next")}
                     >
-                      {t('properties.Next')}
+                      {t("properties.Next")}
                     </button>
                   </div>
                 )}
               </>
             ) : (
               <div className="no-results">
-                <p>{t('properties.noResults')}</p>
+                <p>{t("properties.noResults")}</p>
               </div>
             )}
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );
