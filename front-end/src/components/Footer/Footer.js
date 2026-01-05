@@ -49,7 +49,7 @@ function Footer() {
 
           {/* PRODUCTS / SERVICES */}
           <div className="footer-column products">
-            <h3>{t("footer.products")}</h3>
+            <h3>{t("header.services")}</h3>
             <Link
               to={`${langPrefix}/services`}
               className="footer-link footer-services-link"
