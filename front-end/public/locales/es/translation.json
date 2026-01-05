@@ -7,7 +7,8 @@
     "contactUs": "Contáctenos",
     "login": "Iniciar sesión",
     "logout" : "Cerrar sesión",
-    "dashboard" : "Panel"
+    "dashboard" : "Panel",
+    "account": "Cuenta"
 
   },
   "properties": {
@@ -144,7 +145,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Descubre tu propiedad ideal en Marruecos!",
+    "title":"Elija su propiedad con confianza !",
     "loadingCities": "Cargando ciudades...",
     "allCities": "Todas las ciudades"
   },

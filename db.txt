@@ -33,3 +33,11 @@ ALTER TABLE `properties`
   ADD COLUMN `featured_at` TIMESTAMP NULL DEFAULT NULL AFTER `is_featured`;
 
 CREATE INDEX `idx_properties_featured` ON `properties` (`is_featured`, `featured_at`);
+
+ALTER TABLE properties
+  DROP COLUMN location_ar,
+  DROP COLUMN location_en,
+  DROP COLUMN location_es,
+  DROP COLUMN location_fr,
+  DROP COLUMN location_de,
+  DROP COLUMN location_nl;

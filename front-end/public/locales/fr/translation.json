@@ -7,7 +7,8 @@
     "contactUs": "Contactez-nous",
     "login": "Connexion",
     "logout" : "Se déconnecter",
-    "dashboard" : "Tableau de bord"
+    "dashboard" : "Tableau de bord",
+    "account": "Compte"
   },
   "properties": {
     "price": "Prix",
@@ -145,7 +146,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Découvrez votre propriété idéale au Maroc!",
+    "title":"Choisissez votre bien en toute confiance !",
     "loadingCities": "Chargement des villes...",
     "allCities": "Toutes les villes"
   },

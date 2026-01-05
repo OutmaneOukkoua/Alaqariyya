@@ -8,7 +8,9 @@
     "contactUs": "اتصل بنا",
     "login": "تسجيل الدخول",
     "logout" : "تسجيل الخروج",
-    "dashboard" : "لوحة التحكم"
+    "dashboard" : "لوحة التحكم",
+    "account": "حسابي"
+
   },
   "properties": {
     "price": "السعر",
@@ -144,7 +146,7 @@
     "defaultName":"العقارية"
   },
   "searchBar":{
-    "title":"إكتشف عقارك المثالي في المغرب!",
+    "title":"اختر عقارك بكل ثقة !",
     "loadingCities": "تحميل المدن...",
     "allCities": "كل المدن"
   },

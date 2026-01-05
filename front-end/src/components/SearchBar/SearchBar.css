@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px;
+  padding: 50px;
   padding-bottom: 10px;
   background-color: #ffffff; /* Light background to make the search bar stand out */
 }
@@ -255,15 +255,15 @@
 /* Mobile Devices */
 @media (max-width: 768px) {
   .search-bar-container {
-    padding-top: 80px;
+    padding-top: 50px;
     padding-left: 0;
     padding-right: 0;
   }
 
   .search-bar-background {
     max-width: auto;
-    padding: 45px;
-    height: 290px;
+    padding: 40px;
+    height: 280px;
   }
 
   .search-bar {
@@ -272,13 +272,13 @@
   }
 
   .search-bar-parag {
-    margin-bottom: 1.7rem;
+    margin-bottom: 1.2rem;
     line-height: 1.9rem;
     white-space: nowrap;
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
   
   .search-controls {
@@ -334,7 +334,7 @@
 /* Tablets */
 @media (min-width: 769px) and (max-width: 1324px) {
   .search-bar-container {
-    padding-top: 80px;
+    padding-top: 50px;
   }
   .search-bar-background {
     max-width: 400px;

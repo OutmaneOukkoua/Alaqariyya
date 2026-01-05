@@ -1,3 +1,5 @@
+/* App.css (FINAL - Mobile-only fixes, safe) */
+
 * {
   font-family: "Tajawal", sans-serif;
   font-weight: 500;
@@ -5,25 +7,52 @@
 }
 
 .App {
-  margin: 0 auto;  
+  margin: 0 auto;
 }
 
+/* ✅ MOBILE ONLY (no impact on desktop/tablet > 768px) */
 @media (max-width: 768px) {
-  .App {
-    padding: 0px;
+  /* 1) prevent side gaps + horizontal scroll */
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
-  
-  .header, .footer {
-    text-align: center;
-  }
-}
 
-@media (min-width: 769px) and (max-width: 1024px) {
+  /* 2) App container must not create extra width */
   .App {
-    padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
   }
-  
-  .header, .footer {
-    text-align: left;
+
+  /* 3) Safe box-sizing only for layout wrappers (avoid breaking components) */
+  .header,
+  .header * ,
+  .footer,
+  .footer *,
+  .content,
+  .content * {
+    box-sizing: border-box;
+  }
+
+  /* 4) Media elements should never overflow */
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* (Optional) keep your centering */
+  .header,
+  .footer {
+    text-align: center;
   }
 }

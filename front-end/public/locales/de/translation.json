@@ -7,7 +7,8 @@
     "contactUs": "Kontaktieren Sie uns",
     "login": "Anmelden",
     "logout" : "Abmelden",
-    "dashboard" : "Armaturenbrett"
+    "dashboard" : "Armaturenbrett",
+    "account": "Konto"
   },
   "properties": {
     "price": "Preis",
@@ -145,7 +146,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Entdecke deine Traumimmobilie in Marokko!",
+    "title":"Wählen Sie Ihre Immobilie mit Vertrauen !",
     "loadingCities": "Städte werden geladen...",
     "allCities": "Alle Städte"
   },
