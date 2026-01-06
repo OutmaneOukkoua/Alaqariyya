@@ -40,6 +40,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // SEO
 import { Helmet } from 'react-helmet';
+import ScrollToTop from './components/ScrollToTop';
 
 const SUPPORTED_LANGS = ['ar', 'en', 'fr', 'de', 'es', 'nl'];
 
@@ -135,7 +136,7 @@ function AppShell() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index,follow" />
       </Helmet>
-      
+      <ScrollToTop />
       <Header onFilterChange={handleFilterChange} activeFilter={filterType} />
       <LanguageSelector />
       <Routes>
