@@ -367,9 +367,20 @@
 
   .service-card,
   .services-process-card,
-  .services-who-list li,
   .services-closing {
     padding: 14px 14px;
     border-radius: 18px;
+  }
+
+  /* ✅ fix: keep space for the check icon */
+  .services-who-list li {
+    padding: 14px 14px;
+    padding-inline-start: 54px; /* important */
+    border-radius: 18px;
+  }
+
+  .services-who-list li::before {
+    top: 14px; /* align with new padding */
+    inset-inline-start: 16px; /* slight tweak */
   }
 }
