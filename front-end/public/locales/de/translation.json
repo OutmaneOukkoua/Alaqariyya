@@ -132,7 +132,10 @@
       "3": { "name": "Jamal", "role": "Immobilienmakler", "languages": "Arabisch, Spanisch, Tamazight" },
       "4": { "name": "Abd elkarim", "role": "Immobilienmakler", "languages": "Arabisch, Französisch, Tamazight" },
       "5": { "name": "Jawhara", "role": "Immobilienmaklerin", "languages": "Arabisch, Tamazight" }
-    }
+    },
+    "metaTitle": "Alaqariyya – Kontakt",
+    "metaDescription": "Kontaktieren Sie Alaqariyya für Immobilienanfragen: Kauf, Verkauf, Vermietung, Immobilienverwaltung und Beratung. Schnelle Rückmeldung in Marokko oder aus dem Ausland."
+
   },
   "goBack": {
     "Go Back": "Zurück"
@@ -146,7 +149,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Wählen Sie Ihre Immobilie mit Vertrauen !",
+    "title":"Finden Sie Ihre ideale Immobilie !",
     "loadingCities": "Städte werden geladen...",
     "allCities": "Alle Städte"
   },
@@ -184,7 +187,9 @@
       { "label": "Qualität statt Quantität", "text": "Lieber weniger Objekte mit echtem Service als eine große Liste ohne ernsthafte Betreuung." }
     ],
     "closingTitle": "Unsere Botschaft",
-    "closingText": "Ob Sie in Marokko leben oder im Ausland: Unser Ziel ist, dass Sie sich in jeder Phase sicher und gut informiert fühlen. Mit Alaqariyya „verkaufen wir nicht nur eine Immobilie“ – wir helfen Ihnen, eine Wohn- oder Investitionsentscheidung zu treffen, die für Sie und Ihre Familie passt."
+    "closingText": "Ob Sie in Marokko leben oder im Ausland: Unser Ziel ist, dass Sie sich in jeder Phase sicher und gut informiert fühlen. Mit Alaqariyya „verkaufen wir nicht nur eine Immobilie“ – wir helfen Ihnen, eine Wohn- oder Investitionsentscheidung zu treffen, die für Sie und Ihre Familie passt.",
+    "metaTitle": "Alaqariyya - Über uns ",
+    "metaDescription": "Alaqariyya ist eine marokkanische Immobilienplattform für Kauf, Verkauf und Vermietung von Immobilien in Marokko – mit professioneller Begleitung für Einheimische und Auslands-Marokkaner."
   },
   
   "services": {
@@ -263,7 +268,9 @@
       "Investoren, die realistische und geprüfte Chancen suchen – keine Zufallsanzeigen."
     ],
     "closingTitle": "Wie starten wir?",
-    "closingText": "Kontaktieren Sie uns und sagen Sie uns, worum es geht: verkaufen, kaufen, mieten oder einfach Beratung. Wir empfehlen die passende Leistung und gehen Schritt für Schritt weiter – ohne Druck."
+    "closingText": "Kontaktieren Sie uns und sagen Sie uns, worum es geht: verkaufen, kaufen, mieten oder einfach Beratung. Wir empfehlen die passende Leistung und gehen Schritt für Schritt weiter – ohne Druck.",
+    "metaTitle": "Alaqariyya – Unsere Dienstleistungen",
+    "metaDescription": "Alaqariyya bietet umfassende Immobiliendienstleistungen: Verkauf, Vermietung, Immobilienverwaltung und digitales Immobilienmarketing in Marokko."
   },
   "blog": {
     "metaTitle": "Alaqariyya – Blog",

@@ -40,11 +40,11 @@ function Services() {
   return (
     <>
       <SEO
-        title={t("services.metaTitle", { defaultValue: "ALAQARIYYA العقارية - خدماتنا" })}
-        description={t("services.metaDescription", {
-          defaultValue: "خدمات البيع والشراء والتأجير وإدارة العقارات والتسويق العقاري في الناظور ونواحيها.",
-        })}
-        path={`/${i18n.language || "en"}/services`}
+        title={t("services.metaTitle")}
+        description={t("services.metaDescription")}
+        path={`/${i18n.language}/services`}
+        lang={i18n.language}
+        type="website"
       />
       <section className={`services-page ${isArabic ? "rtl" : "ltr"}`} key={i18n.language}>
         <div className="services-container">

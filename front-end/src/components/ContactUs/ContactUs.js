@@ -156,11 +156,11 @@ function ContactUs() {
   return (
     <>
       <SEO
-        title={t("contact.metaTitle", { defaultValue: "ALAQARIYYA العقارية - تواصل معنا" })}
-        description={t("contact.metaDescription", {
-          defaultValue: "تواصل مع ALAQARIYYA العقارية في الناظور ونواحيها لبيع وشراء وتأجير العقارات والاستشارات.",
-        })}
-        path={`/${i18n.language || "en"}/contact`}
+        title={t("contact.metaTitle")}
+        description={t("contact.metaDescription")}
+        path={`/${i18n.language}/contact`}
+        lang={i18n.language}
+        type="website"
       />
       <div className={`contact-page-v2 ${isArabic ? "rtl" : "ltr"}`}>
         {/* HERO */}

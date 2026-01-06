@@ -130,7 +130,9 @@
       "3": { "name": "Jamal", "role": "Makelaar", "languages": "Arabisch, Spaans, Tamazight" },
       "4": { "name": "Abd elkarim", "role": "Makelaar", "languages": "Arabisch, Frans, Tamazight" },
       "5": { "name": "Jawhara", "role": "Makelaar", "languages": "Arabisch, Tamazight" }
-    }
+    },
+    "metaTitle": "Alaqariyya – Contact",
+    "metaDescription": "Neem contact op met Alaqariyya voor vastgoedvragen: kopen, verkopen, huren, vastgoedbeheer en begeleiding. Snelle reactie in Marokko of vanuit het buitenland."
 
   },
   "goBack": {
@@ -145,7 +147,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Kies uw woning met vertrouwen !",
+    "title":"Vind uw ideale woning !",
     "loadingCities": "Steden laden...",
     "allCities": "Alle steden"
   },
@@ -183,7 +185,9 @@
       { "label": "Kwaliteit boven kwantiteit", "text": "We kiezen liever voor minder panden met goede opvolging dan voor een grote lijst zonder echte service." }
     ],
     "closingTitle": "Onze boodschap",
-    "closingText": "Woon je in Marokko of in het buitenland: ons doel is dat je je in elke fase veilig en goed geïnformeerd voelt. Met Alaqariyya “verkopen we niet alleen vastgoed”: we helpen je een woon- of investeringskeuze te maken waar jij en je familie echt achter staan."
+    "closingText": "Woon je in Marokko of in het buitenland: ons doel is dat je je in elke fase veilig en goed geïnformeerd voelt. Met Alaqariyya “verkopen we niet alleen vastgoed”: we helpen je een woon- of investeringskeuze te maken waar jij en je familie echt achter staan.",
+    "metaTitle": "Alaqariyya - Over ons ",
+    "metaDescription": "Alaqariyya is een Marokkaans vastgoedplatform voor het kopen, verkopen en huren van onroerend goed in Marokko, met betrouwbare begeleiding voor lokale klanten en de diaspora."
   },
   
   "services": {
@@ -262,7 +266,9 @@
       "Investeerders die realistische en geanalyseerde kansen zoeken – geen willekeurige advertenties."
     ],
     "closingTitle": "Hoe starten we?",
-    "closingText": "Neem contact met ons op en vertel wat je overweegt: verkopen, kopen, huren of gewoon advies. We stellen de meest geschikte dienst voor en gaan stap voor stap verder, zonder druk."
+    "closingText": "Neem contact met ons op en vertel wat je overweegt: verkopen, kopen, huren of gewoon advies. We stellen de meest geschikte dienst voor en gaan stap voor stap verder, zonder druk.",
+    "metaTitle": "Alaqariyya – Onze diensten",
+    "metaDescription": "Alaqariyya biedt volledige vastgoeddiensten aan: kopen, verkopen, huren, vastgoedbeheer en digitale vastgoedmarketing in Marokko."
   },
   "blog": {
     "metaTitle": "Alaqariyya – Blog",

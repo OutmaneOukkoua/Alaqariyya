@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faMapMarkerAlt, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-
 import "./Footer.css";
 
 function Footer() {
@@ -126,7 +125,7 @@ function Footer() {
                 </a>
 
                 <a
-                  href="https://www.facebook.com/profile.php?id=61579309139640"
+                  href="https://www.facebook.com/profile.php?id=61579025864064"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="icon-facebook"

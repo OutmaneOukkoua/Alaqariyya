@@ -130,7 +130,9 @@
       "3": { "name": "Jamal", "role": "Agente inmobiliario", "languages": "Árabe, Español, Tamazight" },
       "4": { "name": "Abd elkarim", "role": "Agente inmobiliario", "languages": "Árabe, Francés, Tamazight" },
       "5": { "name": "Jawhara", "role": "Agente inmobiliaria", "languages": "Árabe, Tamazight" }
-    }
+    },
+    "metaTitle": "Alaqariyya – Contacto",
+    "metaDescription": "Contacta con el equipo de Alaqariyya para consultas inmobiliarias: compra, venta, alquiler, gestión de propiedades y acompañamiento. Respuesta rápida en Marruecos o desde el extranjero."
 
   },
   "goBack": {
@@ -145,7 +147,7 @@
     "defaultName":"Alaqariyya"
   },
   "searchBar":{
-    "title":"Elija su propiedad con confianza !",
+    "title":"Encuentre su propiedad ideal !",
     "loadingCities": "Cargando ciudades...",
     "allCities": "Todas las ciudades"
   },
@@ -183,7 +185,9 @@
       { "label": "Calidad antes que cantidad", "text": "Preferimos menos inmuebles con seguimiento serio en lugar de una lista enorme sin un servicio real." }
     ],
     "closingTitle": "Nuestro mensaje",
-    "closingText": "Vivas en Marruecos o en el extranjero, nuestro objetivo es que te sientas seguro e informado en cada etapa. Con Alaqariyya, no solo “te vendemos una propiedad”: te ayudamos a tomar una decisión de vivienda o inversión con la que tú y tu familia estéis tranquilos."
+    "closingText": "Vivas en Marruecos o en el extranjero, nuestro objetivo es que te sientas seguro e informado en cada etapa. Con Alaqariyya, no solo “te vendemos una propiedad”: te ayudamos a tomar una decisión de vivienda o inversión con la que tú y tu familia estéis tranquilos.",
+    "metaTitle": "Alaqariyya - Quiénes somos ",
+    "metaDescription": "Alaqariyya es una plataforma inmobiliaria marroquí especializada en la compra, venta y alquiler de propiedades en Marruecos, con acompañamiento profesional y confianza."
   },
   
   "services": {
@@ -262,7 +266,9 @@
       "Inversores que buscan oportunidades realistas y analizadas, no anuncios aleatorios."
     ],
     "closingTitle": "¿Cómo empezamos?",
-    "closingText": "Contáctanos y cuéntanos qué estás pensando: vender, comprar, alquilar o simplemente pedir orientación. Te recomendaremos el servicio más adecuado y avanzaremos paso a paso, sin presión."
+    "closingText": "Contáctanos y cuéntanos qué estás pensando: vender, comprar, alquilar o simplemente pedir orientación. Te recomendaremos el servicio más adecuado y avanzaremos paso a paso, sin presión.",
+    "metaTitle": "Alaqariyya – Nuestros servicios",
+    "metaDescription": "Alaqariyya ofrece servicios inmobiliarios completos: compra, venta, alquiler, gestión de propiedades y marketing inmobiliario digital en Marruecos."
   },
   "blog": {
     "metaTitle": "Alaqariyya – Blog",
