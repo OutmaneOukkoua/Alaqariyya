@@ -410,7 +410,7 @@ function PropertyPage() {
     if (!clean) return "";
     const words = clean.split(" ");
     if (words.length <= wordsCount) return clean;
-    return words.slice(0, wordsCount).join(" ") + " ...";
+    return words.slice(0, wordsCount).join(" ") + "...";
   };
 
   const openDescModal = (fullText) => {

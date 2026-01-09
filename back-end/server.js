@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -26,24 +26,24 @@ const cityRoutes = require("./routes/cityRoutes");
 
 
 // Use routes
-router.use(authRoutes);
-router.use(propertyRoutes);
-router.use(newsRoutes);
-router.use(contactRoutes);
-router.use(visitorRoutes);
-router.use(shareRoutes);
-router.use(clickRoutes);
-router.use('/api', uploadProgressRoutes);
-router.use("/", cityRoutes);
-router.use("/api", cityRoutes); // باش تخدم /api/cities أيضاً إذا بغيت
+app.use(authRoutes);
+app.use(propertyRoutes);
+app.use(newsRoutes);
+app.use(contactRoutes);
+app.use(visitorRoutes);
+app.use(shareRoutes);
+app.use(clickRoutes);
+app.use('/api', uploadProgressRoutes);
+app.use("/", cityRoutes);
+app.use("/api", cityRoutes); // باش تخدم /api/cities أيضاً إذا بغيت
 
 
 // Basic route to test server setup
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Welcome to backend for ALAQARIYYA');
 });
 
-app.use('/nodeappp', router);
+// app.use('/nodeappp', router);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

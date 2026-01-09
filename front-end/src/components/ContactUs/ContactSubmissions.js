@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
-import './ContactSubmissions.css';
-import { toast, ToastContainer } from 'react-toastify';
+import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
+import "./ContactSubmissions.css";
+import { toast, ToastContainer } from "react-toastify";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function ContactSubmissions() {
   const [submissions, setSubmissions] = useState([]);
@@ -13,6 +13,10 @@ function ContactSubmissions() {
   // ✅ Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
+
+  // ✅ Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   useEffect(() => {
     axios
@@ -23,20 +27,19 @@ function ContactSubmissions() {
         setCurrentPage(1);
       })
       .catch((error) => {
-        console.error('Error fetching contact submissions:', error);
+        console.error("Error fetching contact submissions:", error);
         setSubmissions([]);
       });
   }, [API_URL]);
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Do you want to remove this item?');
+    const confirmDelete = window.confirm("Do you want to remove this item?");
     if (!confirmDelete) return;
 
     try {
       await axios.delete(`${API_URL}/contact-submissions/${id}`);
-
       setSubmissions((prev) => prev.filter((s) => s.id !== id));
-      toast.success('Submission deleted successfully!', { icon: '🗑️' });
+      toast.success("Submission deleted successfully!", { icon: "🗑️" });
 
       // ✅ إذا مسحتي آخر عنصر فالصفحة، رجع صفحة لور
       setTimeout(() => {
@@ -47,9 +50,36 @@ function ContactSubmissions() {
         });
       }, 0);
     } catch (error) {
-      console.error('Error deleting submission:', error);
-      toast.error('Error deleting submission. Please try again.');
+      console.error("Error deleting submission:", error);
+      toast.error("Error deleting submission. Please try again.");
     }
+  };
+
+  // ✅ Open/Close modal
+  const openModal = (submission) => {
+    setSelectedSubmission(submission);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedSubmission(null);
+  };
+
+  // ✅ Close modal with ESC
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+    if (isModalOpen) window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isModalOpen]);
+
+  // ✅ helper: show only first 3 words
+  const preview3Words = (text = "") => {
+    const words = String(text).trim().split(/\s+/).filter(Boolean);
+    if (words.length <= 3) return words.join(" ");
+    return words.slice(0, 3).join(" ") + "…";
   };
 
   // ✅ Pagination calculations
@@ -90,7 +120,19 @@ function ContactSubmissions() {
                 <td>{submission.email}</td>
                 <td>{submission.phone}</td>
                 <td>{submission.subject}</td>
-                <td>{submission.message}</td>
+
+                {/* ✅ message preview (3 words) clickable */}
+                <td>
+                  <button
+                    type="button"
+                    className="message-preview-btn"
+                    onClick={() => openModal(submission)}
+                    title="View full message"
+                  >
+                    {preview3Words(submission.message)}
+                  </button>
+                </td>
+
                 <td>
                   <button className="delete-button" onClick={() => handleDelete(submission.id)}>
                     <FontAwesomeIcon icon={faTrash} />
@@ -100,7 +142,7 @@ function ContactSubmissions() {
             ))
           ) : (
             <tr>
-              <td colSpan="6" style={{ textAlign: 'center' }}>
+              <td colSpan="6" style={{ textAlign: "center" }}>
                 No submissions found
               </td>
             </tr>
@@ -123,6 +165,23 @@ function ContactSubmissions() {
             Next
           </button>
         </div>
+      )}
+
+      {/* ✅ Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal} role="presentation">
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+            <div className="modal-header">
+              <h2>Message</h2>
+              <button className="modal-close" onClick={closeModal} aria-label="Close">
+                ✕
+              </button>
+            </div>
+              <div className="modal-message">
+                {selectedSubmission?.message || ""}
+              </div>
+            </div>
+          </div>
       )}
     </div>
   );

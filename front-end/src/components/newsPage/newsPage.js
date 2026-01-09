@@ -74,7 +74,7 @@ function NewsPage() {
     if (!clean) return '';
     const words = clean.split(' ');
     if (words.length <= wordsCount) return clean;
-    return words.slice(0, wordsCount).join(' ') + ' ...';
+    return words.slice(0, wordsCount).join(' ') + '...';
   };
 
   const openContentModal = (fullText) => {
@@ -127,7 +127,7 @@ function NewsPage() {
             paginatedArticles.map((article) => (
               <tr key={article.id}>
                 <td>{article.id}</td>
-                <td>{getShortText(article.title, 3)}</td>
+                <td>{article.title}</td>
 
                 <td
                   className="news-content-cell"
