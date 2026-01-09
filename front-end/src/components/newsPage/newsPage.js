@@ -112,7 +112,7 @@ function NewsPage() {
       <table className="news-table">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Title</th>
             <th>Content</th>
             <th>Youtube URL</th>
@@ -126,7 +126,7 @@ function NewsPage() {
           {paginatedArticles.length > 0 ? (
             paginatedArticles.map((article) => (
               <tr key={article.id}>
-                <td>{article.id}</td>
+                {/* <td>{article.id}</td> */}
                 <td>{article.title}</td>
 
                 <td

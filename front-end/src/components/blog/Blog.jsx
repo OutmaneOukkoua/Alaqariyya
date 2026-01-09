@@ -87,6 +87,14 @@ function Blog() {
     return result;
   }, [totalPages, currentPage]);
 
+  const renderCategoryLabel = (cat) => {
+  if (!cat) return "";
+  const key = `newsArticle.categories.${cat}`;
+  const translated = t(key);
+  return translated === key ? cat : translated;
+  };
+
+
   return (
     <>
       <SEO
@@ -147,7 +155,7 @@ function Blog() {
                         className="blog-card-image"
                         loading="lazy"
                       />
-                      {post.category && <span className="blog-card-tag">{post.category}</span>}
+                    {post.category && <span className="blog-card-tag">{renderCategoryLabel(post.category)}</span>}
                     </div>
 
                     <div className="blog-card-body">

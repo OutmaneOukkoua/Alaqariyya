@@ -70,6 +70,13 @@ function NewsSection() {
   // ✅ آخر 6 مقالات
   const latestSixArticles = useMemo(() => articles.slice(0, 6), [articles]);
 
+  const renderCategoryLabel = (cat) => {
+  if (!cat) return "";
+  const key = `newsArticle.categories.${cat}`;
+  const translated = t(key);
+  return translated === key ? cat : translated;
+  };
+
   return (
     <section className={`news-section ${isArabic ? "rtl" : "ltr"}`}>
       {isLoading ? (
@@ -96,9 +103,9 @@ function NewsSection() {
                   loading="lazy"
                 />
 
-                <div className="news-category" title={article.category}>
+                <div className="news-category" title={renderCategoryLabel(article.category)}>
                   {getCategoryIcon(article.category)}
-                  <span className="news-category-text">{article.category}</span>
+                  <span className="news-category-text">{renderCategoryLabel(article.category)}</span>
                 </div>
               </div>
 
