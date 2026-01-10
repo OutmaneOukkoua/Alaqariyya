@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast, ToastContainer } from 'react-toastify';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import AddNews from '../AddNews/AddNews';
+import { useTranslation } from "react-i18next"; 
 import './newsPage.css';
 
 function NewsPage() {
+  const { i18n } = useTranslation(); 
+
   const [articles, setArticles] = useState([]);
   const [showAddNewsModal, setShowAddNewsModal] = useState(false);
 
@@ -100,6 +103,22 @@ function NewsPage() {
   const goPrev = () => setCurrentPage((p) => Math.max(1, p - 1));
   const goNext = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
 
+  // ✅ always show Arabic category label
+  const renderCategoryAr = (cat) => {
+    if (!cat) return "";
+    const normalized = String(cat).trim().toLowerCase();
+
+    // نفس keys اللي عندك في NewsArticle
+    const key = `newsArticle.categories.${normalized}`;
+
+    // نجيب الترجمة من موارد اللغة العربية فقط
+    const translated =
+      i18n?.getResource("ar", "translation", key) ??
+      i18n?.getResource("ar", "translation", `newsArticle.categories.${cat}`); // fallback
+
+    return translated || cat;
+  };
+
   return (
     <div className="newsPage">
       <ToastContainer />
@@ -115,6 +134,7 @@ function NewsPage() {
             {/* <th>ID</th> */}
             <th>Title</th>
             <th>Content</th>
+            <th>Category</th>
             <th>Youtube URL</th>
             <th>Published At</th>
             <th>Image</th>
@@ -141,7 +161,7 @@ function NewsPage() {
                 >
                   {getShortText(article.content, 3)}
                 </td>
-
+                <td>{renderCategoryAr(article.category)}</td>
                 <td>{article.youtube_url}</td>
                 <td>{article.published_at ? new Date(article.published_at).toLocaleDateString() : ''}</td>
                 <td>
