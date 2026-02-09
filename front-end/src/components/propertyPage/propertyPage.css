@@ -98,9 +98,9 @@
   border: 1px solid #888;
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;
+  max-width: 700px;
   max-height: 80vh; /* Restrict height to 80% of the viewport height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: hidden; /* Enable vertical scrolling */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   animation: modalopen 0.3s;
   margin-top: 20px;
@@ -540,6 +540,11 @@ input[type="date"]::placeholder {
   z-index: 1;
 }
 
+.modal-body {
+  max-height: calc(80vh - 60px); /* 60px احتياط للـ close + padding */
+  overflow-y: auto;
+  padding-right: 6px; /* باش ما يلصقش المحتوى فالسكرول */
+}
 
 /* Tablet version */
 @media (max-width: 1024px) {

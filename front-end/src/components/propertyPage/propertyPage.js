@@ -495,7 +495,17 @@ function PropertyPage() {
     toast.error(String(msg));
   }
 };
+  useEffect(() => {
+    if (showAddPropertyModal || showModal || showSoldModal || showAvailabilityModal || showDescModal || showAddCityModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showAddPropertyModal, showModal, showSoldModal, showAvailabilityModal, showDescModal, showAddCityModal]);
 
   return (
     <div className="update-property-container">
@@ -728,265 +738,280 @@ function PropertyPage() {
             <span className="close" onClick={closeModal}>
               &times;
             </span>
+            <div className="modal-body">
+              <form onSubmit={handleUpdateProperty} className="property-form">
+                <h2>Update Property</h2>
 
-            <form onSubmit={handleUpdateProperty} className="property-form">
-              <h2>Update Property</h2>
+                <img
+                  src={`${API_URL}/uploads/${selectedProperty.image_url}`}
+                  alt={selectedProperty.title}
+                  className="property-image-large"
+                />
 
-              <img
-                src={`${API_URL}/uploads/${selectedProperty.image_url}`}
-                alt={selectedProperty.title}
-                className="property-image-large"
-              />
+                <div className="select-container">
+                  <select
+                    name="type"
+                    value={selectedProperty.type}
+                    onChange={handleInputChange}
+                    required
+                    disabled={isUpdating}
+                  >
+                    <option value="rent">إيجار مفروش</option>
+                    <option value="regularRent">إيجار عادي</option>
+                    <option value="CommercialgaragesRent">محلات تجارية للإيجار</option>
+                    <option value="buy">منازل للبيع</option>
+                    <option value="apartments">شقق للبيع</option>
+                    <option value="floorplots"> قطع أرضية للبيع</option>
+                    <option value="Commercialgarages">محلات تجارية للبيع</option>
+                    {/* <option value="requests">طلبات منازل</option>
+                    <option value="apartmentsReq">طلبات شقق</option>
+                    <option value="floorplotsReq">طلبات قطع أرضية</option>
+                    <option value="CommercialgaragesReq">طلبات محلات تجارية</option> */}
+                  </select>
+                </div>
 
-              <div className="select-container">
-                <select
-                  name="type"
-                  value={selectedProperty.type}
+                <input
+                  type="text"
+                  name="title_ar"
+                  placeholder="العنوان (بالعربية)"
+                  value={selectedProperty.title_ar || ""}
                   onChange={handleInputChange}
                   required
                   disabled={isUpdating}
-                >
-                  <option value="rent">إيجار مفروش</option>
-                  <option value="regularRent">إيجار عادي</option>
-                  <option value="CommercialgaragesRent">محلات تجارية للإيجار</option>
-                  <option value="buy">منازل للبيع</option>
-                  <option value="apartments">شقق للبيع</option>
-                  <option value="floorplots"> قطع أرضية للبيع</option>
-                  <option value="Commercialgarages">محلات تجارية للبيع</option>
-                  {/* <option value="requests">طلبات منازل</option>
-                  <option value="apartmentsReq">طلبات شقق</option>
-                  <option value="floorplotsReq">طلبات قطع أرضية</option>
-                  <option value="CommercialgaragesReq">طلبات محلات تجارية</option> */}
-                </select>
-              </div>
+                />
 
-              <input
-                type="text"
-                name="title_ar"
-                placeholder="العنوان (بالعربية)"
-                value={selectedProperty.title_ar || ""}
-                onChange={handleInputChange}
-                required
-                disabled={isUpdating}
-              />
-
-              <textarea
-                style={{ resize: "none" }}
-                name="description_ar"
-                placeholder="الوصف (بالعربية) (Markdown مسموح)"
-                value={selectedProperty.description_ar || ""}
-                onChange={handleInputChange}
-                required
-                disabled={isUpdating}
-              />
-
-              <input
-                type="number"
-                name="price"
-                placeholder="الثمن"
-                value={selectedProperty.price ?? ""}
-                onChange={handleInputChange}
-                required
-                disabled={isUpdating}
-              />
-
-              {/* ✅ بدل location_ar -> city_id (لكن بنفس شكل الحقول) */}
-              <div className="select-container">
-                <select
-                  name="city_id"
-                  value={selectedProperty.city_id ?? ""}
+                <textarea
+                  style={{ resize: "none" }}
+                  name="description_ar"
+                  placeholder="الوصف (بالعربية) (Markdown مسموح)"
+                  value={selectedProperty.description_ar || ""}
                   onChange={handleInputChange}
                   required
                   disabled={isUpdating}
-                >
-                  <option value="">اختر المدينة</option>
-                  {cities.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name_ar || c.name_fr}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                />
 
-              <input
-                type="text"
-                name="exact_address"
-                placeholder="العنوان الدقيق"
-                value={selectedProperty.exact_address || ""}
-                onChange={handleInputChange}
-                disabled={isUpdating}
-              />
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="الثمن"
+                  value={selectedProperty.price ?? ""}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isUpdating}
+                />
 
-              <input
-                type="number"
-                name="area"
-                placeholder="المساحة"
-                value={selectedProperty.area ?? ""}
-                onChange={handleInputChange}
-                required
-                disabled={isUpdating}
-              />
+                {/* ✅ بدل location_ar -> city_id (لكن بنفس شكل الحقول) */}
+                <div className="select-container">
+                  <select
+                    name="city_id"
+                    value={selectedProperty.city_id ?? ""}
+                    onChange={handleInputChange}
+                    required
+                    disabled={isUpdating}
+                  >
+                    <option value="">اختر المدينة</option>
+                    {cities.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name_ar || c.name_fr}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              {selectedProperty.type !== "floorplots" &&
-                selectedProperty.type !== "Commercialgarages" &&
-                selectedProperty.type !== "CommercialgaragesRent" && (
-                // selectedProperty.type !== "requests" &&
-                // selectedProperty.type !== "apartmentsReq" &&
-                // selectedProperty.type !== "CommercialgaragesReq" &&
-                // selectedProperty.type !== "floorplotsReq" && (
-                  <>
-                    <input
-                      type="number"
-                      name="bedrooms"
-                      placeholder="عدد غرف النوم"
-                      value={selectedProperty.bedrooms ?? ""}
-                      onChange={handleInputChange}
-                      required
-                      disabled={isUpdating}
-                    />
-                    <input
-                      type="number"
-                      name="salon"
-                      placeholder="الصالون"
-                      value={selectedProperty.salon ?? ""}
-                      onChange={handleInputChange}
-                      disabled={isUpdating}
-                    />
-                    <input
-                      type="number"
-                      name="bathrooms"
-                      placeholder="عدد الحمامات"
-                      value={selectedProperty.bathrooms ?? ""}
-                      onChange={handleInputChange}
-                      required
-                      disabled={isUpdating}
-                    />
-                    <input
-                      type="number"
-                      name="kitchen"
-                      placeholder="المطبخ"
-                      value={selectedProperty.kitchen ?? ""}
-                      onChange={handleInputChange}
-                      required
-                      disabled={isUpdating}
-                    />
+                <input
+                  type="text"
+                  name="exact_address"
+                  placeholder="العنوان الدقيق"
+                  value={selectedProperty.exact_address || ""}
+                  onChange={handleInputChange}
+                  disabled={isUpdating}
+                />
 
-                    {(selectedProperty.type === "buy" ||
-                      selectedProperty.type === "apartments" ||
-                      selectedProperty.type === "regularRent") && (
+                <input
+                  type="number"
+                  name="area"
+                  placeholder="المساحة"
+                  value={selectedProperty.area ?? ""}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isUpdating}
+                />
+
+                {selectedProperty.type !== "floorplots" &&
+                  selectedProperty.type !== "Commercialgarages" &&
+                  selectedProperty.type !== "CommercialgaragesRent" && (
+                  // selectedProperty.type !== "requests" &&
+                  // selectedProperty.type !== "apartmentsReq" &&
+                  // selectedProperty.type !== "CommercialgaragesReq" &&
+                  // selectedProperty.type !== "floorplotsReq" && (
+                    <>
                       <input
                         type="number"
-                        name="floors"
-                        placeholder="عدد الطوابق"
-                        value={selectedProperty.floors ?? ""}
+                        name="bedrooms"
+                        placeholder="عدد غرف النوم"
+                        value={selectedProperty.bedrooms ?? ""}
                         onChange={handleInputChange}
                         required
                         disabled={isUpdating}
                       />
-                    )}
-                  </>
-                )}
+                      <input
+                        type="number"
+                        name="salon"
+                        placeholder="الصالون"
+                        value={selectedProperty.salon ?? ""}
+                        onChange={handleInputChange}
+                        disabled={isUpdating}
+                      />
+                      <input
+                        type="number"
+                        name="bathrooms"
+                        placeholder="عدد الحمامات"
+                        value={selectedProperty.bathrooms ?? ""}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isUpdating}
+                      />
+                      <input
+                        type="number"
+                        name="kitchen"
+                        placeholder="المطبخ"
+                        value={selectedProperty.kitchen ?? ""}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isUpdating}
+                      />
 
-              <div className="file-input">
-                <label
-                  htmlFor="files"
-                  style={{
-                    opacity: isUpdating ? 0.7 : 1,
-                    pointerEvents: isUpdating ? "none" : "auto",
-                  }}
-                >
-                  Upload Images
-                </label>
-                <input
-                  type="file"
-                  id="files"
-                  name="images"
-                  onChange={handleFileChange}
-                  multiple
-                  disabled={isUpdating}
-                />
-
-                {imageFiles.length > 0 &&
-                  imageFiles.map((imageFile, index) => (
-                    <div key={index}>
-                      <span className="file-name">{imageFile.file.name}</span>
-
-                      <label>
-                        Main Image:
-                        <input
-                          type="radio"
-                          name="mainImage"
-                          checked={imageFile.isMain}
-                          disabled={isUpdating}
-                          onChange={() =>
-                            setImageFiles((prevFiles) =>
-                              prevFiles.map((img, idx) => ({
-                                ...img,
-                                isMain: idx === index,
-                              }))
-                            )
-                          }
-                        />
-                      </label>
-
-                      <label>
-                        Display Order:
+                      {(selectedProperty.type === "buy" ||
+                        selectedProperty.type === "apartments" ||
+                        selectedProperty.type === "regularRent") && (
                         <input
                           type="number"
-                          value={imageFile.displayOrder}
+                          name="floors"
+                          placeholder="عدد الطوابق"
+                          value={selectedProperty.floors ?? ""}
+                          onChange={handleInputChange}
+                          required
                           disabled={isUpdating}
-                          onChange={(ev) =>
-                            setImageFiles((prevFiles) =>
-                              prevFiles.map((img, idx) => ({
-                                ...img,
-                                displayOrder:
-                                  idx === index ? parseInt(ev.target.value, 10) : img.displayOrder,
-                              }))
-                            )
-                          }
                         />
-                      </label>
-                    </div>
-                  ))}
-              </div>
+                      )}
+                    </>
+                  )}
 
-              {errors.images && <div className="error-alert">{errors.images}</div>}
+                <div className="file-input">
+                  <label
+                    htmlFor="files"
+                    style={{
+                      opacity: isUpdating ? 0.7 : 1,
+                      pointerEvents: isUpdating ? "none" : "auto",
+                    }}
+                  >
+                    Upload Images
+                  </label>
+                  <input
+                    type="file"
+                    id="files"
+                    name="images"
+                    onChange={handleFileChange}
+                    multiple
+                    disabled={isUpdating}
+                  />
 
-              {(isUpdating || updateProgress.percent > 0) && (
-                <div className="upload-progress-wrap upload-progress-above-btn" aria-live="polite">
-                  <div className="upload-progress-top">
-                    <span className="upload-progress-label">
-                      {updateProgress.message || "Processing..."}
-                    </span>
-                    <span className="upload-progress-percent">
-                      {Math.min(100, Math.max(0, updateProgress.percent))}%
-                    </span>
-                  </div>
-                  <div className="upload-progress-bar">
-                    <div
-                      className="upload-progress-fill"
-                      style={{ width: `${Math.min(100, Math.max(0, updateProgress.percent))}%` }}
-                    />
-                  </div>
+                  {imageFiles.length > 0 &&
+                    imageFiles.map((imageFile, index) => (
+                      <div key={index}>
+                        <span className="file-name">{imageFile.file.name}</span>
+
+                        <label>
+                          Main Image:
+                          <input
+                            type="radio"
+                            name="mainImage"
+                            checked={imageFile.isMain}
+                            disabled={isUpdating}
+                            onChange={() =>
+                              setImageFiles((prevFiles) =>
+                                prevFiles.map((img, idx) => ({
+                                  ...img,
+                                  isMain: idx === index,
+                                }))
+                              )
+                            }
+                          />
+                        </label>
+
+                        <label>
+                          Display Order:
+                          <input
+                            type="number"
+                            value={imageFile.displayOrder}
+                            disabled={isUpdating}
+                            onChange={(ev) =>
+                              setImageFiles((prevFiles) =>
+                                prevFiles.map((img, idx) => ({
+                                  ...img,
+                                  displayOrder:
+                                    idx === index ? parseInt(ev.target.value, 10) : img.displayOrder,
+                                }))
+                              )
+                            }
+                          />
+                        </label>
+                      </div>
+                    ))}
                 </div>
-              )}
 
-              <button type="submit" className="btn-primary" disabled={isUpdating}>
-                {isUpdating ? "جاري التحديث..." : "Update Property"}
-              </button>
-            </form>
+                {errors.images && <div className="error-alert">{errors.images}</div>}
+
+                {(isUpdating || updateProgress.percent > 0) && (
+                  <div className="upload-progress-wrap upload-progress-above-btn" aria-live="polite">
+                    <div className="upload-progress-top">
+                      <span className="upload-progress-label">
+                        {updateProgress.message || "Processing..."}
+                      </span>
+                      <span className="upload-progress-percent">
+                        {Math.min(100, Math.max(0, updateProgress.percent))}%
+                      </span>
+                    </div>
+                    <div className="upload-progress-bar">
+                      <div
+                        className="upload-progress-fill"
+                        style={{ width: `${Math.min(100, Math.max(0, updateProgress.percent))}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <button type="submit" className="btn-primary" disabled={isUpdating}>
+                  {isUpdating ? "جاري التحديث..." : "Update Property"}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}
 
       {/* modal for Adding Property */}
-      {showAddPropertyModal && (
+      {/* {showAddPropertyModal && (
         <div className="modal" onClick={handleAddPropertyModalClick}>
           <div className="modal-content">
             <span className="close" onClick={closeAddPropertyModal}>
               &times;
             </span>
             <AddProperty />
+          </div>
+        </div>
+      )} */}
+      {showAddPropertyModal && (
+        <div className="modal" onClick={handleAddPropertyModalClick}>
+          <div className="modal-content">
+            <span className="close" onClick={closeAddPropertyModal}>
+              &times;
+            </span>
+
+            {/* ✅ body that scrolls */}
+            <div className="modal-body">
+              <AddProperty />
+            </div>
           </div>
         </div>
       )}

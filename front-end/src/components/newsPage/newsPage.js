@@ -119,6 +119,19 @@ function NewsPage() {
     return translated || cat;
   };
 
+  useEffect(() => {
+    if (showAddNewsModal || showContentModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showAddNewsModal, showContentModal]);
+
+
   return (
     <div className="newsPage">
       <ToastContainer />
